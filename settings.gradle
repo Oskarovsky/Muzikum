@@ -1,1 +1,3 @@
 rootProject.name = 'muzikum'
+include 'server'
+
