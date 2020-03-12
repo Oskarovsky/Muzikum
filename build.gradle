@@ -18,18 +18,55 @@ configurations {
     }
 }
 
+configurations.all {
+    exclude group: 'org.springframework.boot', module: 'spring-boot-starter-logging'
+    exclude group: 'org.springframework.boot', module: 'logback-classic'
+}
+
 repositories {
     mavenCentral()
 }
 
 dependencies {
-    implementation 'org.springframework.boot:spring-boot-starter'
+
+
+    /* ============ region IMPLEMENTATION ============ */
+    // Spring Boot's web application support
+    implementation('org.springframework.boot:spring-boot-starter-web')
+
+    // Spring Boot's JPA support
+    implementation('org.springframework.boot:spring-boot-starter-data-jpa')
+
+    // Spring Data REST support
+    implementation('org.springframework.boot:spring-boot-starter-data-rest')
+
+    // PostgresSQL-specific connector for JPA
+    implementation('org.postgresql:postgresql:9.4-1206-jdbc42')
+    /* ============ endregion IMPLEMENTATION ============ */
+
+
+    /* ============ region COMPILE ============ */
+    // Lombok auto-generates things like getters and setters
     compileOnly 'org.projectlombok:lombok'
+
+    compile ('org.springframework.security.oauth.boot:spring-security-oauth2-autoconfigure:2.0.1.RELEASE')
+    compile ('com.okta.spring:okta-spring-boot-starter:0.6.1')
+    /* ============ endregion COMPILE ============ */
+
+
+    /* ============ region TEST ============ */
+    testImplementation('org.springframework.boot:spring-boot-starter-test')
+    testImplementation('org.springframework.security:spring-security-test')
+    /* ============ endregion TEST ============ */
+
+
+    /* ============ region OTHER ============ */
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
     annotationProcessor 'org.projectlombok:lombok'
     testImplementation('org.springframework.boot:spring-boot-starter-test') {
         exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
     }
+    /* ============ endregion OTHER ============ */
 }
 
 test {
