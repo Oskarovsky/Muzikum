@@ -4,12 +4,19 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping(value = "/tracks")
 public class TrackController {
 
-    @GetMapping
+    private final TrackService trackService;
+
+    public TrackController(TrackService trackService) {
+        this.trackService = trackService;
+    }
+
+    //@GetMapping
     public List<Track> getTracks() {
         List<Track> trackList = new ArrayList<>();
         Track track = Track.builder().title("aaa").artist("bbb").genre("club").points(31).id(1).build();
@@ -21,7 +28,18 @@ public class TrackController {
         return trackList;
     }
 
-    @PostMapping
+    @GetMapping
+    List<Track> findAll() {
+        return trackService.findAll();
+    }
+
+    @GetMapping(value = "/{id}")
+    Optional<Track> findById(@PathVariable Integer id) {
+        return trackService.findById(id);
+    }
+
+    @PostMapping(value = "/add")
     public void addTrack(@RequestBody Track track) {
+        trackService.saveTrack(track);
     }
 }
