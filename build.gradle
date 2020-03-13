@@ -49,23 +49,20 @@ dependencies {
     // Lombok auto-generates things like getters and setters
     compileOnly 'org.projectlombok:lombok'
 
-    compile ('org.springframework.security.oauth.boot:spring-security-oauth2-autoconfigure:2.0.1.RELEASE')
-    compile ('com.okta.spring:okta-spring-boot-starter:0.6.1')
+    // compile ('org.springframework.security.oauth.boot:spring-security-oauth2-autoconfigure:2.0.1.RELEASE')
+    // compile ('com.okta.spring:okta-spring-boot-starter:0.6.1')
     /* ============ endregion COMPILE ============ */
 
 
     /* ============ region TEST ============ */
-    testImplementation('org.springframework.boot:spring-boot-starter-test')
-    testImplementation('org.springframework.security:spring-security-test')
+
     /* ============ endregion TEST ============ */
 
 
     /* ============ region OTHER ============ */
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
     annotationProcessor 'org.projectlombok:lombok'
-    testImplementation('org.springframework.boot:spring-boot-starter-test') {
-        exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
-    }
+
     /* ============ endregion OTHER ============ */
 }
 
