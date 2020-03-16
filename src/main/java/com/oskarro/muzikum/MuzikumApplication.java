@@ -15,6 +15,7 @@ public class MuzikumApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(MuzikumApplication.class, args);
+
     }
 
 }
