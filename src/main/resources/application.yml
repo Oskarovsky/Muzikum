@@ -3,7 +3,10 @@ spring:
     hibernate:
       ddl-auto: create  # creates the schema, destroying any previous data
     database-platform: org.hibernate.dialect.PostgreSQLDialect
+    show-sql: true
+    generate-ddl: true
   datasource:
     url: "jdbc:postgresql://localhost:5433/muzikum_db"
     username: admin
     password: Osasuna1
+

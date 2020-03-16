@@ -10,4 +10,6 @@ public interface TrackService {
     Optional<Track> findById(Integer id);
 
     Track saveTrack(Track track);
+
+    List<Track> findByRecord(Integer id);
 }

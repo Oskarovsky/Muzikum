@@ -28,4 +28,10 @@ public class TrackServiceImpl implements TrackService {
     public Track saveTrack(Track track) {
         return trackRepository.save(track);
     }
+
+    @Override
+    public List<Track> findByRecord(Integer id) {
+        return trackRepository.findByRecordId(id);
+    }
+
 }

@@ -14,4 +14,7 @@ public interface TrackRepository extends CrudRepository<Track, Integer> {
     Optional<Track> findById(Integer id);
 
     Track save(Track track);
+
+    List<Track> findByRecordId(Integer id);
+
 }

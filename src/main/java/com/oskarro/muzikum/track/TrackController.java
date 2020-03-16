@@ -26,7 +26,7 @@ public class TrackController {
         return "All tracks have been added!";
     }
 
-    @GetMapping
+    @GetMapping(value = "/findAll")
     List<Track> findAll() {
         return trackService.findAll();
     }
@@ -39,5 +39,10 @@ public class TrackController {
     @PostMapping(value = "/add")
     public void addTrack(@RequestBody Track track) {
         trackService.saveTrack(track);
+    }
+
+    @GetMapping(value = "/findByRecord/{recordId}")
+    List<Track> findByRecord(@PathVariable Integer id) {
+        return trackService.findByRecord(id);
     }
 }

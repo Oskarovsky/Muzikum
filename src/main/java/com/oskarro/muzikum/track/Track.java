@@ -1,6 +1,7 @@
 package com.oskarro.muzikum.track;
 
 import com.oskarro.muzikum.provider.Provider;
+import com.oskarro.muzikum.record.Record;
 import lombok.*;
 
 import javax.persistence.*;
@@ -27,5 +28,11 @@ public class Track {
     @ManyToOne
     @JoinColumn(name = "provider_id")
     private Provider provider;
+
+    @ManyToOne
+    @JoinColumn(name = "record_id")
+    private Record record;
+
+
 
 }
