@@ -1,9 +1,11 @@
 package com.oskarro.muzikum.provider;
 
+import com.oskarro.muzikum.provider.contractor.NuteczkiService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 
 @RestController
@@ -11,10 +13,12 @@ import java.util.List;
 public class ProviderController {
 
     ProviderService providerService;
+    NuteczkiService nuteczkiService;
     ProviderRepository providerRepository;
 
-    public ProviderController(ProviderService providerService, ProviderRepository providerRepository) {
+    public ProviderController(ProviderService providerService, NuteczkiService nuteczkiService, ProviderRepository providerRepository) {
         this.providerService = providerService;
+        this.nuteczkiService = nuteczkiService;
         this.providerRepository = providerRepository;
     }
 
@@ -39,5 +43,11 @@ public class ProviderController {
     @GetMapping(value = "/{id}/getCrawler")
     String getCrawler(@PathVariable String id) {
         return providerService.getCrawler(Integer.valueOf(id));
+    }
+
+    @GetMapping(value = "/nuteczki")
+    String getNuteczkiTracklist() {
+        Optional<Provider> foundProvider = providerRepository.findById(1);
+        return foundProvider.map(provider -> nuteczkiService.getTrackList(provider)).toString();
     }
 }

@@ -7,6 +7,6 @@ public interface NuteczkiService {
 
     void getDocument(Provider provider);
 
-    void getTrackList(Provider provider);
+    String getTrackList(Provider provider);
 
 }
