@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
-@RestController(value = "/provider")
+@RestController(value = "/providers")
 public class ProviderController {
 
     ProviderService providerService;
@@ -26,5 +26,10 @@ public class ProviderController {
     @PostMapping(value = "/add")
     void addProvider(@RequestBody Provider provider) {
         providerService.save(provider);
+    }
+
+    @GetMapping(value = "/{id}/getCrawler")
+    String getCrawler(@RequestBody Integer id) {
+        return providerService.getCrawler(id);
     }
 }

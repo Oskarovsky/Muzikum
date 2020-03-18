@@ -1,7 +1,5 @@
 package com.oskarro.muzikum.provider;
 
-import org.springframework.stereotype.Service;
-
 import java.util.List;
 import java.util.Optional;
 
@@ -14,4 +12,6 @@ public interface ProviderService {
     Provider save(Provider provider);
 
     Optional<Provider> findByName(String name);
+
+    String getCrawler(Integer id);
 }

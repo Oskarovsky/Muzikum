@@ -1,6 +1,5 @@
 package com.oskarro.muzikum.provider;
 
-import com.oskarro.muzikum.track.Track;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
