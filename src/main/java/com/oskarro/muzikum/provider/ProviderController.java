@@ -1,13 +1,13 @@
 package com.oskarro.muzikum.provider;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.Arrays;
 import java.util.List;
 
-@RestController(value = "/providers")
+
+@RestController
+@RequestMapping(value = "/providers")
 public class ProviderController {
 
     ProviderService providerService;
@@ -18,18 +18,26 @@ public class ProviderController {
         this.providerRepository = providerRepository;
     }
 
+    @GetMapping(value = "init")
+    public String initProviders() {
+        providerRepository.saveAll(Arrays.asList(
+                Provider.builder().id(1).description("nice").url("https://nuteczki.eu/").name("nuteczki").build()
+        ));
+        return "All providers has been added to temporary database";
+    }
+
     @GetMapping(value = "/findAll")
     List<Provider> findAll() {
         return providerService.findAll();
     }
 
     @PostMapping(value = "/add")
-    void addProvider(@RequestBody Provider provider) {
+    void addProvider(@PathVariable Provider provider) {
         providerService.save(provider);
     }
 
     @GetMapping(value = "/{id}/getCrawler")
-    String getCrawler(@RequestBody Integer id) {
-        return providerService.getCrawler(id);
+    String getCrawler(@PathVariable String id) {
+        return providerService.getCrawler(Integer.valueOf(id));
     }
 }
