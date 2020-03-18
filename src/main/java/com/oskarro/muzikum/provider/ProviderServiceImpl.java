@@ -40,7 +40,7 @@ public class ProviderServiceImpl implements ProviderService {
     @Override
     public String getCrawler(Integer id) {
         Optional<Provider> foundProvider = findById(id);
-        return foundProvider.map(provider -> crawlerService.parseWeb(provider)).orElse(null);
+        return foundProvider.map(provider -> crawlerService.parseWeb(provider).toString()).orElse(null);
     }
 
 }

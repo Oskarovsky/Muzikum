@@ -12,10 +12,10 @@ import java.io.IOException;
 @Slf4j
 public class CrawlerService {
 
-    public String parseWeb(Provider provider) {
+    public Document parseWeb(Provider provider) {
         try {
             Document document = Jsoup.connect(provider.getUrl()).get();
-            return document.toString();
+            return document;
         } catch (IOException e) {
             log.error(String.format("There are a problem with parsing website: %s", provider.getName()));
             e.printStackTrace();
