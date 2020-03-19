@@ -45,9 +45,9 @@ public class ProviderController {
         return providerService.getCrawler(Integer.valueOf(id));
     }
 
-    @GetMapping(value = "/nuteczki")
-    String getNuteczkiTracklist() {
-        Optional<Provider> foundProvider = providerRepository.findById(1);
+    @GetMapping(value = "/{id}/nuteczki")
+    String getNuteczkiTracklist(@PathVariable Integer id) {
+        Optional<Provider> foundProvider = providerRepository.findById(id);
         return foundProvider.map(provider -> nuteczkiService.getTrackList(provider)).toString();
     }
 }
