@@ -25,6 +25,8 @@ public class Track {
 
     private String genre;
 
+    private String url;
+
     @ManyToOne
     @JoinColumn(name = "provider_id")
     private Provider provider;

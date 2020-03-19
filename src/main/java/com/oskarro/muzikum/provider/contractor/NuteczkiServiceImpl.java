@@ -2,6 +2,8 @@ package com.oskarro.muzikum.provider.contractor;
 
 import com.oskarro.muzikum.crawler.CrawlerService;
 import com.oskarro.muzikum.provider.Provider;
+import com.oskarro.muzikum.track.Track;
+import com.oskarro.muzikum.track.TrackService;
 import lombok.extern.slf4j.Slf4j;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -16,9 +18,11 @@ import java.io.IOException;
 public class NuteczkiServiceImpl implements NuteczkiService {
 
     CrawlerService crawlerService;
+    TrackService trackService;
 
-    public NuteczkiServiceImpl(CrawlerService crawlerService) {
+    public NuteczkiServiceImpl(CrawlerService crawlerService, TrackService trackService) {
         this.crawlerService = crawlerService;
+        this.trackService = trackService;
     }
 
     @Override
@@ -36,6 +40,11 @@ public class NuteczkiServiceImpl implements NuteczkiService {
                 Element element1 = element.getElementsByTag("img").first();
                 System.out.println(element1.attr("alt"));
                 System.out.println(element.attr("href"));
+                Track track = Track.builder()
+                        .title(element1.attr("alt"))
+                        .artist(element.attr("href"))
+                        .build();
+                trackService.saveTrack(track);
             }
             return "All tracklist has been fetched from nuteczki.eu";
         } catch (IOException e) {

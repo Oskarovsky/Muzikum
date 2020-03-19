@@ -49,6 +49,8 @@ dependencies {
     // Lombok auto-generates things like getters and setters
     compileOnly 'org.projectlombok:lombok'
     compile group: 'org.jsoup', name: 'jsoup', version: '1.9.1'
+    compile group: 'org.gebish', name: 'geb-core', version: '3.3'
+    compile group: 'net.sourceforge.htmlunit', name: 'htmlunit', version: '2.38.0'
 
     // compile ('org.springframework.security.oauth.boot:spring-security-oauth2-autoconfigure:2.0.1.RELEASE')
     // compile ('com.okta.spring:okta-spring-boot-starter:0.6.1')

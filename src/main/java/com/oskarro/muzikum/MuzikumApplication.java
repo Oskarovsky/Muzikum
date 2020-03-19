@@ -33,7 +33,8 @@ public class MuzikumApplication {
 
         Optional<Provider> provider = providerRepository.findById(1);
 
-        System.out.println(provider.map(crawlerService::parseWeb).toString());
+        //System.out.println(provider.map(crawlerService::parseWeb).toString());
+        System.out.println(provider.map(crawlerService::getWeb).toString());
 
     }
 

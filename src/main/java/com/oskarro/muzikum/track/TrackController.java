@@ -19,9 +19,9 @@ public class TrackController {
     @GetMapping(value = "initTracks")
     public String getTracks() {
         trackRepository.saveAll(Arrays.asList(
-                Track.builder().title("aaa").artist("bbb").genre("club").points(31).id(1).build(),
-                Track.builder().title("aa2a").artist("b32bb").genre("dance").points(11).id(2).build(),
-                Track.builder().title("aa34a").artist("bb34b").genre("club").points(55).id(3).build()));
+                Track.builder().title("aaa").artist("bbb").genre("club").url("www.osss.pl").points(31).id(1).build(),
+                Track.builder().title("aa2a").artist("b32bb").genre("dance").url("www.dksnc.pl").points(11).id(2).build(),
+                Track.builder().title("aa34a").artist("bb34b").genre("club").url("www.kdmx.pl").points(55).id(3).build()));
         return "All tracks have been added!";
     }
 
