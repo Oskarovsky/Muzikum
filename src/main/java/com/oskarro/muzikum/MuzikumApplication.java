@@ -28,7 +28,7 @@ public class MuzikumApplication {
         ProviderRepository providerRepository = applicationContext.getBean(ProviderRepository.class);
 
         providerRepository.saveAll(Collections.singletonList(
-                Provider.builder().id(1).description("nice").url("https://nuteczki.eu/top20/").name("nuteczki").build()
+                Provider.builder().id(1).description("nice").url("https://nuteczki.eu/top20/#").name("nuteczki").build()
         ));
 
         Optional<Provider> provider = providerRepository.findById(1);

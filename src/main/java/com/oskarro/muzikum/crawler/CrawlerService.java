@@ -5,6 +5,7 @@ import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.html.*;
 import com.gargoylesoftware.htmlunit.javascript.host.html.HTMLSpanElement;
 import com.oskarro.muzikum.provider.Provider;
+import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -20,6 +21,8 @@ import java.util.List;
 @Slf4j
 public class CrawlerService {
 
+    // TODO Enum for choosing music genre
+
     public String getWeb(Provider provider) {
         try {
             final WebClient webClient = new WebClient();
@@ -28,25 +31,20 @@ public class CrawlerService {
 
             HtmlButton select = page.getFirstByXPath( "//div[@class='btn-group category']//button");
             select.click();
-            HtmlButton select1 = page.getFirstByXPath( "//div[@class='btn-group category open']//button");
 
-            HtmlUnorderedList htmlUnorderedList = page.getFirstByXPath( "//div[@class='btn-group category open']//ul");
-            HtmlListItem listItem = (HtmlListItem) htmlUnorderedList.getChildNodes().get(1);
+            HtmlListItem htmlElement = page.getFirstByXPath( "//div[@class='btn-group category open']//ul//li[4]");
+            htmlElement.setAttribute("class", "active");
+            System.out.println(htmlElement.getAttribute("data-category"));
+            htmlElement.click();
 
-            HtmlElement htmlElement = htmlUnorderedList.getChildNodes().get(2).getFirstByXPath("//a");
-            HtmlAnchor htmlAnchor1 = (HtmlAnchor) htmlElement;
-            System.out.println(htmlAnchor1.getTextContent());
-
-            htmlAnchor1.click();
-            webClient.waitForBackgroundJavaScript(5 * 1000);
-            System.out.println(listItem);
+            webClient.waitForBackgroundJavaScript(7 * 1000);
 
             final List<HtmlElement> spanElements = page.getByXPath("//span[@class='news-title']//a");
 
             for (Object obj : spanElements) {
                 HtmlAnchor a = (HtmlAnchor) obj;
                 System.out.println(a.getTextContent().trim());
-                System.out.println(a.getHrefAttribute().trim());
+                System.out.println(a.getHrefAttribute());
             }
             return "_____________________";
         } catch (IOException e) {

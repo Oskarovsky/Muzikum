@@ -1,5 +1,7 @@
 package com.oskarro.muzikum.provider.contractor;
 
+import com.gargoylesoftware.htmlunit.WebClient;
+import com.gargoylesoftware.htmlunit.html.*;
 import com.oskarro.muzikum.crawler.CrawlerService;
 import com.oskarro.muzikum.provider.Provider;
 import com.oskarro.muzikum.track.Track;
@@ -12,10 +14,13 @@ import org.jsoup.select.Elements;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.util.List;
 
 @Slf4j
 @Service
 public class NuteczkiServiceImpl implements NuteczkiService {
+
+    // TODO Enum for choosing music genre
 
     CrawlerService crawlerService;
     TrackService trackService;
@@ -51,6 +56,37 @@ public class NuteczkiServiceImpl implements NuteczkiService {
             log.error(String.format("There are a problem with parsing website: %s", provider.getName()));
             e.printStackTrace();
             return null;
+        }
+    }
+
+    @Override
+    public String getTrackListByGenre(Provider provider) {
+        try {
+            final WebClient webClient = new WebClient();
+            webClient.getOptions().setThrowExceptionOnScriptError(false);
+            final HtmlPage page = webClient.getPage(provider.getUrl());
+
+            HtmlButton select = page.getFirstByXPath( "//div[@class='btn-group category']//button");
+            select.click();
+
+            HtmlListItem htmlElement = page.getFirstByXPath( "//div[@class='btn-group category open']//ul//li[4]");
+            htmlElement.setAttribute("class", "active");
+            System.out.println(htmlElement.getAttribute("data-category"));
+            htmlElement.click();
+
+            webClient.waitForBackgroundJavaScript(7 * 1000);
+
+            final List<HtmlElement> spanElements = page.getByXPath("//span[@class='news-title']//a");
+
+            for (Object obj : spanElements) {
+                HtmlAnchor a = (HtmlAnchor) obj;
+                System.out.println(a.getTextContent().trim());
+                System.out.println(a.getHrefAttribute());
+            }
+            return "_____________________";
+        } catch (IOException e) {
+            e.printStackTrace();
+            return "errrrrrror!";
         }
     }
 }
