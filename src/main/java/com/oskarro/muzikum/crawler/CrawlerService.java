@@ -1,12 +1,10 @@
 package com.oskarro.muzikum.crawler;
 
+import com.gargoylesoftware.htmlunit.ScriptResult;
 import com.gargoylesoftware.htmlunit.WebClient;
-import com.gargoylesoftware.htmlunit.html.HtmlForm;
-import com.gargoylesoftware.htmlunit.html.HtmlPage;
-import com.gargoylesoftware.htmlunit.html.HtmlSubmitInput;
+import com.gargoylesoftware.htmlunit.html.*;
+import com.gargoylesoftware.htmlunit.javascript.host.html.HTMLSpanElement;
 import com.oskarro.muzikum.provider.Provider;
-import geb.Module;
-import geb.Page;
 import lombok.extern.slf4j.Slf4j;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -16,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 
 import java.io.IOException;
+import java.util.List;
 
 @Service
 @Slf4j
@@ -25,13 +24,20 @@ public class CrawlerService {
         try {
             final WebClient webClient = new WebClient();
             webClient.getOptions().setThrowExceptionOnScriptError(false);
-
             final HtmlPage page = webClient.getPage(provider.getUrl());
-            final HtmlForm form = page.getFormByName("myform");
-            final HtmlSubmitInput button = form.getInputByName("submitbutton");
 
-            System.out.println("XXXX -- " + page.getTitleText());
-            return "xxx";
+            HtmlSelect select = page.getFirstByXPath( "//div[@class='btn-group category']//button");
+            System.out.println("OOO --- " + select);
+
+            final List<HtmlElement> spanElements = page.getByXPath("//span[@class='news-title']//a");
+
+            for (Object obj : spanElements) {
+                HtmlAnchor a = (HtmlAnchor) obj;
+                System.out.println(a.getTextContent().trim());
+                System.out.println(a.getHrefAttribute().trim());
+            }
+
+            return "_____________________";
         } catch (IOException e) {
             e.printStackTrace();
             return "errrrrrror!";
