@@ -26,8 +26,20 @@ public class CrawlerService {
             webClient.getOptions().setThrowExceptionOnScriptError(false);
             final HtmlPage page = webClient.getPage(provider.getUrl());
 
-            HtmlSelect select = page.getFirstByXPath( "//div[@class='btn-group category']//button");
-            System.out.println("OOO --- " + select);
+            HtmlButton select = page.getFirstByXPath( "//div[@class='btn-group category']//button");
+            select.click();
+            HtmlButton select1 = page.getFirstByXPath( "//div[@class='btn-group category open']//button");
+
+            HtmlUnorderedList htmlUnorderedList = page.getFirstByXPath( "//div[@class='btn-group category open']//ul");
+            HtmlListItem listItem = (HtmlListItem) htmlUnorderedList.getChildNodes().get(1);
+
+            HtmlElement htmlElement = htmlUnorderedList.getChildNodes().get(2).getFirstByXPath("//a");
+            HtmlAnchor htmlAnchor1 = (HtmlAnchor) htmlElement;
+            System.out.println(htmlAnchor1.getTextContent());
+
+            htmlAnchor1.click();
+            webClient.waitForBackgroundJavaScript(5 * 1000);
+            System.out.println(listItem);
 
             final List<HtmlElement> spanElements = page.getByXPath("//span[@class='news-title']//a");
 
@@ -36,7 +48,6 @@ public class CrawlerService {
                 System.out.println(a.getTextContent().trim());
                 System.out.println(a.getHrefAttribute().trim());
             }
-
             return "_____________________";
         } catch (IOException e) {
             e.printStackTrace();
