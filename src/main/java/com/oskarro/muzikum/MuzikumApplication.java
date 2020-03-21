@@ -3,6 +3,7 @@ package com.oskarro.muzikum;
 import com.oskarro.muzikum.crawler.CrawlerService;
 import com.oskarro.muzikum.provider.Provider;
 import com.oskarro.muzikum.provider.ProviderRepository;
+import com.oskarro.muzikum.provider.contractor.DanceChartService;
 import com.oskarro.muzikum.provider.contractor.NuteczkiService;
 import com.oskarro.muzikum.provider.contractor.RadiopartyService;
 import com.oskarro.muzikum.track.Genre;
@@ -28,6 +29,7 @@ public class MuzikumApplication {
     public static void main(String[] args) {
         ApplicationContext applicationContext = SpringApplication.run(MuzikumApplication.class, args);
 
+        DanceChartService danceChartService = applicationContext.getBean(DanceChartService.class);
         NuteczkiService nuteczkiService = applicationContext.getBean(NuteczkiService.class);
         RadiopartyService radiopartyService = applicationContext.getBean(RadiopartyService.class);
         CrawlerService crawlerService = applicationContext.getBean(CrawlerService.class);
@@ -35,11 +37,13 @@ public class MuzikumApplication {
 
         providerRepository.saveAll(Arrays.asList(
                 Provider.builder().id(1).description("nice").url("https://nuteczki.eu/top20/#").name("nuteczki").build(),
-                Provider.builder().id(2).description("nice").url("https://radioparty.pl/partylista.html").name("radioparty").build()
+                Provider.builder().id(2).description("very nice").url("https://radioparty.pl/partylista.html").name("radioparty").build(),
+                Provider.builder().id(3).description("sehr gut").url("https://www.dance-charts.de/djcharts").name("dancecharts").build()
         ));
 
         Optional<Provider> nuteczkiProvider = providerRepository.findById(1);
         Optional<Provider> radiopartyProvider = providerRepository.findById(2);
+        Optional<Provider> dancechartProvider = providerRepository.findById(3);
 
         nuteczkiProvider.map(provider -> nuteczkiService.getTracklistByGenre(provider, Genre.club));
         radiopartyProvider.map(radiopartyService::getTrackList);
