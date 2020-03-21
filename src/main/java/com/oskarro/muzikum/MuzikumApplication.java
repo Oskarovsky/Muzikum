@@ -14,6 +14,7 @@ import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfi
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 
+import java.lang.reflect.Array;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Optional;
@@ -28,8 +29,9 @@ public class MuzikumApplication {
         CrawlerService crawlerService = applicationContext.getBean(CrawlerService.class);
         ProviderRepository providerRepository = applicationContext.getBean(ProviderRepository.class);
 
-        providerRepository.saveAll(Collections.singletonList(
-                Provider.builder().id(1).description("nice").url("https://nuteczki.eu/top20/#").name("nuteczki").build()
+        providerRepository.saveAll(Arrays.asList(
+                Provider.builder().id(1).description("nice").url("https://nuteczki.eu/top20/#").name("nuteczki").build(),
+                Provider.builder().id(2).description("nice").url("https://radioparty.pl/partylista.html").name("radioparty").build()
         ));
 
         Optional<Provider> provider = providerRepository.findById(1);
