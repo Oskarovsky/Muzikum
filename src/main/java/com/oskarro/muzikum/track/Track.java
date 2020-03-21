@@ -25,6 +25,8 @@ public class Track {
 
     private String genre;
 
+    private String version;
+
     private String url;
 
     @ManyToOne

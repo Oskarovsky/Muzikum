@@ -50,4 +50,9 @@ public class ProviderController {
         Optional<Provider> foundProvider = providerRepository.findById(id);
         return foundProvider.map(provider -> nuteczkiService.getTrackList(provider)).toString();
     }
+
+    @GetMapping(value = "/{id}/nuteczki/{genre}")
+    String getNuteczkiTracklistByGenre(@PathVariable Integer id, @PathVariable String genre) {
+        return "";
+    }
 }

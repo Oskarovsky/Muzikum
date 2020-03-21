@@ -79,11 +79,16 @@ public class NuteczkiServiceImpl implements NuteczkiService {
             final List<HtmlElement> spanElements = page.getByXPath("//span[@class='news-title']//a");
 
             for (Object obj : spanElements) {
-                HtmlAnchor a = (HtmlAnchor) obj;
-                System.out.println(a.getTextContent().trim());
-                System.out.println(a.getHrefAttribute());
+                HtmlAnchor anchor = (HtmlAnchor) obj;
+                System.out.println(anchor.getTextContent().trim());
+                System.out.println(anchor.getHrefAttribute());
+                Track track = Track.builder()
+                        .title(anchor.getTextContent().trim())
+                        .url(anchor.getHrefAttribute().trim())
+                        .build();
+                trackService.saveTrack(track);
             }
-            return "_____________________";
+            return "All tracklist has been fetched from nuteczki.eu";
         } catch (IOException e) {
             e.printStackTrace();
             return "errrrrrror!";
