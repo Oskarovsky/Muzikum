@@ -3,6 +3,7 @@ package com.oskarro.muzikum;
 import com.oskarro.muzikum.crawler.CrawlerService;
 import com.oskarro.muzikum.provider.Provider;
 import com.oskarro.muzikum.provider.ProviderRepository;
+import com.oskarro.muzikum.track.Genre;
 import com.oskarro.muzikum.track.Track;
 import com.oskarro.muzikum.track.TrackRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,7 +35,7 @@ public class MuzikumApplication {
         Optional<Provider> provider = providerRepository.findById(1);
 
         //System.out.println(provider.map(crawlerService::parseWeb).toString());
-        System.out.println(provider.map((Provider provider1) -> crawlerService.getWeb(provider1, "club")).toString());
+        System.out.println(provider.map((Provider provider1) -> crawlerService.getWeb(provider1, Genre.club)).toString());
 
     }
 

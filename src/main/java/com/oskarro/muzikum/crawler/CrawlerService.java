@@ -5,6 +5,7 @@ import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.html.*;
 import com.gargoylesoftware.htmlunit.javascript.host.html.HTMLSpanElement;
 import com.oskarro.muzikum.provider.Provider;
+import com.oskarro.muzikum.track.Genre;
 import com.oskarro.muzikum.track.Track;
 import com.oskarro.muzikum.track.TrackService;
 import lombok.Getter;
@@ -29,7 +30,7 @@ public class CrawlerService {
         this.trackService = trackService;
     }
 
-    public String getWeb(Provider provider, String genre) {
+    public String getWeb(Provider provider, Genre genre) {
         try {
             final WebClient webClient = new WebClient();
             webClient.getOptions().setThrowExceptionOnScriptError(false);
@@ -39,7 +40,7 @@ public class CrawlerService {
             select.click();
 
             HtmlListItem htmlElement;
-            switch (genre) {
+            switch (genre.toString()) {
                 case "disco":
                     htmlElement = page.getFirstByXPath( "//div[@class='btn-group category open']//ul//li[3]");
                     break;
