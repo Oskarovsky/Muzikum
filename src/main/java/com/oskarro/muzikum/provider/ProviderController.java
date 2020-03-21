@@ -25,7 +25,8 @@ public class ProviderController {
     @GetMapping(value = "init")
     public String initProviders() {
         providerRepository.saveAll(Arrays.asList(
-                Provider.builder().id(1).description("nice").url("https://nuteczki.eu/").name("nuteczki").build()
+                Provider.builder().id(1).description("nice").url("https://nuteczki.eu/").name("nuteczki").build(),
+                Provider.builder().id(2).description("very nice").url("https://radioparty.pl/").name("radioparty").build()
         ));
         return "All providers has been added to temporary database";
     }

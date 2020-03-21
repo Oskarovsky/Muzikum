@@ -21,19 +21,12 @@ import java.util.List;
 @Service
 public class NuteczkiServiceImpl implements NuteczkiService {
 
-    // TODO Enum for choosing music genre
-
     CrawlerService crawlerService;
     TrackService trackService;
 
     public NuteczkiServiceImpl(CrawlerService crawlerService, TrackService trackService) {
         this.crawlerService = crawlerService;
         this.trackService = trackService;
-    }
-
-    @Override
-    public void getDocument(Provider provider) {
-        crawlerService.parseWeb(provider);
     }
 
     @Override
