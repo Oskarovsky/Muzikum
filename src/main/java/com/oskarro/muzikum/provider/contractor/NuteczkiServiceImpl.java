@@ -4,6 +4,7 @@ import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.html.*;
 import com.oskarro.muzikum.crawler.CrawlerService;
 import com.oskarro.muzikum.provider.Provider;
+import com.oskarro.muzikum.track.Genre;
 import com.oskarro.muzikum.track.Track;
 import com.oskarro.muzikum.track.TrackService;
 import lombok.extern.slf4j.Slf4j;
@@ -60,7 +61,7 @@ public class NuteczkiServiceImpl implements NuteczkiService {
     }
 
     @Override
-    public String getTrackListByGenre(Provider provider) {
+    public String getTracklistByGenre(Provider provider, Genre genre) {
         try {
             final WebClient webClient = new WebClient();
             webClient.getOptions().setThrowExceptionOnScriptError(false);
@@ -69,29 +70,53 @@ public class NuteczkiServiceImpl implements NuteczkiService {
             HtmlButton select = page.getFirstByXPath( "//div[@class='btn-group category']//button");
             select.click();
 
-            HtmlListItem htmlElement = page.getFirstByXPath( "//div[@class='btn-group category open']//ul//li[4]");
+            HtmlListItem htmlElement;
+            switch (genre.toString()) {
+                case "disco":
+                    htmlElement = page.getFirstByXPath( "//div[@class='btn-group category open']//ul//li[3]");
+                    break;
+                case "club":
+                    htmlElement = page.getFirstByXPath( "//div[@class='btn-group category open']//ul//li[4]");
+                    break;
+                case "set":
+                    htmlElement = page.getFirstByXPath( "//div[@class='btn-group category open']//ul//li[5]");
+                    break;
+                case "other":
+                    htmlElement = page.getFirstByXPath( "//div[@class='btn-group category open']//ul//li[6]");
+                    break;
+                default:
+                    htmlElement = page.getFirstByXPath( "//div[@class='btn-group category open']//ul//li[0]");
+            }
+
             htmlElement.setAttribute("class", "active");
             System.out.println(htmlElement.getAttribute("data-category"));
             htmlElement.click();
 
-            webClient.waitForBackgroundJavaScript(7 * 1000);
+            webClient.waitForBackgroundJavaScript(3 * 1000);
 
             final List<HtmlElement> spanElements = page.getByXPath("//span[@class='news-title']//a");
 
             for (Object obj : spanElements) {
                 HtmlAnchor anchor = (HtmlAnchor) obj;
-                System.out.println(anchor.getTextContent().trim());
-                System.out.println(anchor.getHrefAttribute());
+                String name = anchor.getTextContent().trim();
                 Track track = Track.builder()
-                        .title(anchor.getTextContent().trim())
+                        .artist(name.split(" - ")[0])
+                        .title(name.split(" - ")[1])
+                        .provider(provider)
+                        .genre(genre.toString())
                         .url(anchor.getHrefAttribute().trim())
                         .build();
+                if (name.contains("(")) {
+                    track.setVersion(name.substring(name.indexOf("(")+1, name.indexOf(")")));
+                } else {
+                    track.setVersion("Original Mix");
+                }
                 trackService.saveTrack(track);
             }
-            return "All tracklist has been fetched from nuteczki.eu";
+            return String.format("Entire %s tracklist has been fetched from nuteczki.eu", genre);
         } catch (IOException e) {
             e.printStackTrace();
-            return "errrrrrror!";
+            return "Tracks from nuteczki.eu cannot be fetched";
         }
     }
 }
