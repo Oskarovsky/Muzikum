@@ -72,6 +72,7 @@ public class CrawlerService {
                         .artist(name.split(" - ")[0])
                         .title(name.split(" - ")[1])
                         .provider(provider)
+                        .genre(genre.toString())
                         .url(anchor.getHrefAttribute().trim())
                         .build();
                 if (name.contains("(")) {
