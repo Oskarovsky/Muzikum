@@ -34,10 +34,10 @@ public class MuzikumApplication {
                 Provider.builder().id(2).description("nice").url("https://radioparty.pl/partylista.html").name("radioparty").build()
         ));
 
-        Optional<Provider> provider = providerRepository.findById(1);
+        Optional<Provider> provider = providerRepository.findById(2);
 
-        //System.out.println(provider.map(crawlerService::parseWeb).toString());
-        System.out.println(provider.map((Provider provider1) -> crawlerService.getWeb(provider1, Genre.club)).toString());
+        System.out.println(provider.map(crawlerService::parseWeb).toString());
+        //System.out.println(provider.map((Provider provider1) -> crawlerService.getWeb(provider1, Genre.club)).toString());
 
     }
 
