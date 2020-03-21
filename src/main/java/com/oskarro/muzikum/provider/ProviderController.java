@@ -1,6 +1,8 @@
 package com.oskarro.muzikum.provider;
 
 import com.oskarro.muzikum.provider.contractor.NuteczkiService;
+import com.oskarro.muzikum.track.Track;
+import com.oskarro.muzikum.track.TrackService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Arrays;
@@ -15,11 +17,14 @@ public class ProviderController {
     ProviderService providerService;
     NuteczkiService nuteczkiService;
     ProviderRepository providerRepository;
+    TrackService trackService;
 
-    public ProviderController(ProviderService providerService, NuteczkiService nuteczkiService, ProviderRepository providerRepository) {
+    public ProviderController(ProviderService providerService, NuteczkiService nuteczkiService,
+                              ProviderRepository providerRepository, TrackService trackService) {
         this.providerService = providerService;
         this.nuteczkiService = nuteczkiService;
         this.providerRepository = providerRepository;
+        this.trackService = trackService;
     }
 
     @GetMapping(value = "init")
@@ -36,24 +41,14 @@ public class ProviderController {
         return providerService.findAll();
     }
 
-    @PostMapping(value = "/add")
-    void addProvider(@PathVariable Provider provider) {
-        providerService.save(provider);
+    @GetMapping(value = "/{provider_id}")
+    List<Track> getTracksFromProvider(@PathVariable Integer provider_id) {
+        return trackService.findByProviderId(provider_id);
     }
 
-    @GetMapping(value = "/{id}/getCrawler")
-    String getCrawler(@PathVariable String id) {
-        return providerService.getCrawler(Integer.valueOf(id));
-    }
-
-    @GetMapping(value = "/{id}/nuteczki")
-    String getNuteczkiTracklist(@PathVariable Integer id) {
-        Optional<Provider> foundProvider = providerRepository.findById(id);
-        return foundProvider.map(provider -> nuteczkiService.getTrackList(provider)).toString();
-    }
-
-    @GetMapping(value = "/{id}/nuteczki/{genre}")
-    String getNuteczkiTracklistByGenre(@PathVariable Integer id, @PathVariable String genre) {
-        return "";
+    @GetMapping(value = "/{provider_id}/{genre}")
+    List<Track> getTracksFromProviderByGenre(@PathVariable Integer provider_id,
+                                             @PathVariable String genre) {
+        return trackService.findByProviderId(provider_id);
     }
 }

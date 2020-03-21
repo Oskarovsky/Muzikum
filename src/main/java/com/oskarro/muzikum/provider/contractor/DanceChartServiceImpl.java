@@ -14,11 +14,11 @@ import java.io.IOException;
 
 @Slf4j
 @Service
-public class RadiopartyServiceImpl implements RadiopartyService {
+public class DanceChartServiceImpl implements DanceChartService {
 
     TrackService trackService;
 
-    public RadiopartyServiceImpl(TrackService trackService) {
+    public DanceChartServiceImpl(TrackService trackService) {
         this.trackService = trackService;
     }
 
@@ -29,23 +29,15 @@ public class RadiopartyServiceImpl implements RadiopartyService {
                     .get()
                     .getElementsByClass("tabcontent").get(0)
                     .getElementsByTag("form");
+
+
             for (Element element : formsList) {
-                String artist = element.select("div").first().toString()
-                        .split("\\n ")[1].split("<")[0]
-                        .replaceAll("&amp;","&");
-                String title = element.select("div").first()
-                        .getElementsByTag("span").first()
-                        .text();
+
                 Track track = Track.builder()
-                        .artist(artist.substring(artist.indexOf(" ")))
-                        .title(title.split("\\(")[0])
-                        .genre(Genre.club.toString())
-                        .version(title.substring(title.indexOf("(")+1, title.indexOf(")")))
-                        .provider(provider)
                         .build();
                 trackService.saveTrack(track);
             }
-            return "All tracklist has been fetched from radioparty.pl";
+            return "All tracklist has been fetched from DanceChart.de";
         } catch (IOException e) {
             log.error(String.format("There are a problem with parsing website: %s", provider.getName()));
             e.printStackTrace();
