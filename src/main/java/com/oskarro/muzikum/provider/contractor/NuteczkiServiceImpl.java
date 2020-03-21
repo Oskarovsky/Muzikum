@@ -94,7 +94,7 @@ public class NuteczkiServiceImpl implements NuteczkiService {
                 String name = anchor.getTextContent().trim();
                 Track track = Track.builder()
                         .artist(name.split(" - ")[0])
-                        .title(name.split(" - ")[1])
+                        .title(name.split(" - ")[1].split("\\(")[0])
                         .provider(provider)
                         .genre(genre.toString())
                         .url(anchor.getHrefAttribute().trim())

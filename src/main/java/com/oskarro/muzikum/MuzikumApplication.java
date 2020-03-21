@@ -3,6 +3,8 @@ package com.oskarro.muzikum;
 import com.oskarro.muzikum.crawler.CrawlerService;
 import com.oskarro.muzikum.provider.Provider;
 import com.oskarro.muzikum.provider.ProviderRepository;
+import com.oskarro.muzikum.provider.contractor.NuteczkiService;
+import com.oskarro.muzikum.provider.contractor.RadiopartyService;
 import com.oskarro.muzikum.track.Genre;
 import com.oskarro.muzikum.track.Track;
 import com.oskarro.muzikum.track.TrackRepository;
@@ -26,6 +28,8 @@ public class MuzikumApplication {
     public static void main(String[] args) {
         ApplicationContext applicationContext = SpringApplication.run(MuzikumApplication.class, args);
 
+        NuteczkiService nuteczkiService = applicationContext.getBean(NuteczkiService.class);
+        RadiopartyService radiopartyService = applicationContext.getBean(RadiopartyService.class);
         CrawlerService crawlerService = applicationContext.getBean(CrawlerService.class);
         ProviderRepository providerRepository = applicationContext.getBean(ProviderRepository.class);
 
@@ -34,9 +38,14 @@ public class MuzikumApplication {
                 Provider.builder().id(2).description("nice").url("https://radioparty.pl/partylista.html").name("radioparty").build()
         ));
 
-        Optional<Provider> provider = providerRepository.findById(2);
+        Optional<Provider> nuteczkiProvider = providerRepository.findById(1);
+        Optional<Provider> radiopartyProvider = providerRepository.findById(2);
 
-        System.out.println(provider.map(crawlerService::parseWeb).toString());
+        nuteczkiProvider.map(provider -> nuteczkiService.getTracklistByGenre(provider, Genre.club));
+        radiopartyProvider.map(radiopartyService::getTrackList);
+
+
+        //System.out.println(provider.map(crawlerService::parseWeb).toString());
         //System.out.println(provider.map((Provider provider1) -> crawlerService.getWeb(provider1, Genre.club)).toString());
 
     }
