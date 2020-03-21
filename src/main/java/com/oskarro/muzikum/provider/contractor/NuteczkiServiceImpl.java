@@ -4,6 +4,7 @@ import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.html.*;
 import com.oskarro.muzikum.crawler.CrawlerService;
 import com.oskarro.muzikum.provider.Provider;
+import com.oskarro.muzikum.provider.ProviderService;
 import com.oskarro.muzikum.track.Genre;
 import com.oskarro.muzikum.track.Track;
 import com.oskarro.muzikum.track.TrackService;
@@ -23,14 +24,17 @@ public class NuteczkiServiceImpl implements NuteczkiService {
 
     CrawlerService crawlerService;
     TrackService trackService;
+    ProviderService providerService;
 
-    public NuteczkiServiceImpl(CrawlerService crawlerService, TrackService trackService) {
+    public NuteczkiServiceImpl(CrawlerService crawlerService, TrackService trackService, ProviderService providerService) {
         this.crawlerService = crawlerService;
         this.trackService = trackService;
+        this.providerService = providerService;
     }
 
     @Override
     public String getTrackList(Provider provider) {
+        providerService.save(provider);
         try {
             Document document =  Jsoup.connect(provider.getUrl()).get();
             Elements views = document.getElementsByClass("view");

@@ -12,4 +12,6 @@ public interface TrackService {
     Track saveTrack(Track track);
 
     List<Track> findByRecord(Integer id);
+
+    List<Track> findByProviderId(Integer id);
 }

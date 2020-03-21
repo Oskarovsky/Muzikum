@@ -29,7 +29,6 @@ public class RadiopartyServiceImpl implements RadiopartyService {
                     .get()
                     .getElementsByClass("tabcontent").get(0)
                     .getElementsByTag("form");
-
             for (Element element : formsList) {
                 String artist = element.select("div").first().toString()
                         .split("\\n ")[1].split("<")[0]
