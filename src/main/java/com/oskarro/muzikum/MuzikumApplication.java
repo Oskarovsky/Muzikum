@@ -45,11 +45,12 @@ public class MuzikumApplication {
         Optional<Provider> radiopartyProvider = providerRepository.findById(2);
         Optional<Provider> dancechartProvider = providerRepository.findById(3);
 
-        //nuteczkiProvider.map(provider -> nuteczkiService.getTracklistByGenre(provider, Genre.club));
-        //radiopartyProvider.map(radiopartyService::getTrackList);
+        nuteczkiProvider.map(provider -> nuteczkiService.getTracklistByGenre(provider, Genre.club));
+        radiopartyProvider.map(radiopartyService::getTrackList);
+        dancechartProvider.map(danceChartService::getTrackList);
 
 
-        System.out.println(dancechartProvider.map(crawlerService::parseWeb).toString());
+        //System.out.println(dancechartProvider.map(crawlerService::parseWeb).toString());
         //System.out.println(provider.map((Provider provider1) -> crawlerService.getWeb(provider1, Genre.club)).toString());
 
     }
