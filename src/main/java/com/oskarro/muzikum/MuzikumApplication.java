@@ -38,7 +38,7 @@ public class MuzikumApplication {
         providerRepository.saveAll(Arrays.asList(
                 Provider.builder().id(1).description("nice").url("https://nuteczki.eu/top20/#").name("nuteczki").build(),
                 Provider.builder().id(2).description("very nice").url("https://radioparty.pl/partylista.html").name("radioparty").build(),
-                Provider.builder().id(3).description("sehr gut").url("https://www.dance-charts.de/djcharts").name("dancecharts").build()
+                Provider.builder().id(3).description("sehr gut").url("https://www.dance-charts.de/").name("dancecharts").build()
         ));
 
         Optional<Provider> nuteczkiProvider = providerRepository.findById(1);
@@ -47,7 +47,7 @@ public class MuzikumApplication {
 
         nuteczkiProvider.map(provider -> nuteczkiService.getTracklistByGenre(provider, Genre.club));
         radiopartyProvider.map(radiopartyService::getTrackList);
-        dancechartProvider.map(danceChartService::getTrackList);
+        dancechartProvider.map(provider -> danceChartService.getTracklistByGenre(provider, Genre.club));
 
 
         //System.out.println(dancechartProvider.map(crawlerService::parseWeb).toString());
