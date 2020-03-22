@@ -1,4 +1,4 @@
-package com.oskarro.muzikum.crawler;
+package com.oskarro.muzikum.provider.contractor;
 
 import com.oskarro.muzikum.provider.Provider;
 import com.oskarro.muzikum.track.Genre;
@@ -6,28 +6,23 @@ import com.oskarro.muzikum.track.Track;
 import com.oskarro.muzikum.track.TrackService;
 import lombok.extern.slf4j.Slf4j;
 import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 
-@Service
 @Slf4j
-public class CrawlerService {
+@Service
+public class BillboardServiceImpl implements BillboardService {
 
     TrackService trackService;
 
-    public CrawlerService(TrackService trackService) {
+    public BillboardServiceImpl(TrackService trackService) {
         this.trackService = trackService;
     }
 
-    public String getWeb(Provider provider, Genre genre) {
-        return null;
-    }
-
-    public String parseWeb(Provider provider) {
+    public String getTrackList(Provider provider) {
         try {
             Elements formsList = Jsoup.connect(provider.getUrl())
                     .get()
@@ -35,6 +30,10 @@ public class CrawlerService {
 
             for (Element element : formsList) {
                 Track track = Track.builder()
+                        .title(element.getElementsByClass("ye-chart-item__title").text())
+                        .artist(element.getElementsByClass("ye-chart-item__artist").text())
+                        .genre(Genre.dance.toString())
+                        .version("Radio edit")
                         .provider(provider)
                         .build();
                 trackService.saveTrack(track);
@@ -46,4 +45,5 @@ public class CrawlerService {
             return null;
         }
     }
+
 }
