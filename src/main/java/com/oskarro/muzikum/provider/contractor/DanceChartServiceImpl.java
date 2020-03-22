@@ -27,14 +27,23 @@ public class DanceChartServiceImpl implements DanceChartService {
         try {
             Elements formsList = Jsoup.connect(provider.getUrl())
                     .get()
-                    .getElementsByClass("tabcontent").get(0)
-                    .getElementsByTag("form");
-
+                    .getElementById("charts")
+                    .getElementsByTag("tbody").get(0)
+                    .getElementsByClass("dc-list");
 
             for (Element element : formsList) {
-
+                String title = element.getElementsByClass("song_new").text();
                 Track track = Track.builder()
+                        .artist(element.getElementsByClass("artist_new").text())
+                        .title(element.getElementsByClass("song_new").text().split("\\(")[0])
+                        .genre(Genre.dance.toString())
+                        .provider(provider)
                         .build();
+                if (title.contains("(")) {
+                    track.setVersion(title.substring(title.indexOf("(")+1, title.indexOf(")")));
+                } else {
+                    track.setVersion("Radio Edit");
+                }
                 trackService.saveTrack(track);
             }
             return "All tracklist has been fetched from DanceChart.de";

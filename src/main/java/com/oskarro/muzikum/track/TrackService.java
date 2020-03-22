@@ -12,4 +12,6 @@ public interface TrackService {
     Track saveTrack(Track track);
 
     List<Track> findByProviderId(Integer id);
+
+    List<Track> findByProviderIdAndGenre(Integer id, String genre);
 }

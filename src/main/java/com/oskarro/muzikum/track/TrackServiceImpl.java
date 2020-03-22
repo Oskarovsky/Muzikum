@@ -34,4 +34,9 @@ public class TrackServiceImpl implements TrackService {
         return trackRepository.findTracksByProviderId(id);
     }
 
+    @Override
+    public List<Track> findByProviderIdAndGenre(Integer id, String genre) {
+        return trackRepository.findTracksByProviderIdAndGenre(id, genre);
+    }
+
 }
