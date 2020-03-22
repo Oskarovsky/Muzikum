@@ -31,18 +31,18 @@ public class CrawlerService {
         try {
             Elements formsList = Jsoup.connect(provider.getUrl())
                     .get()
-                    .getElementById("charts")
-                    .getElementsByTag("tbody").get(0)
-                    .getElementsByClass("dc-list");
+                    .getElementById("chart-details")
+                    .getElementsByTag("article");
 
             for (Element element : formsList) {
-                String title = element.getElementsByClass("song_new").text();
+                String title = element.getElementsByClass("ye-chart-item__title").text();
+                System.out.println(title);
                 Track track = Track.builder()
                         .provider(provider)
                         .build();
                 trackService.saveTrack(track);
             }
-            return "All tracklist has been fetched from DanceChart.de";
+            return "All tracklist has been fetched from Billboard.com";
         } catch (IOException e) {
             log.error(String.format("There are a problem with parsing website: %s", provider.getName()));
             e.printStackTrace();

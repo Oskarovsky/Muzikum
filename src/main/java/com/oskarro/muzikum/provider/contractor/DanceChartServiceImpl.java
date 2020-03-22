@@ -36,7 +36,7 @@ public class DanceChartServiceImpl implements DanceChartService {
                 Track track = Track.builder()
                         .artist(element.getElementsByClass("artist_new").text())
                         .title(element.getElementsByClass("song_new").text().split("\\(")[0])
-                        .genre(Genre.dance.toString())
+                        .genre(genre.toString())
                         .provider(provider)
                         .build();
                 if (title.contains("(")) {
