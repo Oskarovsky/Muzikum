@@ -49,6 +49,6 @@ public class ProviderController {
     @GetMapping(value = "/{provider_id}/{genre}")
     List<Track> getTracksFromProviderByGenre(@PathVariable Integer provider_id,
                                              @PathVariable String genre) {
-        return trackService.findByProviderId(provider_id);
+        return trackService.findByProviderIdAndGenre(provider_id, genre);
     }
 }
