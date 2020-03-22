@@ -3,6 +3,7 @@ package com.oskarro.muzikum;
 import com.oskarro.muzikum.crawler.CrawlerService;
 import com.oskarro.muzikum.provider.Provider;
 import com.oskarro.muzikum.provider.ProviderRepository;
+import com.oskarro.muzikum.provider.contractor.BillboardService;
 import com.oskarro.muzikum.provider.contractor.DanceChartService;
 import com.oskarro.muzikum.provider.contractor.NuteczkiService;
 import com.oskarro.muzikum.provider.contractor.RadiopartyService;
@@ -29,12 +30,15 @@ public class MuzikumApplication {
     public static void main(String[] args) {
         ApplicationContext applicationContext = SpringApplication.run(MuzikumApplication.class, args);
 
+        // BEANS
+        ProviderRepository providerRepository = applicationContext.getBean(ProviderRepository.class);
         DanceChartService danceChartService = applicationContext.getBean(DanceChartService.class);
         NuteczkiService nuteczkiService = applicationContext.getBean(NuteczkiService.class);
         RadiopartyService radiopartyService = applicationContext.getBean(RadiopartyService.class);
         CrawlerService crawlerService = applicationContext.getBean(CrawlerService.class);
-        ProviderRepository providerRepository = applicationContext.getBean(ProviderRepository.class);
+        BillboardService billboardService = applicationContext.getBean(BillboardService.class);
 
+        // DEFAULT PROVIDERS
         providerRepository.saveAll(Arrays.asList(
                 Provider.builder().id(1).description("nice").url("https://nuteczki.eu/top20/#").name("nuteczki").build(),
                 Provider.builder().id(2).description("very nice").url("https://radioparty.pl/partylista.html").name("radioparty").build(),
@@ -47,17 +51,21 @@ public class MuzikumApplication {
         Optional<Provider> dancechartProvider = providerRepository.findById(3);
         Optional<Provider> billboardProvider = providerRepository.findById(4);
 
+        // TRACKS FETCHING FROM EXTERNAL SERVICES
+        radiopartyProvider.map(radiopartyService::getTrackList);
+        billboardProvider.map(billboardService::getTrackList);
 
-//        nuteczkiProvider.map(provider -> nuteczkiService.getTracklistByGenre(provider, Genre.club));
-//        radiopartyProvider.map(radiopartyService::getTrackList);
-//        dancechartProvider.map(provider -> danceChartService.getTracklistByGenre(provider, Genre.club));
-//        dancechartProvider.map(provider -> danceChartService.getTracklistByGenre(provider, Genre.house));
-//        dancechartProvider.map(provider -> danceChartService.getTracklistByGenre(provider, Genre.handsup));
-//        dancechartProvider.map(provider -> danceChartService.getTracklistByGenre(provider, Genre.dance));
-//        dancechartProvider.map(provider -> danceChartService.getTracklistByGenre(provider, Genre.techno));
+        // TODO implementation fetching all genres
+        nuteczkiProvider.map(provider -> nuteczkiService.getTracklistByGenre(provider, Genre.club));
+
+        dancechartProvider.map(provider -> danceChartService.getTracklistByGenre(provider, Genre.club));
+        dancechartProvider.map(provider -> danceChartService.getTracklistByGenre(provider, Genre.house));
+        dancechartProvider.map(provider -> danceChartService.getTracklistByGenre(provider, Genre.handsup));
+        dancechartProvider.map(provider -> danceChartService.getTracklistByGenre(provider, Genre.dance));
+        dancechartProvider.map(provider -> danceChartService.getTracklistByGenre(provider, Genre.techno));
 
 
-        System.out.println(dancechartProvider.map(crawlerService::parseWeb).toString());
+        //System.out.println(billboardProvider.map(crawlerService::parseWeb).toString());
         //System.out.println(provider.map((Provider provider1) -> crawlerService.getWeb(provider1, Genre.club)).toString());
 
     }

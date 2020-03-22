@@ -31,12 +31,9 @@ public class CrawlerService {
         try {
             Elements formsList = Jsoup.connect(provider.getUrl())
                     .get()
-                    .getElementById("chart-details")
                     .getElementsByTag("article");
 
             for (Element element : formsList) {
-                String title = element.getElementsByClass("ye-chart-item__title").text();
-                System.out.println(title);
                 Track track = Track.builder()
                         .provider(provider)
                         .build();
