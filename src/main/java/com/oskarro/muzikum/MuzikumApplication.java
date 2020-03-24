@@ -67,7 +67,7 @@ public class MuzikumApplication {
         dancechartProvider.map(provider -> danceChartService.getTracklistByGenre(provider, Genre.techno));*/
 
 
-        System.out.println(billboardProvider.map(crawlerService::parseWeb).toString());
+        System.out.println(promodjProvider.map(crawlerService::parseWeb).toString());
         //System.out.println(provider.map((Provider provider1) -> crawlerService.getWeb(provider1, Genre.club)).toString());
 
     }
