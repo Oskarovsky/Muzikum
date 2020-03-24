@@ -29,8 +29,6 @@ public class PromodjServiceImpl implements PromodjService {
                     .get()
                     .getElementsByClass("title");
 
-            System.out.println(formsList);
-
             for (Element element : formsList) {
                 String name = element.getElementsByTag("a").text();
                 Track track = Track.builder()
@@ -52,7 +50,7 @@ public class PromodjServiceImpl implements PromodjService {
                 }
                 trackService.saveTrack(track);
             }
-            return "All tracklist has been fetched from Billboard.com";
+            return "All tracklist has been fetched from Promodj.com";
         } catch (IOException e) {
             log.error(String.format("There are a problem with parsing website: %s", provider.getName()));
             e.printStackTrace();

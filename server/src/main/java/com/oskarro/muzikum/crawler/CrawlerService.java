@@ -34,27 +34,11 @@ public class CrawlerService {
                     .get()
                     .getElementsByClass("title");
 
-            System.out.println(formsList);
-
             for (Element element : formsList) {
-                String name = element.getElementsByTag("a").text();
                 Track track = Track.builder()
                         .url(element.getElementsByTag("a").first().attr("href"))
                         .provider(provider)
                         .build();
-
-                if (name.contains("-")) {
-                    track.setArtist(name.split("-")[0]);
-                    track.setTitle(name.split("-")[1]);
-                } else {
-                    track.setTitle(name);
-                }
-
-                if (name.contains("(")) {
-                    track.setVersion(name.substring(name.indexOf("(")+1, name.indexOf(")")));
-                } else {
-                    track.setVersion("Original Mix");
-                }
                 trackService.saveTrack(track);
             }
             return "All tracklist has been fetched from Billboard.com";
