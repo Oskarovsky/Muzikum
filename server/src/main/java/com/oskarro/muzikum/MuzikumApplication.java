@@ -5,21 +5,13 @@ import com.oskarro.muzikum.provider.Provider;
 import com.oskarro.muzikum.provider.ProviderRepository;
 import com.oskarro.muzikum.provider.contractor.*;
 import com.oskarro.muzikum.track.Genre;
-import com.oskarro.muzikum.track.Track;
-import com.oskarro.muzikum.track.TrackRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
 import org.springframework.context.ApplicationContext;
-import org.springframework.context.annotation.Bean;
 
-import java.lang.reflect.Array;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.Optional;
-import java.util.stream.Stream;
 
 @SpringBootApplication(exclude = {SecurityAutoConfiguration.class })
 public class MuzikumApplication {
