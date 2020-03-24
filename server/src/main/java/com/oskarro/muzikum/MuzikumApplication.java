@@ -20,11 +20,11 @@ public class MuzikumApplication {
         ApplicationContext applicationContext = SpringApplication.run(MuzikumApplication.class, args);
 
         // BEANS
+        CrawlerService crawlerService = applicationContext.getBean(CrawlerService.class);
         ProviderRepository providerRepository = applicationContext.getBean(ProviderRepository.class);
         DanceChartService danceChartService = applicationContext.getBean(DanceChartService.class);
         NuteczkiService nuteczkiService = applicationContext.getBean(NuteczkiService.class);
         RadiopartyService radiopartyService = applicationContext.getBean(RadiopartyService.class);
-        CrawlerService crawlerService = applicationContext.getBean(CrawlerService.class);
         BillboardService billboardService = applicationContext.getBean(BillboardService.class);
         PromodjService promodjService = applicationContext.getBean(PromodjService.class);
 
