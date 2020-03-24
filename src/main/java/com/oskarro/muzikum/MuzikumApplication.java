@@ -43,14 +43,16 @@ public class MuzikumApplication {
                 Provider.builder().id(1).description("nice").url("https://nuteczki.eu/top20/#").name("nuteczki").build(),
                 Provider.builder().id(2).description("very nice").url("https://radioparty.pl/partylista.html").name("radioparty").build(),
                 Provider.builder().id(3).description("sehr gut").url("https://www.dance-charts.de/").name("dancecharts").build(),
-                Provider.builder().id(4).description("beautiful").url("https://www.billboard.com/charts/year-end/2019/dance-club-songs").name("billboard").build()
+                Provider.builder().id(4).description("beautiful").url("https://www.billboard.com/charts/year-end/2019/dance-club-songs").name("billboard").build(),
+                Provider.builder().id(5).description("super woop").url("https://promodj.com/top100/").name("promodj").build()
         ));
 
         Optional<Provider> nuteczkiProvider = providerRepository.findById(1);
         Optional<Provider> radiopartyProvider = providerRepository.findById(2);
         Optional<Provider> dancechartProvider = providerRepository.findById(3);
         Optional<Provider> billboardProvider = providerRepository.findById(4);
-
+        Optional<Provider> promodjProvider = providerRepository.findById(5);
+/*
         // TRACKS FETCHING FROM EXTERNAL SERVICES
         radiopartyProvider.map(radiopartyService::getTrackList);
         billboardProvider.map(billboardService::getTrackList);
@@ -62,10 +64,10 @@ public class MuzikumApplication {
         dancechartProvider.map(provider -> danceChartService.getTracklistByGenre(provider, Genre.house));
         dancechartProvider.map(provider -> danceChartService.getTracklistByGenre(provider, Genre.handsup));
         dancechartProvider.map(provider -> danceChartService.getTracklistByGenre(provider, Genre.dance));
-        dancechartProvider.map(provider -> danceChartService.getTracklistByGenre(provider, Genre.techno));
+        dancechartProvider.map(provider -> danceChartService.getTracklistByGenre(provider, Genre.techno));*/
 
 
-        //System.out.println(billboardProvider.map(crawlerService::parseWeb).toString());
+        System.out.println(billboardProvider.map(crawlerService::parseWeb).toString());
         //System.out.println(provider.map((Provider provider1) -> crawlerService.getWeb(provider1, Genre.club)).toString());
 
     }

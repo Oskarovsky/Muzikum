@@ -5,7 +5,7 @@ import com.oskarro.muzikum.track.Genre;
 
 public interface PromodjService {
 
-    String getTrackList(Provider provider);
+    String getTrackList(Provider provider, String urlPart, Genre genre);
 
     String getTracklistByGenre(Provider provider, Genre genre);
 
