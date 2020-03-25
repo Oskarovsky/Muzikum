@@ -9,7 +9,7 @@ import {HttpClient} from "@angular/common/http";
 })
 
 export class AppComponent implements OnInit {
-  title = 'frontend';
+  title = 'Muzikum';
   isAuthenticated: boolean;
 
   constructor(private http: HttpClient) {}

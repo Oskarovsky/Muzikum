@@ -7,9 +7,14 @@ import { TrackListComponent } from './track-list/track-list.component';
 
 
 const routes: Routes = [
+  { path: '', redirectTo: '/', pathMatch: 'full'},
   {
     path: 'tracklist',
     component: TrackListComponent
+  },
+  {
+    path: 'track/:id',
+    component: TrackComponent
   }
 ];
 
