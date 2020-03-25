@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { TrackService} from "../track/track.service";
+import { TrackService} from "../shared/track/track.service";
 
 @Component({
   selector: 'app-track-list',
