@@ -8,15 +8,38 @@ import com.oskarro.muzikum.track.Genre;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
+import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.Bean;
+import org.springframework.core.Ordered;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.web.filter.CorsFilter;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Optional;
 
 @SpringBootApplication(exclude = {SecurityAutoConfiguration.class })
 public class MuzikumApplication {
 
+    @Bean
+    public FilterRegistrationBean<CorsFilter> simpleCorsFilter() {
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        CorsConfiguration config = new CorsConfiguration();
+        config.setAllowCredentials(true);
+        config.setAllowedOrigins(Collections.singletonList("http://localhost:4200"));
+        config.setAllowedMethods(Collections.singletonList("*"));
+        config.setAllowedHeaders(Collections.singletonList("*"));
+        source.registerCorsConfiguration("/**", config);
+        FilterRegistrationBean<CorsFilter> bean = new FilterRegistrationBean<>(new CorsFilter(source));
+        bean.setOrder(Ordered.HIGHEST_PRECEDENCE);
+        return bean;
+    }
+
     public static void main(String[] args) {
+
+
         ApplicationContext applicationContext = SpringApplication.run(MuzikumApplication.class, args);
 
         // BEANS
@@ -48,21 +71,21 @@ public class MuzikumApplication {
         billboardProvider.map(billboardService::getTrackList);
 
         // TODO implementation fetching all genres
-        nuteczkiProvider.map(provider -> nuteczkiService.getTracklistByGenre(provider, Genre.club));
+//        nuteczkiProvider.map(provider -> nuteczkiService.getTracklistByGenre(provider, Genre.club));
 
-        dancechartProvider.map(provider -> danceChartService.getTracklistByGenre(provider, Genre.club));
+//        dancechartProvider.map(provider -> danceChartService.getTracklistByGenre(provider, Genre.club));
 
 /*      dancechartProvider.map(provider -> danceChartService.getTracklistByGenre(provider, Genre.house));
         dancechartProvider.map(provider -> danceChartService.getTracklistByGenre(provider, Genre.handsup));
         dancechartProvider.map(provider -> danceChartService.getTracklistByGenre(provider, Genre.dance));
         dancechartProvider.map(provider -> danceChartService.getTracklistByGenre(provider, Genre.techno));*/
 
-        promodjProvider.map(provider -> promodjService.getTracklistByGenre(provider, Genre.dance));
+/*        promodjProvider.map(provider -> promodjService.getTracklistByGenre(provider, Genre.dance));
         promodjProvider.map(provider -> promodjService.getTracklistByGenre(provider, Genre.club));
         promodjProvider.map(provider -> promodjService.getTracklistByGenre(provider, Genre.house));
         promodjProvider.map(provider -> promodjService.getTracklistByGenre(provider, Genre.electroHouse));
         promodjProvider.map(provider -> promodjService.getTracklistByGenre(provider, Genre.techno));
-        promodjProvider.map(provider -> promodjService.getTracklistByGenre(provider, Genre.set));
+        promodjProvider.map(provider -> promodjService.getTracklistByGenre(provider, Genre.set));*/
 
 
         //System.out.println(promodjProvider.map(crawlerService::parseWeb).toString());

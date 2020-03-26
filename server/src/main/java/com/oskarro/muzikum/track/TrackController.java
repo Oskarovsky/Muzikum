@@ -18,6 +18,7 @@ public class TrackController {
     }
 
     @GetMapping(value = "/findAll")
+    @CrossOrigin(origins = "http://localhost:4200")
     List<Track> findAll() {
         return trackService.findAll();
     }
