@@ -38,12 +38,11 @@ public class CrawlerService {
                     .get()
                     .getElementsByClass("songs-list-item");
 
-            System.out.println(formsList);
-            // https://www.youtube.com/watch?v=Y6V6MO2J3TQ
             for (Element element : formsList) {
                 JSONObject json = new JSONObject(element.attr("data-player-song"));
                 Track track = Track.builder()
                         .title(element.getElementsByTag("h4").text())
+                        .artist(element.getElementsByTag("p").text())
                         .url(urlYoutube + json.get("youtubeId"))
                         .provider(provider)
                         .build();
