@@ -56,6 +56,33 @@ public class MusicListServiceImpl implements MusicListService {
 
     @Override
     public String getTracklistByGenre(Provider provider, Genre genre) {
-        return null;
+        switch (genre) {
+            case club:
+                getTrackList(provider, "tracks/club_house/1y", genre);
+                getTrackList(provider, "remixes/club_house/1y", genre);
+                break;
+            case dance:
+                getTrackList(provider, "tracks/dance_pop/1y", genre);
+                getTrackList(provider, "remixes/dance_pop/1y", genre);
+                break;
+            case electroHouse:
+                getTrackList(provider, "tracks/electrohouse/1y", genre);
+                break;
+            case house:
+                getTrackList(provider, "tracks/tracks/house/1y", genre);
+                getTrackList(provider, "remixes/deep_house/1y", genre);
+                break;
+            case techno:
+                getTrackList(provider, "tracks/techhouse/1y", genre);
+                break;
+            case set:
+                getTrackList(provider, "mixes/club_house/1y", genre);
+                getTrackList(provider, "mixes/techno/1y", genre);
+                break;
+            default:
+                log.info(String.format("Scrapper cannot find any tracks assigned %s genre", genre.toString()));
+                return null;
+        }
+        return "success!";
     }
 }
