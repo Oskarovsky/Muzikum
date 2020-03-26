@@ -90,9 +90,9 @@ public class MuzikumApplication {
         promodjProvider.map(provider -> promodjService.getTracklistByGenre(provider, Genre.techno));
         promodjProvider.map(provider -> promodjService.getTracklistByGenre(provider, Genre.set));*/
 
-        musicListProvider.map(provider -> musicListService.getTracklistByGenre(provider, Genre.dance));
+/*        musicListProvider.map(provider -> musicListService.getTracklistByGenre(provider, Genre.dance));
         musicListProvider.map(provider -> musicListService.getTracklistByGenre(provider, Genre.house));
-        musicListProvider.map(provider -> musicListService.getTracklistByGenre(provider, Genre.techno));
+        musicListProvider.map(provider -> musicListService.getTracklistByGenre(provider, Genre.techno));*/
 
 
         //System.out.println(musicListProvider.map(crawlerService::parseWeb).toString());

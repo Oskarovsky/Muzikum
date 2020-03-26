@@ -60,6 +60,7 @@ public class MusicListServiceImpl implements MusicListService {
             case dance:
                 getTrackList(provider, "top-ventas-mexico/dance", genre);
                 getTrackList(provider, "top-ventas-argentina/dance", genre);
+                getTrackList(provider, "top-ventas-rusia/dance", genre);
                 break;
             case house:
                 getTrackList(provider, "house-2020", genre);

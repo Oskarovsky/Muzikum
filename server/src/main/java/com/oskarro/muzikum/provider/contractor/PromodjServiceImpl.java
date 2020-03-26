@@ -50,7 +50,7 @@ public class PromodjServiceImpl implements PromodjService {
                 }
                 trackService.saveTrack(track);
             }
-            return "All tracklist has been fetched from Promodj.com";
+            return "All tracklist has been fetched from musiclist.com";
         } catch (IOException e) {
             log.error(String.format("There are a problem with parsing website: %s", provider.getName()));
             e.printStackTrace();
