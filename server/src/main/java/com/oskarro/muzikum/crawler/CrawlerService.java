@@ -5,6 +5,9 @@ import com.oskarro.muzikum.track.Genre;
 import com.oskarro.muzikum.track.Track;
 import com.oskarro.muzikum.track.TrackService;
 import lombok.extern.slf4j.Slf4j;
+import net.minidev.json.JSONValue;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -28,15 +31,14 @@ public class CrawlerService {
     }
 
     public String parseWeb(Provider provider) {
-        String urlSite = "tracks/club_house/1y";
+        String urlSite = "techno";
         try {
             Elements formsList = Jsoup.connect(provider.getUrl() + urlSite)
                     .get()
-                    .getElementsByClass("title");
+                    .getElementsByClass("songs-list-item");
 
             for (Element element : formsList) {
                 Track track = Track.builder()
-                        .url(element.getElementsByTag("a").first().attr("href"))
                         .provider(provider)
                         .build();
                 trackService.saveTrack(track);
