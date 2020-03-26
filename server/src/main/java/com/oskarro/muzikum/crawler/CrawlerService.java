@@ -31,19 +31,24 @@ public class CrawlerService {
     }
 
     public String parseWeb(Provider provider) {
-        String urlSite = "techno";
+        String urlSite = "top40dancedjs";
         try {
             Elements formsList = Jsoup.connect(provider.getUrl() + urlSite)
                     .get()
-                    .getElementsByClass("songs-list-item");
+                    .getElementsByClass("chartsmodule");
+
+
+            System.out.println(formsList.text());
 
             for (Element element : formsList) {
                 Track track = Track.builder()
+                        .title(element.getElementsByTag("h2").text())
+                        .artist(element.getElementsByTag("h1").text())
                         .provider(provider)
                         .build();
                 trackService.saveTrack(track);
             }
-            return "All tracklist has been fetched from Billboard.com";
+            return "All tracklist has been fetched from ILoveMusic.de";
         } catch (IOException e) {
             log.error(String.format("There are a problem with parsing website: %s", provider.getName()));
             e.printStackTrace();
