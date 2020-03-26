@@ -23,6 +23,21 @@ configurations.all {
     exclude group: 'org.springframework.boot', module: 'logback-classic'
 }
 
+//create a single Jar with all dependencies
+task fatJar(type: Jar) {
+    manifest {
+        attributes 'Implementation-Title': 'Gradle Jar File Example',
+                'Implementation-Version': version,
+                'Main-Class': 'com.oskarro.muzikum.MuzikumApplication'
+    }
+    baseName = project.name + '-all'
+    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
+    with jar
+}
+
+
+
+
 repositories {
     mavenCentral()
 }
@@ -73,4 +88,9 @@ dependencies {
 
 test {
     useJUnitPlatform()
+}
+
+jar {
+    baseName = 'muzikum'
+    version = version
 }
