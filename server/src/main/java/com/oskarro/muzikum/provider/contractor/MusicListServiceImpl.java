@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 @Service
 public class MusicListServiceImpl implements MusicListService {
 
-
     @Override
     public String getTrackList(Provider provider) {
         return null;

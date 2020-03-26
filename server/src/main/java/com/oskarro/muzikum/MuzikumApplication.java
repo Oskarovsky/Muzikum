@@ -50,6 +50,7 @@ public class MuzikumApplication {
         RadiopartyService radiopartyService = applicationContext.getBean(RadiopartyService.class);
         BillboardService billboardService = applicationContext.getBean(BillboardService.class);
         PromodjService promodjService = applicationContext.getBean(PromodjService.class);
+        MusicListService musicListService = applicationContext.getBean(MusicListService.class);
 
         // DEFAULT PROVIDERS
         providerRepository.saveAll(Arrays.asList(
@@ -57,7 +58,8 @@ public class MuzikumApplication {
                 Provider.builder().id(2).description("very nice").url("https://radioparty.pl/partylista.html").name("radioparty").build(),
                 Provider.builder().id(3).description("sehr gut").url("https://www.dance-charts.de/").name("dancecharts").build(),
                 Provider.builder().id(4).description("beautiful").url("https://www.billboard.com/charts/year-end/2019/dance-club-songs").name("billboard").build(),
-                Provider.builder().id(5).description("super woop").url("https://promodj.com/top100/").name("promodj").build()
+                Provider.builder().id(5).description("super woop").url("https://promodj.com/top100/").name("promodj").build(),
+                Provider.builder().id(6).description("bombastic").url("https://musiclist.com/en/").name("musiclist").build()
         ));
 
         Optional<Provider> nuteczkiProvider = providerRepository.findById(1);
@@ -65,10 +67,11 @@ public class MuzikumApplication {
         Optional<Provider> dancechartProvider = providerRepository.findById(3);
         Optional<Provider> billboardProvider = providerRepository.findById(4);
         Optional<Provider> promodjProvider = providerRepository.findById(5);
+        Optional<Provider> musicListProvider = providerRepository.findById(6);
 
         // TRACKS FETCHING FROM EXTERNAL SERVICES
-        radiopartyProvider.map(radiopartyService::getTrackList);
-        billboardProvider.map(billboardService::getTrackList);
+//        radiopartyProvider.map(radiopartyService::getTrackList);
+//        billboardProvider.map(billboardService::getTrackList);
 
         // TODO implementation fetching all genres
 //        nuteczkiProvider.map(provider -> nuteczkiService.getTracklistByGenre(provider, Genre.club));
@@ -88,8 +91,8 @@ public class MuzikumApplication {
         promodjProvider.map(provider -> promodjService.getTracklistByGenre(provider, Genre.set));*/
 
 
-        //System.out.println(promodjProvider.map(crawlerService::parseWeb).toString());
-        //System.out.println(provider.map((Provider provider1) -> crawlerService.getWeb(provider1, Genre.club)).toString());
+        System.out.println(musicListProvider.map(crawlerService::parseWeb).toString());
+        //System.out.println(musicListProvider.map((Provider provider1) -> crawlerService.getWeb(provider1, Genre.club)).toString());
 
     }
 

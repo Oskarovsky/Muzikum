@@ -5,6 +5,9 @@ import com.oskarro.muzikum.track.Genre;
 import com.oskarro.muzikum.track.Track;
 import com.oskarro.muzikum.track.TrackService;
 import lombok.extern.slf4j.Slf4j;
+import net.minidev.json.JSONValue;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -28,15 +31,20 @@ public class CrawlerService {
     }
 
     public String parseWeb(Provider provider) {
-        String urlSite = "tracks/club_house/1y";
+        String urlSite = "techno";
+        String urlYoutube = "https://www.youtube.com/watch?v=";
         try {
             Elements formsList = Jsoup.connect(provider.getUrl() + urlSite)
                     .get()
-                    .getElementsByClass("title");
+                    .getElementsByClass("songs-list-item");
 
+            System.out.println(formsList);
+            // https://www.youtube.com/watch?v=Y6V6MO2J3TQ
             for (Element element : formsList) {
+                JSONObject json = new JSONObject(element.attr("data-player-song"));
                 Track track = Track.builder()
-                        .url(element.getElementsByTag("a").first().attr("href"))
+                        .title(element.getElementsByTag("h4").text())
+                        .url(urlYoutube + json.get("youtubeId"))
                         .provider(provider)
                         .build();
                 trackService.saveTrack(track);
@@ -44,6 +52,9 @@ public class CrawlerService {
             return "All tracklist has been fetched from Billboard.com";
         } catch (IOException e) {
             log.error(String.format("There are a problem with parsing website: %s", provider.getName()));
+            e.printStackTrace();
+            return null;
+        } catch (JSONException e) {
             e.printStackTrace();
             return null;
         }
