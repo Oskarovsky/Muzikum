@@ -44,6 +44,8 @@ public class CrawlerService {
             for (Element element : formsList) {
                 Track track = Track.builder()
                         .position(Integer.valueOf(element.getElementsByTag("span").first().text()))
+                        .title(element.getElementsByClass("item-title").first().text())
+                        .artist(element.getElementsByClass("artist-name").first().text())
                         .provider(provider)
                         .build();
                 trackService.saveTrack(track);

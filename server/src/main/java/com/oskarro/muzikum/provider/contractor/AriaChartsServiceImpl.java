@@ -2,31 +2,71 @@ package com.oskarro.muzikum.provider.contractor;
 
 import com.oskarro.muzikum.provider.Provider;
 import com.oskarro.muzikum.track.Genre;
+import com.oskarro.muzikum.track.Track;
+import com.oskarro.muzikum.track.TrackService;
 import lombok.extern.slf4j.Slf4j;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 import org.springframework.stereotype.Service;
+
+import java.io.IOException;
 
 @Slf4j
 @Service
 public class AriaChartsServiceImpl implements AriaChartsService {
 
+    TrackService trackService;
+
+    public AriaChartsServiceImpl(TrackService trackService) {
+        this.trackService = trackService;
+    }
+
     @Override
     public String getTrackList(Provider provider, String urlPart, Genre genre) {
-        return null;
+        try {
+            Elements formsList = Jsoup.connect(provider.getUrl() + urlPart)
+                    .get()
+                    .getElementById("tbChartItems")
+                    .getElementsByTag("tbody").first()
+                    .getElementsByTag("tr");
+
+            System.out.println(formsList);
+
+            for (Element element : formsList) {
+                String title = element.getElementsByClass("item-title").first().text();
+                Track track = Track.builder()
+                        .position(Integer.valueOf(element.getElementsByTag("span").first().text()))
+                        .title(element.getElementsByClass("item-title").first().text())
+                        .artist(element.getElementsByClass("artist-name").first().text())
+                        .genre(genre.toString())
+                        .provider(provider)
+                        .build();
+                if (title.contains("(")) {
+                    track.setVersion(title.substring(title.indexOf("(")+1, title.indexOf(")")));
+                } else {
+                    track.setVersion("Original Mix");
+                }
+                trackService.saveTrack(track);
+
+
+            }
+            return "All tracklist has been fetched from www.ariacharts.com.au";
+        } catch (IOException e) {
+            log.error(String.format("There are a problem with parsing website: %s", provider.getName()));
+            e.printStackTrace();
+            return null;
+        }
     }
 
     @Override
     public String getTracklistByGenre(Provider provider, Genre genre) {
         switch (genre) {
             case dance:
-                getTrackList(provider, "top-ventas-mexico/dance", genre);
-                getTrackList(provider, "top-ventas-argentina/dance", genre);
-                getTrackList(provider, "top-ventas-rusia/dance", genre);
+                getTrackList(provider, "charts/dance-singles-chart", genre);
                 break;
-            case house:
-                getTrackList(provider, "house-2020", genre);
-                break;
-            case techno:
-                getTrackList(provider, "techno", genre);
+            case club:
+                getTrackList(provider, "charts/club-tracks-chart", genre);
                 break;
             default:
                 log.info(String.format("Scrapper cannot find any tracks assigned %s genre", genre.toString()));
