@@ -60,7 +60,8 @@ public class MuzikumApplication {
                 Provider.builder().id(4).description("beautiful").url("https://www.billboard.com/charts/year-end/2019/dance-club-songs").name("billboard").build(),
                 Provider.builder().id(5).description("super woop").url("https://promodj.com/top100/").name("promodj").build(),
                 Provider.builder().id(6).description("bombastic").url("https://musiclist.com/en/").name("musiclist").build(),
-                Provider.builder().id(7).description("szauciau").url("https://www.ilovemusic.de/").name("ilovemusic").build()
+                Provider.builder().id(7).description("szauciau").url("https://www.ilovemusic.de/").name("ilovemusic").build(),
+                Provider.builder().id(8).description("nicename").url("https://www.ariacharts.com.au/").name("ariacharts").build()
         ));
 
         Optional<Provider> nuteczkiProvider = providerRepository.findById(1);
@@ -70,6 +71,7 @@ public class MuzikumApplication {
         Optional<Provider> promodjProvider = providerRepository.findById(5);
         Optional<Provider> musicListProvider = providerRepository.findById(6);
         Optional<Provider> iLoveMusic = providerRepository.findById(7);
+        Optional<Provider> ariaCharts = providerRepository.findById(8);
 
         // TRACKS FETCHING FROM EXTERNAL SERVICES
 //        radiopartyProvider.map(radiopartyService::getTrackList);
@@ -97,7 +99,7 @@ public class MuzikumApplication {
         musicListProvider.map(provider -> musicListService.getTracklistByGenre(provider, Genre.techno));*/
 
 
-        System.out.println(iLoveMusic.map(crawlerService::parseWeb).toString());
+        System.out.println(ariaCharts.map(crawlerService::parseWeb).toString());
         //System.out.println(musicListProvider.map((Provider provider1) -> crawlerService.getWeb(provider1, Genre.club)).toString());
 
     }
