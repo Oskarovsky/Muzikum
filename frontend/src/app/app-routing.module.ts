@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { LoginComponent } from './login/login.component';
 import { TrackComponent } from './track/track.component';
+import { ProviderComponent } from './provider/provider.component';
 import { TrackListComponent } from './track-list/track-list.component';
 
 

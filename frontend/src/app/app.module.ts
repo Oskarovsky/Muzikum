@@ -9,13 +9,15 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { TrackComponent } from './track/track.component';
 import { TrackListComponent } from './track-list/track-list.component';
+import { ProviderComponent } from './provider/provider.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     TrackComponent,
-    TrackListComponent
+    TrackListComponent,
+    ProviderComponent
   ],
   imports: [
     AppRoutingModule,
