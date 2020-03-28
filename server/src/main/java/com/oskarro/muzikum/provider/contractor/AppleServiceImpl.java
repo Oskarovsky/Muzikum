@@ -14,20 +14,18 @@ import java.io.IOException;
 
 @Slf4j
 @Service
-public class AriaChartsServiceImpl implements AriaChartsService {
+public class AppleServiceImpl implements AppleService {
 
     TrackService trackService;
 
-    public AriaChartsServiceImpl(TrackService trackService) {
+    public AppleServiceImpl(TrackService trackService) {
         this.trackService = trackService;
     }
 
-    @Override
     public String getTrackList(Provider provider, String urlPart, Genre genre) {
         try {
             Elements formsList = Jsoup.connect(provider.getUrl() + urlPart)
                     .get()
-                    .getElementById("tbChartItems")
                     .getElementsByTag("tbody").first()
                     .getElementsByTag("tr");
 
@@ -35,20 +33,24 @@ public class AriaChartsServiceImpl implements AriaChartsService {
 
             for (Element element : formsList) {
                 String title = element
-                        .getElementsByClass("item-title").first()
+                        .getElementsByClass("table__row__titles").first()
+                        .getElementsByClass("spread")
+                        .first()
                         .text();
                 Track track = Track.builder()
-                        .position(Integer.valueOf(element
-                                .getElementsByTag("span").first()
-                                .text()))
+                        .position(Integer.valueOf(element.getElementsByTag("span").last().text()))
                         .title(element
-                                .getElementsByClass("item-title").first()
+                                .getElementsByClass("table__row__titles").first()
+                                .getElementsByClass("spread")
+                                .first()
                                 .text())
                         .artist(element
-                                .getElementsByClass("artist-name").first()
+                                .getElementsByClass("table__row__titles").first()
+                                .getElementsByTag("div")
+                                .last()
                                 .text())
-                        .genre(genre.toString())
                         .provider(provider)
+                        .genre(genre.toString())
                         .build();
                 if (title.contains("(")) {
                     track.setTitle(title.split("\\(")[0]);
@@ -57,10 +59,8 @@ public class AriaChartsServiceImpl implements AriaChartsService {
                     track.setVersion("Original Mix");
                 }
                 trackService.saveTrack(track);
-
-
             }
-            return "All tracklist has been fetched from www.ariacharts.com.au";
+            return "All tracklist has been fetched from ariacharts.com";
         } catch (IOException e) {
             log.error(String.format("There are a problem with parsing website: %s", provider.getName()));
             e.printStackTrace();
@@ -68,7 +68,6 @@ public class AriaChartsServiceImpl implements AriaChartsService {
         }
     }
 
-    @Override
     public String getTracklistByGenre(Provider provider, Genre genre) {
         switch (genre) {
             case dance:
@@ -76,6 +75,9 @@ public class AriaChartsServiceImpl implements AriaChartsService {
                 break;
             case club:
                 getTrackList(provider, "charts/club-tracks-chart", genre);
+                break;
+            case retro:
+                getTrackList(provider, "gb/album/big-tunes-ministry-of-sound/1248332428?ign-mpt=uo%3D2", genre);
                 break;
             default:
                 log.info(String.format("Scrapper cannot find any tracks assigned %s genre", genre.toString()));

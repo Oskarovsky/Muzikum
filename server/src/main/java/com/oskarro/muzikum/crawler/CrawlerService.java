@@ -31,11 +31,11 @@ public class CrawlerService {
     }
 
     public String parseWeb(Provider provider) {
-        String urlSite = "charts/dance-singles-chart";
+        String urlSite = "gb/album/big-tunes-ministry-of-sound/1248332428?ign-mpt=uo%3D2";
         try {
             Elements formsList = Jsoup.connect(provider.getUrl() + urlSite)
                     .get()
-                    .getElementById("tbChartItems")
+                    //.getElementById("ember763")
                     .getElementsByTag("tbody").first()
                     .getElementsByTag("tr");
 
@@ -43,9 +43,9 @@ public class CrawlerService {
 
             for (Element element : formsList) {
                 Track track = Track.builder()
-                        .position(Integer.valueOf(element.getElementsByTag("span").first().text()))
-                        .title(element.getElementsByClass("item-title").first().text())
-                        .artist(element.getElementsByClass("artist-name").first().text())
+                        .position(Integer.valueOf(element.getElementsByTag("span").last().text()))
+                        .title(element.getElementsByClass("table__row__titles").first().getElementsByClass("spread").first().text())
+                        .artist(element.getElementsByClass("table__row__titles").first().getElementsByTag("div").last().text())
                         .provider(provider)
                         .build();
                 trackService.saveTrack(track);

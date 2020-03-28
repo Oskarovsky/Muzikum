@@ -52,6 +52,7 @@ public class MuzikumApplication {
         PromodjService promodjService = applicationContext.getBean(PromodjService.class);
         MusicListService musicListService = applicationContext.getBean(MusicListService.class);
         AriaChartsService ariaChartsService = applicationContext.getBean(AriaChartsService.class);
+        AppleService appleService = applicationContext.getBean(AppleService.class);
 
         // DEFAULT PROVIDERS
         providerRepository.saveAll(Arrays.asList(
@@ -61,7 +62,8 @@ public class MuzikumApplication {
                 Provider.builder().id(4).description("beautiful").url("https://www.billboard.com/charts/year-end/2019/dance-club-songs").name("billboard").build(),
                 Provider.builder().id(5).description("super woop").url("https://promodj.com/top100/").name("promodj").build(),
                 Provider.builder().id(6).description("bombastic").url("https://musiclist.com/en/").name("musiclist").build(),
-                Provider.builder().id(7).description("nicename").url("https://www.ariacharts.com.au/").name("ariacharts").build()
+                Provider.builder().id(7).description("nicename").url("https://www.ariacharts.com.au/").name("ariacharts").build(),
+                Provider.builder().id(8).description("smallhouse").url("https://music.apple.com/").name("apple").build()
         ));
 
         Optional<Provider> nuteczkiProvider = providerRepository.findById(1);
@@ -71,6 +73,7 @@ public class MuzikumApplication {
         Optional<Provider> promodjProvider = providerRepository.findById(5);
         Optional<Provider> musicListProvider = providerRepository.findById(6);
         Optional<Provider> ariaChartsProvider = providerRepository.findById(7);
+        Optional<Provider> appleProvider = providerRepository.findById(8);
 
         // TRACKS FETCHING FROM EXTERNAL SERVICES
 //        radiopartyProvider.map(radiopartyService::getTrackList);
@@ -102,8 +105,10 @@ public class MuzikumApplication {
         ariaChartsProvider.map(provider -> ariaChartsService.getTracklistByGenre(provider, Genre.club));
 */
 
+        appleProvider.map(provider -> appleService.getTracklistByGenre(provider, Genre.retro));
 
-        //System.out.println(ariaCharts.map(crawlerService::parseWeb).toString());
+
+        //System.out.println(appleProvider.map(crawlerService::parseWeb).toString());
         //System.out.println(ariaChartsProvider.map((Provider provider1) -> crawlerService.getWeb(provider1, Genre.club)).toString());
 
     }
