@@ -7,9 +7,7 @@ import org.springframework.stereotype.Service;
 
 @Slf4j
 @Service
-public class IloveMusicServiceImpl implements IloveMusicService {
-
-    // TODO
+public class AriaChartsServiceImpl implements AriaChartsService {
 
     @Override
     public String getTrackList(Provider provider, String urlPart, Genre genre) {
