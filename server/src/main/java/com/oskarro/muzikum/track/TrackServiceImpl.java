@@ -35,8 +35,13 @@ public class TrackServiceImpl implements TrackService {
     }
 
     @Override
+    public List<Track> findTracksByGenre(String genre) {
+        return trackRepository.findTracksByGenre(genre.toUpperCase());
+    }
+
+    @Override
     public List<Track> findByProviderIdAndGenre(Integer id, String genre) {
-        return trackRepository.findTracksByProviderIdAndGenre(id, genre);
+        return trackRepository.findTracksByProviderIdAndGenre(id, genre.toUpperCase());
     }
 
 }

@@ -63,7 +63,7 @@ public class MuzikumApplication {
                 Provider.builder().id(5).description("super woop").url("https://promodj.com/top100/").name("promodj").build(),
                 Provider.builder().id(6).description("bombastic").url("https://musiclist.com/en/").name("musiclist").build(),
                 Provider.builder().id(7).description("nicename").url("https://www.ariacharts.com.au/").name("ariacharts").build(),
-                Provider.builder().id(8).description("smallhouse").url("https://music.apple.com/").name("apple").build()
+                Provider.builder().id(8).description("tasty service").url("https://music.apple.com/").name("apple").build()
         ));
 
         Optional<Provider> nuteczkiProvider = providerRepository.findById(1);
@@ -76,8 +76,8 @@ public class MuzikumApplication {
         Optional<Provider> appleProvider = providerRepository.findById(8);
 
         // TRACKS FETCHING FROM EXTERNAL SERVICES
-//        radiopartyProvider.map(radiopartyService::getTrackList);
-//        billboardProvider.map(billboardService::getTrackList);
+        radiopartyProvider.map(radiopartyService::getTrackList);
+        billboardProvider.map(billboardService::getTrackList);
 
         // TODO implementation fetching all genres
 //        nuteczkiProvider.map(provider -> nuteczkiService.getTracklistByGenre(provider, Genre.club));

@@ -23,7 +23,7 @@ public class TrackController {
         return trackService.findAll();
     }
 
-    @GetMapping(value = "/{id}")
+    @GetMapping(value = "/id/{id}")
     Optional<Track> findById(@PathVariable Integer id) {
         return trackService.findById(id);
     }
@@ -31,6 +31,11 @@ public class TrackController {
     @PostMapping(value = "/add")
     public void addTrack(@RequestBody Track track) {
         trackService.saveTrack(track);
+    }
+
+    @GetMapping(value = "/genre/{genre}")
+    List<Track> findByGenre(@PathVariable String genre) {
+        return trackService.findTracksByGenre(genre);
     }
 
 }
