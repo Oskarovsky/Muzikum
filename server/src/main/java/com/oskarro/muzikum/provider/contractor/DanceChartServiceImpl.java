@@ -57,23 +57,23 @@ public class DanceChartServiceImpl implements DanceChartService {
     @Override
     public String getTracklistByGenre(Provider provider, Genre genre) {
         switch (genre) {
-            case dance:
+            case DANCE:
                 getTrackList(provider, "djcharts", genre);
                 break;
-            case bigroom:
+            case BIGROOM:
                 getTrackList(provider, "genrecharts/15", genre);
                 break;
-            case electroHouse:
+            case ELECTRO_HOUSE:
                 getTrackList(provider, "genrecharts/10", genre);
                 break;
-            case house:
+            case HOUSE:
                 getTrackList(provider, "genrecharts/7", genre);
                 getTrackList(provider, "genrecharts/29", genre);
                 break;
-            case techno:
+            case TECHNO:
                 getTrackList(provider, "genrecharts/31", genre);
                 break;
-            case handsup:
+            case HANDSUP:
                 getTrackList(provider, "genrecharts/3", genre);
                 break;
             default:

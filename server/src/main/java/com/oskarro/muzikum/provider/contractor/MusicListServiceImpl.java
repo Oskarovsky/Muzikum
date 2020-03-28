@@ -57,15 +57,15 @@ public class MusicListServiceImpl implements MusicListService {
     @Override
     public String getTracklistByGenre(Provider provider, Genre genre) {
         switch (genre) {
-            case dance:
+            case DANCE:
                 getTrackList(provider, "top-ventas-mexico/dance", genre);
                 getTrackList(provider, "top-ventas-argentina/dance", genre);
                 getTrackList(provider, "top-ventas-rusia/dance", genre);
                 break;
-            case house:
+            case HOUSE:
                 getTrackList(provider, "house-2020", genre);
                 break;
-            case techno:
+            case TECHNO:
                 getTrackList(provider, "techno", genre);
                 break;
             default:

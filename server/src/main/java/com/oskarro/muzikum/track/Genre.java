@@ -1,5 +1,5 @@
 package com.oskarro.muzikum.track;
 
 public enum Genre {
-    disco, club, other, set, dance, bigroom, electroHouse, house, techno, handsup, retro
+    DISCO, CLUB, OTHER, SET, DANCE, BIGROOM, ELECTRO_HOUSE, HOUSE, TECHNO, HANDSUP, RETRO, TRANCE
 }

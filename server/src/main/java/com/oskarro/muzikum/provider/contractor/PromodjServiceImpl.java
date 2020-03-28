@@ -61,25 +61,25 @@ public class PromodjServiceImpl implements PromodjService {
     @Override
     public String getTracklistByGenre(Provider provider, Genre genre) {
         switch (genre) {
-            case club:
+            case CLUB:
                 getTrackList(provider, "tracks/club_house/1y", genre);
                 getTrackList(provider, "remixes/club_house/1y", genre);
                 break;
-            case dance:
+            case DANCE:
                 getTrackList(provider, "tracks/dance_pop/1y", genre);
                 getTrackList(provider, "remixes/dance_pop/1y", genre);
                 break;
-            case electroHouse:
+            case ELECTRO_HOUSE:
                 getTrackList(provider, "tracks/electrohouse/1y", genre);
                 break;
-            case house:
+            case HOUSE:
                 getTrackList(provider, "tracks/tracks/house/1y", genre);
                 getTrackList(provider, "remixes/deep_house/1y", genre);
                 break;
-            case techno:
+            case TECHNO:
                 getTrackList(provider, "tracks/techhouse/1y", genre);
                 break;
-            case set:
+            case SET:
                 getTrackList(provider, "mixes/club_house/1y", genre);
                 getTrackList(provider, "mixes/techno/1y", genre);
                 break;

@@ -39,7 +39,7 @@ public class RadiopartyServiceImpl implements RadiopartyService {
                 Track track = Track.builder()
                         .artist(artist.substring(artist.indexOf(" ")))
                         .title(title.split("\\(")[0])
-                        .genre(Genre.club.toString())
+                        .genre(Genre.CLUB.toString())
                         .version(title.substring(title.indexOf("(")+1, title.indexOf(")")))
                         .provider(provider)
                         .build();

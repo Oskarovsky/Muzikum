@@ -71,10 +71,10 @@ public class AriaChartsServiceImpl implements AriaChartsService {
     @Override
     public String getTracklistByGenre(Provider provider, Genre genre) {
         switch (genre) {
-            case dance:
+            case DANCE:
                 getTrackList(provider, "charts/dance-singles-chart", genre);
                 break;
-            case club:
+            case CLUB:
                 getTrackList(provider, "charts/club-tracks-chart", genre);
                 break;
             default:

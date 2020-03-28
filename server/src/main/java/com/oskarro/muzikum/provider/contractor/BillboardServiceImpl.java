@@ -32,7 +32,7 @@ public class BillboardServiceImpl implements BillboardService {
                 Track track = Track.builder()
                         .title(element.getElementsByClass("ye-chart-item__title").text())
                         .artist(element.getElementsByClass("ye-chart-item__artist").text())
-                        .genre(Genre.dance.toString())
+                        .genre(Genre.DANCE.toString())
                         .version("Radio edit")
                         .provider(provider)
                         .build();

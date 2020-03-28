@@ -105,7 +105,9 @@ public class MuzikumApplication {
         ariaChartsProvider.map(provider -> ariaChartsService.getTracklistByGenre(provider, Genre.club));
 */
 
-        appleProvider.map(provider -> appleService.getTracklistByGenre(provider, Genre.retro));
+        appleProvider.map(provider -> appleService.getTracklistByGenre(provider, Genre.RETRO));
+        appleProvider.map(provider -> appleService.getTracklistByGenre(provider, Genre.TRANCE));
+        appleProvider.map(provider -> appleService.getTracklistByGenre(provider, Genre.CLUB));
 
 
         //System.out.println(appleProvider.map(crawlerService::parseWeb).toString());
