@@ -22,10 +22,15 @@ export class TrackListComponent implements OnInit {
   ngOnInit() {
     this.sub = this.route.params.subscribe(params => {
       const id = params.id;
-      if (id) {
+      const genre = params.genre;
+      if (id && !genre) {
         this.trackService.getFromProvider(id).subscribe((track: any) => {
           this.tracks = track;
         });
+      } else if (id && genre) {
+        this.trackService.getFromProviderByGenre(id, genre).subscribe((track: any) => {
+          this.tracks = track;
+        })
       }
     });
   }

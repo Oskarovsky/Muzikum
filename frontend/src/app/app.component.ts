@@ -10,13 +10,10 @@ import {HttpClient} from "@angular/common/http";
 
 export class AppComponent implements OnInit {
   title = 'Muzikum';
-  isAuthenticated: boolean;
 
   constructor(private http: HttpClient) {}
 
-  async ngOnInit() {
-
-  }
+  async ngOnInit() {}
 
 
 }

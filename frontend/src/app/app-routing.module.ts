@@ -31,6 +31,10 @@ const routes: Routes = [
   {
     path: 'provider/:id',
     component: ProviderDetailsComponent
+  },
+  {
+    path: 'provider/:id/tracks/:genre',
+    component: TrackListComponent
   }
 ];
 
