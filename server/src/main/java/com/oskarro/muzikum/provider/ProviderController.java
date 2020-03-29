@@ -32,7 +32,7 @@ public class ProviderController {
         return providerService.findAll();
     }
 
-    @GetMapping(value = "/{provider_id}")
+    @GetMapping(value = "/{provider_id}/tracks")
     List<Track> getTracksFromProvider(@PathVariable Integer provider_id) {
         return trackService.findByProviderId(provider_id);
     }

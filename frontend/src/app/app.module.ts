@@ -10,6 +10,8 @@ import { LoginComponent } from './login/login.component';
 import { TrackComponent } from './track/track.component';
 import { TrackListComponent } from './track-list/track-list.component';
 import { ProviderComponent } from './provider/provider.component';
+import {MatGridListModule} from "@angular/material/grid-list";
+import { ProviderListComponent } from './provider-list/provider-list.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +19,8 @@ import { ProviderComponent } from './provider/provider.component';
     LoginComponent,
     TrackComponent,
     TrackListComponent,
-    ProviderComponent
+    ProviderComponent,
+    ProviderListComponent
   ],
   imports: [
     AppRoutingModule,
@@ -30,7 +33,8 @@ import { ProviderComponent } from './provider/provider.component';
     MatCardModule,
     MatInputModule,
     MatListModule,
-    MatToolbarModule
+    MatToolbarModule,
+    MatGridListModule
   ],
   exports: [
     TrackComponent,

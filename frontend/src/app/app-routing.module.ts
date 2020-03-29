@@ -5,10 +5,15 @@ import { LoginComponent } from './login/login.component';
 import { TrackComponent } from './track/track.component';
 import { ProviderComponent } from './provider/provider.component';
 import { TrackListComponent } from './track-list/track-list.component';
+import { ProviderListComponent } from "./provider-list/provider-list.component";
 
 
 const routes: Routes = [
-  { path: '', redirectTo: '/', pathMatch: 'full'},
+  {
+    path: '',
+    redirectTo: '/',
+    pathMatch: 'full'
+  },
   {
     path: 'tracklist',
     component: TrackListComponent
@@ -16,6 +21,14 @@ const routes: Routes = [
   {
     path: 'track/:id',
     component: TrackComponent
+  },
+  {
+    path: 'provider/:id_provider',
+    component: ProviderComponent
+  },
+  {
+    path: 'provider',
+    component: ProviderListComponent
   }
 ];
 

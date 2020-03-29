@@ -21,5 +21,4 @@ export class TrackService {
 
   getByGenre(genre: string) { }
 
-  getByProvider(provider: string) { }
 }
