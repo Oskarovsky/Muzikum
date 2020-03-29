@@ -22,7 +22,7 @@ export class TrackService {
   }
 
   getFromProviderByGenre(id: string, genre: string) {
-    return this.http.get(this.TRACK_API + '/' + id + '/' + genre);
+    return this.http.get(this.PROVIDER_API + '/' + id + '/' + genre);
   }
 
   getFromProvider(id: string) {

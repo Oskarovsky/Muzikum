@@ -3,6 +3,7 @@ import {RouterModule, Routes} from '@angular/router';
 import {TrackComponent} from './track/track.component';
 import {TrackListComponent} from './track-list/track-list.component';
 import {ProviderListComponent} from "./provider-list/provider-list.component";
+import {ProviderDetailsComponent} from "./provider-details/provider-details.component";
 
 
 const routes: Routes = [
@@ -27,6 +28,10 @@ const routes: Routes = [
     path: 'provider',
     component: ProviderListComponent
   },
+  {
+    path: 'provider/:id',
+    component: ProviderDetailsComponent
+  }
 ];
 
 @NgModule({

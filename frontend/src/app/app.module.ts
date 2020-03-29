@@ -6,7 +6,6 @@ import { MatButtonModule, MatCardModule, MatInputModule, MatListModule, MatToolb
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { LoginComponent } from './login/login.component';
 import { TrackComponent } from './track/track.component';
 import { TrackListComponent } from './track-list/track-list.component';
 import { ProviderComponent } from './provider/provider.component';
@@ -17,7 +16,6 @@ import { ProviderDetailsComponent } from './provider-details/provider-details.co
 @NgModule({
   declarations: [
     AppComponent,
-    LoginComponent,
     TrackComponent,
     TrackListComponent,
     ProviderComponent,

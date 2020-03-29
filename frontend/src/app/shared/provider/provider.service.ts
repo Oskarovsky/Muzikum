@@ -19,7 +19,4 @@ export class ProviderService {
     return this.http.get(this.PROVIDER_API + '/' + id);
   }
 
-  getTracksFromProvider(provider_id: string) {
-    return this.http.get(this.PROVIDER_API + "/" + provider_id + "/tracks")
-  }
 }

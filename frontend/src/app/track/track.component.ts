@@ -29,12 +29,4 @@ export class TrackComponent implements OnInit {
       }
     });
   }
-
-  ngOnDestroy() {
-    this.sub.unsubscribe();
-  }
-
-  gotoList() {
-    this.router.navigate(['/tracklist']);
-  }
 }

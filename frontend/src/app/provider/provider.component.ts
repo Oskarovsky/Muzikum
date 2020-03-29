@@ -20,6 +20,7 @@ export class ProviderComponent implements OnInit {
               private route: ActivatedRoute,
               private router: Router) { }
 
+
   ngOnInit() {
     this.sub = this.route.params.subscribe(params => {
       const id = params.id;
