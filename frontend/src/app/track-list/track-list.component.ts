@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { TrackService} from "../shared/track/track.service";
+import {Subscription} from "rxjs";
+import {ProviderService} from "../shared/provider/provider.service";
+import {ActivatedRoute} from "@angular/router";
 
 @Component({
   selector: 'app-track-list',
@@ -10,12 +13,21 @@ export class TrackListComponent implements OnInit {
 
   tracks: Array<any>;
 
-  constructor(private trackService: TrackService) { }
+  sub: Subscription;
+
+  constructor(private trackService: TrackService,
+              private providerService: ProviderService,
+              private route: ActivatedRoute) { }
 
   ngOnInit() {
-    this.trackService.getAll().subscribe(data => {
-      this.tracks = data;
-    })
+    this.sub = this.route.params.subscribe(params => {
+      const id = params.id;
+      if (id) {
+        this.trackService.getFromProvider(id).subscribe((track: any) => {
+          this.tracks = track;
+        });
+      }
+    });
   }
 
 }

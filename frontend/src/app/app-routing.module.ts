@@ -1,12 +1,8 @@
-import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
-
-import { LoginComponent } from './login/login.component';
-import { TrackComponent } from './track/track.component';
-import { ProviderComponent } from './provider/provider.component';
-import { TrackListComponent } from './track-list/track-list.component';
-import { ProviderListComponent } from "./provider-list/provider-list.component";
-import {ProviderDetailsComponent} from "./provider-details/provider-details.component";
+import {NgModule} from '@angular/core';
+import {RouterModule, Routes} from '@angular/router';
+import {TrackComponent} from './track/track.component';
+import {TrackListComponent} from './track-list/track-list.component';
+import {ProviderListComponent} from "./provider-list/provider-list.component";
 
 
 const routes: Routes = [
@@ -24,13 +20,13 @@ const routes: Routes = [
     component: TrackComponent
   },
   {
-    path: 'provider/:id_provider',
-    component: ProviderDetailsComponent
+    path: 'provider/:id/tracks',
+    component: TrackListComponent
   },
   {
     path: 'provider',
     component: ProviderListComponent
-  }
+  },
 ];
 
 @NgModule({

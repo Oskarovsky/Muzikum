@@ -33,6 +33,7 @@ public class ProviderController {
     }
 
     @GetMapping(value = "/{provider_id}/tracks")
+    @CrossOrigin(origins = "http://localhost:4200")
     List<Track> getTracksFromProvider(@PathVariable Integer provider_id) {
         return trackService.findByProviderId(provider_id);
     }
