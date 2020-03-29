@@ -6,6 +6,7 @@ import { TrackComponent } from './track/track.component';
 import { ProviderComponent } from './provider/provider.component';
 import { TrackListComponent } from './track-list/track-list.component';
 import { ProviderListComponent } from "./provider-list/provider-list.component";
+import {ProviderDetailsComponent} from "./provider-details/provider-details.component";
 
 
 const routes: Routes = [
@@ -24,7 +25,7 @@ const routes: Routes = [
   },
   {
     path: 'provider/:id_provider',
-    component: ProviderComponent
+    component: ProviderDetailsComponent
   },
   {
     path: 'provider',
