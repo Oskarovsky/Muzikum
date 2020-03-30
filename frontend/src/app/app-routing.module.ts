@@ -3,7 +3,6 @@ import {RouterModule, Routes} from '@angular/router';
 import {TrackComponent} from './track/track.component';
 import {TrackListComponent} from './track-list/track-list.component';
 import {ProviderListComponent} from "./provider-list/provider-list.component";
-import {ProviderDetailsComponent} from "./provider-details/provider-details.component";
 import {ProviderComponent} from "./provider/provider.component";
 
 

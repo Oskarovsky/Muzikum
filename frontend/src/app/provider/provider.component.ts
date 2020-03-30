@@ -5,7 +5,6 @@ import {TrackService} from "../shared/track/track.service";
 import {Provider} from "../model/provider";
 import {ProviderListComponent} from "../provider-list/provider-list.component";
 import {Location} from '@angular/common';
-import { RouterModule, Routes } from '@angular/router';
 
 @Component({
   selector: 'app-provider',
@@ -14,12 +13,11 @@ import { RouterModule, Routes } from '@angular/router';
 })
 export class ProviderComponent implements OnInit {
 
-  @Input() provider: Provider;
+  provider: Provider;
 
   constructor(private providerService: ProviderService,
               private trackService: TrackService,
               private route: ActivatedRoute,
-              private providerList: ProviderListComponent,
               private location: Location,
               private router: Router) { }
 
