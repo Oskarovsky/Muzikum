@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { Provider } from 'src/app/model/provider';
 
 @Injectable({providedIn: 'root'})
 export class ProviderService {
@@ -8,15 +9,18 @@ export class ProviderService {
   public API = '//localhost:8080';
   public PROVIDER_API = this.API + '/providers';
 
-  constructor(private http: HttpClient) {
-  }
+  httpOptions = {
+    headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+  };
+
+  constructor(private http: HttpClient) {}
 
   getAll(): Observable<any> {
-    return this.http.get(this.PROVIDER_API + '/findAll');
+    return this.http.get<Provider[]>(this.PROVIDER_API + '/findAll');
   }
 
-  getProvider(id: string) {
-    return this.http.get(this.PROVIDER_API + '/' + id);
+  getProvider(id: string): Observable<any> {
+    return this.http.get<Provider[]>(this.PROVIDER_API + '/' + id);
   }
 
   createProvider(provider: object): Observable<object> {
