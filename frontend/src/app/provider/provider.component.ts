@@ -25,7 +25,7 @@ export class ProviderComponent implements OnInit {
     this.sub = this.route.params.subscribe(params => {
       const id = params.id;
       if (id) {
-        this.providerService.get(id).subscribe((provider: any) => {
+        this.providerService.getProvider(id).subscribe((provider: any) => {
           this.provider = provider;
         });
       }

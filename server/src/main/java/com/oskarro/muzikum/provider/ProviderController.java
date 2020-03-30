@@ -43,4 +43,9 @@ public class ProviderController {
                                              @PathVariable String genre) {
         return trackService.findByProviderIdAndGenre(provider_id, genre.toUpperCase());
     }
+
+    @PostMapping(value = "/add")
+    public void addProvider(@RequestBody Provider provider) {
+        providerService.save(provider);
+    }
 }

@@ -15,8 +15,12 @@ export class ProviderService {
     return this.http.get(this.PROVIDER_API + '/findAll');
   }
 
-  get(id: string) {
+  getProvider(id: string) {
     return this.http.get(this.PROVIDER_API + '/' + id);
+  }
+
+  createProvider(provider: object): Observable<object> {
+    return this.http.post(this.PROVIDER_API + '/add', provider);
   }
 
 }
