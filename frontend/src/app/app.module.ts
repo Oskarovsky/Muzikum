@@ -13,6 +13,7 @@ import {MatGridListModule} from "@angular/material/grid-list";
 import { ProviderListComponent } from './provider-list/provider-list.component';
 import { ProviderDetailsComponent } from './provider-details/provider-details.component';
 import { AddProviderComponent } from './add-provider/add-provider.component';
+import {FormsModule} from "@angular/forms";
 
 @NgModule({
   declarations: [
@@ -24,23 +25,26 @@ import { AddProviderComponent } from './add-provider/add-provider.component';
     ProviderDetailsComponent,
     AddProviderComponent
   ],
-  imports: [
-    AppRoutingModule,
-    NoopAnimationsModule,
-    BrowserModule,
-    AppRoutingModule,
-    BrowserAnimationsModule,
-    HttpClientModule,
-    MatButtonModule,
-    MatCardModule,
-    MatInputModule,
-    MatListModule,
-    MatToolbarModule,
-    MatGridListModule
-  ],
+    imports: [
+        AppRoutingModule,
+        NoopAnimationsModule,
+        BrowserModule,
+        AppRoutingModule,
+        BrowserAnimationsModule,
+        HttpClientModule,
+        MatButtonModule,
+        MatCardModule,
+        MatInputModule,
+        MatListModule,
+        MatToolbarModule,
+        MatGridListModule,
+        FormsModule
+    ],
   exports: [
     TrackComponent,
-    TrackListComponent
+    TrackListComponent,
+    ProviderComponent,
+    ProviderListComponent
   ],
   providers: [],
   bootstrap: [AppComponent]

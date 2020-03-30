@@ -13,7 +13,7 @@ export class ProviderListComponent implements OnInit {
   constructor(private providerService: ProviderService) { }
 
   ngOnInit() {
-    this.providerService.getAll().subscribe(data => {
+    this.providerService.getAllProviders().subscribe(data => {
       this.providers = data;
     })
   }

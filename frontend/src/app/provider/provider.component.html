@@ -1,12 +1,9 @@
-<div *ngIf="provider">
-  <div>
-    <label>Name: </label> {{provider.provider_name}}
+<mat-card>
+  <div *ngIf="provider">
+    <mat-card-title>Muzikum</mat-card-title>
+    <mat-card-content>
+      <h2>{{provider.provider_name | uppercase}} Details</h2>
+      <div><span>ID: </span>{{provider.provider_id}}</div>
+    </mat-card-content>
   </div>
-  <div>
-    <label>URL: </label> {{provider.provider_url}}
-  </div>
-  <div>
-    <label>Description: </label> {{provider.provider_description}}
-  </div>
-  <hr/>
-</div>
+</mat-card>
