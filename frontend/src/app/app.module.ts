@@ -12,6 +12,7 @@ import { ProviderComponent } from './provider/provider.component';
 import {MatGridListModule} from "@angular/material/grid-list";
 import { ProviderListComponent } from './provider-list/provider-list.component';
 import { ProviderDetailsComponent } from './provider-details/provider-details.component';
+import { AddProviderComponent } from './add-provider/add-provider.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { ProviderDetailsComponent } from './provider-details/provider-details.co
     TrackListComponent,
     ProviderComponent,
     ProviderListComponent,
-    ProviderDetailsComponent
+    ProviderDetailsComponent,
+    AddProviderComponent
   ],
   imports: [
     AppRoutingModule,
