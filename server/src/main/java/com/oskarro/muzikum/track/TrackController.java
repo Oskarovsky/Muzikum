@@ -1,14 +1,17 @@
 package com.oskarro.muzikum.track;
 
 import lombok.AllArgsConstructor;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.xml.bind.ValidationException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
 @RestController
 @RequestMapping(value = "/tracks")
+@CrossOrigin
 public class TrackController {
 
     private final TrackService trackService;
@@ -18,7 +21,6 @@ public class TrackController {
     }
 
     @GetMapping(value = "/findAll")
-    @CrossOrigin(origins = "http://localhost:4200")
     List<Track> findAll() {
         return trackService.findAll();
     }
@@ -29,13 +31,20 @@ public class TrackController {
     }
 
     @PostMapping(value = "/add")
-    public void addTrack(@RequestBody Track track) {
+    void addTrack(@RequestBody Track track) {
         trackService.saveTrack(track);
     }
 
     @GetMapping(value = "/genre/{genre}")
     List<Track> findByGenre(@PathVariable String genre) {
         return trackService.findTracksByGenre(genre);
+    }
+
+    @PostMapping(value = "/addToRanking")
+    void addTrackToRanking (@RequestBody Track track, BindingResult bindingResult) throws ValidationException {
+        if (bindingResult.hasErrors()) {
+            throw new ValidationException("Track has errors - it cannot by send");
+        }
     }
 
 }

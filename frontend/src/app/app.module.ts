@@ -13,7 +13,7 @@ import {MatGridListModule} from "@angular/material/grid-list";
 import { ProviderListComponent } from './provider-list/provider-list.component';
 import { ProviderDetailsComponent } from './provider-details/provider-details.component';
 import { AddProviderComponent } from './add-provider/add-provider.component';
-import {FormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import { NavigationComponent } from './navigation/navigation.component';
 import {MatMenuModule} from "@angular/material/menu";
 import {MatIconModule} from "@angular/material/icon";
@@ -56,6 +56,7 @@ import { ToplistEditComponent } from './toplist-edit/toplist-edit.component';
     MatIconModule,
     AngularFontAwesomeModule,
     MatSelectModule,
+    ReactiveFormsModule,
   ],
   exports: [
     TrackComponent,
