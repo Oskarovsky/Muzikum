@@ -14,6 +14,9 @@ import { ProviderListComponent } from './provider-list/provider-list.component';
 import { ProviderDetailsComponent } from './provider-details/provider-details.component';
 import { AddProviderComponent } from './add-provider/add-provider.component';
 import {FormsModule} from "@angular/forms";
+import { NavigationComponent } from './navigation/navigation.component';
+import {MatMenuModule} from "@angular/material/menu";
+import {MatIconModule} from "@angular/material/icon";
 
 @NgModule({
   declarations: [
@@ -23,23 +26,26 @@ import {FormsModule} from "@angular/forms";
     ProviderComponent,
     ProviderListComponent,
     ProviderDetailsComponent,
-    AddProviderComponent
+    AddProviderComponent,
+    NavigationComponent
   ],
-    imports: [
-        AppRoutingModule,
-        NoopAnimationsModule,
-        BrowserModule,
-        AppRoutingModule,
-        BrowserAnimationsModule,
-        HttpClientModule,
-        MatButtonModule,
-        MatCardModule,
-        MatInputModule,
-        MatListModule,
-        MatToolbarModule,
-        MatGridListModule,
-        FormsModule
-    ],
+  imports: [
+    AppRoutingModule,
+    NoopAnimationsModule,
+    BrowserModule,
+    AppRoutingModule,
+    BrowserAnimationsModule,
+    HttpClientModule,
+    MatButtonModule,
+    MatCardModule,
+    MatInputModule,
+    MatListModule,
+    MatToolbarModule,
+    MatGridListModule,
+    FormsModule,
+    MatMenuModule,
+    MatIconModule
+  ],
   exports: [
     TrackComponent,
     TrackListComponent,

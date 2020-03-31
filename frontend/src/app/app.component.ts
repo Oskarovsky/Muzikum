@@ -9,7 +9,6 @@ import {HttpClient} from "@angular/common/http";
 })
 
 export class AppComponent implements OnInit {
-  title = 'Muzikum';
 
   constructor(private http: HttpClient) {}
 
