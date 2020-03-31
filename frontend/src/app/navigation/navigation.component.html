@@ -1,28 +1,36 @@
 <mat-toolbar color="primary">
   <span>{{title}}</span>
+  <span class="example-spacer"></span>
+  <mat-icon class="example-icon" aria-hidden="false" aria-label="Example user verified icon">headset</mat-icon>
 </mat-toolbar>
 
-<button mat-button [matMenuTriggerFor]="aboveMenu">Above</button>
-<mat-menu #aboveMenu="matMenu" yPosition="above">
-  <button mat-menu-item>Item 1</button>
-  <button mat-menu-item>Item 2</button>
+<button mat-button>Strona główna</button>
+
+<button mat-button [matMenuTriggerFor]="genreMenu">Gatunki</button>
+<mat-menu #genreMenu="matMenu" yPosition="below">
+  <button mat-menu-item>Club</button>
+  <button mat-menu-item>Dance</button>
+  <button mat-menu-item>House</button>
+  <button mat-menu-item>Retro</button>
 </mat-menu>
 
-<button mat-button [matMenuTriggerFor]="belowMenu">Below</button>
-<mat-menu #belowMenu="matMenu" yPosition="below">
-  <button mat-menu-item>Item 1</button>
-  <button mat-menu-item>Item 2</button>
+<button mat-button [matMenuTriggerFor]="providerMenu">Serwisy</button>
+<mat-menu #providerMenu="matMenu" xPosition="after">
+  <button mat-menu-item>Nuteczki.eu</button>
+  <button mat-menu-item>Radioparty</button>
+  <button mat-menu-item>Mixclub</button>
 </mat-menu>
 
-<button mat-button [matMenuTriggerFor]="beforeMenu">Before</button>
-<mat-menu #beforeMenu="matMenu" xPosition="before">
-  <button mat-menu-item>Item 1</button>
-  <button mat-menu-item>Item 2</button>
+<button mat-button [matMenuTriggerFor]="topMenu">Top ranking</button>
+<mat-menu #topMenu="matMenu" xPosition="after">
+  <button mat-menu-item>Club</button>
+  <button mat-menu-item>Retro</button>
 </mat-menu>
 
-
-<button mat-button [matMenuTriggerFor]="afterMenu">After</button>
-<mat-menu #afterMenu="matMenu" xPosition="after">
-  <button mat-menu-item>Item 1</button>
-  <button mat-menu-item>Item 2</button>
+<button mat-button [matMenuTriggerFor]="videoMenu">Video</button>
+<mat-menu #videoMenu="matMenu" xPosition="after">
+  <button mat-menu-item>Luna Mix</button>
+  <button mat-menu-item>Psychopath</button>
+  <button mat-menu-item>Vixa</button>
 </mat-menu>
+

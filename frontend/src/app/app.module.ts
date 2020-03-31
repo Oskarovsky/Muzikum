@@ -17,6 +17,8 @@ import {FormsModule} from "@angular/forms";
 import { NavigationComponent } from './navigation/navigation.component';
 import {MatMenuModule} from "@angular/material/menu";
 import {MatIconModule} from "@angular/material/icon";
+import { AngularFontAwesomeModule } from 'angular-font-awesome';
+
 
 @NgModule({
   declarations: [
@@ -44,7 +46,8 @@ import {MatIconModule} from "@angular/material/icon";
     MatGridListModule,
     FormsModule,
     MatMenuModule,
-    MatIconModule
+    MatIconModule,
+    AngularFontAwesomeModule
   ],
   exports: [
     TrackComponent,
