@@ -18,6 +18,7 @@ import { NavigationComponent } from './navigation/navigation.component';
 import {MatMenuModule} from "@angular/material/menu";
 import {MatIconModule} from "@angular/material/icon";
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
+import { NotFoundComponent } from './not-found/not-found.component';
 
 
 @NgModule({
@@ -29,7 +30,8 @@ import { AngularFontAwesomeModule } from 'angular-font-awesome';
     ProviderListComponent,
     ProviderDetailsComponent,
     AddProviderComponent,
-    NavigationComponent
+    NavigationComponent,
+    NotFoundComponent
   ],
   imports: [
     AppRoutingModule,

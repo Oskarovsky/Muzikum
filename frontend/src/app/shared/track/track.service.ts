@@ -29,4 +29,8 @@ export class TrackService {
     return this.http.get(this.PROVIDER_API + '/' + id + '/tracks');
   }
 
+  getByGenre(genre: string) {
+    return this.http.get(this.TRACK_API + '/genre/' + genre)
+  }
+
 }

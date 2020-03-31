@@ -31,6 +31,10 @@ export class TrackListComponent implements OnInit {
         this.trackService.getFromProviderByGenre(id, genre).subscribe((track: any) => {
           this.tracks = track;
         })
+      } else if (!id && genre) {
+        this.trackService.getByGenre(genre).subscribe((track: any) => {
+          this.tracks = track;
+        })
       }
     });
   }
