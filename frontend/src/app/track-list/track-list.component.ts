@@ -17,12 +17,14 @@ export class TrackListComponent implements OnInit {
 
   constructor(private trackService: TrackService,
               private providerService: ProviderService,
-              private route: ActivatedRoute) { }
+              private route: ActivatedRoute) {
+  }
 
   ngOnInit() {
     this.sub = this.route.params.subscribe(params => {
       const id = params.id;
       const genre = params.genre;
+      const providerName = params.providerName;
       if (id && !genre) {
         this.trackService.getFromProvider(id).subscribe((track: any) => {
           this.tracks = track;
@@ -35,8 +37,11 @@ export class TrackListComponent implements OnInit {
         this.trackService.getByGenre(genre).subscribe((track: any) => {
           this.tracks = track;
         })
+      } else if (providerName && !id && !genre) {
+        this.trackService.getByProviderName(providerName).subscribe((track: any) => {
+          this.tracks = track;
+        })
       }
-    });
+    })
   }
-
 }

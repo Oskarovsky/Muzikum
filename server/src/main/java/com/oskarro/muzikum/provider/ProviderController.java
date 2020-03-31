@@ -38,6 +38,12 @@ public class ProviderController {
         return trackService.findByProviderId(provider_id);
     }
 
+    @GetMapping(value = "/{providerName}/all-tracks")
+    @CrossOrigin(origins = "http://localhost:4200")
+    List<Track> getTracksFromProvider(@PathVariable String providerName) {
+        return trackService.findTracksByProviderName(providerName);
+    }
+
     @GetMapping(value = "/{provider_id}/{genre}")
     List<Track> getTracksFromProviderByGenre(@PathVariable Integer provider_id,
                                              @PathVariable String genre) {

@@ -33,4 +33,8 @@ export class TrackService {
     return this.http.get(this.TRACK_API + '/genre/' + genre)
   }
 
+  getByProviderName(providerName: string) {
+    return this.http.get(this.PROVIDER_API + '/' + providerName + '/all-tracks')
+  }
+
 }

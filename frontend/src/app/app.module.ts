@@ -19,6 +19,9 @@ import {MatMenuModule} from "@angular/material/menu";
 import {MatIconModule} from "@angular/material/icon";
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
 import { NotFoundComponent } from './not-found/not-found.component';
+import { ToplistComponent } from './toplist/toplist.component';
+import {MatSelectModule} from "@angular/material/select";
+import { ToplistEditComponent } from './toplist-edit/toplist-edit.component';
 
 
 @NgModule({
@@ -31,7 +34,9 @@ import { NotFoundComponent } from './not-found/not-found.component';
     ProviderDetailsComponent,
     AddProviderComponent,
     NavigationComponent,
-    NotFoundComponent
+    NotFoundComponent,
+    ToplistComponent,
+    ToplistEditComponent
   ],
   imports: [
     AppRoutingModule,
@@ -49,7 +54,8 @@ import { NotFoundComponent } from './not-found/not-found.component';
     FormsModule,
     MatMenuModule,
     MatIconModule,
-    AngularFontAwesomeModule
+    AngularFontAwesomeModule,
+    MatSelectModule,
   ],
   exports: [
     TrackComponent,

@@ -22,5 +22,7 @@ public interface TrackRepository extends CrudRepository<Track, Integer> {
 
     List<Track> findTracksByGenre(String genre);
 
+    List<Track> findTracksByProviderName(String name);
+
     List<Track> findTracksByProviderIdAndGenre(Integer id, String genre);
 }

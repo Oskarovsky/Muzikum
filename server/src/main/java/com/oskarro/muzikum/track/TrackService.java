@@ -16,4 +16,6 @@ public interface TrackService {
     List<Track> findTracksByGenre(String genre);
 
     List<Track> findByProviderIdAndGenre(Integer id, String genre);
+
+    List<Track> findTracksByProviderName(String name);
 }

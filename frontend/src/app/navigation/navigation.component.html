@@ -8,17 +8,17 @@
 
 <button mat-button [matMenuTriggerFor]="genreMenu">Gatunki</button>
 <mat-menu #genreMenu="matMenu" yPosition="below">
-  <button mat-menu-item routerLink="/">Club</button>
-  <button mat-menu-item>Dance</button>
-  <button mat-menu-item>House</button>
-  <button mat-menu-item>Retro</button>
+  <button mat-menu-item routerLink="/tracklist/club">Club</button>
+  <button mat-menu-item routerLink="/tracklist/dance">Dance</button>
+  <button mat-menu-item routerLink="/tracklist/house">House</button>
+  <button mat-menu-item routerLink="/tracklist/retro">Retro</button>
 </mat-menu>
 
 <button mat-button [matMenuTriggerFor]="providerMenu">Serwisy</button>
 <mat-menu #providerMenu="matMenu" xPosition="after">
-  <button mat-menu-item>Nuteczki.eu</button>
-  <button mat-menu-item>Radioparty</button>
-  <button mat-menu-item>Mixclub</button>
+  <button mat-menu-item routerLink="/provider/billboard/all-tracks">Billboard</button>
+  <button mat-menu-item routerLink="/provider/radioparty/all-tracks">Radioparty</button>
+  <button mat-menu-item routerLink="/provider/apple/all-tracks">Apple</button>
 </mat-menu>
 
 <button mat-button [matMenuTriggerFor]="topMenu">Top ranking</button>
