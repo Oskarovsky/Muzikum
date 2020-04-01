@@ -25,7 +25,6 @@ public class Playlist {
     @NotNull
     private String name;
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "track_id")
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "playlist")
     private List<Track> tracks = new ArrayList<>();
 }
