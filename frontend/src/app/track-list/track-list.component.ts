@@ -13,6 +13,8 @@ export class TrackListComponent implements OnInit {
 
   tracks: Array<any>;
 
+  genres: Array<any>;
+
   sub: Subscription;
 
   constructor(private trackService: TrackService,

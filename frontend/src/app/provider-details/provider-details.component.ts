@@ -15,6 +15,8 @@ export class ProviderDetailsComponent implements OnInit {
 
   @Input() provider: Provider;
 
+  genres: Array<any>;
+
   constructor(private providerService: ProviderService,
               private trackService: TrackService,
               private route: ActivatedRoute,

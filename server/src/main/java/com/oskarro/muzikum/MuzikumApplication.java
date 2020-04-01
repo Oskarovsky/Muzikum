@@ -19,10 +19,9 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.Optional;
+import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @SpringBootApplication(exclude = {SecurityAutoConfiguration.class })
 public class MuzikumApplication {
@@ -60,16 +59,23 @@ public class MuzikumApplication {
         PlaylistService playlistService = applicationContext.getBean(PlaylistService.class);
         PlaylistRepository playlistRepository = applicationContext.getBean(PlaylistRepository.class);
 
+
+        // GENRE COLLECTIONS FOR PROVIDERS
+        List<Genre> nuteczkiGenres = Stream.of(Genre.CLUB, Genre.DANCE).collect(Collectors.toList());
+        List<Genre> radiopartyGenres = Stream.of(Genre.CLUB).collect(Collectors.toList());
+        List<Genre> billboardGenres = Stream.of(Genre.DANCE).collect(Collectors.toList());
+        List<Genre> appleGenres = Stream.of(Genre.CLUB, Genre.RETRO).collect(Collectors.toList());
+
         // DEFAULT PROVIDERS
         providerRepository.saveAll(Arrays.asList(
-                Provider.builder().id(1).description("nice").url("https://nuteczki.eu/top20/#").name("nuteczki").build(),
-                Provider.builder().id(2).description("very nice").url("https://radioparty.pl/partylista.html").name("radioparty").build(),
+                Provider.builder().id(1).description("nice").url("https://nuteczki.eu/top20/#").name("nuteczki").genres(nuteczkiGenres).build(),
+                Provider.builder().id(2).description("very nice").url("https://radioparty.pl/partylista.html").genres(radiopartyGenres).name("radioparty").build(),
                 Provider.builder().id(3).description("sehr gut").url("https://www.dance-charts.de/").name("dancecharts").build(),
-                Provider.builder().id(4).description("beautiful").url("https://www.billboard.com/charts/year-end/2019/dance-club-songs").name("billboard").build(),
+                Provider.builder().id(4).description("beautiful").url("https://www.billboard.com/charts/year-end/2019/dance-club-songs").genres(billboardGenres).name("billboard").build(),
                 Provider.builder().id(5).description("super woop").url("https://promodj.com/top100/").name("promodj").build(),
                 Provider.builder().id(6).description("bombastic").url("https://musiclist.com/en/").name("musiclist").build(),
                 Provider.builder().id(7).description("nicename").url("https://www.ariacharts.com.au/").name("ariacharts").build(),
-                Provider.builder().id(8).description("tasty service").url("https://music.apple.com/").name("apple").build()
+                Provider.builder().id(8).description("tasty service").url("https://music.apple.com/").genres(appleGenres).name("apple").build()
         ));
 
         Optional<Provider> nuteczkiProvider = providerRepository.findById(1);
