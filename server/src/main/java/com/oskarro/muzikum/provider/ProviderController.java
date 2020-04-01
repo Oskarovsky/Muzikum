@@ -1,11 +1,13 @@
 package com.oskarro.muzikum.provider;
 
 import com.oskarro.muzikum.provider.contractor.NuteczkiService;
+import com.oskarro.muzikum.track.Genre;
 import com.oskarro.muzikum.track.Track;
 import com.oskarro.muzikum.track.TrackService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
@@ -25,6 +27,11 @@ public class ProviderController {
         this.nuteczkiService = nuteczkiService;
         this.providerRepository = providerRepository;
         this.trackService = trackService;
+    }
+
+    @GetMapping(value = "/{provider_id}")
+    Optional<Provider> getProviderById(@PathVariable Integer provider_id) {
+        return providerService.findById(provider_id);
     }
 
     @GetMapping(value = "/findAll")
@@ -53,5 +60,10 @@ public class ProviderController {
     @PostMapping(value = "/add")
     public void addProvider(@RequestBody Provider provider) {
         providerService.save(provider);
+    }
+
+    @GetMapping(value = "/{provider_id}/genres")
+    Collection<Genre> getAllGenresFromProvider(@PathVariable Integer provider_id) {
+        return providerService.getAllGenresFromProvider(provider_id);
     }
 }

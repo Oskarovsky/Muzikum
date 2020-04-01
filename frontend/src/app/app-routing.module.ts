@@ -7,6 +7,7 @@ import {ProviderComponent} from "./provider/provider.component";
 import {NotFoundComponent} from "./not-found/not-found.component";
 import {ToplistComponent} from "./toplist/toplist.component";
 import {ToplistEditComponent} from "./toplist-edit/toplist-edit.component";
+import {ProviderDetailsComponent} from "./provider-details/provider-details.component";
 
 
 const routes: Routes = [
@@ -33,7 +34,7 @@ const routes: Routes = [
   },
   {
     path: 'provider/:id/details',
-    component: ProviderComponent
+    component: ProviderDetailsComponent
   },
   {
     path: 'provider/:providerName/all-tracks',

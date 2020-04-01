@@ -1,10 +1,9 @@
-import {Component, Input, OnInit} from '@angular/core';
-import { ActivatedRoute, Router } from "@angular/router";
+import {Component, OnInit} from '@angular/core';
+import {ActivatedRoute, Router} from "@angular/router";
 import {ProviderService} from "../shared/provider/provider.service";
-import {Provider} from "../model/provider";
 import {TrackService} from "../shared/track/track.service";
-import {ProviderListComponent} from "../provider-list/provider-list.component";
 import {Location} from "@angular/common";
+import {Subscription} from "rxjs";
 
 @Component({
   selector: 'app-provider-details',
@@ -13,9 +12,11 @@ import {Location} from "@angular/common";
 })
 export class ProviderDetailsComponent implements OnInit {
 
-  @Input() provider: Provider;
+  provider: any;
 
   genres: Array<any>;
+
+  sub: Subscription;
 
   constructor(private providerService: ProviderService,
               private trackService: TrackService,
@@ -23,8 +24,20 @@ export class ProviderDetailsComponent implements OnInit {
               private location: Location,
               private router: Router) { }
 
-  ngOnInit() {
 
+  ngOnInit() {
+    this.sub = this.route.params.subscribe(params => {
+      const id = params.id;
+      if (id) {
+        this.providerService.getProvider(id).subscribe((data: any) => {
+          this.provider = data;
+        });
+        this.providerService.getAllGenresFromProvider(id).subscribe((genre: any) => {
+          this.genres = genre;
+        });
+      }
+    })
   }
+
 
 }

@@ -22,15 +22,12 @@ export class ProviderService {
   }
 
   /** GET provider by id **/
-  getProvider(id: string): Observable<Provider> {
-    return this.http.get<Provider[]>(this.PROVIDER_API + '/' + id)
-      .pipe(
-        map(providers => providers[0]),
-        tap(h => {
-          const outcome = h ? 'fetched' : 'did not find';
-          this.log(outcome);
-        })
-      )
+  getProvider(id: string): Observable<any> {
+    return this.http.get<any>(this.PROVIDER_API + '/' + id)
+  }
+
+  getAllGenresFromProvider(id: string): Observable<any> {
+    return this.http.get<any[]>(this.PROVIDER_API + '/' + id + '/genres')
   }
 
   createProvider(provider: object): Observable<object> {

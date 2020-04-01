@@ -1,0 +1,10 @@
+
+<mat-card>
+  <div *ngIf="genres">
+    <mat-card-title>Muzikum</mat-card-title>
+    <mat-card-content>
+      <h2>{{genres.toString() | uppercase}} Details</h2>
+      <div><span>ID: </span>{{genres.toString()}}</div>
+    </mat-card-content>
+  </div>
+</mat-card>
