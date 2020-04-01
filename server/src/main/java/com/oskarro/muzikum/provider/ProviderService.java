@@ -1,5 +1,8 @@
 package com.oskarro.muzikum.provider;
 
+import com.oskarro.muzikum.track.Genre;
+
+import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
@@ -14,4 +17,6 @@ public interface ProviderService {
     Optional<Provider> findByName(String name);
 
     String getCrawler(Integer id);
+
+    Collection<Genre> getAllGenresFromProvider(Integer id);
 }

@@ -5,6 +5,7 @@ import {TrackService} from "../shared/track/track.service";
 import {Provider} from "../model/provider";
 import {ProviderListComponent} from "../provider-list/provider-list.component";
 import {Location} from '@angular/common';
+import {Observable} from "rxjs";
 
 @Component({
   selector: 'app-provider',
@@ -14,6 +15,8 @@ import {Location} from '@angular/common';
 export class ProviderComponent implements OnInit {
 
   provider: Provider;
+
+  genres: Array<any>;
 
   constructor(private providerService: ProviderService,
               private trackService: TrackService,
