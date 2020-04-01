@@ -18,6 +18,8 @@ export class ProviderDetailsComponent implements OnInit {
 
   sub: Subscription;
 
+  tracks: Array<any>;
+
   constructor(private providerService: ProviderService,
               private trackService: TrackService,
               private route: ActivatedRoute,
@@ -35,7 +37,16 @@ export class ProviderDetailsComponent implements OnInit {
         this.providerService.getAllGenresFromProvider(id).subscribe((genre: any) => {
           this.genres = genre;
         });
+        this.trackService.getTracksByProviderId(id).subscribe((track: any) => {
+          this.tracks = track;
+        })
       }
+    })
+  }
+
+  getAllTracksFromProviderByGenre(id: string, genre: string) {
+    this.trackService.getTracksFromProviderByGenre(id, genre).subscribe((data: any) => {
+      this.tracks = data;
     })
   }
 
