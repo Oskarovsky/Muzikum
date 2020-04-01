@@ -1,13 +1,13 @@
 package com.oskarro.muzikum.provider;
 
+import com.oskarro.muzikum.track.Genre;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.Collection;
 
 @Data
 @Builder
@@ -25,4 +25,10 @@ public class Provider {
     private String url;
 
     private String description;
+
+    @ElementCollection(targetClass= Genre.class)
+    @Enumerated(EnumType.STRING)
+    @CollectionTable(name="provider_genre")
+    @Column(name="genre")
+    private Collection<Genre> genres;
 }

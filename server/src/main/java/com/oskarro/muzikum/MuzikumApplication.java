@@ -1,6 +1,9 @@
 package com.oskarro.muzikum;
 
 import com.oskarro.muzikum.crawler.CrawlerService;
+import com.oskarro.muzikum.playlist.Playlist;
+import com.oskarro.muzikum.playlist.PlaylistRepository;
+import com.oskarro.muzikum.playlist.PlaylistService;
 import com.oskarro.muzikum.provider.Provider;
 import com.oskarro.muzikum.provider.ProviderRepository;
 import com.oskarro.muzikum.provider.contractor.*;
@@ -16,6 +19,7 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Optional;
@@ -53,6 +57,8 @@ public class MuzikumApplication {
         MusicListService musicListService = applicationContext.getBean(MusicListService.class);
         AriaChartsService ariaChartsService = applicationContext.getBean(AriaChartsService.class);
         AppleService appleService = applicationContext.getBean(AppleService.class);
+        PlaylistService playlistService = applicationContext.getBean(PlaylistService.class);
+        PlaylistRepository playlistRepository = applicationContext.getBean(PlaylistRepository.class);
 
         // DEFAULT PROVIDERS
         providerRepository.saveAll(Arrays.asList(
@@ -74,6 +80,10 @@ public class MuzikumApplication {
         Optional<Provider> musicListProvider = providerRepository.findById(6);
         Optional<Provider> ariaChartsProvider = providerRepository.findById(7);
         Optional<Provider> appleProvider = providerRepository.findById(8);
+
+        // PLAYLIST CREATING
+        Playlist playlist = Playlist.builder().id(1).name("MyTop").tracks(new ArrayList<>()).build();
+        playlistRepository.save(playlist);
 
         // TRACKS FETCHING FROM EXTERNAL SERVICES
         radiopartyProvider.map(radiopartyService::getTrackList);
