@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { Track } from 'src/app/track/model/track';
 
 @Injectable({providedIn: 'root'})
 export class TrackService {
@@ -13,28 +14,32 @@ export class TrackService {
   constructor(private http: HttpClient) {
   }
 
-  getAll(): Observable<any> {
-    return this.http.get(this.TRACK_API + '/findAll');
+  getAllTracks(): Observable<Track[]> {
+    return this.http.get<Track[]>(this.TRACK_API + '/findAll');
   }
 
-  get(id: string) {
+  getTrackById(id: string) {
     return this.http.get(this.TRACK_API + '/' + id);
   }
 
-  getFromProviderByGenre(id: string, genre: string) {
+  getTracksFromProviderByGenre(id: string, genre: string) {
     return this.http.get(this.PROVIDER_API + '/' + id + '/' + genre);
   }
 
-  getFromProvider(id: string) {
+  getTracksByProviderId(id: string) {
     return this.http.get(this.PROVIDER_API + '/' + id + '/tracks');
   }
 
-  getByGenre(genre: string) {
+  getTracksByGenre(genre: string) {
     return this.http.get(this.TRACK_API + '/genre/' + genre)
   }
 
-  getByProviderName(providerName: string) {
+  getTracksByProviderName(providerName: string) {
     return this.http.get(this.PROVIDER_API + '/' + providerName + '/all-tracks')
+  }
+
+  addTrackToRanking(track: Track): Observable<any> {
+    return this.http.post<Track>(this.TRACK_API + "/addToRanking", track)
   }
 
 }

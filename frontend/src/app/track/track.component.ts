@@ -3,6 +3,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 
 import {TrackService} from "../shared/track/track.service";
+import {HttpClient} from "@angular/common/http";
+import {Track} from "./model/track";
 
 @Component({
   selector: 'app-track',
@@ -11,22 +13,46 @@ import {TrackService} from "../shared/track/track.service";
 })
 export class TrackComponent implements OnInit {
 
+  public API = '//localhost:8080';
+  public TRACK_API = this.API + '/tracks';
+  public PROVIDER_API = this.API + '/providers';
+
   track: any = {};
+  tracks: Track[] = [];
 
   sub: Subscription;
 
+
   constructor(private trackService: TrackService,
               private route: ActivatedRoute,
-              private router: Router) { }
+              private router: Router,
+              private http: HttpClient) { }
 
   ngOnInit() {
     this.sub = this.route.params.subscribe(params => {
       const id = params.id;
       if (id) {
-        this.trackService.get(id).subscribe((track: any) => {
+        this.trackService.getTrackById(id).subscribe((track: any) => {
           this.track = track;
         })
       }
     });
   }
+
+  public getAllTracks(){
+    this.trackService.getAllTracks().subscribe(
+      result => {
+        this.tracks = result;
+      },
+      error => {
+        alert('An error has occurred')
+      }
+    )
+  }
+
+  public getTrackById(id: string) {
+    this.trackService.getTrackById(id).subscribe(
+    )
+  }
+
 }

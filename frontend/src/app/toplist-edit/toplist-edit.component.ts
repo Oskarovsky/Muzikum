@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
-import { Track } from "../model/track";
+import { Track } from "../track/model/track";
 import { FormGroup, FormControl } from '@angular/forms';
+import {HttpClient} from "@angular/common/http";
+import {TrackService} from "../shared/track/track.service";
 
 @Component({
   selector: 'app-toplist-edit',
@@ -21,21 +23,18 @@ export class ToplistEditComponent implements OnInit {
     position: null
   };
 
-  addTrackToRanking(): void {
-    console.log('CLICK !!!');
-    alert(this.model.title)
-  }
 
-  constructor(private route: ActivatedRoute) { }
+  constructor(private http: HttpClient,
+              private trackService: TrackService,
+              private route: ActivatedRoute) {
+
+  }
 
   ngOnInit() {
   }
 
-  trackForm = new FormGroup({
-    title: new FormControl(''),
-    artist: new FormControl(''),
-    version: new FormControl(''),
-    url: new FormControl(''),
-    points: new FormControl('')
-  })
+  addTrackToRanking(): void {
+    this.trackService.addTrackToRanking(this.model)
+  }
+
 }
