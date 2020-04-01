@@ -1,10 +1,6 @@
-
-<mat-card>
-  <div *ngIf="genres">
-    <mat-card-title>Muzikum</mat-card-title>
-    <mat-card-content>
-      <h2>{{genres.toString() | uppercase}} Details</h2>
-      <div><span>ID: </span>{{genres.toString()}}</div>
-    </mat-card-content>
-  </div>
-</mat-card>
+<h1>Provider: {{provider.name}}</h1>
+<mat-tab-group animationDuration="0ms">
+  <mat-tab label="{{genre.toString()}}" *ngFor="let genre of genres" [routerLink]="['/provider/', provider.id, 'tracks', genre.toString()]">
+    <mat-card-title>Tutaj musi być lista dla - {{genre.toString()}}</mat-card-title>
+  </mat-tab>
+</mat-tab-group>

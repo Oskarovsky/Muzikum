@@ -29,7 +29,7 @@ export class ProviderDetailsComponent implements OnInit {
     this.sub = this.route.params.subscribe(params => {
       const id = params.id;
       if (id) {
-        this.providerService.getProvider(id).subscribe((data: any) => {
+        this.providerService.getProvider(id).subscribe(data => {
           this.provider = data;
         });
         this.providerService.getAllGenresFromProvider(id).subscribe((genre: any) => {

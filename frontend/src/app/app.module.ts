@@ -23,6 +23,7 @@ import { ToplistComponent } from './toplist/toplist.component';
 import {MatSelectModule} from "@angular/material/select";
 import { ToplistEditComponent } from './toplist-edit/toplist-edit.component';
 import {MatTableModule} from "@angular/material/table";
+import {MatTabsModule} from "@angular/material/tabs";
 
 
 @NgModule({
@@ -59,6 +60,7 @@ import {MatTableModule} from "@angular/material/table";
     MatSelectModule,
     ReactiveFormsModule,
     MatTableModule,
+    MatTabsModule,
   ],
   exports: [
     TrackComponent,
