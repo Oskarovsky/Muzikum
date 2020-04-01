@@ -22,6 +22,7 @@ import { NotFoundComponent } from './not-found/not-found.component';
 import { ToplistComponent } from './toplist/toplist.component';
 import {MatSelectModule} from "@angular/material/select";
 import { ToplistEditComponent } from './toplist-edit/toplist-edit.component';
+import {MatTableModule} from "@angular/material/table";
 
 
 @NgModule({
@@ -57,6 +58,7 @@ import { ToplistEditComponent } from './toplist-edit/toplist-edit.component';
     AngularFontAwesomeModule,
     MatSelectModule,
     ReactiveFormsModule,
+    MatTableModule,
   ],
   exports: [
     TrackComponent,

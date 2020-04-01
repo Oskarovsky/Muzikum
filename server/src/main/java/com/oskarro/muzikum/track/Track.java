@@ -1,10 +1,12 @@
 package com.oskarro.muzikum.track;
 
+import com.oskarro.muzikum.playlist.Playlist;
 import com.oskarro.muzikum.provider.Provider;
 import com.oskarro.muzikum.record.Record;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @Data
