@@ -20,6 +20,7 @@ export class ProviderDetailsComponent implements OnInit {
 
   tracks: Array<any>;
 
+
   constructor(private providerService: ProviderService,
               private trackService: TrackService,
               private route: ActivatedRoute,

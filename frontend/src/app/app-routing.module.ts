@@ -8,6 +8,7 @@ import {NotFoundComponent} from "./not-found/not-found.component";
 import {ToplistComponent} from "./toplist/toplist.component";
 import {ToplistEditComponent} from "./toplist-edit/toplist-edit.component";
 import {ProviderDetailsComponent} from "./provider-details/provider-details.component";
+import {PlaylistComponent} from "./playlist/playlist.component";
 
 
 const routes: Routes = [
@@ -51,6 +52,10 @@ const routes: Routes = [
   {
     path: 'toplist/:genre',
     component: ToplistComponent
+  },
+  {
+    path: 'playlist/all',
+    component: PlaylistComponent
   },
   {
     path: 'toplist/:genre/edit',

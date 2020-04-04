@@ -4,7 +4,7 @@
   <mat-icon class="example-icon" aria-hidden="false" aria-label="Example user verified icon">headset</mat-icon>
 </mat-toolbar>
 
-<button mat-button>Strona główna</button>
+<button mat-button routerLink="/">Strona główna</button>
 
 <button mat-button [matMenuTriggerFor]="genreMenu">Gatunki</button>
 <mat-menu #genreMenu="matMenu" yPosition="below">
@@ -16,9 +16,10 @@
 
 <button mat-button [matMenuTriggerFor]="providerMenu">Serwisy</button>
 <mat-menu #providerMenu="matMenu" xPosition="after">
-  <button mat-menu-item routerLink="/provider/billboard/all-tracks">Billboard</button>
-  <button mat-menu-item routerLink="/provider/radioparty/all-tracks">Radioparty</button>
-  <button mat-menu-item routerLink="/provider/apple/all-tracks">Apple</button>
+  <button mat-menu-item routerLink="/provider/1/details">Nuteczki</button>
+  <button mat-menu-item routerLink="/provider/2/details">Radioparty</button>
+  <button mat-menu-item routerLink="/provider/4/details">Billboard</button>
+  <button mat-menu-item routerLink="/provider/8/details">Apple</button>
 </mat-menu>
 
 <button mat-button [matMenuTriggerFor]="topMenu">Top ranking</button>
@@ -33,4 +34,6 @@
   <button mat-menu-item>Psychopath</button>
   <button mat-menu-item>Vixa</button>
 </mat-menu>
+
+<button mat-button routerLink="/playlist/all">Playlist</button>
 

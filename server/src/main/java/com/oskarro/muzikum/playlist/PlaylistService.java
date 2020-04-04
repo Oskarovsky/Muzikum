@@ -9,6 +9,8 @@ public interface PlaylistService {
 
     List<Playlist> getAllPlaylist();
 
+    void addPlaylist(Playlist playlist);
+
     Optional<Playlist> findPlaylistById(Integer id);
 
     Optional<Playlist> findPlaylistByName(String name);

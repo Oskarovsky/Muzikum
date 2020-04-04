@@ -1,5 +1,6 @@
 package com.oskarro.muzikum.playlist;
 
+import com.oskarro.muzikum.provider.Provider;
 import com.oskarro.muzikum.track.Track;
 import com.oskarro.muzikum.track.TrackService;
 import org.springframework.web.bind.annotation.*;
@@ -33,5 +34,16 @@ public class PlaylistController {
     @GetMapping(value = "/{id}/tracks")
     List<Track> getAllTracksFromPlaylist(@PathVariable Integer id) {
         return trackService.findAllTracksFromPlaylist(id);
+    }
+
+    @PostMapping(value = "/add")
+    public void addPlaylist(@RequestBody Playlist playlist) {
+        playlistService.addPlaylist(playlist);
+    }
+
+    @PostMapping(value = "/{id}/addTrack")
+    public void addTrackToPlaylist(@PathVariable Integer playlistId, @RequestBody Track track) {
+        trackService.saveTrack(track);
+        playlistService.addTrackToPlaylist(track, playlistId);
     }
 }

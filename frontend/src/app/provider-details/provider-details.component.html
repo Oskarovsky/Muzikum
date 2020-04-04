@@ -1,7 +1,7 @@
 <h1>Provider: {{provider.name}}</h1>
 <mat-tab-group animationDuration="0ms">
   <mat-tab label="{{genre.toString()}}" *ngFor="let genre of genres" [routerLink]="['/provider/', provider.id, 'tracks', genre.toString()]">
-    <mat-card-title>Tutaj musi być lista dla - {{genre.toString()}}</mat-card-title>
+
     <mat-card-content *ngFor="let track of tracks">
       <p *ngIf="track.genre===genre">{{track.title}}</p>
     </mat-card-content>

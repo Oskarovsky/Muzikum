@@ -89,7 +89,9 @@ public class MuzikumApplication {
 
         // PLAYLIST CREATING
         Playlist playlist = Playlist.builder().id(1).name("MyTop").tracks(new ArrayList<>()).build();
-        playlistRepository.save(playlist);
+        Playlist playlist2 = Playlist.builder().id(2).name("SecondTop").tracks(new ArrayList<>()).build();
+        playlistService.addPlaylist(playlist);
+        playlistService.addPlaylist(playlist2);
 
         // TRACKS FETCHING FROM EXTERNAL SERVICES
         radiopartyProvider.map(radiopartyService::getTrackList);

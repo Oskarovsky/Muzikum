@@ -24,6 +24,8 @@ import {MatSelectModule} from "@angular/material/select";
 import { ToplistEditComponent } from './toplist-edit/toplist-edit.component';
 import {MatTableModule} from "@angular/material/table";
 import {MatTabsModule} from "@angular/material/tabs";
+import {MatSortModule} from "@angular/material/sort";
+import { PlaylistComponent } from './playlist/playlist.component';
 
 
 @NgModule({
@@ -38,7 +40,8 @@ import {MatTabsModule} from "@angular/material/tabs";
     NavigationComponent,
     NotFoundComponent,
     ToplistComponent,
-    ToplistEditComponent
+    ToplistEditComponent,
+    PlaylistComponent
   ],
   imports: [
     AppRoutingModule,
@@ -61,6 +64,7 @@ import {MatTabsModule} from "@angular/material/tabs";
     ReactiveFormsModule,
     MatTableModule,
     MatTabsModule,
+    MatSortModule,
   ],
   exports: [
     TrackComponent,

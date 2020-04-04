@@ -48,5 +48,10 @@ public class PlaylistServiceImpl implements PlaylistService {
                 .ifPresent(playlist -> track.setPlaylist(null));
     }
 
+    @Override
+    public void addPlaylist(Playlist playlist) {
+        playlistRepository.save(playlist);
+    }
+
 
 }
