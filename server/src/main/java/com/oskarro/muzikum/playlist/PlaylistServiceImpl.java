@@ -3,12 +3,14 @@ package com.oskarro.muzikum.playlist;
 import com.oskarro.muzikum.track.Track;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
 
 @Slf4j
 @Service
+@Transactional
 public class PlaylistServiceImpl implements PlaylistService {
 
     PlaylistRepository playlistRepository;
@@ -36,16 +38,12 @@ public class PlaylistServiceImpl implements PlaylistService {
     public void addTrackToPlaylist(Track track, Integer id) {
         findPlaylistById(id)
                 .ifPresent(playlist -> playlist.getTracks().add(track));
-        findPlaylistById(id)
-                .ifPresent(track::setPlaylist);
     }
 
     @Override
     public void removeTrackFromPlaylist(Track track, Integer id) {
         findPlaylistById(id)
                 .ifPresent(playlist -> playlist.getTracks().remove(track));
-        findPlaylistById(id)
-                .ifPresent(playlist -> track.setPlaylist(null));
     }
 
     @Override

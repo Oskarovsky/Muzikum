@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {Playlist} from "../../playlist/model/playlist";
+import { Track } from 'src/app/track/model/track';
 
 @Injectable({providedIn: 'root'})
 export class PlaylistService {
@@ -9,6 +10,7 @@ export class PlaylistService {
   public API = '//localhost:8080';
   public PLAYLIST_API = this.API + '/playlist';
 
+  tracks: Track[] = [];
 
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })

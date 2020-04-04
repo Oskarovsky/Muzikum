@@ -136,15 +136,18 @@ public class MuzikumApplication {
         playlistService.addPlaylist(playlist);
         playlistService.addPlaylist(playlist2);
 
-        trackRepository.saveAll(Arrays.asList(
-                Track.builder().id(1111).title("This is my test").artist("Mega test").version("Radio edit").playlist(playlist).build(),
-                Track.builder().id(2222).title("next tes").artist("Mega test").version("Radio edit").playlist(playlist).build(),
-                Track.builder().id(3333).title("ddfdf my test").artist("super").version("Extended edit").playlist(playlist2).build(),
-                Track.builder().id(4444).title("This is More than ntht").artist("Mega tdsdsest").version("Remix").playlist(playlist2).build(),
-                Track.builder().id(5555).title("This is my test").artist("Mega oss").version("dsd edit").playlist(playlist2).build()
-        ));
+        Track track1 = Track.builder().id(3).title("This is my test").artist("Mega test").version("Radio edit").build();
+        Track track2 = Track.builder().id(5).title("next tes").artist("Mega test").version("Radio edit").build();
+        Track track3 = Track.builder().id(7).title("ddfdf my test").artist("super").version("Extended edit").build();
+        Track track4 = Track.builder().id(1).title("This is More than ntht").artist("Mega tdsdsest").version("Remix").build();
+        Track track5 = Track.builder().id(4).title("This is my test").artist("Mega oss").version("dsd edit").build();
 
-        playlistService.addTrackToPlaylist();
+        playlistService.addTrackToPlaylist(track1, 1);
+        playlistService.addTrackToPlaylist(track2, 1);
+        playlistService.addTrackToPlaylist(track3, 2);
+        playlistService.addTrackToPlaylist(track4, 2);
+        playlistService.addTrackToPlaylist(track5, 1);
+
 
     }
 
