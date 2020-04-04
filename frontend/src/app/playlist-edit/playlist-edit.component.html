@@ -1,1 +1,15 @@
-<p>playlist-edit works!</p>
+<div class="container">
+
+    <mat-form-field appearance="fill">
+      <input matInput [(ngModel)]="modelPlaylist.name" (change)="updatePlaylist(modelPlaylist)" name="name" value="{{modelPlaylist.name}}"/>
+    </mat-form-field>
+    <br>
+    <button mat-raised-button
+            type="button"
+            (click)="createPlaylist()"
+            color="primary"
+            style="margin-left: 10px;">Dodaj playlistę
+    </button>
+
+
+</div>

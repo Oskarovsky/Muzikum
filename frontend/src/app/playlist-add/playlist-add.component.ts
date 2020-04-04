@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {PlaylistService} from "../shared/playlist/playlist.service";
 import {Playlist} from "../playlist/model/playlist";
+import {Track} from "../track/model/track";
+import {TrackService} from "../shared/track/track.service";
 
 @Component({
   selector: 'app-playlist-add',
@@ -11,7 +13,24 @@ export class PlaylistAddComponent implements OnInit {
 
   playlists: Playlist[] = [];
 
-  constructor(private playlistService: PlaylistService) { }
+  tracks: Track[] = [];
+
+  modelPlaylist: Playlist = {
+    name: '',
+  };
+
+  modelTrack: Track = {
+    title: '',
+    artist: '',
+    points: null,
+    genre: '',
+    version: '',
+    url: '',
+    position: null
+  };
+
+  constructor(private playlistService: PlaylistService,
+              private trackService: TrackService) { }
 
   ngOnInit() {
     this.getAllPlaylists();
@@ -40,7 +59,6 @@ export class PlaylistAddComponent implements OnInit {
         alert('An error has occurred while saving the playlist')
       }
     )
-
   }
 
 }

@@ -24,9 +24,12 @@
     <div class="col-md-3">
       <br>
       <div class="list-group list-group-flush">
-        <a *ngFor="let playlist of playlists" class="list-group-tem list-group-item-action">
-          {{ playlist.name }}
-        </a>
+        <div *ngFor="let playlist of playlists">
+          <a class="list-group-item list-group-item-action">
+            {{ playlist.name }}
+            <i class="material-icons" style="float:right;" routerLink="../../playlist/{{playlist.id}}/edit">edit</i>
+          </a>
+        </div>
       </div>
     </div>
   </div>

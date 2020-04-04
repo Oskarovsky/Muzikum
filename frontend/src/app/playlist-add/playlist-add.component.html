@@ -1,10 +1,18 @@
 <div class="container">
 
-  <button mat-raised-button
-          type="button"
-          (click)="createPlaylist()"
-          color="primary"
-          style="margin-left: 10px;">Add playlist
-  </button>
+  <form name="form" #form="ngForm" (ngSubmit)="createPlaylist()">
+    <mat-form-field appearance="fill">
+      <mat-label>Title</mat-label>
+      <input matInput [(ngModel)]="modelPlaylist.name" name="name" />
+    </mat-form-field>
+    <br>
+    <button mat-raised-button
+            type="button"
+            (click)="createPlaylist()"
+            color="primary"
+            style="margin-left: 10px;">Dodaj playlistę
+    </button>
+  </form>
+
 
 </div>
