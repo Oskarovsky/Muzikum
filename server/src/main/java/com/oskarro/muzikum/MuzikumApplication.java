@@ -8,6 +8,9 @@ import com.oskarro.muzikum.provider.Provider;
 import com.oskarro.muzikum.provider.ProviderRepository;
 import com.oskarro.muzikum.provider.contractor.*;
 import com.oskarro.muzikum.track.Genre;
+import com.oskarro.muzikum.track.Track;
+import com.oskarro.muzikum.track.TrackRepository;
+import com.oskarro.muzikum.track.TrackService;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
@@ -58,6 +61,8 @@ public class MuzikumApplication {
         AppleService appleService = applicationContext.getBean(AppleService.class);
         PlaylistService playlistService = applicationContext.getBean(PlaylistService.class);
         PlaylistRepository playlistRepository = applicationContext.getBean(PlaylistRepository.class);
+        TrackRepository trackRepository = applicationContext.getBean(TrackRepository.class);
+        TrackService trackService = applicationContext.getBean(TrackService.class);
 
 
         // GENRE COLLECTIONS FOR PROVIDERS
@@ -86,12 +91,6 @@ public class MuzikumApplication {
         Optional<Provider> musicListProvider = providerRepository.findById(6);
         Optional<Provider> ariaChartsProvider = providerRepository.findById(7);
         Optional<Provider> appleProvider = providerRepository.findById(8);
-
-        // PLAYLIST CREATING
-        Playlist playlist = Playlist.builder().id(1).name("MyTop").tracks(new ArrayList<>()).build();
-        Playlist playlist2 = Playlist.builder().id(2).name("SecondTop").tracks(new ArrayList<>()).build();
-        playlistService.addPlaylist(playlist);
-        playlistService.addPlaylist(playlist2);
 
         // TRACKS FETCHING FROM EXTERNAL SERVICES
         radiopartyProvider.map(radiopartyService::getTrackList);
@@ -130,6 +129,22 @@ public class MuzikumApplication {
 
         //System.out.println(appleProvider.map(crawlerService::parseWeb).toString());
         //System.out.println(ariaChartsProvider.map((Provider provider1) -> crawlerService.getWeb(provider1, Genre.club)).toString());
+
+        // PLAYLIST CREATING
+        Playlist playlist = Playlist.builder().id(1).name("MyTop").tracks(new ArrayList<>()).build();
+        Playlist playlist2 = Playlist.builder().id(2).name("SecondTop").tracks(new ArrayList<>()).build();
+        playlistService.addPlaylist(playlist);
+        playlistService.addPlaylist(playlist2);
+
+        trackRepository.saveAll(Arrays.asList(
+                Track.builder().id(1111).title("This is my test").artist("Mega test").version("Radio edit").playlist(playlist).build(),
+                Track.builder().id(2222).title("next tes").artist("Mega test").version("Radio edit").playlist(playlist).build(),
+                Track.builder().id(3333).title("ddfdf my test").artist("super").version("Extended edit").playlist(playlist2).build(),
+                Track.builder().id(4444).title("This is More than ntht").artist("Mega tdsdsest").version("Remix").playlist(playlist2).build(),
+                Track.builder().id(5555).title("This is my test").artist("Mega oss").version("dsd edit").playlist(playlist2).build()
+        ));
+
+        playlistService.addTrackToPlaylist();
 
     }
 
