@@ -28,6 +28,7 @@ import {MatSortModule} from "@angular/material/sort";
 import { PlaylistComponent } from './playlist/playlist.component';
 import { PlaylistAddComponent } from './playlist-add/playlist-add.component';
 import { PlaylistEditComponent } from './playlist-edit/playlist-edit.component';
+import { PlaylistDetailsComponent } from './playlist-details/playlist-details.component';
 
 
 @NgModule({
@@ -45,7 +46,8 @@ import { PlaylistEditComponent } from './playlist-edit/playlist-edit.component';
     ToplistEditComponent,
     PlaylistComponent,
     PlaylistAddComponent,
-    PlaylistEditComponent
+    PlaylistEditComponent,
+    PlaylistDetailsComponent
   ],
   imports: [
     AppRoutingModule,

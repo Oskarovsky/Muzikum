@@ -11,6 +11,7 @@ import {ProviderDetailsComponent} from "./provider-details/provider-details.comp
 import {PlaylistComponent} from "./playlist/playlist.component";
 import {PlaylistAddComponent} from "./playlist-add/playlist-add.component";
 import {PlaylistEditComponent} from "./playlist-edit/playlist-edit.component";
+import {PlaylistDetailsComponent} from "./playlist-details/playlist-details.component";
 
 
 const routes: Routes = [
@@ -70,6 +71,10 @@ const routes: Routes = [
   {
     path: 'playlist/:id/edit',
     component: PlaylistEditComponent
+  },
+  {
+    path: 'playlist/:id/details',
+    component: PlaylistDetailsComponent
   },
   {
     path: '**',
