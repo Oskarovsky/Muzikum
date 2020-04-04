@@ -2,18 +2,33 @@
 
   <!-- Playlist menu -->
   <div class="row" style="margin-top: 12px;">
-    <input type="text" class="mat-form-field" style="width: 50%;" placeholder="Wyszukaj playlistę..." />
-    <button mat-raised-button color="primary" style="margin-left: 10px;">Add playlist</button>
-    <button mat-raised-button color="primary" style="margin-left: 10px;">Add button</button>
+    <input type="text"
+           class="mat-form-field"
+           style="width: 50%;"
+           placeholder="Wyszukaj playlistę..." />
+    <button mat-raised-button
+            type="button"
+            color="primary"
+            routerLink="/playlist/add"
+            style="margin-left: 10px;">Add playlist
+    </button>
+    <button mat-raised-button
+            type="button"
+            color="primary"
+            style="margin-left: 10px;">Add button
+    </button>
   </div>
 
   <!-- Playlist content -->
   <div class="row" style="margin-top: 28px;">
-
-    <mat-list *ngFor="let playlist of playlists">
-      <mat-list-item> {{ playlist.name }} </mat-list-item>
-    </mat-list>
-
+    <div class="col-md-3">
+      <br>
+      <div class="list-group list-group-flush">
+        <a *ngFor="let playlist of playlists" class="list-group-tem list-group-item-action">
+          {{ playlist.name }}
+        </a>
+      </div>
+    </div>
   </div>
 
 </div>

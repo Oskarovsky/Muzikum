@@ -9,6 +9,8 @@ import {ToplistComponent} from "./toplist/toplist.component";
 import {ToplistEditComponent} from "./toplist-edit/toplist-edit.component";
 import {ProviderDetailsComponent} from "./provider-details/provider-details.component";
 import {PlaylistComponent} from "./playlist/playlist.component";
+import {PlaylistAddComponent} from "./playlist-add/playlist-add.component";
+import {PlaylistEditComponent} from "./playlist-edit/playlist-edit.component";
 
 
 const routes: Routes = [
@@ -60,6 +62,14 @@ const routes: Routes = [
   {
     path: 'toplist/:genre/edit',
     component: ToplistEditComponent
+  },
+  {
+    path: 'playlist/add',
+    component: PlaylistAddComponent
+  },
+  {
+    path: 'playlist/:id/edit',
+    component: PlaylistEditComponent
   },
   {
     path: '**',
