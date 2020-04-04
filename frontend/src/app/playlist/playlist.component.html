@@ -27,7 +27,8 @@
         <div *ngFor="let playlist of playlists">
           <a class="list-group-item list-group-item-action">
             {{ playlist.name }}
-            <i class="material-icons" style="float:right;" routerLink="../../playlist/{{playlist.id}}/edit">edit</i>
+            <i class="material-icons" (click)="deletePlaylist(playlist)" style="float:right;">delete</i>
+            <i class="material-icons" style="float:right; margin-right: 2px;" routerLink="../../playlist/{{playlist.id}}/edit">edit</i>
           </a>
         </div>
       </div>

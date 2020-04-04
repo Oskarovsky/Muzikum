@@ -53,5 +53,11 @@ public class PlaylistServiceImpl implements PlaylistService {
         playlistRepository.save(playlist);
     }
 
+    @Override
+    public Playlist updatePlaylist(Playlist playlist, Integer id) {
+//        Playlist playlist1 = findPlaylistById()
+        return null;
+    }
+
 
 }

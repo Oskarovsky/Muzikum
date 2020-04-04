@@ -16,6 +16,7 @@ export class PlaylistAddComponent implements OnInit {
   tracks: Track[] = [];
 
   modelPlaylist: Playlist = {
+    id: null,
     name: '',
   };
 
@@ -48,6 +49,7 @@ export class PlaylistAddComponent implements OnInit {
   }
   createPlaylist() {
     let newPlaylist: Playlist = {
+      id: null,
       name: 'New Playlist'
     };
     this.playlistService.addPlaylist(newPlaylist).subscribe(

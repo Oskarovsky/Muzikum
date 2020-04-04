@@ -19,7 +19,10 @@ export class PlaylistEditComponent implements OnInit {
 
   playlist: Playlist;
 
+  playlist_id;
+
   modelPlaylist: Playlist = {
+    id: null,
     name: '',
   };
 
@@ -38,12 +41,13 @@ export class PlaylistEditComponent implements OnInit {
               private route: ActivatedRoute) { }
 
   ngOnInit() {
-
+    this.getPlaylist()
   }
 
-  getPlaylist(id: string) {
+  getPlaylist() {
     this.sub = this.route.params.subscribe(params => {
       const id = params.id;
+      this.playlist_id = id;
       if (id) {
         this.playlistService.getPlaylist(id).subscribe((playlist: any) => {
           this.playlist = playlist;
@@ -53,6 +57,7 @@ export class PlaylistEditComponent implements OnInit {
   }
 
   updatePlaylist(updatedPlaylist: Playlist) {
+    updatedPlaylist.id = this.playlist_id;
     this.playlistService.addPlaylist(updatedPlaylist).subscribe(
       result => {
 

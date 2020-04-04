@@ -28,4 +28,7 @@ export class PlaylistComponent implements OnInit {
     )
   }
 
+  deletePlaylist(playlist: Playlist) {
+
+  }
 }

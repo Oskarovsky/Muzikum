@@ -18,4 +18,5 @@ public interface PlaylistRepository extends CrudRepository<Playlist, Integer> {
     Optional<Playlist> findByName(String name);
 
     Playlist save(Playlist playlist);
+
 }
