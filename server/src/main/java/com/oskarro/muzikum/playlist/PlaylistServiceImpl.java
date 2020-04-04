@@ -59,5 +59,10 @@ public class PlaylistServiceImpl implements PlaylistService {
         return null;
     }
 
+    @Override
+    public void deletePlaylistById(Integer id) {
+        playlistRepository.deleteById(id);
+    }
+
 
 }

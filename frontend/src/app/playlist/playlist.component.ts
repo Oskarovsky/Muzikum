@@ -29,6 +29,16 @@ export class PlaylistComponent implements OnInit {
   }
 
   deletePlaylist(playlist: Playlist) {
-
+    if(confirm('Czy na pewno chcesz usunąć playlistę?')) {
+      this.playlistService.deletePlaylist(String(playlist.id)).subscribe(
+        response => {
+          let indexOfPlaylist = this.playlists.indexOf(playlist);
+          this.playlists.splice(indexOfPlaylist, 1);
+        },
+        error => {
+          alert("Could not delete playlist");
+        }
+      )
+    }
   }
 }

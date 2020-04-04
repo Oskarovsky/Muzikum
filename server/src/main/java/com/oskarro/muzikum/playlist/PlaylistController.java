@@ -15,10 +15,12 @@ public class PlaylistController {
 
     private final PlaylistService playlistService;
     private final TrackService trackService;
+    private final PlaylistRepository playlistRepository;
 
-    public PlaylistController(PlaylistService playlistService, TrackService trackService) {
+    public PlaylistController(PlaylistService playlistService, TrackService trackService, PlaylistRepository playlistRepository) {
         this.playlistService = playlistService;
         this.trackService = trackService;
+        this.playlistRepository = playlistRepository;
     }
 
     @GetMapping(value = "/findAll")
@@ -45,5 +47,10 @@ public class PlaylistController {
     public void addTrackToPlaylist(@PathVariable Integer playlistId, @RequestBody Track track) {
         trackService.saveTrack(track);
         playlistService.addTrackToPlaylist(track, playlistId);
+    }
+
+    @DeleteMapping(value = "/{id}")
+    public void delete(@PathVariable Integer id) {
+        this.playlistRepository.deleteById(id);
     }
 }

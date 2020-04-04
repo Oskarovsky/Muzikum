@@ -20,4 +20,6 @@ public interface PlaylistService {
     void removeTrackFromPlaylist(Track track, Integer id);
 
     Playlist updatePlaylist(Playlist playlist, Integer id);
+
+    void deletePlaylistById(Integer id);
 }

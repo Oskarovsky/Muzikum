@@ -19,4 +19,6 @@ public interface PlaylistRepository extends CrudRepository<Playlist, Integer> {
 
     Playlist save(Playlist playlist);
 
+    void deleteById(Integer id);
+
 }
