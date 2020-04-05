@@ -13,13 +13,25 @@
   </div>
 
   <!-- Track list -->
-  <div class="card bg-warning" style="border: 4px solid white;">
-    <div class="card-body" style="padding: 8px; margin-top: 8px;">
-      <div *ngFor="let track of tracks">
-        <p>{{track.artist}} - {{track.title}} ({{track.version}})</p>
-      </div>
+  <table class="table table-striped">
+    <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Artist</th>
+      <th scope="col">Title</th>
+      <th scope="col">Version</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let track of tracks; index as i">
+      <th scope="row">{{ i + 1 }}</th>
+      <td>{{ track.title }}</td>
+      <td>{{ track.artist }}</td>
+      <td>{{ track.version }}</td>
+    </tr>
+    </tbody>
+  </table>
 
-    </div>
-  </div>
+  <button type="button" class="btn btn-dark" style="alig">Edytuj</button>
 
 </div>
