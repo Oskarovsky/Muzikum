@@ -1,15 +1,59 @@
 <div class="container">
 
-    <mat-form-field appearance="fill">
-      <input matInput [(ngModel)]="modelPlaylist.name" (change)="updatePlaylist(modelPlaylist)" name="name" value="{{playlist.name}}"/>
-    </mat-form-field>
-    <br>
-    <button mat-raised-button
-            type="button"
-            (click)="createPlaylist()"
-            color="primary"
-            style="margin-left: 10px;">Dodaj playlistę
-    </button>
+  <p>Playlista: {{playlist.name}}</p>
 
+  <div class="col-md-9">
+    <div class="row">
+      <div class="col-md-12">
+        <p *ngIf="this.tracks.length === 0">Nie ma żadnych utworów w tej składance</p>
+      </div>
+    </div>
+  </div>
 
+  <!-- Track list -->
+  <div class="card bg-warning" style="border: 4px solid white;">
+    <div class="card-body" style="padding: 8px; margin-top: 8px;">
+      <div *ngFor="let track of tracks">
+        <input type="text"
+               [(ngModel)]="track.artist"
+               class="input-label-lg"
+               maxlength="18" style="width: 35%"
+               value="{{track.artist}}"/>
+        <input type="text"
+               [(ngModel)]="track.title"
+               class="input-label-lg"
+               maxlength="18" style="width: 25%"
+               value="{{track.title}}"/>
+        <input type="text"
+               [(ngModel)]="track.version"
+               class="input-label-lg"
+               maxlength="18" style="width: 30%"
+               value="{{track.version}}"/>
+        <a (click)="deleteTrack(track)" class="pull-right text-danger">
+          <i class="material-icons" style="float:right;">delete</i>
+        </a>
+      </div>
+
+      <input type="text"
+             class="input-label-lg"
+             maxlength="18" style="width: 35%"
+             value=""/>
+      <input type="text"
+             class="input-label-lg"
+             maxlength="18" style="width: 25%"
+             value=""/>
+      <input type="text"
+             class="input-label-lg"
+             maxlength="18" style="width: 30%"
+             value=""/>
+
+    </div>
+  </div>
+  <button mat-raised-button
+          type="button"
+          routerLink="../details"
+          color="primary"
+          style="margin-left: 10px;">Zapisz playlistę
+  </button>
 </div>
+

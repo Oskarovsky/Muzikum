@@ -41,9 +41,9 @@ export class PlaylistEditComponent implements OnInit {
               private route: ActivatedRoute) { }
 
   ngOnInit() {
-    this.getPlaylist()
+    this.getPlaylistById();
+    this.getAllTracksFromPlaylist();
   }
-
   getPlaylist() {
     this.sub = this.route.params.subscribe(params => {
       const id = params.id;
@@ -52,6 +52,22 @@ export class PlaylistEditComponent implements OnInit {
         this.playlistService.getPlaylist(id).subscribe((playlist: any) => {
           this.playlist = playlist;
         })
+      }
+    })
+  }
+
+  public getAllTracksFromPlaylist() {
+    this.sub = this.route.params.subscribe(params => {
+      const id = params.id;
+      if (id) {
+        this.playlistService.getAllTracksFromPlaylist(id).subscribe(
+          response => {
+            this.tracks = response;
+          },
+          error => {
+            alert("An error with fetching tracks has occurred")
+          }
+        )
       }
     })
   }
@@ -66,5 +82,24 @@ export class PlaylistEditComponent implements OnInit {
         alert("An error with updating playlists has occurred")
       }
     )
+  }
+
+  public getPlaylistById() {
+    this.sub = this.route.params.subscribe(params => {
+      const id = params.id;
+      if (id) {
+        this.playlistService.getPlaylist(id).subscribe(
+          response => {
+            this.playlist = response;
+          },
+          error => {
+            alert("An error with fetching playlist has occurred")
+          })
+      }
+    })
+  }
+
+  deleteTrack(track: Track) {
+
   }
 }
