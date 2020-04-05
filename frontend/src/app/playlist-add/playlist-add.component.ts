@@ -21,6 +21,7 @@ export class PlaylistAddComponent implements OnInit {
   };
 
   modelTrack: Track = {
+    id: null,
     title: '',
     artist: '',
     points: null,

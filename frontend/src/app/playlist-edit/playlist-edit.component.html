@@ -1,7 +1,7 @@
 <div class="container">
 
   <h3>Playlista: {{playlist.name}}</h3>
-Z
+
   <div class="col-md-9">
     <div class="row">
       <div class="col-md-12">
@@ -44,7 +44,7 @@ Z
              maxlength="18" style="width: 100%"
              value="{{track.version}}"/></td>
       <td>
-        <a (click)="deleteTrack(track)" class="pull-right text-danger">
+        <a (click)="deleteTrack(track.id)" class="pull-right text-danger">
           <i class="material-icons" style="float:right;">delete</i>
         </a>
       </td>
@@ -80,7 +80,6 @@ Z
 
   <button mat-raised-button
           type="button"
-          (click)="addTrackToPlaylist()"
           class="btn btn-warning pull-right"
           routerLink="../details"
           style="margin-left: 10px;">Zapisz playlistę

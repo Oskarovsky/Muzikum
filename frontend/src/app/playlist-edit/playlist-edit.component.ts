@@ -27,6 +27,7 @@ export class PlaylistEditComponent implements OnInit {
   };
 
   modelTrack: Track = {
+    id: null,
     title: '',
     artist: '',
     points: null,
@@ -110,12 +111,23 @@ export class PlaylistEditComponent implements OnInit {
     })
   }
 
-  deleteTrack(track: Track) {
-
+  deleteTrack(id: number) {
+    if(confirm("Czy na pewno chcesz usunąć ten utwór?")) {
+      this.trackService.deleteTrackFromPlaylist(id).subscribe(
+        response => {
+          this.tracks.splice(Number(id), 1);
+          window.location.reload();
+        },
+        error => {
+          alert("An error has occurred while deleting tracks from playlist")
+        }
+      )
+    }
   }
 
   addTrackToPlaylist(title: string, artist: string, version: string) {
     let newTrack: Track = {
+      id: null,
       title: title,
       artist: artist,
       points: null,

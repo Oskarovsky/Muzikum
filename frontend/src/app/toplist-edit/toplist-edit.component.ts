@@ -13,7 +13,7 @@ import {TrackService} from "../shared/track/track.service";
 export class ToplistEditComponent implements OnInit {
 
   model: Track = {
-    //id: null,
+    id: null,
     title: '',
     artist: '',
     points: null,

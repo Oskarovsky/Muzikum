@@ -48,4 +48,8 @@ export class TrackService {
     return this.http.post<Track>(this.TRACK_API + '/add', track);
   }
 
+  deleteTrackFromPlaylist(id: number): Observable<any> {
+    return this.http.delete(this.TRACK_API + '/' + id);
+  }
+
 }

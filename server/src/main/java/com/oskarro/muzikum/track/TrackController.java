@@ -13,9 +13,11 @@ import java.util.Optional;
 public class TrackController {
 
     private final TrackService trackService;
+    private final TrackRepository trackRepository;
 
-    public TrackController(TrackService trackService) {
+    public TrackController(TrackService trackService, TrackRepository trackRepository) {
         this.trackService = trackService;
+        this.trackRepository = trackRepository;
     }
 
     @GetMapping(value = "/findAll")
@@ -52,6 +54,11 @@ public class TrackController {
                 .version(track.getVersion())
                 .build();
         trackService.saveTrack(track1);
+    }
+
+    @DeleteMapping(value = "/{id}")
+    public void delete(@PathVariable Integer id) {
+        this.trackRepository.deleteById(id);
     }
 
 }

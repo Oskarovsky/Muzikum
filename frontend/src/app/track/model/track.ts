@@ -1,7 +1,7 @@
 import {Playlist} from "../../playlist/model/playlist";
 
 export interface Track {
-  //id: number;
+  id: number;
   title: string;
   artist: string;
   points: number;
