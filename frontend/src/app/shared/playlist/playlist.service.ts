@@ -37,7 +37,7 @@ export class PlaylistService {
     return this.http.post<Playlist>(this.PLAYLIST_API  + '/add', playlist);
   }
 
-  deletePlaylist(id: string): Observable<any> {
+  deletePlaylist(id: number): Observable<any> {
     return this.http.delete<Playlist>(this.PLAYLIST_API + '/' + id);
   }
 }

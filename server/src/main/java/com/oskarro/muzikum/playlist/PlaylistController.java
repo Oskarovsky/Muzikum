@@ -2,6 +2,7 @@ package com.oskarro.muzikum.playlist;
 
 import com.oskarro.muzikum.provider.Provider;
 import com.oskarro.muzikum.track.Track;
+import com.oskarro.muzikum.track.TrackRepository;
 import com.oskarro.muzikum.track.TrackService;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,11 +17,13 @@ public class PlaylistController {
     private final PlaylistService playlistService;
     private final TrackService trackService;
     private final PlaylistRepository playlistRepository;
+    private final TrackRepository trackRepository;
 
-    public PlaylistController(PlaylistService playlistService, TrackService trackService, PlaylistRepository playlistRepository) {
+    public PlaylistController(PlaylistService playlistService, TrackService trackService, PlaylistRepository playlistRepository, TrackRepository trackRepository) {
         this.playlistService = playlistService;
         this.trackService = trackService;
         this.playlistRepository = playlistRepository;
+        this.trackRepository = trackRepository;
     }
 
     @GetMapping(value = "/findAll")
@@ -51,6 +54,7 @@ public class PlaylistController {
 
     @DeleteMapping(value = "/{id}")
     public void delete(@PathVariable Integer id) {
+        trackRepository.findTracksByPlaylistId(id).forEach(trackRepository::delete);
         this.playlistRepository.deleteById(id);
     }
 }
