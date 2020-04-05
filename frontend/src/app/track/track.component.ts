@@ -45,7 +45,7 @@ export class TrackComponent implements OnInit {
         this.tracks = result;
       },
       error => {
-        alert('An error has occurred')
+        alert('An error has occurred while downloading tracks')
       }
     )
   }

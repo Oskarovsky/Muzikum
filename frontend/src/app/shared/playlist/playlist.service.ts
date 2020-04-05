@@ -29,8 +29,8 @@ export class PlaylistService {
   }
 
   /** GET all tracks from playlist */
-  getAllTracksFromPlaylist(id: string): Observable<any> {
-    return this.http.get<any[]>(this.PLAYLIST_API + '/' + id + '/tracks');
+  getAllTracksFromPlaylist(playlistId: string): Observable<Track[]> {
+    return this.http.get<Track[]>(this.PLAYLIST_API + '/' + playlistId + '/tracks');
   }
 
   addPlaylist(playlist: Playlist): Observable<Playlist> {

@@ -1,2 +1,15 @@
 <p>{{playlist.id}}</p>
 <p>{{playlist.name}}</p>
+
+
+<div class="container">
+
+  <div class="col-md-9">
+    <div class="row">
+      <div class="col-md-12">
+        <p *ngIf="this.tracks.length === 0">Nie ma żadnych utworów w tej składance</p>
+      </div>
+    </div>
+  </div>
+
+</div>

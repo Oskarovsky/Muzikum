@@ -3,6 +3,8 @@ import {Playlist} from "../playlist/model/playlist";
 import {PlaylistService} from "../shared/playlist/playlist.service";
 import {Subscription} from "rxjs";
 import {ActivatedRoute} from "@angular/router";
+import {TrackService} from "../shared/track/track.service";
+import {Track} from "../track/model/track";
 
 @Component({
   selector: 'app-playlist-details',
@@ -13,13 +15,44 @@ export class PlaylistDetailsComponent implements OnInit {
 
   playlist: Playlist;
 
+  tracks: Track[] = [];
+
   sub: Subscription;
 
   constructor(private playlistService: PlaylistService,
+              private trackService: TrackService,
               private route: ActivatedRoute) { }
 
   ngOnInit() {
     this.getPlaylistById();
+    this.getAllTracksFromPlaylist();
+  }
+
+  public getAllTracks(){
+    this.trackService.getAllTracks().subscribe(
+      result => {
+        this.tracks = result;
+      },
+      error => {
+        alert('An error has occurred while downloading tracks')
+      }
+    )
+  }
+
+  public getAllTracksFromPlaylist() {
+    this.sub = this.route.params.subscribe(params => {
+      const id = params.id;
+      if (id) {
+        this.playlistService.getAllTracksFromPlaylist(id).subscribe(
+          response => {
+            this.tracks = response;
+          },
+          error => {
+            alert("An error with fetching tracks has occurred")
+          }
+        )
+      }
+    })
   }
 
   public getPlaylistById() {
