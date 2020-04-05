@@ -48,14 +48,14 @@ export class PlaylistAddComponent implements OnInit {
       }
     )
   }
-  createPlaylist() {
+  createPlaylist(name: string) {
     let newPlaylist: Playlist = {
       id: null,
-      name: 'New Playlist'
+      name: name
     };
     this.playlistService.addPlaylist(newPlaylist).subscribe(
       result => {
-        newPlaylist.name = result.name;
+        newPlaylist.name = name;
         this.playlists.push(newPlaylist);
       },
       error => {
