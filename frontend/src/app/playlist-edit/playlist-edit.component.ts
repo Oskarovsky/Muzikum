@@ -73,6 +73,16 @@ export class PlaylistEditComponent implements OnInit {
     })
   }
 
+  public updateTrack(updatedTrack: Track) {
+    this.trackService.saveTrackToPlaylist(updatedTrack).subscribe(
+      response => {
+      },
+      error => {
+        alert("An error with updating tracks has occurred")
+      }
+    )
+  }
+
   updatePlaylist(updatedPlaylist: Playlist) {
     updatedPlaylist.id = this.playlist_id;
     this.playlistService.addPlaylist(updatedPlaylist).subscribe(

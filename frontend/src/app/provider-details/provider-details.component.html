@@ -17,7 +17,7 @@
       </thead>
       <tbody>
       <tr *ngFor="let track of tracks; index as i">
-        <th *ngIf="track.genre===genre" scope="row">{{ i + 1 }}</th>
+        <th *ngIf="track.genre===genre" scope="row">{{ track.position }}</th>
         <td *ngIf="track.genre===genre">{{ track.title }}</td>
         <td *ngIf="track.genre===genre">{{ track.artist }}</td>
         <td *ngIf="track.genre===genre">{{ track.version }}</td>

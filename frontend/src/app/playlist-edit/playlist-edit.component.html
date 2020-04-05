@@ -1,7 +1,7 @@
 <div class="container">
 
   <h3>Playlista: {{playlist.name}}</h3>
-
+Z
   <div class="col-md-9">
     <div class="row">
       <div class="col-md-12">
@@ -27,16 +27,19 @@
       <th scope="row">{{ i + 1 }}</th>
       <td><input type="text"
              [(ngModel)]="track.artist"
+             (change)="updateTrack(track)"
              class="input-label-lg"
              maxlength="18" style="width: 100%"
              value="{{track.artist}}"/></td>
       <td><input type="text"
              [(ngModel)]="track.title"
+             (change)="updateTrack(track)"
              class="input-label-lg"
              maxlength="18" style="width: 100%"
              value="{{track.title}}"/></td>
       <td><input type="text"
              [(ngModel)]="track.version"
+             (change)="updateTrack(track)"
              class="input-label-lg"
              maxlength="18" style="width: 100%"
              value="{{track.version}}"/></td>
