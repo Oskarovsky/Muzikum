@@ -29,7 +29,10 @@ public class TrackController {
     }
 
     @PostMapping(value = "/add")
-    void addTrack(@RequestBody Track track) {
+    void addTrack(@RequestBody Track track, BindingResult bindingResult) throws ValidationException {
+        if (bindingResult.hasErrors()) {
+            throw new ValidationException("There are a problem with binding");
+        }
         trackService.saveTrack(track);
     }
 

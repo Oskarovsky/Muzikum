@@ -25,7 +25,4 @@ public class Playlist {
     @NotNull
     private String name;
 
-    @OneToMany(orphanRemoval = true, fetch = FetchType.EAGER)
-    @JoinColumn(name = "playlist_id")
-    private List<Track> tracks = new ArrayList<>();
 }

@@ -20,7 +20,8 @@ export class ToplistEditComponent implements OnInit {
     genre: '',
     version: '',
     url: '',
-    position: null
+    position: null,
+    playlist: null
   };
 
 

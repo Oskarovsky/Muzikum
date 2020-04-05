@@ -43,11 +43,11 @@ public class PlaylistController {
         playlistService.addPlaylist(playlist);
     }
 
-    @PostMapping(value = "/{id}/addTrack")
+/*    @PostMapping(value = "/{id}/addTrack")
     public void addTrackToPlaylist(@PathVariable Integer playlistId, @RequestBody Track track) {
         trackService.saveTrack(track);
         playlistService.addTrackToPlaylist(track, playlistId);
-    }
+    }*/
 
     @DeleteMapping(value = "/{id}")
     public void delete(@PathVariable Integer id) {

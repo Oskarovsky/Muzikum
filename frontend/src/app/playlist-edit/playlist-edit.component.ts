@@ -33,7 +33,8 @@ export class PlaylistEditComponent implements OnInit {
     genre: '',
     version: '',
     url: '',
-    position: null
+    position: null,
+    playlist: null
   };
 
   constructor(private playlistService: PlaylistService,
@@ -101,5 +102,27 @@ export class PlaylistEditComponent implements OnInit {
 
   deleteTrack(track: Track) {
 
+  }
+
+  addTrackToPlaylist(title: string, artist: string, version: string) {
+    let newTrack: Track = {
+      title: title,
+      artist: artist,
+      points: null,
+      genre: '',
+      version: version,
+      url: '',
+      position: null,
+      playlist: this.playlist
+    };
+
+    this.trackService.saveTrackToPlaylist(newTrack).subscribe(
+      response => {
+        this.tracks.push(newTrack);
+      },
+      error => {
+        alert("An error with adding track to playlist has occurred")
+      }
+    )
   }
 }

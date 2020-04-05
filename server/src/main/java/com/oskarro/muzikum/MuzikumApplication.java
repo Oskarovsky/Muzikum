@@ -131,22 +131,18 @@ public class MuzikumApplication {
         //System.out.println(ariaChartsProvider.map((Provider provider1) -> crawlerService.getWeb(provider1, Genre.club)).toString());
 
         // PLAYLIST CREATING
-        Playlist playlist = Playlist.builder().id(1).name("MyTop").tracks(new ArrayList<>()).build();
-        Playlist playlist2 = Playlist.builder().id(2).name("SecondTop").tracks(new ArrayList<>()).build();
+        Playlist playlist = Playlist.builder().id(1).name("MyTop").build();
+        Playlist playlist2 = Playlist.builder().id(2).name("SecondTop").build();
         playlistService.addPlaylist(playlist);
         playlistService.addPlaylist(playlist2);
 
-        Track track1 = Track.builder().id(3).title("This is my test").artist("Mega test").version("Radio edit").build();
-        Track track2 = Track.builder().id(5).title("next tes").artist("Mega test").version("Radio edit").build();
-        Track track3 = Track.builder().id(7).title("ddfdf my test").artist("super").version("Extended edit").build();
-        Track track4 = Track.builder().id(1).title("This is More than ntht").artist("Mega tdsdsest").version("Remix").build();
-        Track track5 = Track.builder().id(4).title("This is my test").artist("Mega oss").version("dsd edit").build();
+        Track track1 = Track.builder().id(3).title("This is my test").artist("Mega test").version("Radio edit").playlist(playlist).build();
+        Track track2 = Track.builder().id(5).title("next tes").artist("Mega test").version("Radio edit").playlist(playlist).build();
+        Track track3 = Track.builder().id(7).title("ddfdf my test").artist("super").version("Extended edit").playlist(playlist2).build();
+        Track track4 = Track.builder().id(1).title("This is More than ntht").artist("Mega tdsdsest").version("Remix").playlist(playlist2).build();
+        Track track5 = Track.builder().id(4).title("This is my test").artist("Mega oss").version("dsd edit").playlist(playlist).build();
 
-        playlistService.addTrackToPlaylist(track1, 1);
-        playlistService.addTrackToPlaylist(track2, 1);
-        playlistService.addTrackToPlaylist(track3, 2);
-        playlistService.addTrackToPlaylist(track4, 2);
-        playlistService.addTrackToPlaylist(track5, 1);
+        trackRepository.saveAll(Arrays.asList(track1, track2, track3, track4, track5));
 
 
     }

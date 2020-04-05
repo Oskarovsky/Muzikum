@@ -44,4 +44,8 @@ public class Track {
     @JoinColumn(name = "record_id")
     private Record record;
 
+    @ManyToOne
+    @JoinColumn(name = "playlist_id")
+    private Playlist playlist;
+
 }

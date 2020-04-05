@@ -4,6 +4,7 @@ import com.oskarro.muzikum.playlist.Playlist;
 import com.oskarro.muzikum.playlist.PlaylistRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.validation.BindingResult;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -57,8 +58,7 @@ public class TrackServiceImpl implements TrackService {
 
     @Override
     public List<Track> findAllTracksFromPlaylist(Integer id) {
-        List<Track> trackList = new ArrayList<>();
-        playlistRepository.findById(id).ifPresent(playlist -> trackList.addAll(playlist.getTracks()));
+        List<Track> trackList = new ArrayList<>(trackRepository.findTracksByPlaylistId(id));
         return trackList;
     }
 

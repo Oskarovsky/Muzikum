@@ -15,9 +15,9 @@ public interface PlaylistService {
 
     Optional<Playlist> findPlaylistByName(String name);
 
-    void addTrackToPlaylist(Track track, Integer id);
+/*    void addTrackToPlaylist(Track track, Integer id);
 
-    void removeTrackFromPlaylist(Track track, Integer id);
+    void removeTrackFromPlaylist(Track track, Integer id);*/
 
     Playlist updatePlaylist(Playlist playlist, Integer id);
 

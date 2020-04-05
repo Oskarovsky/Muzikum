@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import {HttpClient, HttpParams} from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Track } from 'src/app/track/model/track';
 
@@ -9,6 +9,8 @@ export class TrackService {
   public API = '//localhost:8080';
   public TRACK_API = this.API + '/tracks';
   public PROVIDER_API = this.API + '/providers';
+  public PLAYLIST_API = this.API + '/playlist';
+
 
 
   constructor(private http: HttpClient) {
@@ -40,6 +42,10 @@ export class TrackService {
 
   addTrackToRanking(track: Track): Observable<any> {
     return this.http.post<Track>(this.TRACK_API + "/addToRanking", track)
+  }
+
+  saveTrackToPlaylist(track: Track): Observable<Track> {
+    return this.http.post<Track>(this.TRACK_API + '/add', track);
   }
 
 }

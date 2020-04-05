@@ -1,3 +1,5 @@
+import {Playlist} from "../../playlist/model/playlist";
+
 export interface Track {
   //id: number;
   title: string;
@@ -7,5 +9,5 @@ export interface Track {
   version: string;
   url: string;
   position: number;
-
+  playlist: Playlist;
 }

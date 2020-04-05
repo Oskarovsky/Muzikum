@@ -34,7 +34,7 @@ public class PlaylistServiceImpl implements PlaylistService {
         return playlistRepository.findByName(name);
     }
 
-    @Override
+/*    @Override
     public void addTrackToPlaylist(Track track, Integer id) {
         findPlaylistById(id)
                 .ifPresent(playlist -> playlist.getTracks().add(track));
@@ -44,7 +44,7 @@ public class PlaylistServiceImpl implements PlaylistService {
     public void removeTrackFromPlaylist(Track track, Integer id) {
         findPlaylistById(id)
                 .ifPresent(playlist -> playlist.getTracks().remove(track));
-    }
+    }*/
 
     @Override
     public void addPlaylist(Playlist playlist) {
