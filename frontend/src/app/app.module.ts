@@ -29,6 +29,7 @@ import { PlaylistComponent } from './playlist/playlist.component';
 import { PlaylistAddComponent } from './playlist-add/playlist-add.component';
 import { PlaylistEditComponent } from './playlist-edit/playlist-edit.component';
 import { PlaylistDetailsComponent } from './playlist-details/playlist-details.component';
+import { PlaylistFilterPipe } from './shared/playlist-filter/playlist-filter.pipe';
 
 
 @NgModule({
@@ -47,7 +48,8 @@ import { PlaylistDetailsComponent } from './playlist-details/playlist-details.co
     PlaylistComponent,
     PlaylistAddComponent,
     PlaylistEditComponent,
-    PlaylistDetailsComponent
+    PlaylistDetailsComponent,
+    PlaylistFilterPipe
   ],
   imports: [
     AppRoutingModule,
