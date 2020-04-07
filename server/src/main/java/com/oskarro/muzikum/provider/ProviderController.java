@@ -13,7 +13,8 @@ import java.util.Optional;
 
 
 @RestController
-@RequestMapping(value = "/providers")
+@RequestMapping(value = "/api/providers")
+@CrossOrigin(origins = "http://localhost:4200")
 public class ProviderController {
 
     ProviderService providerService;
@@ -40,13 +41,11 @@ public class ProviderController {
     }
 
     @GetMapping(value = "/{provider_id}/tracks")
-    @CrossOrigin(origins = "http://localhost:4200")
     List<Track> getTracksFromProvider(@PathVariable Integer provider_id) {
         return trackService.findByProviderId(provider_id);
     }
 
     @GetMapping(value = "/{providerName}/all-tracks")
-    @CrossOrigin(origins = "http://localhost:4200")
     List<Track> getTracksFromProvider(@PathVariable String providerName) {
         return trackService.findTracksByProviderName(providerName);
     }

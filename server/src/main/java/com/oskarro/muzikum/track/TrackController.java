@@ -8,8 +8,8 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping(value = "/tracks")
-@CrossOrigin
+@RequestMapping(value = "/api/tracks")
+@CrossOrigin(origins = "http://localhost:4200")
 public class TrackController {
 
     private final TrackService trackService;
@@ -21,16 +21,19 @@ public class TrackController {
     }
 
     @GetMapping(value = "/findAll")
+    @CrossOrigin(origins = "http://localhost:4200")
     List<Track> findAll() {
         return trackService.findAll();
     }
 
     @GetMapping(value = "/id/{id}")
+    @CrossOrigin(origins = "http://localhost:4200")
     Optional<Track> findById(@PathVariable Integer id) {
         return trackService.findById(id);
     }
 
     @PostMapping(value = "/add")
+    @CrossOrigin(origins = "http://localhost:4200")
     void addTrack(@RequestBody Track track, BindingResult bindingResult) throws ValidationException {
         if (bindingResult.hasErrors()) {
             throw new ValidationException("There are a problem with binding");

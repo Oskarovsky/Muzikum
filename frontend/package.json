@@ -21,6 +21,7 @@
     "@angular/platform-browser": "~8.2.7",
     "@angular/platform-browser-dynamic": "~8.2.7",
     "@angular/router": "~8.2.7",
+    "@babel/compat-data": "^7.8.0",
     "angular-font-awesome": "^3.1.2",
     "font-awesome": "^4.7.0",
     "rxjs": "~6.4.0",
@@ -32,10 +33,12 @@
     "@angular/cli": "~8.3.5",
     "@angular/compiler-cli": "~8.2.7",
     "@angular/language-service": "~8.2.7",
-    "@types/node": "~8.9.4",
+    "@babel/compat-data": "7.8.0",
     "@types/jasmine": "~3.3.8",
     "@types/jasminewd2": "~2.0.3",
+    "@types/node": "~8.9.4",
     "codelyzer": "^5.0.0",
+    "https-proxy-agent": "^5.0.0",
     "jasmine-core": "~3.4.0",
     "jasmine-spec-reporter": "~4.2.1",
     "karma": "~4.1.0",
@@ -47,5 +50,8 @@
     "ts-node": "~7.0.0",
     "tslint": "~5.15.0",
     "typescript": "~3.5.3"
+  },
+  "resolutions": {
+    "@babel/preset-env": "7.5.5"
   }
 }

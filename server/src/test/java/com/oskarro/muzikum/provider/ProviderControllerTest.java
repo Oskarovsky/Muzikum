@@ -4,12 +4,14 @@ import com.oskarro.muzikum.crawler.CrawlerService;
 import com.oskarro.muzikum.provider.contractor.NuteczkiService;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
+import org.junit.Ignore;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+@Ignore
 class ProviderControllerTest {
 
     @Autowired
@@ -26,11 +28,6 @@ class ProviderControllerTest {
     void setUp() {
     }
 
-    @Test
-    void getCrawler() {
-        Provider provider = Provider.builder().id(1).description("nice").url("https://nuteczki.eu/").name("nuteczki").build();
-        crawlerService.parseWeb(provider);
-    }
 
     @Test
     void getNuteczkiTracklist() {

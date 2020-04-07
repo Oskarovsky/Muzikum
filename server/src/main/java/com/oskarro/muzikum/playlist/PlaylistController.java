@@ -10,8 +10,8 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping(value = "/playlist")
-@CrossOrigin
+@RequestMapping(value = "/api/playlist")
+@CrossOrigin(origins = "http://localhost:4200")
 public class PlaylistController {
 
     private final PlaylistService playlistService;
@@ -27,21 +27,25 @@ public class PlaylistController {
     }
 
     @GetMapping(value = "/findAll")
+    @CrossOrigin(origins = "http://localhost:4200")
     List<Playlist> findAll() {
         return playlistService.getAllPlaylist();
     }
 
     @GetMapping(value = "/{id}")
+    @CrossOrigin(origins = "http://localhost:4200")
     Optional<Playlist> getPlaylistById(@PathVariable Integer id) {
         return playlistService.findPlaylistById(id);
     }
 
     @GetMapping(value = "/{id}/tracks")
+    @CrossOrigin(origins = "http://localhost:4200")
     List<Track> getAllTracksFromPlaylist(@PathVariable Integer id) {
         return trackService.findAllTracksFromPlaylist(id);
     }
 
     @PostMapping(value = "/add")
+    @CrossOrigin(origins = "http://localhost:4200")
     public void addPlaylist(@RequestBody Playlist playlist) {
         playlistService.addPlaylist(playlist);
     }
@@ -53,6 +57,7 @@ public class PlaylistController {
     }*/
 
     @DeleteMapping(value = "/{id}")
+    @CrossOrigin(origins = "http://localhost:4200")
     public void delete(@PathVariable Integer id) {
         trackRepository.findTracksByPlaylistId(id).forEach(trackRepository::delete);
         this.playlistRepository.deleteById(id);
