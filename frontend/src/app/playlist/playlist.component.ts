@@ -10,6 +10,7 @@ import {PlaylistService} from "../shared/playlist/playlist.service";
 export class PlaylistComponent implements OnInit {
 
   playlists: Playlist[] = [];
+  searchText: string;
 
   constructor(private playlistService: PlaylistService) { }
 
