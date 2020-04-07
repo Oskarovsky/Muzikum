@@ -21,19 +21,19 @@ public class TrackController {
     }
 
     @GetMapping(value = "/findAll")
-    @CrossOrigin(origins = "http://localhost:4200")
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
     List<Track> findAll() {
         return trackService.findAll();
     }
 
     @GetMapping(value = "/id/{id}")
-    @CrossOrigin(origins = "http://localhost:4200")
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
     Optional<Track> findById(@PathVariable Integer id) {
         return trackService.findById(id);
     }
 
     @PostMapping(value = "/add")
-    @CrossOrigin(origins = "http://localhost:4200")
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
     void addTrack(@RequestBody Track track, BindingResult bindingResult) throws ValidationException {
         if (bindingResult.hasErrors()) {
             throw new ValidationException("There are a problem with binding");
@@ -42,11 +42,13 @@ public class TrackController {
     }
 
     @GetMapping(value = "/genre/{genre}")
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
     List<Track> findByGenre(@PathVariable String genre) {
         return trackService.findTracksByGenre(genre);
     }
 
     @PostMapping(value = "/addToRanking")
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
     void addTrackToRanking (@RequestBody Track track, BindingResult bindingResult) throws ValidationException {
         if (bindingResult.hasErrors()) {
             throw new ValidationException("Track has errors - it cannot by send");
@@ -60,6 +62,7 @@ public class TrackController {
     }
 
     @DeleteMapping(value = "/{id}")
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
     public void delete(@PathVariable Integer id) {
         this.trackRepository.deleteById(id);
     }

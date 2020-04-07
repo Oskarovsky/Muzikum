@@ -7,7 +7,8 @@ import { Track } from 'src/app/track/model/track';
 @Injectable({providedIn: 'root'})
 export class PlaylistService {
 
-  public API = '//localhost:8080/api';
+  //public API = '//localhost:8080/api';
+  public API = '//91.205.75.145:8080/api';
   public PLAYLIST_API = this.API + '/playlist';
 
   tracks: Track[] = [];
