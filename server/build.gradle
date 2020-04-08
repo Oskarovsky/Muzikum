@@ -58,6 +58,7 @@ dependencies {
     compile group: 'org.gebish', name: 'geb-core', version: '3.3'
     compile group: 'net.sourceforge.htmlunit', name: 'htmlunit', version: '2.38.0'
     compile group: 'org.json', name: 'json', version: '20090211'
+    compile group: 'org.springframework.security', name: 'spring-security-core', version: '5.3.1.RELEASE'
 
     // compile ('org.springframework.security.oauth.boot:spring-security-oauth2-autoconfigure:2.0.1.RELEASE')
     // compile ('com.okta.spring:okta-spring-boot-starter:0.6.1')
