@@ -2,9 +2,9 @@ package com.oskarro.muzikum.auth;
 
 import com.oskarro.muzikum.user.UserPrinciple;
 import io.jsonwebtoken.*;
-import lombok.Value;
 import lombok.extern.slf4j.Slf4j;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.security.core.Authentication;
 
@@ -14,10 +14,10 @@ import java.util.Date;
 @Component
 public class JwtProvider {
 
-    //@Value("${oskarro.app.jwtSecret}")
+    @Value("${oskarro.app.jwtSecret}")
     private String jwtSecret;
 
-    //@Value("${oskarro.app.jwtExpiration}")
+    @Value("${oskarro.app.jwtExpiration}")
     private int jwtExpiration;
 
     /* BUILDING JWT TOKEN */

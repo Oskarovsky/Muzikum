@@ -11,6 +11,9 @@ import com.oskarro.muzikum.track.Genre;
 import com.oskarro.muzikum.track.Track;
 import com.oskarro.muzikum.track.TrackRepository;
 import com.oskarro.muzikum.track.TrackService;
+import com.oskarro.muzikum.user.Role;
+import com.oskarro.muzikum.user.RoleName;
+import com.oskarro.muzikum.user.RoleRepository;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
@@ -69,10 +72,16 @@ public class MuzikumApplication {
         TrackRepository trackRepository = applicationContext.getBean(TrackRepository.class);
         TrackService trackService = applicationContext.getBean(TrackService.class);
         UserDetailsService userDetailsService = applicationContext.getBean(UserDetailsService.class);
-
-
+        RoleRepository roleRepository = applicationContext.getBean(RoleRepository.class);
 
         // USERS CREATOR
+        Role roleAdmin = new Role();
+        roleAdmin.setName(RoleName.ROLE_ADMIN);
+        Role rolePm = new Role();
+        rolePm.setName(RoleName.ROLE_PM);
+        Role roleUser = new Role();
+        roleUser.setName(RoleName.ROLE_USER);
+        roleRepository.saveAll(Arrays.asList(roleAdmin, rolePm, roleUser));
 
 
 
