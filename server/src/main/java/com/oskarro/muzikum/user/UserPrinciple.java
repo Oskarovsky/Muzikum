@@ -1,4 +1,4 @@
-package com.oskarro.muzikum.auth;
+package com.oskarro.muzikum.user;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
