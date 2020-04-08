@@ -21,7 +21,7 @@ public class JwtProvider {
     private int jwtExpiration;
 
     /* BUILDING JWT TOKEN */
-    private String generateJwtToken(Authentication authentication) {
+    public String generateJwtToken(Authentication authentication) {
         UserPrinciple userPrincipal = (UserPrinciple) authentication.getPrincipal();
         return Jwts.builder()
                 .setSubject(userPrincipal.getUsername())
