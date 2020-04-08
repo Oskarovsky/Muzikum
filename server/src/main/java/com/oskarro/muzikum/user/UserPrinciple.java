@@ -6,9 +6,12 @@ import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Getter
 @Builder
@@ -18,7 +21,8 @@ public class UserPrinciple implements UserDetails {
 
     private static final long serialVersionUID = 1L;
 
-    private Long id;
+    private Integer id;
+    private String name;
     private String username;
     private String email;
 
@@ -61,5 +65,20 @@ public class UserPrinciple implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
+    }
+
+    public static UserPrinciple build(User user) {
+        List<GrantedAuthority> authorities = user.getRoles().stream().map(role ->
+                new SimpleGrantedAuthority(role.getName().name())
+        ).collect(Collectors.toList());
+
+        return new UserPrinciple(
+                user.getId(),
+                user.getName(),
+                user.getUsername(),
+                user.getEmail(),
+                user.getPassword(),
+                authorities
+        );
     }
 }

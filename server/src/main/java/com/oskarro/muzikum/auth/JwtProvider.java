@@ -14,10 +14,10 @@ import java.util.Date;
 @Component
 public class JwtProvider {
 
-    @Value("${oskarro.app.jwtSecret}")
+    //@Value("${oskarro.app.jwtSecret}")
     private String jwtSecret;
 
-    @Value("${oskarro.app.jwtExpiration}")
+    //@Value("${oskarro.app.jwtExpiration}")
     private int jwtExpiration;
 
     /* BUILDING JWT TOKEN */

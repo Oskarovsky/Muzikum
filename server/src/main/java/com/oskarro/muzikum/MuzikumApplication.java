@@ -18,6 +18,7 @@ import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.core.Ordered;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
@@ -67,6 +68,12 @@ public class MuzikumApplication {
         PlaylistRepository playlistRepository = applicationContext.getBean(PlaylistRepository.class);
         TrackRepository trackRepository = applicationContext.getBean(TrackRepository.class);
         TrackService trackService = applicationContext.getBean(TrackService.class);
+        UserDetailsService userDetailsService = applicationContext.getBean(UserDetailsService.class);
+
+
+
+        // USERS CREATOR
+
 
 
         // GENRE COLLECTIONS FOR PROVIDERS
