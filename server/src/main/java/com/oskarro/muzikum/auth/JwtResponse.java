@@ -20,5 +20,9 @@ public class JwtResponse {
         this.authorities = authorities;
     }
 
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return authorities;
+    }
+
 
 }

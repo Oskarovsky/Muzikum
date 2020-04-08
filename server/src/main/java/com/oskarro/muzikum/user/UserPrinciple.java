@@ -68,9 +68,11 @@ public class UserPrinciple implements UserDetails {
     }
 
     public static UserPrinciple build(User user) {
+        user.getRoles().forEach(s -> System.out.println(s.getName()));
         List<GrantedAuthority> authorities = user.getRoles().stream().map(role ->
-                new SimpleGrantedAuthority(role.getName().name())
+                new SimpleGrantedAuthority(role.getName().toString())
         ).collect(Collectors.toList());
+        authorities.forEach(s -> System.out.println(s.getAuthority()));
 
         return new UserPrinciple(
                 user.getId(),
