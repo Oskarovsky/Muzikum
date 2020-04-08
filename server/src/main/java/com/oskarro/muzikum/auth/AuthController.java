@@ -90,7 +90,7 @@ public class AuthController {
             }
         });
 
-        //user.setRoles(roles);
+        user.setRoles(roles);
         userRepository.save(user);
 
         return new ResponseEntity<>(new ResponseMessage("User registered successfully!"), HttpStatus.OK);
