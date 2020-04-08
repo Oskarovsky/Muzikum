@@ -1,4 +1,4 @@
-package com.oskarro.muzikum;
+package com.oskarro.muzikum.auth;
 
 import com.oskarro.muzikum.auth.JwtProvider;
 import lombok.extern.slf4j.Slf4j;
@@ -24,6 +24,7 @@ public class JwtAuthTokenFilter extends OncePerRequestFilter {
     @Autowired
     private UserDetailsServiceImpl userDetailsService;
 
+    /* TOKEN VALIDATION BY JWT-PROVIDER*/
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response,
                                     FilterChain filterChain) throws ServletException, IOException {
