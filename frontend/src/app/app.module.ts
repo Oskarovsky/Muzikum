@@ -61,7 +61,7 @@ import { BoardUserComponent } from './board-user/board-user.component';
     ProfileComponent,
     BoardAdminComponent,
     BoardModeratorComponent,
-    BoardUserComponent
+    BoardUserComponent,
   ],
   imports: [
     AppRoutingModule,
