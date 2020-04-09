@@ -37,6 +37,7 @@ import { BoardAdminComponent } from './board-admin/board-admin.component';
 import { BoardModeratorComponent } from './board-moderator/board-moderator.component';
 import { BoardUserComponent } from './board-user/board-user.component';
 import { VideoComponent } from './video/video.component';
+import { VideoAddComponent } from './video-add/video-add.component';
 
 
 @NgModule({
@@ -64,6 +65,7 @@ import { VideoComponent } from './video/video.component';
     BoardModeratorComponent,
     BoardUserComponent,
     VideoComponent,
+    VideoAddComponent,
   ],
   imports: [
     AppRoutingModule,

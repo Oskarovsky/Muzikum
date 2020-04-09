@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import {Playlist} from "../playlist/model/playlist";
-import {Track} from "../track/model/track";
-import {PlaylistService} from "../services/playlist/playlist.service";
-import {TrackService} from "../services/track/track.service";
-import {Subscription} from "rxjs";
-import {ActivatedRoute, Route} from "@angular/router";
+import {Playlist} from '../playlist/model/playlist';
+import {Track} from '../track/model/track';
+import {PlaylistService} from '../services/playlist/playlist.service';
+import {TrackService} from '../services/track/track.service';
+import {Subscription} from 'rxjs';
+import {ActivatedRoute, Route} from '@angular/router';
 
 @Component({
   selector: 'app-playlist-edit',
@@ -53,9 +53,9 @@ export class PlaylistEditComponent implements OnInit {
       if (id) {
         this.playlistService.getPlaylist(id).subscribe((playlist: any) => {
           this.playlist = playlist;
-        })
+        });
       }
-    })
+    });
   }
 
   public getAllTracksFromPlaylist() {
@@ -67,11 +67,11 @@ export class PlaylistEditComponent implements OnInit {
             this.tracks = response;
           },
           error => {
-            alert("An error with fetching tracks has occurred")
+            alert('An error with fetching tracks has occurred');
           }
-        )
+        );
       }
-    })
+    });
   }
 
   public updateTrack(updatedTrack: Track) {
@@ -79,9 +79,9 @@ export class PlaylistEditComponent implements OnInit {
       response => {
       },
       error => {
-        alert("An error with updating tracks has occurred")
+        alert('An error with updating tracks has occurred');
       }
-    )
+    );
   }
 
   updatePlaylist(updatedPlaylist: Playlist) {
@@ -91,9 +91,9 @@ export class PlaylistEditComponent implements OnInit {
 
       },
       error => {
-        alert("An error with updating playlists has occurred")
+        alert('An error with updating playlists has occurred');
       }
-    )
+    );
   }
 
   public getPlaylistById() {
@@ -105,34 +105,34 @@ export class PlaylistEditComponent implements OnInit {
             this.playlist = response;
           },
           error => {
-            alert("An error with fetching playlist has occurred")
-          })
+            alert('An error with fetching playlist has occurred');
+          });
       }
-    })
+    });
   }
 
   deleteTrack(id: number) {
-    if(confirm("Czy na pewno chcesz usunąć ten utwór?")) {
+    if (confirm('Czy na pewno chcesz usunąć ten utwór?')) {
       this.trackService.deleteTrackFromPlaylist(id).subscribe(
         response => {
           this.tracks.splice(Number(id), 1);
           window.location.reload();
         },
         error => {
-          alert("An error has occurred while deleting tracks from playlist")
+          alert('An error has occurred while deleting tracks from playlist');
         }
-      )
+      );
     }
   }
 
   addTrackToPlaylist(title: string, artist: string, version: string) {
-    let newTrack: Track = {
+    const newTrack: Track = {
       id: null,
-      title: title,
-      artist: artist,
+      title,
+      artist,
       points: null,
       genre: '',
-      version: version,
+      version,
       url: '',
       position: null,
       playlist: this.playlist
@@ -143,8 +143,8 @@ export class PlaylistEditComponent implements OnInit {
         this.tracks.push(newTrack);
       },
       error => {
-        alert("An error with adding track to playlist has occurred")
+        alert('An error with adding track to playlist has occurred');
       }
-    )
+    );
   }
 }

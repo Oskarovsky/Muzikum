@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {Observable} from 'rxjs';
-import {Playlist} from '../../playlist/model/playlist';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { Playlist } from '../../playlist/model/playlist';
 import { Track } from 'src/app/track/model/track';
 
 @Injectable({providedIn: 'root'})

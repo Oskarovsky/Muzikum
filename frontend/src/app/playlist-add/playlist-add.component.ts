@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import {PlaylistService} from "../services/playlist/playlist.service";
-import {Playlist} from "../playlist/model/playlist";
-import {Track} from "../track/model/track";
-import {TrackService} from "../services/track/track.service";
+import {PlaylistService} from '../services/playlist/playlist.service';
+import {Playlist} from '../playlist/model/playlist';
+import {Track} from '../track/model/track';
+import {TrackService} from '../services/track/track.service';
 
 @Component({
   selector: 'app-playlist-add',
