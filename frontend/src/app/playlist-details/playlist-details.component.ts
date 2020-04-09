@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import {Playlist} from "../playlist/model/playlist";
-import {PlaylistService} from "../shared/playlist/playlist.service";
+import {PlaylistService} from "../services/playlist/playlist.service";
 import {Subscription} from "rxjs";
 import {ActivatedRoute} from "@angular/router";
-import {TrackService} from "../shared/track/track.service";
+import {TrackService} from "../services/track/track.service";
 import {Track} from "../track/model/track";
 
 @Component({

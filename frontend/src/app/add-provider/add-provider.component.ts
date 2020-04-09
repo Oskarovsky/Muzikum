@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {ProviderService} from "../shared/provider/provider.service";
+import {ProviderService} from "../services/provider/provider.service";
 import { Provider } from '../provider/model/provider';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 

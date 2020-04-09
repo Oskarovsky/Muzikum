@@ -29,7 +29,13 @@ import { PlaylistComponent } from './playlist/playlist.component';
 import { PlaylistAddComponent } from './playlist-add/playlist-add.component';
 import { PlaylistEditComponent } from './playlist-edit/playlist-edit.component';
 import { PlaylistDetailsComponent } from './playlist-details/playlist-details.component';
-import { PlaylistFilterPipe } from './shared/playlist-filter/playlist-filter.pipe';
+import { PlaylistFilterPipe } from './services/playlist-filter/playlist-filter.pipe';
+import { LoginComponent } from './login/login.component';
+import { RegisterComponent } from './register/register.component';
+import { ProfileComponent } from './profile/profile.component';
+import { BoardAdminComponent } from './board-admin/board-admin.component';
+import { BoardModeratorComponent } from './board-moderator/board-moderator.component';
+import { BoardUserComponent } from './board-user/board-user.component';
 
 
 @NgModule({
@@ -49,7 +55,13 @@ import { PlaylistFilterPipe } from './shared/playlist-filter/playlist-filter.pip
     PlaylistAddComponent,
     PlaylistEditComponent,
     PlaylistDetailsComponent,
-    PlaylistFilterPipe
+    PlaylistFilterPipe,
+    LoginComponent,
+    RegisterComponent,
+    ProfileComponent,
+    BoardAdminComponent,
+    BoardModeratorComponent,
+    BoardUserComponent
   ],
   imports: [
     AppRoutingModule,

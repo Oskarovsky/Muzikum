@@ -1,7 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
-import {ProviderService} from "../shared/provider/provider.service";
-import {TrackService} from "../shared/track/track.service";
+import {ProviderService} from "../services/provider/provider.service";
+import {TrackService} from "../services/track/track.service";
 import {Provider} from "./model/provider";
 import {ProviderListComponent} from "../provider-list/provider-list.component";
 import {Location} from '@angular/common';

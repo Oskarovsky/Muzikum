@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {Playlist} from "../playlist/model/playlist";
 import {Track} from "../track/model/track";
-import {PlaylistService} from "../shared/playlist/playlist.service";
-import {TrackService} from "../shared/track/track.service";
+import {PlaylistService} from "../services/playlist/playlist.service";
+import {TrackService} from "../services/track/track.service";
 import {Subscription} from "rxjs";
 import {ActivatedRoute, Route} from "@angular/router";
 

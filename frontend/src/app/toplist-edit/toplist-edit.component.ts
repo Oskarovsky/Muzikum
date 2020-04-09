@@ -3,7 +3,7 @@ import {ActivatedRoute} from "@angular/router";
 import { Track } from "../track/model/track";
 import { FormGroup, FormControl } from '@angular/forms';
 import {HttpClient} from "@angular/common/http";
-import {TrackService} from "../shared/track/track.service";
+import {TrackService} from "../services/track/track.service";
 
 @Component({
   selector: 'app-toplist-edit',

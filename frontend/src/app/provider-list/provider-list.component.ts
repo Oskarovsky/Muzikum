@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {ProviderService} from "../shared/provider/provider.service";
+import {ProviderService} from "../services/provider/provider.service";
 
 @Component({
   selector: 'app-provider-list',

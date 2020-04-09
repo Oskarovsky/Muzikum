@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 
-import {TrackService} from "../shared/track/track.service";
+import {TrackService} from "../services/track/track.service";
 import {HttpClient} from "@angular/common/http";
 import {Track} from "./model/track";
 
