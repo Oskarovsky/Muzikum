@@ -1,6 +1,7 @@
 package com.oskarro.muzikum.auth.jwt;
 
 import java.util.Collection;
+import java.util.List;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -14,20 +15,15 @@ public class JwtResponse {
     private String type = "Bearer";
     private String username;
     private String email;
-    private Collection<? extends GrantedAuthority> authorities;
+    private List<String> roles;
 
     public JwtResponse(String accessToken, Integer id, String username, String email,
-                       Collection<? extends GrantedAuthority> authorities) {
+                       List<String> roles) {
         this.token = accessToken;
         this.username = username;
-        this.authorities = authorities;
+        this.roles = roles;
         this.email = email;
         this.id = id;
     }
-
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return authorities;
-    }
-
 
 }
