@@ -21,16 +21,12 @@ import java.util.Set;
 @Table(name = "users", uniqueConstraints = {
         @UniqueConstraint(columnNames = "username"),
         @UniqueConstraint(columnNames = "email")
-})
+        })
 public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-
-    @NotNull
-    @Size(min = 4, max = 32)
-    private String name;
 
     @NotNull
     @Size(min=3, max = 32)
@@ -52,8 +48,7 @@ public class User {
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles = new HashSet<>();
 
-    public User(String name, String username, String email, String password) {
-        this.name = name;
+    public User(String username, String email, String password) {
         this.username = username;
         this.email = email;
         this.password = password;

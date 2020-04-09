@@ -1,6 +1,5 @@
-package com.oskarro.muzikum.auth;
+package com.oskarro.muzikum.auth.jwt;
 
-import com.oskarro.muzikum.auth.JwtProvider;
 import com.oskarro.muzikum.user.UserDetailsServiceImpl;
 
 import java.io.IOException;
@@ -12,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.util.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -33,8 +33,7 @@ public class JwtAuthTokenFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
             throws ServletException, IOException {
         try {
-
-            String jwt = getJwt(request);
+            String jwt = parseJwt(request);
             if (jwt != null && tokenProvider.validateJwtToken(jwt)) {
                 String username = tokenProvider.getUsernameFromJwtToken(jwt);
 
@@ -48,17 +47,15 @@ public class JwtAuthTokenFilter extends OncePerRequestFilter {
         } catch (Exception e) {
             logger.error("Can NOT set user authentication -> Message: {}", e);
         }
-
         filterChain.doFilter(request, response);
     }
 
-    private String getJwt(HttpServletRequest request) {
+    private String parseJwt(HttpServletRequest request) {
         String authHeader = request.getHeader("Authorization");
 
-        if (authHeader != null && authHeader.startsWith("Bearer ")) {
-            return authHeader.replace("Bearer ", "");
+        if (StringUtils.hasText(authHeader) && authHeader.startsWith("Bearer ")) {
+            return authHeader.substring(7);
         }
-
         return null;
     }
 }

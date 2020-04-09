@@ -1,4 +1,4 @@
-package com.oskarro.muzikum.auth;
+package com.oskarro.muzikum.auth.jwt;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.AuthenticationException;

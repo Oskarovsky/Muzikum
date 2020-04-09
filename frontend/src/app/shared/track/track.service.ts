@@ -34,7 +34,7 @@ export class TrackService {
   }
 
   getTracksByGenre(genre: string) {
-    return this.http.get(this.TRACK_API + '/genre/' + genre)
+    return this.http.get(this.TRACK_API + '/genre/' + genre);
   }
 
   getTracksByProviderName(providerName: string) {
@@ -42,7 +42,7 @@ export class TrackService {
   }
 
   addTrackToRanking(track: Track): Observable<any> {
-    return this.http.post<Track>(this.TRACK_API + "/addToRanking", track)
+    return this.http.post<Track>(this.TRACK_API + '/addToRanking', track);
   }
 
   saveTrackToPlaylist(track: Track): Observable<Track> {

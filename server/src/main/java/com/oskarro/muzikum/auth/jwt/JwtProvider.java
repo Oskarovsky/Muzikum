@@ -1,4 +1,4 @@
-package com.oskarro.muzikum.auth;
+package com.oskarro.muzikum.auth.jwt;
 
 import com.oskarro.muzikum.user.UserPrinciple;
 import io.jsonwebtoken.*;
@@ -27,6 +27,7 @@ public class JwtProvider {
                 .setSubject(userPrincipal.getUsername())
                 .setIssuedAt(new Date())
                 .setExpiration(new Date((new Date()).getTime() + jwtExpiration * 1000))
+                .signWith(SignatureAlgorithm.HS512, jwtSecret)
                 .compact();
     }
 
@@ -51,7 +52,8 @@ public class JwtProvider {
         return Jwts.parser()
                 .setSigningKey(jwtSecret)
                 .parseClaimsJws(token)
-                .getBody().getSubject();
+                .getBody()
+                .getSubject();
     }
 
 }

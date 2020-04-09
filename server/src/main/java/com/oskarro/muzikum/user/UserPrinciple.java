@@ -21,16 +21,14 @@ public class UserPrinciple implements UserDetails {
 
     private static final long serialVersionUID = 1L;
 
-    private Integer id;
-    private String name;
-    private String username;
-    private String email;
+    final private Integer id;
+    final private String username;
+    final private String email;
 
     @JsonIgnore
-    private String password;
+    final private String password;
 
-    private Collection<? extends GrantedAuthority> authorities;
-
+    final private Collection<? extends GrantedAuthority> authorities;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -67,16 +65,17 @@ public class UserPrinciple implements UserDetails {
         return true;
     }
 
+
     public static UserPrinciple build(User user) {
         user.getRoles().forEach(s -> System.out.println(s.getName()));
-        List<GrantedAuthority> authorities = user.getRoles().stream().map(role ->
-                new SimpleGrantedAuthority(role.getName().toString())
+        List<GrantedAuthority> authorities = user.getRoles()
+                .stream()
+                .map(role -> new SimpleGrantedAuthority(role.getName().toString())
         ).collect(Collectors.toList());
         authorities.forEach(s -> System.out.println(s.getAuthority()));
 
         return new UserPrinciple(
                 user.getId(),
-                user.getName(),
                 user.getUsername(),
                 user.getEmail(),
                 user.getPassword(),

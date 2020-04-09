@@ -23,11 +23,11 @@ export class ProviderService {
 
   /** GET provider by id **/
   getProvider(id: string): Observable<any> {
-    return this.http.get<any>(this.PROVIDER_API + '/' + id)
+    return this.http.get<any>(this.PROVIDER_API + '/' + id);
   }
 
   getAllGenresFromProvider(id: string): Observable<any> {
-    return this.http.get<any[]>(this.PROVIDER_API + '/' + id + '/genres')
+    return this.http.get<any[]>(this.PROVIDER_API + '/' + id + '/genres');
   }
 
   createProvider(provider: object): Observable<object> {

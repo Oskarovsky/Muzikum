@@ -1,7 +1,7 @@
 package com.oskarro.muzikum.config;
 
-import com.oskarro.muzikum.auth.JwtAuthEntryPoint;
-import com.oskarro.muzikum.auth.JwtAuthTokenFilter;
+import com.oskarro.muzikum.auth.jwt.JwtAuthEntryPoint;
+import com.oskarro.muzikum.auth.jwt.JwtAuthTokenFilter;
 import com.oskarro.muzikum.user.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -56,7 +56,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         httpSecurity.cors().and().csrf().disable()
                 .authorizeRequests()
                     .antMatchers("/api/auth/**").permitAll()
-                    .anyRequest().permitAll()
+                    .anyRequest().authenticated()
                     .and()
                 .exceptionHandling()
                     .authenticationEntryPoint(unauthorizedHandler)

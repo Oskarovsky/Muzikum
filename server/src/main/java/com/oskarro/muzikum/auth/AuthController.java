@@ -1,19 +1,22 @@
 package com.oskarro.muzikum.auth;
 
+import com.oskarro.muzikum.auth.jwt.JwtProvider;
+import com.oskarro.muzikum.auth.jwt.JwtResponse;
 import com.oskarro.muzikum.user.*;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -43,7 +46,7 @@ public class AuthController {
     JwtProvider jwtProvider;
 
     @PostMapping(value = "/signin")
-    public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginForm loginRequest) {
+    public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
 
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
@@ -51,55 +54,68 @@ public class AuthController {
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
         String jwt = jwtProvider.generateJwtToken(authentication);
-        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+        UserPrinciple userDetails = (UserPrinciple) authentication.getPrincipal();
+        List<String> roles = userDetails.getAuthorities().stream()
+                .map(GrantedAuthority::getAuthority)
+                .collect(Collectors.toList());
 
-        return ResponseEntity.ok(new JwtResponse(jwt, userDetails.getUsername(), userDetails.getAuthorities()));
+        return ResponseEntity.ok(new JwtResponse(jwt,
+                                        userDetails.getId(),
+                                        userDetails.getUsername(),
+                                        userDetails.getEmail(),
+                                        userDetails.getAuthorities()));
     }
 
     @PostMapping("/signup")
-    public ResponseEntity<?> registerUser(@Valid @RequestBody SignUpForm signUpRequest) {
-        if (userRepository.existsByUsername(signUpRequest.getUsername())) {
-            return new ResponseEntity<>(new ResponseMessage("Fail -> Username is already taken!"),
-                    HttpStatus.BAD_REQUEST);
+    public ResponseEntity<?> registerUser(@Valid @RequestBody SignupRequest signupRequest) {
+        if (userRepository.existsByUsername(signupRequest.getUsername())) {
+            return ResponseEntity
+                    .badRequest()
+                    .body(new ResponseMessage("Fail -> Username is already taken!"));
         }
 
-        if (userRepository.existsByEmail(signUpRequest.getEmail())) {
-            return new ResponseEntity<>(new ResponseMessage("Fail -> Email is already in use!"),
-                    HttpStatus.BAD_REQUEST);
+        if (userRepository.existsByEmail(signupRequest.getEmail())) {
+            return ResponseEntity
+                    .badRequest()
+                    .body("Fail -> Email is already in use!");
         }
 
-        // Creating user's account
-        User user = new User(signUpRequest.getName(), signUpRequest.getUsername(), signUpRequest.getEmail(),
-                encoder.encode(signUpRequest.getPassword()));
+        // Creating new user's account
+        User user = new User(signupRequest.getUsername(),
+                            signupRequest.getEmail(),
+                            encoder.encode(signupRequest.getPassword()));
 
-        Set<String> strRoles = signUpRequest.getRole();
+        Set<String> stringRoles = signupRequest.getRole();
         Set<Role> roles = new HashSet<>();
 
-        strRoles.forEach(role -> {
-            switch (role) {
-                case "admin":
-                    Role adminRole = roleRepository.findByName(RoleName.ROLE_ADMIN)
-                            .orElseThrow(() -> new RuntimeException("Fail! -> Cause: User Role not find."));
-                    roles.add(adminRole);
-
-                    break;
-                case "pm":
-                    Role pmRole = roleRepository.findByName(RoleName.ROLE_PM)
-                            .orElseThrow(() -> new RuntimeException("Fail! -> Cause: User Role not find."));
-                    roles.add(pmRole);
-
-                    break;
-                default:
-                    Role userRole = roleRepository.findByName(RoleName.ROLE_USER)
-                            .orElseThrow(() -> new RuntimeException("Fail! -> Cause: User Role not find."));
-                    roles.add(userRole);
-            }
-        });
-
+        if (stringRoles == null) {
+            Role userRole = roleRepository.findByName(RoleName.ROLE_USER)
+                    .orElseThrow(() -> new RuntimeException("Error: Role is not found"));
+            roles.add(userRole);
+        } else {
+            stringRoles.forEach(role -> {
+                switch (role) {
+                    case "admin":
+                        Role adminRole = roleRepository.findByName(RoleName.ROLE_ADMIN)
+                                .orElseThrow(() -> new RuntimeException("Fail! -> Cause: User Role not find."));
+                        roles.add(adminRole);
+                        break;
+                    case "mod":
+                        Role modRole = roleRepository.findByName(RoleName.ROLE_MODERATOR)
+                                .orElseThrow(() -> new RuntimeException("Fail! -> Cause: User Role not find."));
+                        roles.add(modRole);
+                        break;
+                    default:
+                        Role userRole = roleRepository.findByName(RoleName.ROLE_USER)
+                                .orElseThrow(() -> new RuntimeException("Fail! -> Cause: User Role not find."));
+                        roles.add(userRole);
+                }
+            });
+        }
         user.setRoles(roles);
         userRepository.save(user);
 
-        return new ResponseEntity<>(new ResponseMessage("User registered successfully!"), HttpStatus.OK);
+        return ResponseEntity.ok(new ResponseMessage("User registered successfully!"));
     }
 
 }
