@@ -1,6 +1,7 @@
-import {Component, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import {HttpClient} from "@angular/common/http";
+import { HttpClient } from '@angular/common/http';
+import { TokenStorageService } from './services/auth/token-storage.service';
 
 @Component({
   selector: 'app-root',
@@ -10,9 +11,17 @@ import {HttpClient} from "@angular/common/http";
 
 export class AppComponent implements OnInit {
 
-  constructor(private http: HttpClient) {}
+  private roles: string[];
+  isLoggedIn = false;
+  showAdminBoard = false;
+  showModeratorBoard = false;
+  username: string;
 
-  async ngOnInit() {}
+  constructor(private http: HttpClient,
+              private tokenStorageService: TokenStorageService) {}
+
+  ngOnInit() {
+  }
 
 
 }

@@ -2,6 +2,15 @@
   <span>{{title}}</span>
   <span class="example-spacer"></span>
   <mat-icon class="example-icon" aria-hidden="false" aria-label="Example user verified icon">headset</mat-icon>
+  <button mat-button routerLink="/admin" *ngIf="showAdminBoard">Admin</button>
+  <button mat-button routerLink="/mod" *ngIf="showModeratorBoard">Moderator</button>
+  <button mat-button routerLink="/user" *ngIf="isLoggedIn">User</button>
+
+  <button mat-button routerLink="/register" *ngIf="!isLoggedIn">Zarejestruj się</button>
+  <button mat-button routerLink="/login" *ngIf="!isLoggedIn">Zaloguj się</button>
+
+  <button mat-button routerLink="/profile" *ngIf="isLoggedIn">{{ username }}</button>
+  <button mat-button (click)="logout()" *ngIf="isLoggedIn">Wyloguj się</button>
 </mat-toolbar>
 
 <button mat-button routerLink="/">Strona główna</button>
@@ -36,4 +45,7 @@
 </mat-menu>
 
 <button mat-button routerLink="/playlist/all">Playlist</button>
+
+
+
 

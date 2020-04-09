@@ -12,6 +12,11 @@ import {PlaylistComponent} from './playlist/playlist.component';
 import {PlaylistAddComponent} from './playlist-add/playlist-add.component';
 import {PlaylistEditComponent} from './playlist-edit/playlist-edit.component';
 import {PlaylistDetailsComponent} from './playlist-details/playlist-details.component';
+import {LoginComponent} from './login/login.component';
+import {RegisterComponent} from './register/register.component';
+import {BoardModeratorComponent} from './board-moderator/board-moderator.component';
+import {BoardAdminComponent} from './board-admin/board-admin.component';
+import {BoardUserComponent} from './board-user/board-user.component';
 
 
 const routes: Routes = [
@@ -30,6 +35,12 @@ const routes: Routes = [
   { path: 'playlist/add', component: PlaylistAddComponent },
   { path: 'playlist/:id/edit', component: PlaylistEditComponent },
   { path: 'playlist/:id/details', component: PlaylistDetailsComponent },
+  { path: 'login', component: LoginComponent },
+  { path: 'register', component: RegisterComponent },
+  { path: 'profile', component: ProviderComponent },
+  { path: 'user', component: BoardUserComponent },
+  { path: 'mod', component: BoardModeratorComponent },
+  { path: 'admin', component: BoardAdminComponent },
   { path: '**', component: NotFoundComponent}
 ];
 
