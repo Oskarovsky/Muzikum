@@ -10,9 +10,6 @@ import javax.validation.constraints.*;
 @Getter
 @Setter
 public class SignupRequest {
-    @NotBlank
-    @Size(min = 3, max = 50)
-    private String name;
 
     @NotBlank
     @Size(min = 3, max = 50)
