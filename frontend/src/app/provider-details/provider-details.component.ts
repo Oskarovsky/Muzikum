@@ -4,6 +4,7 @@ import {ProviderService} from "../services/provider/provider.service";
 import {TrackService} from "../services/track/track.service";
 import {Location} from "@angular/common";
 import {Subscription} from "rxjs";
+import {TokenStorageService} from '../services/auth/token-storage.service';
 
 @Component({
   selector: 'app-provider-details',
@@ -20,15 +21,33 @@ export class ProviderDetailsComponent implements OnInit {
 
   tracks: Array<any>;
 
+  private roles: string[];
+  isLoggedIn = false;
+  showAdminBoard = false;
+  showModeratorBoard = false;
+  username: string;
 
   constructor(private providerService: ProviderService,
               private trackService: TrackService,
               private route: ActivatedRoute,
               private location: Location,
-              private router: Router) { }
+              private router: Router,
+              private tokenStorageService: TokenStorageService) { }
 
 
   ngOnInit() {
+    this.isLoggedIn = !!this.tokenStorageService.getToken();
+
+    if (this.isLoggedIn) {
+      const user = this.tokenStorageService.getUser();
+      this.roles = user.roles;
+
+      this.showAdminBoard = this.roles.includes('ROLE_ADMIN');
+      this.showModeratorBoard = this.roles.includes('ROLE_MODERATOR');
+
+      this.username = user.username;
+    }
+
     this.sub = this.route.params.subscribe(params => {
       const id = params.id;
       if (id) {
