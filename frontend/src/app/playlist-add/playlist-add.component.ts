@@ -45,14 +45,14 @@ export class PlaylistAddComponent implements OnInit {
         this.playlists = res;
       },
       error => {
-        alert("An error with fetching playlists has occurred")
+        alert('An error with fetching playlists has occurred');
       }
-    )
+    );
   }
   createPlaylist(name: string) {
-    let newPlaylist: Playlist = {
+    const newPlaylist: Playlist = {
       id: null,
-      name: name
+      name
     };
     this.playlistService.addPlaylist(newPlaylist).subscribe(
       result => {
@@ -60,9 +60,9 @@ export class PlaylistAddComponent implements OnInit {
         this.playlists.push(newPlaylist);
       },
       error => {
-        alert('An error has occurred while saving the playlist')
+        alert('An error has occurred while saving the playlist');
       }
-    )
+    );
   }
 
 }

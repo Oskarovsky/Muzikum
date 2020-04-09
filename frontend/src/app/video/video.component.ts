@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import {VideoService} from '../services/video/video.service';
+import {Video} from './model/video';
+import {Track} from '../track/model/track';
 
 @Component({
   selector: 'app-video',
@@ -7,9 +10,24 @@ import { Component, OnInit } from '@angular/core';
 })
 export class VideoComponent implements OnInit {
 
-  constructor() { }
+  videos: Video[];
+
+  tracks: Track[];
+
+  constructor(private videoService: VideoService) {}
 
   ngOnInit() {
+    this.getAllVideo();
   }
 
+  public getAllVideo() {
+    this.videoService.getAllVideos().subscribe(
+      response => {
+        this.videos = response;
+      },
+      error => {
+        alert('An error with fetching videos has occurred');
+      }
+    );
+  }
 }

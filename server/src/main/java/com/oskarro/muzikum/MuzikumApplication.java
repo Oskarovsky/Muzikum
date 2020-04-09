@@ -14,6 +14,9 @@ import com.oskarro.muzikum.track.TrackService;
 import com.oskarro.muzikum.user.Role;
 import com.oskarro.muzikum.user.RoleName;
 import com.oskarro.muzikum.user.RoleRepository;
+import com.oskarro.muzikum.video.Video;
+import com.oskarro.muzikum.video.VideoRepository;
+import com.oskarro.muzikum.video.VideoService;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
@@ -24,6 +27,7 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
 
+import java.lang.reflect.Array;
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -71,6 +75,8 @@ public class MuzikumApplication {
         TrackService trackService = applicationContext.getBean(TrackService.class);
         UserDetailsService userDetailsService = applicationContext.getBean(UserDetailsService.class);
         RoleRepository roleRepository = applicationContext.getBean(RoleRepository.class);
+        VideoRepository videoRepository = applicationContext.getBean(VideoRepository.class);
+        VideoService videoService = applicationContext.getBean(VideoService.class);
 
         // USERS CREATOR
         Role roleAdmin = new Role();
@@ -162,6 +168,24 @@ public class MuzikumApplication {
 
         trackRepository.saveAll(Arrays.asList(track1, track2, track3, track4, track5));
 
+        // VIDEO PANE:
+        Set<Track> vixaTracklist = new HashSet<>(Arrays.asList(track1, track2, track3));
+        Video video1 = Video.builder()
+                .id(1)
+                .name("Vixa")
+                .tracks(vixaTracklist)
+                .url("https://www.youtube.com/watch?v=Dp--txMIGPI")
+                .build();
+
+        Set<Track> virusTracklist = new HashSet<>(Arrays.asList(track1, track4, track5));
+        Video video2 = Video.builder()
+                .id(2)
+                .name("Virus")
+                .tracks(virusTracklist)
+                .url("https://www.youtube.com/watch?v=MpWfj-2P-9M&t=1s")
+                .build();
+
+        videoRepository.saveAll(Arrays.asList(video1, video2));
 
     }
 
