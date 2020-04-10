@@ -19,6 +19,7 @@ export class VideoAddComponent implements OnInit {
     id: null,
     name: '',
     url: '',
+    safeUrl: null,
     tracks: null
   };
 
@@ -45,6 +46,7 @@ export class VideoAddComponent implements OnInit {
       id: null,
       url: '',
       name,
+      safeUrl: null,
       tracks: null
     };
     this.videoService.addVideo(newVideo).subscribe(

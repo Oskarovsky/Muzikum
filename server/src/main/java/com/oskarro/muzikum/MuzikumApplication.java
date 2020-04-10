@@ -180,7 +180,7 @@ public class MuzikumApplication {
                 .id(1)
                 .name("Vixa")
                 .tracks(vixaTracklist)
-                .url("https://www.youtube.com/watch?v=Dp--txMIGPI")
+                .url("Dp--txMIGPI")
                 .build();
 
         Set<Track> virusTracklist = new HashSet<>(Arrays.asList(track8, track9));
@@ -188,7 +188,7 @@ public class MuzikumApplication {
                 .id(2)
                 .name("Virus")
                 .tracks(virusTracklist)
-                .url("https://www.youtube.com/watch?v=MpWfj-2P-9M&t=1s")
+                .url("MpWfj-2P-9M")
                 .build();
 
         videoRepository.saveAll(Arrays.asList(video1, video2));

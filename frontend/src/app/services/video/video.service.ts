@@ -4,6 +4,7 @@ import { Track } from '../../track/model/track';
 import {Observable} from 'rxjs';
 import {Playlist} from '../../playlist/model/playlist';
 import {Video} from '../../video/model/video';
+import {DomSanitizer} from '@angular/platform-browser';
 
 @Injectable({providedIn: 'root'})
 export class VideoService {
@@ -18,7 +19,8 @@ export class VideoService {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   };
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient,
+              private sanitizer: DomSanitizer) { }
 
   /** GET all video */
   getAllVideos(): Observable<Video[]> {
