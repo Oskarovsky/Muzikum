@@ -166,10 +166,16 @@ public class MuzikumApplication {
         Track track4 = Track.builder().id(1).title("This is More than ntht").artist("Mega tdsdsest").version("Remix").playlist(playlist2).build();
         Track track5 = Track.builder().id(4).title("This is my test").artist("Mega oss").version("dsd edit").playlist(playlist).build();
 
+        Track track6 = Track.builder().id(9).title("This is my test").artist("Mega oss").version("dsd edit").playlist(playlist).build();
+        Track track7 = Track.builder().id(10).title("This is my test").artist("Mega oss").version("dsd edit").playlist(playlist).build();
+        Track track8 = Track.builder().id(11).title("This is my test").artist("Mega oss").version("dsd edit").playlist(playlist).build();
+        Track track9 = Track.builder().id(12).title("This is my test").artist("Mega oss").version("dsd edit").playlist(playlist).build();
+
+
         trackRepository.saveAll(Arrays.asList(track1, track2, track3, track4, track5));
 
         // VIDEO PANE:
-        Set<Track> vixaTracklist = new HashSet<>(Arrays.asList(track1, track2, track3));
+        Set<Track> vixaTracklist = new HashSet<>(Arrays.asList(track6, track7));
         Video video1 = Video.builder()
                 .id(1)
                 .name("Vixa")
@@ -177,7 +183,7 @@ public class MuzikumApplication {
                 .url("https://www.youtube.com/watch?v=Dp--txMIGPI")
                 .build();
 
-        Set<Track> virusTracklist = new HashSet<>(Arrays.asList(track1, track4, track5));
+        Set<Track> virusTracklist = new HashSet<>(Arrays.asList(track8, track9));
         Video video2 = Video.builder()
                 .id(2)
                 .name("Virus")

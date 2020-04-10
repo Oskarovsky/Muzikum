@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule, NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { MatButtonModule, MatCardModule, MatInputModule, MatListModule, MatToolbarModule } from '@angular/material';
+import {MatButtonModule, MatCardModule, MatExpansionModule, MatInputModule, MatListModule, MatToolbarModule} from '@angular/material';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -89,6 +89,7 @@ import { VideoAddComponent } from './video-add/video-add.component';
     MatTableModule,
     MatTabsModule,
     MatSortModule,
+    MatExpansionModule,
   ],
   exports: [
     TrackComponent,
