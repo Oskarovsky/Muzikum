@@ -29,7 +29,7 @@ import { PlaylistComponent } from './playlist/playlist.component';
 import { PlaylistAddComponent } from './playlist-add/playlist-add.component';
 import { PlaylistEditComponent } from './playlist-edit/playlist-edit.component';
 import { PlaylistDetailsComponent } from './playlist-details/playlist-details.component';
-import { PlaylistFilterPipe } from './services/playlist-filter/playlist-filter.pipe';
+import { PlaylistFilterPipe } from './services/playlist/playlist-filter.pipe';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { ProfileComponent } from './profile/profile.component';
@@ -38,6 +38,7 @@ import { BoardModeratorComponent } from './board-moderator/board-moderator.compo
 import { BoardUserComponent } from './board-user/board-user.component';
 import { VideoComponent } from './video/video.component';
 import { VideoAddComponent } from './video-add/video-add.component';
+import {VideoFilterPipe} from './services/video/video-filter.pipe';
 
 
 @NgModule({
@@ -66,6 +67,7 @@ import { VideoAddComponent } from './video-add/video-add.component';
     BoardUserComponent,
     VideoComponent,
     VideoAddComponent,
+    VideoFilterPipe
   ],
   imports: [
     AppRoutingModule,

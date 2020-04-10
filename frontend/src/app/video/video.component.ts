@@ -12,9 +12,8 @@ import { DomSanitizer } from '@angular/platform-browser';
 export class VideoComponent implements OnInit {
 
   videos: Video[];
-
   tracks: Track[];
-
+  searchText: string;
   safeVideoUrl: any;
 
   constructor(private videoService: VideoService,
