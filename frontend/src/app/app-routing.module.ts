@@ -18,6 +18,7 @@ import {BoardModeratorComponent} from './board-moderator/board-moderator.compone
 import {BoardAdminComponent} from './board-admin/board-admin.component';
 import {BoardUserComponent} from './board-user/board-user.component';
 import {VideoComponent} from './video/video.component';
+import {VideoAddComponent} from './video-add/video-add.component';
 
 
 const routes: Routes = [
@@ -43,6 +44,7 @@ const routes: Routes = [
   { path: 'mod', component: BoardModeratorComponent },
   { path: 'admin', component: BoardAdminComponent },
   { path: 'video', component: VideoComponent },
+  { path: 'video/add', component: VideoAddComponent },
   { path: '**', component: NotFoundComponent}
 ];
 
