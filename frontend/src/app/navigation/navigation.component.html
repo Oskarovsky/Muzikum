@@ -14,7 +14,7 @@
   <button mat-button (click)="logout()" *ngIf="isLoggedIn">Wyloguj się</button>
 </mat-toolbar>
 
-<button mat-button routerLink="/">Strona główna</button>
+<button mat-button routerLink="/" style="margin-bottom: 20px">Strona główna</button>
 
 <button mat-button [matMenuTriggerFor]="genreMenu">Gatunki</button>
 <mat-menu #genreMenu="matMenu" yPosition="below">

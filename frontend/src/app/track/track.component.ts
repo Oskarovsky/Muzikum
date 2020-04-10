@@ -13,7 +13,8 @@ import {Track} from "./model/track";
 })
 export class TrackComponent implements OnInit {
 
-  public API = '//localhost:8080';
+  // public API = '//localhost:8080';
+  public API = '//91.205.75.145:8080/api';
   public TRACK_API = this.API + '/tracks';
   public PROVIDER_API = this.API + '/providers';
 

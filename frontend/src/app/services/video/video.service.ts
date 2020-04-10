@@ -9,8 +9,8 @@ import {DomSanitizer} from '@angular/platform-browser';
 @Injectable({providedIn: 'root'})
 export class VideoService {
 
-  public API = '//localhost:8080/api';
-  // public API = '//91.205.75.145:8080/api';
+  // public API = '//localhost:8080/api';
+  public API = '//91.205.75.145:8080/api';
   public VIDEO_API = this.API + '/video';
 
   tracks: Track[] = [];

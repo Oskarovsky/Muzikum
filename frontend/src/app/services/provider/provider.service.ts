@@ -6,8 +6,8 @@ import {Provider} from 'src/app/provider/model/provider';
 @Injectable({providedIn: 'root'})
 export class ProviderService {
 
-  public API = '//localhost:8080/api';
-  // public API = '//91.205.75.145:8080/api';
+  // public API = '//localhost:8080/api';
+  public API = '//91.205.75.145:8080/api';
   public PROVIDER_API = this.API + '/providers';
 
   httpOptions = {
