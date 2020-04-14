@@ -3,6 +3,7 @@ package com.oskarro.muzikum.auth.jwt;
 import com.oskarro.muzikum.user.UserDetailsServiceImpl;
 
 import java.io.IOException;
+import java.util.Optional;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
@@ -27,7 +28,9 @@ public class JwtAuthTokenFilter extends OncePerRequestFilter {
     @Autowired
     private UserDetailsServiceImpl userDetailsService;
 
-    private static final Logger logger = LoggerFactory.getLogger(JwtAuthTokenFilter.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(JwtAuthTokenFilter.class);
+    public static final String AUTHORIZATION = "Authorization";
+    public static final String BEARER = "Bearer ";
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
@@ -45,15 +48,15 @@ public class JwtAuthTokenFilter extends OncePerRequestFilter {
                 SecurityContextHolder.getContext().setAuthentication(authentication);
             }
         } catch (Exception e) {
-            logger.error("Can NOT set user authentication -> Message: {}", e);
+            LOGGER.error("Can NOT set user authentication -> Message: {}", e);
         }
         filterChain.doFilter(request, response);
     }
 
     private String parseJwt(HttpServletRequest request) {
-        String authHeader = request.getHeader("Authorization");
+        String authHeader = request.getHeader(AUTHORIZATION);
 
-        if (StringUtils.hasText(authHeader) && authHeader.startsWith("Bearer ")) {
+        if (StringUtils.hasText(authHeader) && authHeader.startsWith(BEARER)) {
             return authHeader.substring(7);
         }
         return null;
