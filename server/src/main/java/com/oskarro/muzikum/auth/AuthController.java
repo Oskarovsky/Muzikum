@@ -116,8 +116,6 @@ public class AuthController {
         return ResponseEntity.ok(new ResponseMessage("User registered successfully!"));
     }
 
-    @GetMapping
-
 
 
 }
