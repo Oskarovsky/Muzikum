@@ -1,6 +1,8 @@
 package com.oskarro.muzikum.video;
 
 import com.oskarro.muzikum.playlist.Playlist;
+import com.oskarro.muzikum.track.Track;
+import com.oskarro.muzikum.track.TrackService;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,12 +15,14 @@ import java.util.Optional;
 @CrossOrigin(origins = "http://localhost:4200")
 public class VideoController {
 
-    VideoService videoService;
-    VideoRepository videoRepository;
+    private final VideoService videoService;
+    private final VideoRepository videoRepository;
+    private final TrackService trackService;
 
-    public VideoController(VideoService videoService, VideoRepository videoRepository) {
+    public VideoController(VideoService videoService, VideoRepository videoRepository, TrackService trackService) {
         this.videoService = videoService;
         this.videoRepository = videoRepository;
+        this.trackService = trackService;
     }
 
     @GetMapping(value = "/findAll")
@@ -57,6 +61,12 @@ public class VideoController {
     @CrossOrigin(origins = "*", allowedHeaders = "*")
     public List<Video> getVideosByCategory(@PathVariable String category) {
         return videoService.findVideosByCategory(category);
+    }
+
+    @GetMapping(value = "/{id}/tracks")
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
+    public List<Track> getAllTracksFromVideo(@PathVariable Integer id) {
+        return trackService.findAllTracksFromVideo(id);
     }
 
 }

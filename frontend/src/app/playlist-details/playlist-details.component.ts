@@ -28,7 +28,7 @@ export class PlaylistDetailsComponent implements OnInit {
     this.getAllTracksFromPlaylist();
   }
 
-  public getAllTracks(){
+  public getAllTracks() {
     this.trackService.getAllTracks().subscribe(
       result => {
         this.tracks = result;
@@ -48,11 +48,11 @@ export class PlaylistDetailsComponent implements OnInit {
             this.tracks = response;
           },
           error => {
-            alert("An error with fetching tracks has occurred")
+            alert('An error with fetching tracks has occurred')
           }
-        )
+        );
       }
-    })
+    });
   }
 
   public getPlaylistById() {
@@ -64,10 +64,10 @@ export class PlaylistDetailsComponent implements OnInit {
             this.playlist = response;
           },
           error => {
-            alert("An error with fetching playlist has occurred")
-          })
+            alert('An error with fetching playlist has occurred')
+          });
       }
-    })
+    });
   }
 
 }

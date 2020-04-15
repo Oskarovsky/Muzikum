@@ -174,27 +174,25 @@ public class MuzikumApplication {
         Track track9 = Track.builder().title("This is my test").artist("Mega oss").version("dsd edit").playlist(playlist).build();
 
 
-        trackRepository.saveAll(Collections.singletonList(track1));
-
         // VIDEO PANE:
-        Set<Track> vixaTracklist = new HashSet<>(Arrays.asList(track6, track7));
         Video video1 = Video.builder().id(1).name("Vixa").url("Dp--txMIGPI")
                 .category(Category.MIX.toString()).build();
-
-        Set<Track> virusTracklist = new HashSet<>(Arrays.asList(track8, track9));
         Video video2 = Video.builder().id(2).name("Virus").url("MpWfj-2P-9M")
                 .category(Category.MIX.toString()).build();
-
-        Set<Track> italianoTracklist = new HashSet<>(Collections.singletonList(track3));
         Video video3 = Video.builder().id(3).name("L'Italiano").url("moFuKK_Ac")
                 .category(Category.RETRO.name()).build();
-
-        Set<Track> lunamix9Tracklist = new HashSet<>(Arrays.asList(track2, track1));
         Video video4 = Video.builder().id(4).name("Luna Mix Vol. 9").url("WRooj5n80uo")
                 .category(Category.LUNA_MIX.name()).build();
 
-
         videoRepository.saveAll(Arrays.asList(video1, video2, video3, video4));
+
+
+
+        Track track01 = Track.builder().title("First shit title").artist("Med").version("dsd edit").video(video1).build();
+        Track track02 = Track.builder().title("Firseconddtitle").artist("Msssed").version("dsd edit").video(video2).build();
+        Track track03 = Track.builder().title("one tow three").artist("test").version("dsd edit").video(video2).build();
+
+        trackRepository.saveAll(Arrays.asList(track1, track01, track02, track03, track4, track5));
 
     }
 

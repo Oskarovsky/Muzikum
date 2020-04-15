@@ -39,6 +39,7 @@ import { BoardUserComponent } from './board-user/board-user.component';
 import { VideoComponent } from './video/video.component';
 import { VideoAddComponent } from './video-add/video-add.component';
 import {VideoFilterPipe} from './services/video/video-filter.pipe';
+import { VideoDetailsComponent } from './video-details/video-details.component';
 
 
 @NgModule({
@@ -67,7 +68,8 @@ import {VideoFilterPipe} from './services/video/video-filter.pipe';
     BoardUserComponent,
     VideoComponent,
     VideoAddComponent,
-    VideoFilterPipe
+    VideoFilterPipe,
+    VideoDetailsComponent
   ],
   imports: [
     AppRoutingModule,

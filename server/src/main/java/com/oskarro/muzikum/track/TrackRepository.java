@@ -28,5 +28,7 @@ public interface TrackRepository extends CrudRepository<Track, Integer> {
 
     List<Track> findTracksByPlaylistId(Integer id);
 
+    List<Track> findTracksByVideoId(Integer id);
+
     void deleteById(Integer id);
 }

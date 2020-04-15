@@ -62,4 +62,11 @@ public class TrackServiceImpl implements TrackService {
         return trackList;
     }
 
+    @Override
+    public List<Track> findAllTracksFromVideo(Integer id) {
+        List<Track> trackList = new ArrayList<>(trackRepository.findTracksByVideoId(id));
+        return trackList;
+    }
+
+
 }

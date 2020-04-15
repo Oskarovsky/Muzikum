@@ -20,4 +20,6 @@ public interface TrackService {
     List<Track> findTracksByProviderName(String name);
 
     List<Track> findAllTracksFromPlaylist(Integer id);
+
+    List<Track> findAllTracksFromVideo(Integer id);
 }

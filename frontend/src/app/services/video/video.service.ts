@@ -40,4 +40,9 @@ export class VideoService {
     return this.http.delete<Video>(this.VIDEO_API + '/' + id);
   }
 
+  /** GET all tracks from Video */
+  getAllTracksFromVideo(videoId: string): Observable<Track[]> {
+    return this.http.get<Track[]>(this.VIDEO_API + '/' + videoId + '/tracks');
+  }
+
 }
