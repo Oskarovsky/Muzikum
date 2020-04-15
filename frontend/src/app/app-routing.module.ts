@@ -20,6 +20,7 @@ import {BoardUserComponent} from './board-user/board-user.component';
 import {VideoComponent} from './video/video.component';
 import {VideoAddComponent} from './video-add/video-add.component';
 import {VideoDetailsComponent} from './video-details/video-details.component';
+import {VideoEditComponent} from './video-edit/video-edit.component';
 
 
 const routes: Routes = [
@@ -45,6 +46,7 @@ const routes: Routes = [
   { path: 'mod', component: BoardModeratorComponent },
   { path: 'admin', component: BoardAdminComponent },
   { path: 'video', component: VideoComponent },
+  { path: 'video/:id/edit', component: VideoEditComponent },
   { path: 'video/:id/details', component: VideoDetailsComponent },
   { path: 'video/add', component: VideoAddComponent },
   { path: '**', component: NotFoundComponent}

@@ -21,7 +21,7 @@ export class PlaylistEditComponent implements OnInit {
 
   playlist_id;
 
-  modelPlaylist: Playlist = {
+/*  modelPlaylist: Playlist = {
     id: null,
     name: '',
   };
@@ -36,7 +36,7 @@ export class PlaylistEditComponent implements OnInit {
     url: '',
     position: null,
     playlist: null
-  };
+  };*/
 
   constructor(private playlistService: PlaylistService,
               private trackService: TrackService,
@@ -135,7 +135,8 @@ export class PlaylistEditComponent implements OnInit {
       version,
       url: '',
       position: null,
-      playlist: this.playlist
+      playlist: this.playlist,
+      video: null
     };
 
     this.trackService.saveTrackToPlaylist(newTrack).subscribe(

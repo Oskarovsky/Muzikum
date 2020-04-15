@@ -1,4 +1,5 @@
-import {Playlist} from "../../playlist/model/playlist";
+import {Playlist} from '../../playlist/model/playlist';
+import {Video} from '../../video/model/video';
 
 export interface Track {
   id: number;
@@ -10,4 +11,5 @@ export interface Track {
   url: string;
   position: number;
   playlist: Playlist;
+  video: Video;
 }

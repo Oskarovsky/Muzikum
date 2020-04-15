@@ -20,6 +20,7 @@ export class PlaylistAddComponent implements OnInit {
     name: '',
   };
 
+/*
   modelTrack: Track = {
     id: null,
     title: '',
@@ -31,6 +32,7 @@ export class PlaylistAddComponent implements OnInit {
     position: null,
     playlist: null
   };
+*/
 
   constructor(private playlistService: PlaylistService,
               private trackService: TrackService) { }
