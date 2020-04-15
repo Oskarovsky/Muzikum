@@ -1,7 +1,7 @@
 package com.oskarro.muzikum.config;
 
-import com.oskarro.muzikum.auth.jwt.JwtAuthEntryPoint;
-import com.oskarro.muzikum.auth.jwt.JwtAuthTokenFilter;
+import com.oskarro.muzikum.auth.jwt.JwtAuthenticationEntryPoint;
+import com.oskarro.muzikum.auth.jwt.JwtAuthenticationTokenFilter;
 import com.oskarro.muzikum.user.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -19,18 +19,18 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 @Configuration
 @EnableWebSecurity
-@EnableGlobalMethodSecurity(prePostEnabled = true)
+@EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     UserDetailsServiceImpl userDetailsService;
 
     @Autowired
-    private JwtAuthEntryPoint unauthorizedHandler;
+    private JwtAuthenticationEntryPoint unauthorizedHandler;
 
     @Bean
-    public JwtAuthTokenFilter authenticationJwtTokenFilter() {
-        return new JwtAuthTokenFilter();
+    public JwtAuthenticationTokenFilter authenticationJwtTokenFilter() {
+        return new JwtAuthenticationTokenFilter();
     }
 
     @Override
@@ -54,7 +54,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
-        httpSecurity.cors().and().csrf().disable()
+        httpSecurity.cors().and()
+                .csrf()
+                    .disable()
                 .exceptionHandling()
                     .authenticationEntryPoint(unauthorizedHandler)
                     .and()

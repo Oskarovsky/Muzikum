@@ -3,7 +3,6 @@ package com.oskarro.muzikum.auth.jwt;
 import com.oskarro.muzikum.user.UserDetailsServiceImpl;
 
 import java.io.IOException;
-import java.util.Optional;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
@@ -12,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -20,7 +20,16 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.web.filter.OncePerRequestFilter;
 
-public class JwtAuthTokenFilter extends OncePerRequestFilter {
+/**
+ * Filter used for validating the access_token sent by the user
+ */
+
+@Component
+public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(JwtAuthenticationTokenFilter.class);
+    public static final String AUTHORIZATION = "Authorization";
+    public static final String BEARER = "Bearer ";
 
     @Autowired
     private JwtProvider tokenProvider;
@@ -28,15 +37,11 @@ public class JwtAuthTokenFilter extends OncePerRequestFilter {
     @Autowired
     private UserDetailsServiceImpl userDetailsService;
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(JwtAuthTokenFilter.class);
-    public static final String AUTHORIZATION = "Authorization";
-    public static final String BEARER = "Bearer ";
-
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
             throws ServletException, IOException {
         try {
-            String jwt = parseJwt(request);
+            String jwt = getJwtFromRequest(request);
             if (jwt != null && tokenProvider.validateJwtToken(jwt)) {
                 String username = tokenProvider.getUsernameFromJwtToken(jwt);
 
@@ -53,7 +58,7 @@ public class JwtAuthTokenFilter extends OncePerRequestFilter {
         filterChain.doFilter(request, response);
     }
 
-    private String parseJwt(HttpServletRequest request) {
+    private String getJwtFromRequest(HttpServletRequest request) {
         String authHeader = request.getHeader(AUTHORIZATION);
 
         if (StringUtils.hasText(authHeader) && authHeader.startsWith(BEARER)) {
