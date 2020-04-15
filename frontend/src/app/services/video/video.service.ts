@@ -36,6 +36,10 @@ export class VideoService {
     return this.http.post<Video>(this.VIDEO_API  + '/add', video);
   }
 
+  getVideosByCategory(category: string): Observable<Video[]> {
+    return this.http.get<Video[]>(this.VIDEO_API + '/findAll/' + category);
+  }
+
   deleteVideo(id: number): Observable<any> {
     return this.http.delete<Video>(this.VIDEO_API + '/' + id);
   }

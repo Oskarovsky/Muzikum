@@ -21,23 +21,6 @@ export class PlaylistEditComponent implements OnInit {
 
   playlist_id;
 
-/*  modelPlaylist: Playlist = {
-    id: null,
-    name: '',
-  };
-
-  modelTrack: Track = {
-    id: null,
-    title: '',
-    artist: '',
-    points: null,
-    genre: '',
-    version: '',
-    url: '',
-    position: null,
-    playlist: null
-  };*/
-
   constructor(private playlistService: PlaylistService,
               private trackService: TrackService,
               private route: ActivatedRoute) { }

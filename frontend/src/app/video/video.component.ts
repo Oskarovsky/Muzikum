@@ -3,6 +3,8 @@ import {VideoService} from '../services/video/video.service';
 import {Video} from './model/video';
 import {Track} from '../track/model/track';
 import { DomSanitizer } from '@angular/platform-browser';
+import {Subscription} from 'rxjs';
+import {ActivatedRoute} from '@angular/router';
 
 @Component({
   selector: 'app-video',
@@ -15,12 +17,15 @@ export class VideoComponent implements OnInit {
   tracks: Track[];
   searchText: string;
   safeVideoUrl: any;
+  sub: Subscription;
+  videoCategory: string;
 
   constructor(private videoService: VideoService,
-              private sanitizer: DomSanitizer) {}
+              private sanitizer: DomSanitizer,
+              private route: ActivatedRoute) {}
 
   ngOnInit() {
-    this.getAllVideo();
+    this.getVideosByCategory();
   }
 
   public getAllVideo() {
@@ -34,6 +39,25 @@ export class VideoComponent implements OnInit {
       }
     );
   }
+
+  getVideosByCategory() {
+    this.sub = this.route.params.subscribe(params => {
+      const category = params.category;
+      this.videoCategory = category;
+      if (category) {
+        this.videoService.getVideosByCategory(category).subscribe(
+          response => {
+            this.videos = response;
+            this.secureAllUrl(this.videos);
+          },
+          error => {
+            alert('An error with fetching videos has occurred');
+          }
+        );
+      }
+    });
+  }
+
 
   secureAllUrl(allVideos: Video[]) {
     for (const video of allVideos) {
