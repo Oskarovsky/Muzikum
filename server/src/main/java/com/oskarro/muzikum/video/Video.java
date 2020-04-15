@@ -23,7 +23,7 @@ public class Video {
     @NonNull
     private String url;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     private Set<Track> tracks;
 
     private String category;
