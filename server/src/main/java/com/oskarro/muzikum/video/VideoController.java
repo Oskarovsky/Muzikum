@@ -41,7 +41,6 @@ public class VideoController {
         }
         Video videoAdded = Video.builder()
                 .name(video.getName())
-                .tracks(video.getTracks())
                 .category(video.getCategory())
                 .url(video.getUrl())
                 .build();

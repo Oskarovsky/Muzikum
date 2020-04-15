@@ -3,6 +3,7 @@ package com.oskarro.muzikum.track;
 import com.oskarro.muzikum.playlist.Playlist;
 import com.oskarro.muzikum.provider.Provider;
 import com.oskarro.muzikum.record.Record;
+import com.oskarro.muzikum.video.Video;
 import lombok.*;
 
 import javax.persistence.*;
@@ -47,5 +48,9 @@ public class Track {
     @ManyToOne
     @JoinColumn(name = "playlist_id")
     private Playlist playlist;
+
+    @ManyToOne
+    @JoinColumn(name = "video_id")
+    private Video video;
 
 }

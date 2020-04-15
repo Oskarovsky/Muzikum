@@ -14,5 +14,4 @@ public interface VideoService {
     Optional findVideoById(Integer id);
 
     void deleteVideoById(Integer id);
-
 }

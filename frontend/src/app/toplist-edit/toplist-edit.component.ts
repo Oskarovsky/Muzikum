@@ -35,7 +35,7 @@ export class ToplistEditComponent implements OnInit {
   }
 
   addTrackToRanking(): void {
-    this.trackService.addTrackToRanking(this.model)
+    this.trackService.addTrackToRanking(this.model);
   }
 
 

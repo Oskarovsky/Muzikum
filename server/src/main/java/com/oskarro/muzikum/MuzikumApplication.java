@@ -178,19 +178,19 @@ public class MuzikumApplication {
 
         // VIDEO PANE:
         Set<Track> vixaTracklist = new HashSet<>(Arrays.asList(track6, track7));
-        Video video1 = Video.builder().id(1).name("Vixa").tracks(vixaTracklist).url("Dp--txMIGPI")
+        Video video1 = Video.builder().id(1).name("Vixa").url("Dp--txMIGPI")
                 .category(Category.MIX.toString()).build();
 
         Set<Track> virusTracklist = new HashSet<>(Arrays.asList(track8, track9));
-        Video video2 = Video.builder().id(2).name("Virus").tracks(virusTracklist).url("MpWfj-2P-9M")
+        Video video2 = Video.builder().id(2).name("Virus").url("MpWfj-2P-9M")
                 .category(Category.MIX.toString()).build();
 
         Set<Track> italianoTracklist = new HashSet<>(Collections.singletonList(track3));
-        Video video3 = Video.builder().id(3).name("L'Italiano").tracks(italianoTracklist).url("moFuKK_Ac")
+        Video video3 = Video.builder().id(3).name("L'Italiano").url("moFuKK_Ac")
                 .category(Category.RETRO.name()).build();
 
         Set<Track> lunamix9Tracklist = new HashSet<>(Arrays.asList(track2, track1));
-        Video video4 = Video.builder().id(4).name("Luna Mix Vol. 9").tracks(lunamix9Tracklist).url("WRooj5n80uo")
+        Video video4 = Video.builder().id(4).name("Luna Mix Vol. 9").url("WRooj5n80uo")
                 .category(Category.LUNA_MIX.name()).build();
 
 
