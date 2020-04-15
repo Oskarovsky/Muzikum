@@ -1,5 +1,5 @@
 <div class="example-container">
-  <form name="form" #form="ngForm" (ngSubmit)="createVideo(videoName.value)">
+  <form name="form" #form="ngForm" (ngSubmit)="createVideo(videoName.value, videoCategory.value, videoUrl.value)">
     <mat-form-field appearance="fill">
       <mat-label>Nazwa</mat-label>
       <input #videoName matInput [(ngModel)]="modelVideo.name" name="name" />
@@ -7,23 +7,19 @@
     <br>
     <mat-form-field appearance="fill">
       <mat-label>Kategoria</mat-label>
-      <mat-select>
-        <mat-option value="MIX">MIX</mat-option>
-        <mat-option value="LUNA_MIX">LUNA MIX</mat-option>
-        <mat-option value="RETRO">RETRO</mat-option>
-        <mat-option value="PSYCHO_PATH">PSYCHO-PATH</mat-option>
-        <mat-option value="OTHER">INNE</mat-option>
+      <mat-select #videoCategory [(ngModel)]="modelVideo.category">
+        <mat-option *ngFor="let category of categories" [value]="category">{{category}}</mat-option>
       </mat-select>
     </mat-form-field>
     <br>
     <mat-form-field appearance="fill">
-      <mat-label>Textarea</mat-label>
-      <textarea matInput></textarea>
+      <mat-label>URL</mat-label>
+      <input #videoUrl matInput [(ngModel)]="modelVideo.url" name="name" />
     </mat-form-field>
 
     <button mat-raised-button
             type="button"
-            (click)="createVideo(videoName.value)"
+            (click)="createVideo(videoName.value, videoCategory.value, videoUrl.value)"
             color="primary"
             routerLink="/video"
             style="margin-left: 10px;">Dodaj video

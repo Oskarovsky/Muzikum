@@ -15,12 +15,14 @@ export class VideoAddComponent implements OnInit {
 
   tracks: Track[];
 
+  categories = ['RETRO', 'LUNA_MIX', 'MIX', 'PSYCHO_PATH', 'OTHER'];
+
   modelVideo: Video = {
     id: null,
     name: '',
     url: '',
+    category: '',
     safeUrl: null,
-    tracks: null
   };
 
   constructor(private videoService: VideoService) {
@@ -41,13 +43,13 @@ export class VideoAddComponent implements OnInit {
     );
   }
 
-  createVideo(name: string) {
+  createVideo(name: string, category: string, url: string) {
     const newVideo: Video = {
       id: null,
-      url: '',
+      url,
       name,
+      category,
       safeUrl: null,
-      tracks: null
     };
     this.videoService.addVideo(newVideo).subscribe(
       result => {
