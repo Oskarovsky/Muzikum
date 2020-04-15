@@ -1,8 +1,10 @@
 package com.oskarro.muzikum.video;
 
 import com.oskarro.muzikum.playlist.Playlist;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.xml.bind.ValidationException;
 import java.util.List;
 import java.util.Optional;
 
@@ -33,14 +35,29 @@ public class VideoController {
 
     @PostMapping(value = "/add")
     @CrossOrigin(origins = "*", allowedHeaders = "*")
-    public void addVideo(@RequestBody Video video) {
-        videoService.addVideo(video);
+    public void addVideo(@RequestBody Video video, BindingResult bindingResult) throws ValidationException {
+        if (bindingResult.hasErrors()) {
+            throw new ValidationException("Video has errors - it cannot by send");
+        }
+        Video videoAdded = Video.builder()
+                .name(video.getName())
+                .tracks(video.getTracks())
+                .category(video.getCategory())
+                .url(video.getUrl())
+                .build();
+        videoService.addVideo(videoAdded);
     }
 
     @DeleteMapping(value = "/{id}")
     @CrossOrigin(origins = "*", allowedHeaders = "*")
     public void delete(@PathVariable Integer id) {
         this.videoRepository.deleteById(videoRepository.findById(id).get().getId());
+    }
+
+    @GetMapping(value = "/findAll/{category}")
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
+    public List<Video> getVideosByCategory(@PathVariable String category) {
+        return videoService.findVideosByCategory(category);
     }
 
 }

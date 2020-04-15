@@ -41,7 +41,7 @@ export class VideoAddComponent implements OnInit {
     );
   }
 
-  addVideo(name: string) {
+  createVideo(name: string) {
     const newVideo: Video = {
       id: null,
       url: '',

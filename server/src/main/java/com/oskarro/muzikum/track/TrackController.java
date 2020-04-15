@@ -53,12 +53,12 @@ public class TrackController {
         if (bindingResult.hasErrors()) {
             throw new ValidationException("Track has errors - it cannot by send");
         }
-        Track track1 = Track.builder()
+        Track trackAdded = Track.builder()
                 .artist(track.getArtist())
                 .title(track.getTitle())
                 .version(track.getVersion())
                 .build();
-        trackService.saveTrack(track1);
+        trackService.saveTrack(trackAdded);
     }
 
     @DeleteMapping(value = "/{id}")
