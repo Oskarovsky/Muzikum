@@ -174,7 +174,7 @@ public class MuzikumApplication {
         Track track9 = Track.builder().title("This is my test").artist("Mega oss").version("dsd edit").playlist(playlist).build();
 
 
-        trackRepository.saveAll(Arrays.asList(track1, track2, track3, track4, track5));
+        trackRepository.saveAll(Collections.singletonList(track1));
 
         // VIDEO PANE:
         Set<Track> vixaTracklist = new HashSet<>(Arrays.asList(track6, track7));
@@ -185,16 +185,16 @@ public class MuzikumApplication {
         Video video2 = Video.builder().id(2).name("Virus").tracks(virusTracklist).url("MpWfj-2P-9M")
                 .category(Category.MIX.toString()).build();
 
-/*        Set<Track> italianoTracklist = new HashSet<>(Collections.singletonList(track6));
+        Set<Track> italianoTracklist = new HashSet<>(Collections.singletonList(track3));
         Video video3 = Video.builder().id(3).name("L'Italiano").tracks(italianoTracklist).url("moFuKK_Ac")
                 .category(Category.RETRO.name()).build();
 
-        Set<Track> lunamix9Tracklist = new HashSet<>(Arrays.asList(track2, track3));
+        Set<Track> lunamix9Tracklist = new HashSet<>(Arrays.asList(track2, track1));
         Video video4 = Video.builder().id(4).name("Luna Mix Vol. 9").tracks(lunamix9Tracklist).url("WRooj5n80uo")
-                .category(Category.LUNA_MIX.name()).build();*/
+                .category(Category.LUNA_MIX.name()).build();
 
 
-        videoRepository.saveAll(Arrays.asList(video1, video2));
+        videoRepository.saveAll(Arrays.asList(video1, video2, video3, video4));
 
     }
 
