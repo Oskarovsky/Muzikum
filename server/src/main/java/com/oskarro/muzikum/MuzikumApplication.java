@@ -14,6 +14,7 @@ import com.oskarro.muzikum.track.TrackService;
 import com.oskarro.muzikum.user.Role;
 import com.oskarro.muzikum.user.RoleName;
 import com.oskarro.muzikum.user.RoleRepository;
+import com.oskarro.muzikum.video.Category;
 import com.oskarro.muzikum.video.Video;
 import com.oskarro.muzikum.video.VideoRepository;
 import com.oskarro.muzikum.video.VideoService;
@@ -166,32 +167,34 @@ public class MuzikumApplication {
         Track track4 = Track.builder().id(1).title("This is More than ntht").artist("Mega tdsdsest").version("Remix").playlist(playlist2).build();
         Track track5 = Track.builder().id(4).title("This is my test").artist("Mega oss").version("dsd edit").playlist(playlist).build();
 
-        Track track6 = Track.builder().id(9).title("This is my test").artist("Mega oss").version("dsd edit").playlist(playlist).build();
+        Track track6 = Track.builder().id(9).title("L'Italiano").artist("The Sicilians ft. Angelo Venuto")
+                .version("The DJ Serg Remix").url("https://www.youtube.com/watch?v=hymoFuKK_Ac").playlist(playlist).build();
         Track track7 = Track.builder().id(10).title("This is my test").artist("Mega oss").version("dsd edit").playlist(playlist).build();
         Track track8 = Track.builder().id(11).title("This is my test").artist("Mega oss").version("dsd edit").playlist(playlist).build();
         Track track9 = Track.builder().id(12).title("This is my test").artist("Mega oss").version("dsd edit").playlist(playlist).build();
 
 
-        trackRepository.saveAll(Arrays.asList(track1, track2, track3, track4, track5));
+        trackRepository.saveAll(Arrays.asList(track1, track2, track3, track4, track5, track6, track7, track8, track9));
 
         // VIDEO PANE:
         Set<Track> vixaTracklist = new HashSet<>(Arrays.asList(track6, track7));
-        Video video1 = Video.builder()
-                .id(1)
-                .name("Vixa")
-                .tracks(vixaTracklist)
-                .url("Dp--txMIGPI")
-                .build();
+        Video video1 = Video.builder().id(1).name("Vixa").tracks(vixaTracklist).url("Dp--txMIGPI")
+                .category(Category.MIX.name()).build();
 
         Set<Track> virusTracklist = new HashSet<>(Arrays.asList(track8, track9));
-        Video video2 = Video.builder()
-                .id(2)
-                .name("Virus")
-                .tracks(virusTracklist)
-                .url("MpWfj-2P-9M")
-                .build();
+        Video video2 = Video.builder().id(2).name("Virus").tracks(virusTracklist).url("MpWfj-2P-9M")
+                .category(Category.MIX.name()).build();
 
-        videoRepository.saveAll(Arrays.asList(video1, video2));
+        Set<Track> italianoTracklist = new HashSet<>(Collections.singletonList(track6));
+        Video video3 = Video.builder().id(3).name("L'Italiano").tracks(italianoTracklist).url("moFuKK_Ac")
+                .category(Category.RETRO.name()).build();
+
+        Set<Track> lunamix9Tracklist = new HashSet<>(Arrays.asList(track2, track3));
+        Video video4 = Video.builder().id(4).name("Luna Mix Vol. 9").tracks(lunamix9Tracklist).url("WRooj5n80uo")
+                .category(Category.LUNA_MIX.name()).build();
+
+
+        videoRepository.saveAll(Arrays.asList(video1, video2, video3, video4));
 
     }
 

@@ -26,4 +26,6 @@ public class Video {
     @OneToMany
     private Set<Track> tracks;
 
+    private String category;
+
 }

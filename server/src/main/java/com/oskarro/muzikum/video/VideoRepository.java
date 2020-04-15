@@ -9,10 +9,11 @@ public interface VideoRepository extends JpaRepository<Video, Integer> {
 
     List<Video> findAll();
 
+    List<Video> findVideosByCategory(String category);
+
     Optional<Video> findById(Integer id);
 
     Video save(Video video);
 
     void deleteById(Integer id);
-
 }

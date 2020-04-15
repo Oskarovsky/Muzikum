@@ -7,6 +7,8 @@ public interface VideoService {
 
     List<Video> getAllVideo();
 
+    List<Video> findVideosByCategory(String category);
+
     void addVideo(Video video);
 
     Optional findVideoById(Integer id);

@@ -22,6 +22,11 @@ public class VideoServiceImpl implements VideoService {
     }
 
     @Override
+    public List<Video> findVideosByCategory(String category) {
+        return videoRepository.findVideosByCategory(category);
+    }
+
+    @Override
     public void addVideo(Video video) {
         videoRepository.save(video);
     }

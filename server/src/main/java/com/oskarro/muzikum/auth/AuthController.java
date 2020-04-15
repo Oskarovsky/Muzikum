@@ -1,6 +1,6 @@
 package com.oskarro.muzikum.auth;
 
-import com.oskarro.muzikum.auth.jwt.JwtProvider;
+import com.oskarro.muzikum.auth.jwt.JwtTokenProvider;
 import com.oskarro.muzikum.auth.jwt.JwtResponse;
 import com.oskarro.muzikum.user.*;
 import java.util.HashSet;
@@ -39,7 +39,7 @@ public class AuthController {
     PasswordEncoder encoder;
 
     @Autowired
-    JwtProvider jwtProvider;
+    JwtTokenProvider jwtTokenProvider;
 
     @PostMapping(value = "/signin")
     @CrossOrigin(origins = "*", allowedHeaders = "*")
@@ -50,7 +50,7 @@ public class AuthController {
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
-        String jwt = jwtProvider.generateJwtToken(authentication);
+        String jwt = jwtTokenProvider.generateJwtToken(authentication);
         UserPrinciple userDetails = (UserPrinciple) authentication.getPrincipal();
         List<String> roles = userDetails.getAuthorities().stream()
                 .map(GrantedAuthority::getAuthority)

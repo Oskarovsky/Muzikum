@@ -9,18 +9,23 @@ import org.springframework.stereotype.Component;
 import org.springframework.security.core.Authentication;
 
 import java.util.Date;
-import java.util.List;
 import java.util.function.Function;
+
+/**
+ * This class service is used for generating the token,
+ * extract the user info from token and validating the token and expiration as well
+ */
+
 
 @Slf4j
 @Component
-public class JwtProvider {
+public class JwtTokenProvider {
 
     @Value("${oskarro.app.jwtSecret}")
-    private String jwtSecret;
+    private String JWT_SECRET;
 
     @Value("${oskarro.app.jwtExpiration}")
-    private int jwtExpiration;
+    private int JWT_EXPIRATION;
 
     /* BUILDING JWT TOKEN */
     public String generateJwtToken(Authentication authentication) {
@@ -28,15 +33,15 @@ public class JwtProvider {
         return Jwts.builder()
                 .setSubject(userPrincipal.getUsername())
                 .setIssuedAt(new Date())
-                .setExpiration(new Date((new Date()).getTime() + jwtExpiration * 1000))
-                .signWith(SignatureAlgorithm.HS512, jwtSecret)
+                .setExpiration(new Date((new Date()).getTime() + JWT_EXPIRATION * 1000))
+                .signWith(SignatureAlgorithm.HS512, JWT_SECRET)
                 .compact();
     }
 
     /* JWT TOKEN VALIDATION */
     public boolean validateJwtToken(String authToken) {
         try {
-            Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(authToken);
+            Jwts.parser().setSigningKey(JWT_SECRET).parseClaimsJws(authToken);
             return true;
         } catch (MalformedJwtException e) {
             log.error("Invalid JWT token -> Message: {}", e);
@@ -52,7 +57,7 @@ public class JwtProvider {
 
     public String getUsernameFromJwtToken(String token) {
         return Jwts.parser()
-                .setSigningKey(jwtSecret)
+                .setSigningKey(JWT_SECRET)
                 .parseClaimsJws(token)
                 .getBody()
                 .getSubject();
@@ -75,7 +80,7 @@ public class JwtProvider {
 
     //for retrieving any information from token we will need the secret key
     private Claims getAllClaimsFromToken(String token) {
-        return Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(token).getBody();
+        return Jwts.parser().setSigningKey(JWT_SECRET).parseClaimsJws(token).getBody();
     }
 
     //check if the token has expired
