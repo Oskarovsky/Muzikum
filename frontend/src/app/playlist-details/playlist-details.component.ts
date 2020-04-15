@@ -36,7 +36,7 @@ export class PlaylistDetailsComponent implements OnInit {
       error => {
         alert('An error has occurred while downloading tracks')
       }
-    )
+    );
   }
 
   public getAllTracksFromPlaylist() {
