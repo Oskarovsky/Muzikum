@@ -92,14 +92,11 @@ public class MuzikumApplication {
         roleRepository.saveAll(Arrays.asList(roleAdmin, rolePm, roleUser));
 
         // Creating new user's account
-        User admin = new User("Oskarro", "oskar.slyk@gmail.com", encoder.encode("123456"));
-        admin.setRoles(new HashSet<>(Arrays.asList(roleAdmin, roleUser)));
-        User user = new User("Jacek", "jacek@pw.pl", encoder.encode("123456"));
-        user.setRoles(new HashSet<>(Collections.emptyList()));
-        userRepository.saveAll(Arrays.asList(admin, user));
-
-
-
+        User userAdmin = User.builder().id(1).username("Oskarro").email("oskar.slyk@gmail.com")
+                .password(encoder.encode("123456")).roles(new HashSet<>(Collections.singletonList(roleAdmin))).build();
+        User userJacek = User.builder().id(2).username("Jacek").email("jacek@pw.pl")
+                .password(encoder.encode("123456")).roles(new HashSet<>(Collections.singletonList(roleUser))).build();
+        userRepository.saveAll(Arrays.asList(userAdmin, userJacek));
 
         // GENRE COLLECTIONS FOR PROVIDERS
         List<Genre> nuteczkiGenres = Stream.of(Genre.CLUB, Genre.DANCE).collect(Collectors.toList());
@@ -167,10 +164,9 @@ public class MuzikumApplication {
         //System.out.println(ariaChartsProvider.map((Provider provider1) -> crawlerService.getWeb(provider1, Genre.club)).toString());
 
         // PLAYLIST CREATING
-        Playlist playlist = Playlist.builder().id(1).name("MyTop").build();
-        Playlist playlist2 = Playlist.builder().id(2).name("SecondTop").build();
-        playlistService.addPlaylist(playlist);
-        playlistService.addPlaylist(playlist2);
+        Playlist playlist = Playlist.builder().id(1).name("MyTop").user(userAdmin).build();
+        Playlist playlist2 = Playlist.builder().id(2).name("SecondTop").user(userJacek).build();
+        playlistRepository.saveAll(Arrays.asList(playlist, playlist2));
 
         Track track1 = Track.builder().id(3).title("This is my test").artist("Mega test").version("Radio edit").playlist(playlist).build();
         Track track2 = Track.builder().id(5).title("next tes").artist("Mega test").version("Radio edit").playlist(playlist).build();

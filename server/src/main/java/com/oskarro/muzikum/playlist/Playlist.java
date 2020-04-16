@@ -1,6 +1,6 @@
 package com.oskarro.muzikum.playlist;
 
-import com.oskarro.muzikum.track.Track;
+import com.oskarro.muzikum.user.User;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -8,8 +8,6 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 @NoArgsConstructor
@@ -24,5 +22,9 @@ public class Playlist {
 
     @NotNull
     private String name;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
 
 }
