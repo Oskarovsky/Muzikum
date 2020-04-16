@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {VideoService} from '../services/video/video.service';
 import {Video} from './model/video';
 import {Track} from '../track/model/track';
 import { DomSanitizer } from '@angular/platform-browser';
 import {Subscription} from 'rxjs';
 import {ActivatedRoute} from '@angular/router';
+import {NavigationComponent} from '../navigation/navigation.component';
 
 @Component({
   selector: 'app-video',
@@ -19,6 +20,7 @@ export class VideoComponent implements OnInit {
   safeVideoUrl: any;
   sub: Subscription;
   videoCategory: string;
+  isLoggedIn = false;
 
   constructor(private videoService: VideoService,
               private sanitizer: DomSanitizer,

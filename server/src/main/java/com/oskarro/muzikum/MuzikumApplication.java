@@ -11,19 +11,19 @@ import com.oskarro.muzikum.track.Genre;
 import com.oskarro.muzikum.track.Track;
 import com.oskarro.muzikum.track.TrackRepository;
 import com.oskarro.muzikum.track.TrackService;
-import com.oskarro.muzikum.user.Role;
-import com.oskarro.muzikum.user.RoleName;
-import com.oskarro.muzikum.user.RoleRepository;
+import com.oskarro.muzikum.user.*;
 import com.oskarro.muzikum.video.Category;
 import com.oskarro.muzikum.video.Video;
 import com.oskarro.muzikum.video.VideoRepository;
 import com.oskarro.muzikum.video.VideoService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
@@ -78,8 +78,11 @@ public class MuzikumApplication {
         RoleRepository roleRepository = applicationContext.getBean(RoleRepository.class);
         VideoRepository videoRepository = applicationContext.getBean(VideoRepository.class);
         VideoService videoService = applicationContext.getBean(VideoService.class);
+        PasswordEncoder encoder = applicationContext.getBean(PasswordEncoder.class);
+        UserRepository userRepository = applicationContext.getBean(UserRepository.class);
 
-        // USERS CREATOR
+
+        // USER ROLES CREATOR
         Role roleAdmin = new Role();
         roleAdmin.setName(RoleName.ROLE_ADMIN);
         Role rolePm = new Role();
@@ -87,6 +90,14 @@ public class MuzikumApplication {
         Role roleUser = new Role();
         roleUser.setName(RoleName.ROLE_USER);
         roleRepository.saveAll(Arrays.asList(roleAdmin, rolePm, roleUser));
+
+        // Creating new user's account
+        User admin = new User("Oskarro", "oskar.slyk@gmail.com", encoder.encode("123456"));
+        admin.setRoles(new HashSet<>(Arrays.asList(roleAdmin, roleUser)));
+        User user = new User("Jacek", "jacek@pw.pl", encoder.encode("123456"));
+        user.setRoles(new HashSet<>(Collections.emptyList()));
+        userRepository.saveAll(Arrays.asList(admin, user));
+
 
 
 
