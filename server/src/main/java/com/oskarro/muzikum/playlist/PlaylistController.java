@@ -57,7 +57,7 @@ public class PlaylistController {
         this.playlistRepository.deleteById(id);
     }
 
-    @GetMapping(value = "/all/{userName}")
+    @GetMapping(value = "/all/{username}")
     @CrossOrigin(origins = "*", allowedHeaders = "*")
     public List<Playlist> getAllPlaylistByUserName(@PathVariable String username) {
         return playlistService.findAllPlaylistByUsername(username);

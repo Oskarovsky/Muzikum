@@ -10,7 +10,7 @@
             type="button"
             (click)="createPlaylist(playlistName.value)"
             color="primary"
-            routerLink="/playlist/all"
+            routerLink="/playlist/all/{{modelUser.username}}"
             style="margin-left: 10px;">Dodaj playlistę
     </button>
   </form>
