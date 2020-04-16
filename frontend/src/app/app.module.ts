@@ -41,6 +41,7 @@ import { VideoAddComponent } from './video-add/video-add.component';
 import {VideoFilterPipe} from './services/video/video-filter.pipe';
 import { VideoDetailsComponent } from './video-details/video-details.component';
 import { VideoEditComponent } from './video-edit/video-edit.component';
+import { PlaylistAllComponent } from './playlist-all/playlist-all.component';
 
 
 @NgModule({
@@ -71,7 +72,8 @@ import { VideoEditComponent } from './video-edit/video-edit.component';
     VideoAddComponent,
     VideoFilterPipe,
     VideoDetailsComponent,
-    VideoEditComponent
+    VideoEditComponent,
+    PlaylistAllComponent
   ],
   imports: [
     AppRoutingModule,

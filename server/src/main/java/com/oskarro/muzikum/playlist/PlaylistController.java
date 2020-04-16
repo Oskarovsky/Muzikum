@@ -50,16 +50,16 @@ public class PlaylistController {
         playlistService.addPlaylist(playlist);
     }
 
-/*    @PostMapping(value = "/{id}/addTrack")
-    public void addTrackToPlaylist(@PathVariable Integer playlistId, @RequestBody Track track) {
-        trackService.saveTrack(track);
-        playlistService.addTrackToPlaylist(track, playlistId);
-    }*/
-
     @DeleteMapping(value = "/{id}")
     @CrossOrigin(origins = "*", allowedHeaders = "*")
     public void delete(@PathVariable Integer id) {
         trackRepository.findTracksByPlaylistId(id).forEach(trackRepository::delete);
         this.playlistRepository.deleteById(id);
+    }
+
+    @GetMapping(value = "/all/{userName}")
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
+    public List<Playlist> getAllPlaylistByUserName(@PathVariable String username) {
+        return playlistService.findAllPlaylistByUsername(username);
     }
 }

@@ -21,4 +21,6 @@ public interface PlaylistRepository extends CrudRepository<Playlist, Integer> {
 
     void deleteById(Integer id);
 
+    List<Playlist> findAllByUserUsername(String username);
+
 }

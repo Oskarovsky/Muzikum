@@ -7,12 +7,6 @@
            class="mat-form-field"
            style="width: 50%;"
            placeholder="Wyszukaj playlistę..." />
-    <button mat-raised-button
-            type="button"
-            color="primary"
-            routerLink="/playlist/add"
-            style="margin-left: 10px;">Add playlist
-    </button>
   </div>
 
   <!-- Playlist content -->
@@ -23,8 +17,6 @@
         <div *ngFor="let playlist of playlists | playlistFilter:searchText">
           <a class="list-group-item list-group-item-action">
             {{ playlist.name }}
-            <i class="material-icons" (click)="deletePlaylist(playlist.id)" style="float:right;">delete</i>
-            <i class="material-icons" style="float:right; margin-right: 2px;" routerLink="../../playlist/{{playlist.id}}/edit">edit</i>
             <i class="material-icons" style="float:right; margin-right: 2px;" routerLink="../../playlist/{{playlist.id}}/details">slideshow</i>
           </a>
         </div>

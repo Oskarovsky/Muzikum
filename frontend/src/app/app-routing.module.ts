@@ -21,6 +21,7 @@ import {VideoComponent} from './video/video.component';
 import {VideoAddComponent} from './video-add/video-add.component';
 import {VideoDetailsComponent} from './video-details/video-details.component';
 import {VideoEditComponent} from './video-edit/video-edit.component';
+import {PlaylistAllComponent} from './playlist-all/playlist-all.component';
 
 
 const routes: Routes = [
@@ -34,7 +35,8 @@ const routes: Routes = [
   { path: 'provider/:id/tracks/:genre', component: TrackListComponent },
   { path: 'tracklist/:genre', component: TrackListComponent },
   { path: 'toplist/:genre', component: ToplistComponent },
-  { path: 'playlist/all', component: PlaylistComponent },
+  { path: 'playlist/all', component: PlaylistAllComponent },
+  { path: 'playlist/all/:username', component: PlaylistComponent },
   { path: 'toplist/:genre/edit', component: ToplistEditComponent },
   { path: 'playlist/add', component: PlaylistAddComponent },
   { path: 'playlist/:id/edit', component: PlaylistEditComponent },

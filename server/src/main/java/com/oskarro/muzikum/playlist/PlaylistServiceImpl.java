@@ -34,18 +34,6 @@ public class PlaylistServiceImpl implements PlaylistService {
         return playlistRepository.findByName(name);
     }
 
-/*    @Override
-    public void addTrackToPlaylist(Track track, Integer id) {
-        findPlaylistById(id)
-                .ifPresent(playlist -> playlist.getTracks().add(track));
-    }
-
-    @Override
-    public void removeTrackFromPlaylist(Track track, Integer id) {
-        findPlaylistById(id)
-                .ifPresent(playlist -> playlist.getTracks().remove(track));
-    }*/
-
     @Override
     public void addPlaylist(Playlist playlist) {
         playlistRepository.save(playlist);
@@ -53,7 +41,6 @@ public class PlaylistServiceImpl implements PlaylistService {
 
     @Override
     public Playlist updatePlaylist(Playlist playlist, Integer id) {
-//        Playlist playlist1 = findPlaylistById()
         return null;
     }
 
@@ -62,5 +49,9 @@ public class PlaylistServiceImpl implements PlaylistService {
         playlistRepository.deleteById(id);
     }
 
+    @Override
+    public List<Playlist> findAllPlaylistByUsername(String username) {
+        return playlistRepository.findAllByUserUsername(username);
+    }
 
 }
