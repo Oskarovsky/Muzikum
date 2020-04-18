@@ -7,6 +7,7 @@ import com.oskarro.muzikum.playlist.PlaylistService;
 import com.oskarro.muzikum.provider.Provider;
 import com.oskarro.muzikum.provider.ProviderRepository;
 import com.oskarro.muzikum.provider.contractor.*;
+import com.oskarro.muzikum.storage.FilesStorageService;
 import com.oskarro.muzikum.track.Genre;
 import com.oskarro.muzikum.track.Track;
 import com.oskarro.muzikum.track.TrackRepository;
@@ -17,6 +18,7 @@ import com.oskarro.muzikum.video.Video;
 import com.oskarro.muzikum.video.VideoRepository;
 import com.oskarro.muzikum.video.VideoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
@@ -28,13 +30,14 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
 
+import javax.annotation.Resource;
 import java.lang.reflect.Array;
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 @SpringBootApplication(exclude = {SecurityAutoConfiguration.class })
-public class MuzikumApplication {
+public class MuzikumApplication implements CommandLineRunner {
 
     @Bean
     public CorsFilter corsFilter() {
@@ -54,9 +57,10 @@ public class MuzikumApplication {
         return new CorsFilter(source);
     }
 
+    @Resource
+    FilesStorageService storageService;
+
     public static void main(String[] args) {
-
-
         ApplicationContext applicationContext = SpringApplication.run(MuzikumApplication.class, args);
 
         // BEANS
@@ -206,4 +210,9 @@ public class MuzikumApplication {
 
     }
 
+    @Override
+    public void run(String... arg) throws Exception {
+        storageService.deleteAll();
+        storageService.init();
+    }
 }
