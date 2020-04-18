@@ -19,8 +19,21 @@
       {{ role }}
     </li>
   </ul>
+
+  <label class="btn btn-default">
+    <input type="file" (change)="selectFile($event)" />
+  </label>
+
+  <button class="btn btn-success" [disabled]="!selectedFiles" (click)="upload()">
+    Upload
+  </button>
+
+  <div class="alert alert-light" role="alert">{{ message }}</div>
+
 </div>
 
 <ng-template #loggedOut>
   Please login.
 </ng-template>
+
+

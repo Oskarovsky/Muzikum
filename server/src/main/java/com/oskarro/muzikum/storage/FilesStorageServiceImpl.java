@@ -1,11 +1,13 @@
 package com.oskarro.muzikum.storage;
 
+import org.apache.commons.io.FileUtils;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Service;
 import org.springframework.util.FileSystemUtils;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.nio.file.Files;
@@ -29,9 +31,12 @@ public class FilesStorageServiceImpl implements FilesStorageService {
     }
 
     @Override
-    public void save(MultipartFile file) {
+    public void save(MultipartFile file, String username) {
         try {
-            Files.copy(file.getInputStream(), this.rootPath.resolve(Objects.requireNonNull(file.getOriginalFilename())));
+            final Path userPath = Paths.get(rootPath.toString() + "/" + username);
+            FileSystemUtils.deleteRecursively(userPath.toFile());
+            Files.createDirectory(Paths.get(rootPath.toString() + "/" + username));
+            Files.copy(file.getInputStream(), userPath.resolve(Objects.requireNonNull(file.getOriginalFilename())));
         } catch (Exception e) {
             throw new RuntimeException("Could not store the file. Error: " + e.getMessage());
         }
