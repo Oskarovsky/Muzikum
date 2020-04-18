@@ -22,11 +22,13 @@ import {VideoAddComponent} from './video-add/video-add.component';
 import {VideoDetailsComponent} from './video-details/video-details.component';
 import {VideoEditComponent} from './video-edit/video-edit.component';
 import {PlaylistAllComponent} from './playlist-all/playlist-all.component';
+import {ProfileComponent} from './profile/profile.component';
+import {HomeComponent} from './home/home.component';
 
 
 const routes: Routes = [
-  { path: '', redirectTo: '/', pathMatch: 'full' },
   { path: 'tracklist', component: TrackListComponent },
+  { path: '', component: HomeComponent },
   { path: 'track/:id', component: TrackComponent },
   { path: 'provider/:id/tracks', component: TrackListComponent },
   { path: 'provider', component: ProviderListComponent },
@@ -43,7 +45,7 @@ const routes: Routes = [
   { path: 'playlist/:id/details', component: PlaylistDetailsComponent },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
-  { path: 'profile', component: ProviderComponent },
+  { path: 'profile', component: ProfileComponent },
   { path: 'user', component: BoardUserComponent },
   { path: 'mod', component: BoardModeratorComponent },
   { path: 'admin', component: BoardAdminComponent },
@@ -51,6 +53,7 @@ const routes: Routes = [
   { path: 'video/:id/edit', component: VideoEditComponent },
   { path: 'video/:id/details', component: VideoDetailsComponent },
   { path: 'video/add', component: VideoAddComponent },
+  { path: '', redirectTo: '', pathMatch: 'full' },
   { path: '**', component: NotFoundComponent}
 ];
 

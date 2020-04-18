@@ -3,6 +3,7 @@ import {Playlist} from './model/playlist';
 import {PlaylistService} from '../services/playlist/playlist.service';
 import {Subscription} from 'rxjs';
 import {ActivatedRoute} from '@angular/router';
+import {TokenStorageService} from '../services/auth/token-storage.service';
 
 @Component({
   selector: 'app-playlist',
@@ -14,12 +15,17 @@ export class PlaylistComponent implements OnInit {
   playlists: Playlist[] = [];
   searchText: string;
   sub: Subscription;
+  isLoggedIn = false;
 
   constructor(private playlistService: PlaylistService,
+              private tokenStorage: TokenStorageService,
               private route: ActivatedRoute) { }
 
   ngOnInit() {
-    this.getAllPlaylistByUsername();
+    if (this.tokenStorage.getToken()) {
+      this.isLoggedIn = true;
+      this.getAllPlaylistByUsername();
+    }
   }
 
   public getAllPlaylistByUsername() {

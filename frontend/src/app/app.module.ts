@@ -42,6 +42,7 @@ import {VideoFilterPipe} from './services/video/video-filter.pipe';
 import { VideoDetailsComponent } from './video-details/video-details.component';
 import { VideoEditComponent } from './video-edit/video-edit.component';
 import { PlaylistAllComponent } from './playlist-all/playlist-all.component';
+import { HomeComponent } from './home/home.component';
 
 
 @NgModule({
@@ -73,7 +74,8 @@ import { PlaylistAllComponent } from './playlist-all/playlist-all.component';
     VideoFilterPipe,
     VideoDetailsComponent,
     VideoEditComponent,
-    PlaylistAllComponent
+    PlaylistAllComponent,
+    HomeComponent
   ],
   imports: [
     AppRoutingModule,

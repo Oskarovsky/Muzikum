@@ -27,4 +27,6 @@ public class Playlist {
     @JoinColumn(name = "user_id")
     private User user;
 
+    private Integer points;
+
 }

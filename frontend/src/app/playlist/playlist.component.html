@@ -16,7 +16,7 @@
   </div>
 
   <!-- Playlist content -->
-  <div class="row" style="margin-top: 28px;">
+  <div class="row" style="margin-top: 28px;" *ngIf="isLoggedIn">
     <div class="col-md-3">
       <br>
       <div class="list-group list-group-flush">
@@ -30,6 +30,10 @@
         </div>
       </div>
     </div>
+  </div>
+
+  <div class="alert alert-warning" role="alert" *ngIf="!isLoggedIn">
+    <a routerLink="/login">Zaloguj się</a>, jeśli chcesz zobaczyć Twoje playlisty!
   </div>
 
 </div>
