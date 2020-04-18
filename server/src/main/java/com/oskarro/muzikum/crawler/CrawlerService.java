@@ -35,17 +35,16 @@ public class CrawlerService {
         try {
             Elements formsList = Jsoup.connect(provider.getUrl() + urlSite)
                     .get()
-                    //.getElementById("ember763")
-                    .getElementsByTag("tbody").first()
-                    .getElementsByTag("tr");
-
-            System.out.println(formsList);
+                    .getElementsByClass("song-name-wrapper");
 
             for (Element element : formsList) {
+                if (element.getElementsByClass("by-line").isEmpty()) {
+                    continue;
+                }
                 Track track = Track.builder()
-                        .position(Integer.valueOf(element.getElementsByTag("span").last().text()))
-                        .title(element.getElementsByClass("table__row__titles").first().getElementsByClass("spread").first().text())
-                        .artist(element.getElementsByClass("table__row__titles").first().getElementsByTag("div").last().text())
+                        //.position(Integer.valueOf(element.getElementsByTag("span").last().text()))
+                        .title(element.getElementsByClass("song-name").first().text())
+                        .artist(element.getElementsByClass("by-line").first().text())
                         .provider(provider)
                         .build();
                 trackService.saveTrack(track);

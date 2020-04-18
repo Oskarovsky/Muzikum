@@ -26,28 +26,22 @@ public class AppleServiceImpl implements AppleService {
         try {
             Elements formsList = Jsoup.connect(provider.getUrl() + urlPart)
                     .get()
-                    .getElementsByTag("tbody").first()
-                    .getElementsByTag("tr");
-
-            System.out.println(formsList);
+                    .getElementsByClass("song-name-wrapper");
 
             for (Element element : formsList) {
                 String title = element
-                        .getElementsByClass("table__row__titles").first()
-                        .getElementsByClass("spread")
-                        .first()
+                        .getElementsByClass("song-name").first()
                         .text();
+                if (element.getElementsByClass("by-line").isEmpty()) {
+                    continue;
+                }
                 Track track = Track.builder()
-                        .position(Integer.valueOf(element.getElementsByTag("span").last().text()))
+                        //.position(Integer.valueOf(element.getElementsByTag("span").last().text()))
                         .title(element
-                                .getElementsByClass("table__row__titles").first()
-                                .getElementsByClass("spread")
-                                .first()
+                                .getElementsByClass("song-name").first()
                                 .text())
                         .artist(element
-                                .getElementsByClass("table__row__titles").first()
-                                .getElementsByTag("div")
-                                .last()
+                                .getElementsByClass("by-line").first()
                                 .text())
                         .provider(provider)
                         .genre(genre.toString())

@@ -81,7 +81,6 @@ public class MuzikumApplication {
         PasswordEncoder encoder = applicationContext.getBean(PasswordEncoder.class);
         UserRepository userRepository = applicationContext.getBean(UserRepository.class);
 
-
         // USER ROLES CREATOR
         Role roleAdmin = new Role();
         roleAdmin.setName(RoleName.ROLE_ADMIN);
@@ -125,6 +124,10 @@ public class MuzikumApplication {
         Optional<Provider> ariaChartsProvider = providerRepository.findById(7);
         Optional<Provider> appleProvider = providerRepository.findById(8);
 
+/*        Provider provider = Provider.builder()
+                .id(8).description("tasty service").url("https://music.apple.com/").name("apple").build();
+        crawlerService.parseWeb(provider);*/
+
         // TRACKS FETCHING FROM EXTERNAL SERVICES
         radiopartyProvider.map(radiopartyService::getTrackList);
         billboardProvider.map(billboardService::getTrackList);
@@ -137,20 +140,20 @@ public class MuzikumApplication {
 /*      dancechartProvider.map(provider -> danceChartService.getTracklistByGenre(provider, Genre.house));
         dancechartProvider.map(provider -> danceChartService.getTracklistByGenre(provider, Genre.handsup));
         dancechartProvider.map(provider -> danceChartService.getTracklistByGenre(provider, Genre.dance));
-        dancechartProvider.map(provider -> danceChartService.getTracklistByGenre(provider, Genre.techno));*/
+        dancechartProvider.map(provider -> danceChartService.getTracklistByGenre(provider, Genre.techno));*//*
 
-/*        promodjProvider.map(provider -> promodjService.getTracklistByGenre(provider, Genre.dance));
+*//*        promodjProvider.map(provider -> promodjService.getTracklistByGenre(provider, Genre.dance));
         promodjProvider.map(provider -> promodjService.getTracklistByGenre(provider, Genre.club));
         promodjProvider.map(provider -> promodjService.getTracklistByGenre(provider, Genre.house));
         promodjProvider.map(provider -> promodjService.getTracklistByGenre(provider, Genre.electroHouse));
         promodjProvider.map(provider -> promodjService.getTracklistByGenre(provider, Genre.techno));
-        promodjProvider.map(provider -> promodjService.getTracklistByGenre(provider, Genre.set));*/
+        promodjProvider.map(provider -> promodjService.getTracklistByGenre(provider, Genre.set));*//*
 
-/*        musicListProvider.map(provider -> musicListService.getTracklistByGenre(provider, Genre.dance));
+*//*        musicListProvider.map(provider -> musicListService.getTracklistByGenre(provider, Genre.dance));
         musicListProvider.map(provider -> musicListService.getTracklistByGenre(provider, Genre.house));
-        musicListProvider.map(provider -> musicListService.getTracklistByGenre(provider, Genre.techno));*/
+        musicListProvider.map(provider -> musicListService.getTracklistByGenre(provider, Genre.techno));*//*
 
-/*
+*//*
         ariaChartsProvider.map(provider -> ariaChartsService.getTracklistByGenre(provider, Genre.dance));
         ariaChartsProvider.map(provider -> ariaChartsService.getTracklistByGenre(provider, Genre.club));
 */
