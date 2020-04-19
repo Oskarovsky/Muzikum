@@ -7,6 +7,7 @@ import {Observable} from 'rxjs';
 })
 export class UploadFileService {
 
+  // public API = 'http://91.205.75.145:8080/api';
   public API = '//localhost:8080/api';
   public STORAGE_API = this.API + '/storage';
 

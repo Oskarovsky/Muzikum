@@ -24,11 +24,14 @@
     <input type="file" (change)="selectFile($event)" />
   </label>
 
-  <button class="btn btn-success" [disabled]="!selectedFiles" (click)="upload()">
+  <button class="btn btn-success" [disabled]="!selectedFile" (click)="upload()">
     Upload
   </button>
 
   <div class="alert alert-light" role="alert">{{ message }}</div>
+
+  <img [src]=userAvatar  alt="picture">
+
 
 </div>
 

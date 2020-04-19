@@ -1,5 +1,6 @@
 package com.oskarro.muzikum.user;
 
+import com.oskarro.muzikum.storage.Image;
 import lombok.*;
 import org.hibernate.annotations.NaturalId;
 

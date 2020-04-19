@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { TokenStorageService } from '../services/auth/token-storage.service';
 import { Observable } from 'rxjs';
 import {UploadFileService} from '../services/storage/upload-file.service';
-import { HttpEventType, HttpResponse } from '@angular/common/http';
+import { HttpEventType, HttpResponse, HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-profile',
@@ -12,14 +12,16 @@ import { HttpEventType, HttpResponse } from '@angular/common/http';
 export class ProfileComponent implements OnInit {
 
   currentUser: any;
-  selectedFiles: FileList;
+  selectedFile;
   currentFile: File;
   message = '';
+  userAvatar: any;
 
   fileInfos: Observable<any>;
 
   constructor(private token: TokenStorageService,
-              private uploadService: UploadFileService) { }
+              private uploadService: UploadFileService,
+              private httpClient: HttpClient) { }
 
   ngOnInit() {
     this.currentUser = this.token.getUser();
@@ -27,11 +29,11 @@ export class ProfileComponent implements OnInit {
   }
 
   selectFile(event) {
-    this.selectedFiles = event.target.files;
+    this.selectedFile = event.target.files;
   }
 
   upload() {
-    this.currentFile = this.selectedFiles.item(0);
+    this.currentFile = this.selectedFile.item(0);
     this.uploadService.upload(this.currentFile, this.currentUser.username).subscribe(
       event => {
         if (event.type === HttpEventType.UploadProgress) {
@@ -45,8 +47,9 @@ export class ProfileComponent implements OnInit {
         this.currentFile = undefined;
       });
 
-    this.selectedFiles = undefined;
+    this.selectedFile = undefined;
   }
+
 
 
 
