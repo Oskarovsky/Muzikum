@@ -51,10 +51,10 @@ public class FilesController {
         String message = "";
         try {
             filesStorageService.save(file, username);
-            message = "Uploaded the file successfully: " + file.getOriginalFilename();
+            message = "Dodano zdjęcie: " + file.getOriginalFilename() + ". Odśwież stronę.";
             return ResponseEntity.status(HttpStatus.OK).body(new ResponseMessage(message));
         } catch (Exception e) {
-            message = "Could not upload the file: " + file.getOriginalFilename() + "!";
+            message = "Nie można załadować pliku: " + file.getOriginalFilename() + "!";
             return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(new ResponseMessage(message));
         }
     }

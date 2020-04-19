@@ -1,8 +1,12 @@
 package com.oskarro.muzikum.storage;
 
+import com.mortennobel.imagescaling.DimensionConstrain;
+import com.mortennobel.imagescaling.ResampleOp;
 import com.oskarro.muzikum.user.User;
 import com.oskarro.muzikum.user.UserRepository;
+import net.coobird.thumbnailator.Thumbnails;
 import org.apache.commons.io.FileUtils;
+import org.imgscalr.Scalr;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
@@ -11,7 +15,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.FileSystemUtils;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.imageio.ImageIO;
 import javax.transaction.Transactional;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -29,7 +35,6 @@ public class FilesStorageServiceImpl implements FilesStorageService {
 
     @Autowired
     ImageRepository imageRepository;
-
 
     private final Path rootPath = Paths.get("uploads");
 
@@ -50,6 +55,7 @@ public class FilesStorageServiceImpl implements FilesStorageService {
             FileSystemUtils.deleteRecursively(userPath.toFile());
             Files.createDirectory(Paths.get(rootPath.toString() + "/" + username));
             Files.copy(file.getInputStream(), userPath.resolve(Objects.requireNonNull(file.getOriginalFilename())));
+
 
             User user = userRepository.findByUsername(username)
                     .orElseThrow(() -> new UsernameNotFoundException("User not found with username or email:" + username));

@@ -25,7 +25,7 @@ export class UploadFileService {
     return this.http.request(req);
   }
 
-  getFile(username: string): Observable<any> {
-    return this.http.get(this.STORAGE_API + '/files/avatar-' + username);
+  getFile(username: string): Observable<Blob> {
+    return this.http.get(this.STORAGE_API + '/' + username + '/avatar', { responseType: 'blob' });
   }
 }

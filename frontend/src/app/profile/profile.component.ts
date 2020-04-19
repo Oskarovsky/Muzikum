@@ -16,20 +16,44 @@ export class ProfileComponent implements OnInit {
   currentFile: File;
   message = '';
   userAvatar: any;
+  imageToShow: any;
+  isImageLoading: any;
 
   fileInfos: Observable<any>;
 
   constructor(private token: TokenStorageService,
-              private uploadService: UploadFileService,
-              private httpClient: HttpClient) { }
+              private uploadService: UploadFileService) { }
 
   ngOnInit() {
     this.currentUser = this.token.getUser();
     this.fileInfos = this.uploadService.getFile(this.currentUser.username);
+    this.getImageFromService();
   }
 
   selectFile(event) {
     this.selectedFile = event.target.files;
+  }
+
+  createImageFromBlob(image: Blob) {
+    const reader = new FileReader();
+    reader.addEventListener('load', () => {
+      this.imageToShow = reader.result;
+    }, false);
+
+    if (image) {
+      reader.readAsDataURL(image);
+    }
+  }
+
+  getImageFromService() {
+    this.isImageLoading = true;
+    this.uploadService.getFile(this.currentUser.username).subscribe(data => {
+      this.createImageFromBlob(data);
+      this.isImageLoading = false;
+    }, error => {
+      this.isImageLoading = false;
+      console.log(error);
+    });
   }
 
   upload() {
@@ -39,7 +63,6 @@ export class ProfileComponent implements OnInit {
         if (event.type === HttpEventType.UploadProgress) {
         } else if (event instanceof HttpResponse) {
           this.message = event.body.message;
-          // this.fileInfos = this.uploadService.getFile(this.currentUser.username);
         }
       },
       err => {
