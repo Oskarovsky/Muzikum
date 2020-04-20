@@ -27,17 +27,17 @@
                   </div>
                 </div>
                 <div class="userData ml-3">
-                  <h2 class="d-block" style="font-size: 1.5rem; font-weight: bold"><a href="javascript:void(0);">Some Name</a></h2>
-                  <h6 class="d-block"><a href="javascript:void(0)">1,500</a> Video Uploads</h6>
-                  <h6 class="d-block"><a href="javascript:void(0)">300</a> Blog Posts</h6>
-                  <input type="button" name="answer" value="Zmień zdjęcie" onclick="showAvatarForm()" />
-                  <h6 id="avatarForm" style="display:none;" class="answer_list">
-                    <input type="file" class="btn btn-default" (change)="selectFile($event)" />
+                  <h2 class="d-block" style="font-size: 1.5rem; font-weight: bold"><a href="javascript:void(0);">{{currentUser.username}}</a></h2>
+                  <h6 class="d-block"><a href="javascript:void(0)">1,500</a> Playlist</h6>
+                  <h6 class="d-block"><a href="javascript:void(0)">300</a> Polubień</h6>
+                  <button mat-stroked-button color="primary" value="Zmień zdjęcie" onclick="showAvatarForm()">Zmień zdjęcie profilowe</button>
+                  <p id="avatarForm" style="display:none;" class="answer_list">
+                    <input type="file" class="mat-line" (change)="selectFile($event)" />
                     <button class="btn btn-success" [disabled]="!selectedFile" (click)="upload()">
                       Upload
                     </button>
                     <span class="alert alert-light" role="alert">{{ message }}</span>
-                  </h6>
+                  </p>
                 </div>
                 <div class="ml-auto">
                   <input type="button" class="btn btn-primary d-none" id="btnDiscard" value="Discard Changes" />
