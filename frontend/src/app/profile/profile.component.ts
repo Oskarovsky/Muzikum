@@ -49,7 +49,6 @@ export class ProfileComponent implements OnInit {
     this.isImageLoading = true;
     this.uploadService.getFile(this.currentUser.username).subscribe(data => {
       this.createImageFromBlob(data);
-      this.isImageLoading = false;
     }, error => {
       this.isImageLoading = false;
       console.log(error);
