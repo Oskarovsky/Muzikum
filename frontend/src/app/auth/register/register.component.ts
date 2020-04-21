@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../services/auth/auth.service';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {MustMatch} from './MustMatch';
 
 @Component({
   selector: 'app-register',
@@ -12,10 +14,21 @@ export class RegisterComponent implements OnInit {
   isSuccessful = false;
   isSignUpFailed = false;
   errorMessage = '';
+  registerForm: FormGroup;
+  submitted = false;
 
-  constructor(private authService: AuthService) { }
+  constructor(private authService: AuthService,
+              private formBuilder: FormBuilder) { }
 
   ngOnInit() {
+    this.registerForm = this.formBuilder.group({
+      username: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required, Validators.minLength(6)]],
+      confirmPassword: ['', Validators.required]
+    }, {
+      validator: MustMatch('password', 'confirmPassword')
+    });
   }
 
   onSubmit() {
