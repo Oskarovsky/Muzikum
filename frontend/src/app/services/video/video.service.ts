@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Track } from '../../track/model/track';
+import { Track } from '../../tracks/track/model/track';
 import {Observable} from 'rxjs';
-import {Playlist} from '../../playlist/model/playlist';
-import {Video} from '../../video/model/video';
+import {Playlist} from '../../playlists/playlist/model/playlist';
+import {Video} from '../../videos/video/model/video';
 import {DomSanitizer} from '@angular/platform-browser';
 
 @Injectable({providedIn: 'root'})

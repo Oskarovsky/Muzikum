@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable, of} from 'rxjs';
-import {Provider} from 'src/app/provider/model/provider';
+import {Provider} from 'src/app/providers/provider/model/provider';
 
 @Injectable({providedIn: 'root'})
 export class ProviderService {

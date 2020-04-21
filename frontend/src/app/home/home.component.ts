@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../services/user/user.service';
-import {Playlist} from '../playlist/model/playlist';
+import {Playlist} from '../playlists/playlist/model/playlist';
 import {Subscription} from 'rxjs';
 import {TokenStorageService} from '../services/auth/token-storage.service';
 import {ActivatedRoute} from '@angular/router';

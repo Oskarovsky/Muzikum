@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpParams} from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Track } from 'src/app/track/model/track';
+import { Track } from 'src/app/tracks/track/model/track';
 
 @Injectable({providedIn: 'root'})
 export class TrackService {

@@ -28,7 +28,7 @@
               "src/styles.css"
             ],
             "scripts": [
-              "src/assets/js/show_avatar_form.js"
+              "src/assets/js/scripts.js"
             ]
           },
           "configurations": {

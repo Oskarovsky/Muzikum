@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Playlist } from '../../playlist/model/playlist';
-import { Track } from 'src/app/track/model/track';
+import { Playlist } from '../../playlists/playlist/model/playlist';
+import { Track } from 'src/app/tracks/track/model/track';
 
 @Injectable({providedIn: 'root'})
 export class PlaylistService {
