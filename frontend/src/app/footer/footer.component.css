@@ -17,12 +17,12 @@ body{
 }
 
 .copyright p{
-  margin:15px 0px;
+  margin:10px 0px;
 }
 
 footer{
   background-color:#222222;
-  padding: 60px 0px;
+  padding: 25px 0px;
 }
 
 footer .menu li a{
