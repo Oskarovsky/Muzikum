@@ -43,6 +43,7 @@ import { VideoDetailsComponent } from './videos/video-details/video-details.comp
 import { VideoEditComponent } from './videos/video-edit/video-edit.component';
 import { PlaylistAllComponent } from './playlists/playlist-all/playlist-all.component';
 import { HomeComponent } from './home/home.component';
+import { FooterComponent } from './footer/footer.component';
 
 
 @NgModule({
@@ -75,7 +76,8 @@ import { HomeComponent } from './home/home.component';
     VideoDetailsComponent,
     VideoEditComponent,
     PlaylistAllComponent,
-    HomeComponent
+    HomeComponent,
+    FooterComponent
   ],
   imports: [
     AppRoutingModule,
