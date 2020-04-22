@@ -1,16 +1,18 @@
 <div class="card bg-light">
   <article class="card-body mx-auto" style="max-width: 400px;">
-    <h4 class="card-title mt-3 text-center">Dołącz do naszej ekipy!</h4>
-    <p class="text-center">Słuchaj najlepszej muzyki zupełnie za darmo.</p>
-    <p>
-      <a href="" class="btn btn-block btn-twitter"> <i class="fab fa-twitter"></i>Zaloguj się za pomocą YouTube</a>
-      <a href="" class="btn btn-block btn-facebook"> <i class="fab fa-facebook-f"></i>Zaloguj się za pomocą Facebook</a>
-    </p>
-    <p class="divider-text">
-      <span class="bg-light">LUB</span>
-    </p>
 
     <form *ngIf="!isSuccessful" name="form" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>
+
+      <h4 class="card-title mt-3 text-center">Dołącz do naszej ekipy!</h4>
+      <p class="text-center">Słuchaj najlepszej muzyki zupełnie za darmo.</p>
+      <p>
+        <a href="" class="btn btn-block btn-twitter"> <i class="fab fa-twitter"></i>Zaloguj się za pomocą YouTube</a>
+        <a href="" class="btn btn-block btn-facebook"> <i class="fab fa-facebook-f"></i>Zaloguj się za pomocą Facebook</a>
+      </p>
+      <p class="divider-text">
+        <span class="bg-light">LUB</span>
+      </p>
+
       <div class="alert-danger" style="position: relative; text-align: center; font-size: 15px;" *ngIf="f.submitted && username.invalid">
         <div *ngIf="username.errors.required">Nazwa użytkownika jest wymagana</div>
         <div *ngIf="username.errors.minlength">Nazwa użytkownika musi zawierać minimum 3 znaki</div>

@@ -5,6 +5,12 @@ import { Subscription } from 'rxjs';
 import {TrackService} from "../../services/track/track.service";
 import {HttpClient} from "@angular/common/http";
 import {Track} from "./model/track";
+import {environment} from '../../../environments/environment';
+
+const API: string = environment.serverUrl;
+const VIDEO_API = API + '/video';
+const TRACK_API = API + '/tracks';
+const PROVIDER_API = API + '/providers';
 
 @Component({
   selector: 'app-track',
@@ -13,16 +19,10 @@ import {Track} from "./model/track";
 })
 export class TrackComponent implements OnInit {
 
-  public API = '//localhost:8080';
-  // public API = '//91.205.75.145:8080/api';
-  public TRACK_API = this.API + '/tracks';
-  public PROVIDER_API = this.API + '/providers';
-
   track: any = {};
   tracks: Track[] = [];
 
   sub: Subscription;
-
 
   constructor(private trackService: TrackService,
               private route: ActivatedRoute,
@@ -35,12 +35,12 @@ export class TrackComponent implements OnInit {
       if (id) {
         this.trackService.getTrackById(id).subscribe((track: any) => {
           this.track = track;
-        })
+        });
       }
     });
   }
 
-  public getAllTracks(){
+  public getAllTracks() {
     this.trackService.getAllTracks().subscribe(
       result => {
         this.tracks = result;
@@ -48,12 +48,12 @@ export class TrackComponent implements OnInit {
       error => {
         alert('An error has occurred while downloading tracks')
       }
-    )
+    );
   }
 
   public getTrackById(id: string) {
     this.trackService.getTrackById(id).subscribe(
-    )
+    );
   }
 
 }

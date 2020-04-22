@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
+import {environment} from '../../../environments/environment';
 
-const API = '//localhost:8080/api';
-const AUTH_API = 'http://localhost:8080/api/auth';
-// const AUTH_API = 'http://91.205.75.145:8080/api/auth';
+const API: string = environment.serverUrl;
+const AUTH_API = API + '/auth';
 
 @Injectable({
   providedIn: 'root'

@@ -2,13 +2,13 @@ import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable, of} from 'rxjs';
 import {Provider} from 'src/app/providers/provider/model/provider';
+import {environment} from '../../../environments/environment';
+
+const API: string = environment.serverUrl;
+const PROVIDER_API = API + '/providers';
 
 @Injectable({providedIn: 'root'})
 export class ProviderService {
-
-  public API = '//localhost:8080/api';
-  // public API = '//91.205.75.145:8080/api';
-  public PROVIDER_API = this.API + '/providers';
 
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -18,20 +18,20 @@ export class ProviderService {
 
   /** GET all providers **/
   getAllProviders(): Observable<Provider[]> {
-    return this.http.get<Provider[]>(this.PROVIDER_API + '/findAll');
+    return this.http.get<Provider[]>(PROVIDER_API + '/findAll');
   }
 
   /** GET provider by id **/
   getProvider(id: string): Observable<any> {
-    return this.http.get<any>(this.PROVIDER_API + '/' + id);
+    return this.http.get<any>(PROVIDER_API + '/' + id);
   }
 
   getAllGenresFromProvider(id: string): Observable<any> {
-    return this.http.get<any[]>(this.PROVIDER_API + '/' + id + '/genres');
+    return this.http.get<any[]>(PROVIDER_API + '/' + id + '/genres');
   }
 
   createProvider(provider: object): Observable<object> {
-    return this.http.post(this.PROVIDER_API + '/add', provider);
+    return this.http.post(PROVIDER_API + '/add', provider);
   }
 
   /**
@@ -40,7 +40,7 @@ export class ProviderService {
    * @param operation - name of the operation that failed
    * @param result - optional value to return as the observable result
    */
-  private handleError<T> (operation = 'operation', result?: T) {
+  private handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
 
       // TODO: send the error to remote logging infrastructure

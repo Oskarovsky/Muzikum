@@ -3,13 +3,13 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Playlist } from '../../playlists/playlist/model/playlist';
 import { Track } from 'src/app/tracks/track/model/track';
+import {environment} from '../../../environments/environment';
+
+const API: string = environment.serverUrl;
+const PLAYLIST_API = API + '/playlist';
 
 @Injectable({providedIn: 'root'})
 export class PlaylistService {
-
-  public API = '//localhost:8080/api';
-  // public API = '//91.205.75.145:8080/api';
-  public PLAYLIST_API = this.API + '/playlist';
 
   tracks: Track[] = [];
 
@@ -21,29 +21,29 @@ export class PlaylistService {
 
   /** GET all playlists */
   getAllPlaylists(): Observable<Playlist[]> {
-    return this.http.get<Playlist[]>(this.PLAYLIST_API + '/findAll');
+    return this.http.get<Playlist[]>(PLAYLIST_API + '/findAll');
   }
 
   /** GET all playlists from User */
   getAllPlaylistsByUsername(username: string): Observable<Playlist[]> {
-    return this.http.get<Playlist[]>(this.PLAYLIST_API + '/all/' + username);
+    return this.http.get<Playlist[]>(PLAYLIST_API + '/all/' + username);
   }
 
   /** GET playlist by id */
   getPlaylist(id: string): Observable<any> {
-    return this.http.get<Playlist>(this.PLAYLIST_API + '/' + id);
+    return this.http.get<Playlist>(PLAYLIST_API + '/' + id);
   }
 
   /** GET all tracks from playlist */
   getAllTracksFromPlaylist(playlistId: string): Observable<Track[]> {
-    return this.http.get<Track[]>(this.PLAYLIST_API + '/' + playlistId + '/tracks');
+    return this.http.get<Track[]>(PLAYLIST_API + '/' + playlistId + '/tracks');
   }
 
   addPlaylist(playlist: Playlist): Observable<Playlist> {
-    return this.http.post<Playlist>(this.PLAYLIST_API  + '/add', playlist);
+    return this.http.post<Playlist>(PLAYLIST_API  + '/add', playlist);
   }
 
   deletePlaylist(id: number): Observable<any> {
-    return this.http.delete<Playlist>(this.PLAYLIST_API + '/' + id);
+    return this.http.delete<Playlist>(PLAYLIST_API + '/' + id);
   }
 }
