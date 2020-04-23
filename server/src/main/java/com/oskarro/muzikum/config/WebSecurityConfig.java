@@ -4,8 +4,10 @@ import com.oskarro.muzikum.auth.jwt.JwtAuthenticationEntryPoint;
 import com.oskarro.muzikum.auth.jwt.JwtAuthenticationTokenFilter;
 import com.oskarro.muzikum.user.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.security.oauth2.client.EnableOAuth2Sso;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -64,10 +66,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                     .and()
                 .authorizeRequests()
-                    .antMatchers("/api/auth/**").permitAll()
+                    .antMatchers( "/api/auth/**").permitAll()
                     .antMatchers("/api/test/**").permitAll()
                     .antMatchers("/api/**").permitAll()
+//                    .antMatchers(HttpMethod.POST, "/api/**").hasAuthority("ROLE_USER")
+//                    .antMatchers(HttpMethod.POST, "/api/**").hasAuthority("ROLE_ADMIN")
                     .anyRequest().authenticated();
+//                    .and()
+//                .oauth2ResourceServer()
+//                    .jwt();
         httpSecurity.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
     }
 }

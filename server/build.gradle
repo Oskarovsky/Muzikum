@@ -68,6 +68,8 @@ dependencies {
     compile group: 'org.json', name: 'json', version: '20090211'
     compile group: 'io.jsonwebtoken', name: 'jjwt', version: '0.3'
     compile group: 'org.springframework.security', name: 'spring-security-core', version: '5.3.1.RELEASE'
+    compile group: 'org.springframework.security', name: 'spring-security-oauth2-client', version: '5.3.1.RELEASE'
+    compile group: 'org.springframework.security.oauth.boot', name: 'spring-security-oauth2-autoconfigure', version: '2.2.6.RELEASE'
 
     // Libraries for minimizing users avatar
     compile group: 'org.imgscalr', name: 'imgscalr-lib', version: '4.2'
