@@ -1,7 +1,6 @@
 package com.oskarro.muzikum.user;
 
-import com.oskarro.muzikum.storage.Image;
-import com.oskarro.muzikum.util.DateAudit;
+import com.oskarro.muzikum.utils.DateAudit;
 import lombok.*;
 import org.hibernate.annotations.NaturalId;
 

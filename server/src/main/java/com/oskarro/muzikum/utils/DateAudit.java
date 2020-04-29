@@ -1,4 +1,4 @@
-package com.oskarro.muzikum.util;
+package com.oskarro.muzikum.utils;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Getter;
