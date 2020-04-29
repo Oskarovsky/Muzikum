@@ -66,7 +66,7 @@ public class UserPrincipal implements UserDetails {
     }
 
 
-    public static UserPrincipal build(User user) {
+    public static UserPrincipal create(User user) {
         user.getRoles().forEach(s -> System.out.println(s.getName()));
         List<GrantedAuthority> authorities = user.getRoles()
                 .stream()

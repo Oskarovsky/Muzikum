@@ -1,4 +1,4 @@
-package com.oskarro.muzikum.security.auth.jwt;
+package com.oskarro.muzikum.security.jwt;
 
 import com.oskarro.muzikum.user.UserDetailsServiceImpl;
 
@@ -25,9 +25,9 @@ import org.springframework.web.filter.OncePerRequestFilter;
  */
 
 @Component
-public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
+public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(JwtAuthenticationTokenFilter.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(JwtAuthenticationFilter.class);
     public static final String AUTHORIZATION = "Authorization";
     public static final String BEARER = "Bearer ";
 
@@ -60,7 +60,6 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
 
     private String getJwtFromRequest(HttpServletRequest request) {
         String authHeader = request.getHeader(AUTHORIZATION);
-
         if (StringUtils.hasText(authHeader) && authHeader.startsWith(BEARER)) {
             return authHeader.substring(7);
         }

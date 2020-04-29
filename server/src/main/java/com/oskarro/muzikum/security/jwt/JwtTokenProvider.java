@@ -1,4 +1,4 @@
-package com.oskarro.muzikum.security.auth.jwt;
+package com.oskarro.muzikum.security.jwt;
 
 import com.oskarro.muzikum.user.UserPrincipal;
 import io.jsonwebtoken.*;
@@ -61,6 +61,14 @@ public class JwtTokenProvider {
                 .parseClaimsJws(token)
                 .getBody()
                 .getSubject();
+    }
+
+    public Integer getUserIdFromJwt(String token) {
+        Claims claims = Jwts.parser()
+                .setSigningKey(JWT_SECRET)
+                .parseClaimsJws(token)
+                .getBody();
+        return Integer.parseInt(claims.getSubject());
     }
 
     // retrieve username from jwt token
