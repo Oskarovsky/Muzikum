@@ -1,4 +1,4 @@
-package com.oskarro.muzikum.security.auth;
+package com.oskarro.muzikum.security;
 
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;

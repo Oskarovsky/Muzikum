@@ -1,4 +1,4 @@
-package com.oskarro.muzikum.security.auth.jwt;
+package com.oskarro.muzikum.security.jwt;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.AuthenticationException;
@@ -9,6 +9,11 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+
+/**
+ * This class is used to return a 401 unauthorized error to clients
+ * that try to access a protected resource without proper authentication.
+ */
 
 @Slf4j
 @Component

@@ -1,4 +1,4 @@
-package com.oskarro.muzikum.security.auth;
+package com.oskarro.muzikum.security;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -7,7 +7,8 @@ import lombok.Setter;
 @Getter
 @Setter
 @AllArgsConstructor
-public class ResponseMessage {
+public class ApiResponse {
 
+    private Boolean success;
     private String message;
 }

@@ -1,4 +1,4 @@
-package com.oskarro.muzikum.security.auth.jwt;
+package com.oskarro.muzikum.security.jwt;
 
 import java.util.List;
 

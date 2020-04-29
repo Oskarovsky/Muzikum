@@ -1,7 +1,7 @@
-package com.oskarro.muzikum.security.auth;
+package com.oskarro.muzikum.security;
 
-import com.oskarro.muzikum.security.auth.jwt.JwtTokenProvider;
-import com.oskarro.muzikum.security.auth.jwt.JwtResponse;
+import com.oskarro.muzikum.security.jwt.JwtTokenProvider;
+import com.oskarro.muzikum.security.jwt.JwtResponse;
 import com.oskarro.muzikum.user.*;
 import java.util.HashSet;
 import java.util.List;
@@ -46,7 +46,7 @@ public class AuthController {
     public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
 
         Authentication authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
+                new UsernamePasswordAuthenticationToken(loginRequest.getUsernameOrEmail(), loginRequest.getPassword()));
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
@@ -69,7 +69,7 @@ public class AuthController {
         if (userRepository.existsByUsername(signupRequest.getUsername())) {
             return ResponseEntity
                     .badRequest()
-                    .body(new ResponseMessage("Fail -> Username is already taken!"));
+                    .body(new ApiResponse(false,"Fail -> Username is already taken!"));
         }
 
         if (userRepository.existsByEmail(signupRequest.getEmail())) {
@@ -115,7 +115,7 @@ public class AuthController {
         user.setRoles(roles);
         userRepository.save(user);
 
-        return ResponseEntity.ok(new ResponseMessage("User registered successfully!"));
+        return ResponseEntity.ok(new ApiResponse(true, "User registered successfully!"));
     }
 
 
