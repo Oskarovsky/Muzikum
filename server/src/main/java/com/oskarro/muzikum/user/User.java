@@ -1,6 +1,7 @@
 package com.oskarro.muzikum.user;
 
 import com.oskarro.muzikum.storage.Image;
+import com.oskarro.muzikum.util.DateAudit;
 import lombok.*;
 import org.hibernate.annotations.NaturalId;
 
@@ -21,7 +22,7 @@ import java.util.Set;
         @UniqueConstraint(columnNames = "username"),
         @UniqueConstraint(columnNames = "email")
         })
-public class User {
+public class User extends DateAudit {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

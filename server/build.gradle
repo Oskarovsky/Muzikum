@@ -79,10 +79,9 @@ dependencies {
     compile group: 'net.coobird', name: 'thumbnailator', version: '0.4.1'
     compile group: 'com.mortennobel', name: 'java-image-scaling', version: '0.8.5'
 
+    // For Java 8 Date/Time Support
+    compile group: 'com.fasterxml.jackson.datatype', name: 'jackson-datatype-jsr310', version: '2.11.0'
 
-
-    // compile ('org.springframework.security.oauth.boot:spring-security-oauth2-autoconfigure:2.0.1.RELEASE')
-    // compile ('com.okta.spring:okta-spring-boot-starter:0.6.1')
     /* ============ endregion COMPILE ============ */
 
 
