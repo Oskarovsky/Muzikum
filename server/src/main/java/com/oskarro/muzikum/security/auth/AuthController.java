@@ -1,7 +1,7 @@
-package com.oskarro.muzikum.auth;
+package com.oskarro.muzikum.security.auth;
 
-import com.oskarro.muzikum.auth.jwt.JwtTokenProvider;
-import com.oskarro.muzikum.auth.jwt.JwtResponse;
+import com.oskarro.muzikum.security.auth.jwt.JwtTokenProvider;
+import com.oskarro.muzikum.security.auth.jwt.JwtResponse;
 import com.oskarro.muzikum.user.*;
 import java.util.HashSet;
 import java.util.List;
@@ -51,7 +51,7 @@ public class AuthController {
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
         String jwt = jwtTokenProvider.generateJwtToken(authentication);
-        UserPrinciple userDetails = (UserPrinciple) authentication.getPrincipal();
+        UserPrincipal userDetails = (UserPrincipal) authentication.getPrincipal();
         List<String> roles = userDetails.getAuthorities().stream()
                 .map(GrantedAuthority::getAuthority)
                 .collect(Collectors.toList());

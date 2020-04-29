@@ -8,7 +8,6 @@ import com.oskarro.muzikum.provider.ProviderService;
 import com.oskarro.muzikum.track.Genre;
 import com.oskarro.muzikum.track.Track;
 import com.oskarro.muzikum.track.TrackService;
-import lombok.extern.slf4j.Slf4j;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -18,7 +17,6 @@ import org.springframework.stereotype.Service;
 import java.io.IOException;
 import java.util.List;
 
-@Slf4j
 @Service
 public class NuteczkiServiceImpl implements NuteczkiService {
 
@@ -51,7 +49,7 @@ public class NuteczkiServiceImpl implements NuteczkiService {
             }
             return "All tracklist has been fetched from nuteczki.eu";
         } catch (IOException e) {
-            log.error(String.format("There are a problem with parsing website: %s", provider.getName()));
+//            log.error(String.format("There are a problem with parsing website: %s", provider.getName()));
             e.printStackTrace();
             return null;
         }

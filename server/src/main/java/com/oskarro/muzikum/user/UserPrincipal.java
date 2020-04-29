@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
 @Builder
 @EqualsAndHashCode
 @AllArgsConstructor
-public class UserPrinciple implements UserDetails {
+public class UserPrincipal implements UserDetails {
 
     private static final long serialVersionUID = 1L;
 
@@ -66,7 +66,7 @@ public class UserPrinciple implements UserDetails {
     }
 
 
-    public static UserPrinciple build(User user) {
+    public static UserPrincipal build(User user) {
         user.getRoles().forEach(s -> System.out.println(s.getName()));
         List<GrantedAuthority> authorities = user.getRoles()
                 .stream()
@@ -74,7 +74,7 @@ public class UserPrinciple implements UserDetails {
         ).collect(Collectors.toList());
         authorities.forEach(s -> System.out.println(s.getAuthority()));
 
-        return new UserPrinciple(
+        return new UserPrincipal(
                 user.getId(),
                 user.getUsername(),
                 user.getEmail(),

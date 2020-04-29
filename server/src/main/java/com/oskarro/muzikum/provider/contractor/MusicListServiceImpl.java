@@ -69,7 +69,7 @@ public class MusicListServiceImpl implements MusicListService {
                 getTrackList(provider, "techno", genre);
                 break;
             default:
-                log.info(String.format("Scrapper cannot find any tracks assigned %s genre", genre.toString()));
+//                log.info(String.format("Scrapper cannot find any tracks assigned %s genre", genre.toString()));
                 return null;
         }
         return "success!";

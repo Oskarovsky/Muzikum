@@ -50,14 +50,17 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-security'
     implementation 'org.springframework.security:spring-security-test'
 
-    // PostgresSQL-specific connector for JPA
-    implementation('org.postgresql:postgresql:9.4-1206-jdbc42')
     /* ============ endregion IMPLEMENTATION ============ */
 
 
     /* ============ region COMPILE ============ */
     // Lombok auto-generates things like getters and setters
     compileOnly 'org.projectlombok:lombok'
+    compile 'org.slf4j:slf4j-nop:1.7.25'
+
+    // PostgresSQL-specific connector for JPA
+    compile group: 'org.postgresql', name: 'postgresql', version: '42.2.12'
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-jdbc', version: '2.2.6.RELEASE'
 
     // Libraries for crawling and scrapping web contents
     compile group: 'org.jsoup', name: 'jsoup', version: '1.9.1'
@@ -68,8 +71,8 @@ dependencies {
     compile group: 'org.json', name: 'json', version: '20090211'
     compile group: 'io.jsonwebtoken', name: 'jjwt', version: '0.3'
     compile group: 'org.springframework.security', name: 'spring-security-core', version: '5.3.1.RELEASE'
-    compile group: 'org.springframework.security', name: 'spring-security-oauth2-client', version: '5.3.1.RELEASE'
-    compile group: 'org.springframework.security.oauth.boot', name: 'spring-security-oauth2-autoconfigure', version: '2.2.6.RELEASE'
+//    compile group: 'org.springframework.security', name: 'spring-security-oauth2-client', version: '5.3.1.RELEASE'
+//    compile group: 'org.springframework.security.oauth.boot', name: 'spring-security-oauth2-autoconfigure', version: '2.2.6.RELEASE'
 
     // Libraries for minimizing users avatar
     compile group: 'org.imgscalr', name: 'imgscalr-lib', version: '4.2'

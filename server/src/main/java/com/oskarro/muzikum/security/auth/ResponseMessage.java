@@ -1,4 +1,4 @@
-package com.oskarro.muzikum.auth;
+package com.oskarro.muzikum.security.auth;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

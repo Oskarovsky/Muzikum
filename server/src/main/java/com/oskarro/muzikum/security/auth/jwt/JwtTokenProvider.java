@@ -1,6 +1,6 @@
-package com.oskarro.muzikum.auth.jwt;
+package com.oskarro.muzikum.security.auth.jwt;
 
-import com.oskarro.muzikum.user.UserPrinciple;
+import com.oskarro.muzikum.user.UserPrincipal;
 import io.jsonwebtoken.*;
 import lombok.extern.slf4j.Slf4j;
 
@@ -29,7 +29,7 @@ public class JwtTokenProvider {
 
     /* BUILDING JWT TOKEN */
     public String generateJwtToken(Authentication authentication) {
-        UserPrinciple userPrincipal = (UserPrinciple) authentication.getPrincipal();
+        UserPrincipal userPrincipal = (UserPrincipal) authentication.getPrincipal();
         return Jwts.builder()
                 .setSubject(userPrincipal.getUsername())
                 .setIssuedAt(new Date())

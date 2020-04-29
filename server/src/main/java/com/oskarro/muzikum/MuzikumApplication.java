@@ -24,8 +24,9 @@ import org.apache.tomcat.util.descriptor.web.SecurityConstraint;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.autoconfigure.security.oauth2.client.EnableOAuth2Sso;
+import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
 import org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory;
 import org.springframework.boot.web.servlet.server.ServletWebServerFactory;
@@ -64,7 +65,7 @@ public class MuzikumApplication implements CommandLineRunner {
         return new CorsFilter(source);
     }
 
-    @Bean
+/*    @Bean
     public ServletWebServerFactory servletContainer() {
         // Enable SSL Traffic
         TomcatServletWebServerFactory tomcat = new TomcatServletWebServerFactory() {
@@ -82,21 +83,21 @@ public class MuzikumApplication implements CommandLineRunner {
         // Add HTTP to HTTPS redirect
         tomcat.addAdditionalTomcatConnectors(httpToHttpsRedirectConnector());
         return tomcat;
-    }
+    }*/
 
 
 /*    We need to redirect from HTTP to HTTPS. Without SSL, this application used
     port 8080. With SSL it will use port 8443. So, any request for 8082 needs to be
     redirected to HTTPS on 8443.*/
 
-    private Connector httpToHttpsRedirectConnector() {
+/*    private Connector httpToHttpsRedirectConnector() {
         Connector connector = new Connector(TomcatServletWebServerFactory.DEFAULT_PROTOCOL);
         connector.setScheme("http");
         connector.setPort(8080);
         connector.setSecure(false);
         connector.setRedirectPort(8443);
         return connector;
-    }
+    }*/
 
 
     @Resource
@@ -172,7 +173,7 @@ public class MuzikumApplication implements CommandLineRunner {
 
 /*        Provider provider = Provider.builder()
                 .id(8).description("tasty service").url("https://music.apple.com/").name("apple").build();
-        crawlerService.parseWeb(provider);*/
+        crawlerService.parseWeb(provider);*//*
 
         // TRACKS FETCHING FROM EXTERNAL SERVICES
         radiopartyProvider.map(radiopartyService::getTrackList);
@@ -183,23 +184,23 @@ public class MuzikumApplication implements CommandLineRunner {
 
 //        dancechartProvider.map(provider -> danceChartService.getTracklistByGenre(provider, Genre.club));
 
-/*      dancechartProvider.map(provider -> danceChartService.getTracklistByGenre(provider, Genre.house));
+*//*      dancechartProvider.map(provider -> danceChartService.getTracklistByGenre(provider, Genre.house));
         dancechartProvider.map(provider -> danceChartService.getTracklistByGenre(provider, Genre.handsup));
         dancechartProvider.map(provider -> danceChartService.getTracklistByGenre(provider, Genre.dance));
-        dancechartProvider.map(provider -> danceChartService.getTracklistByGenre(provider, Genre.techno));*//*
+        dancechartProvider.map(provider -> danceChartService.getTracklistByGenre(provider, Genre.techno));*//**//*
 
-*//*        promodjProvider.map(provider -> promodjService.getTracklistByGenre(provider, Genre.dance));
+*//**//*        promodjProvider.map(provider -> promodjService.getTracklistByGenre(provider, Genre.dance));
         promodjProvider.map(provider -> promodjService.getTracklistByGenre(provider, Genre.club));
         promodjProvider.map(provider -> promodjService.getTracklistByGenre(provider, Genre.house));
         promodjProvider.map(provider -> promodjService.getTracklistByGenre(provider, Genre.electroHouse));
         promodjProvider.map(provider -> promodjService.getTracklistByGenre(provider, Genre.techno));
-        promodjProvider.map(provider -> promodjService.getTracklistByGenre(provider, Genre.set));*//*
+        promodjProvider.map(provider -> promodjService.getTracklistByGenre(provider, Genre.set));*//**//*
 
-*//*        musicListProvider.map(provider -> musicListService.getTracklistByGenre(provider, Genre.dance));
+        musicListProvider.map(provider -> musicListService.getTracklistByGenre(provider, Genre.dance));
         musicListProvider.map(provider -> musicListService.getTracklistByGenre(provider, Genre.house));
-        musicListProvider.map(provider -> musicListService.getTracklistByGenre(provider, Genre.techno));*//*
+        musicListProvider.map(provider -> musicListService.getTracklistByGenre(provider, Genre.techno));*//**//*
 
-*//*
+*//**//*
         ariaChartsProvider.map(provider -> ariaChartsService.getTracklistByGenre(provider, Genre.dance));
         ariaChartsProvider.map(provider -> ariaChartsService.getTracklistByGenre(provider, Genre.club));
 */

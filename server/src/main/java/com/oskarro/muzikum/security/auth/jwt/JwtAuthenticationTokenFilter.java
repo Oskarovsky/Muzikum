@@ -1,4 +1,4 @@
-package com.oskarro.muzikum.auth.jwt;
+package com.oskarro.muzikum.security.auth.jwt;
 
 import com.oskarro.muzikum.user.UserDetailsServiceImpl;
 

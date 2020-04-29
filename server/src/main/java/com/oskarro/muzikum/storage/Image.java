@@ -13,6 +13,7 @@ import javax.persistence.*;
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
+@Table(name = "image")
 public class Image {
 
     @Id

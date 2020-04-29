@@ -1,11 +1,9 @@
-package com.oskarro.muzikum.auth.jwt;
+package com.oskarro.muzikum.security.auth.jwt;
 
-import java.util.Collection;
 import java.util.List;
 
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.security.core.GrantedAuthority;
 
 @Getter
 @Setter
