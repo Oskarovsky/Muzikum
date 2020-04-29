@@ -1,4 +1,4 @@
-package com.oskarro.muzikum.voting;
+package com.oskarro.muzikum.voting.model;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;

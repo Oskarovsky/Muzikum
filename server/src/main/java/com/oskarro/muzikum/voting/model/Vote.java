@@ -1,4 +1,4 @@
-package com.oskarro.muzikum.voting;
+package com.oskarro.muzikum.voting.model;
 
 import com.oskarro.muzikum.user.User;
 import com.oskarro.muzikum.utils.DateAudit;
