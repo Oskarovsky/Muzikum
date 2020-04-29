@@ -2,9 +2,11 @@ package com.oskarro.muzikum.security;
 
 import com.oskarro.muzikum.security.jwt.JwtTokenProvider;
 import com.oskarro.muzikum.security.jwt.JwtResponse;
+import com.oskarro.muzikum.security.payload.ApiResponse;
+import com.oskarro.muzikum.security.payload.LoginRequest;
+import com.oskarro.muzikum.security.payload.SignupRequest;
 import com.oskarro.muzikum.user.*;
 
-import java.net.URI;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -21,7 +23,6 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 
 @RestController
