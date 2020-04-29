@@ -29,7 +29,7 @@ import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping(value = "/api/storage")
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class FilesController {
 
     @Autowired

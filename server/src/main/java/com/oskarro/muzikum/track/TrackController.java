@@ -9,7 +9,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping(value = "/api/tracks")
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class TrackController {
 
     private final TrackService trackService;

@@ -47,23 +47,7 @@ import java.util.stream.Stream;
 @SpringBootApplication(exclude = {SecurityAutoConfiguration.class })
 public class MuzikumApplication implements CommandLineRunner {
 
-    @Bean
-    public CorsFilter corsFilter() {
-        final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        final CorsConfiguration config = new CorsConfiguration();
-        config.setAllowCredentials(true);
-        config.addAllowedOrigin("*"); // this allows all origin
-        config.addAllowedHeader("*"); // this allows all headers
-        config.addAllowedMethod("OPTIONS");
-        config.addAllowedMethod("HEAD");
-        config.addAllowedMethod("GET");
-        config.addAllowedMethod("PUT");
-        config.addAllowedMethod("POST");
-        config.addAllowedMethod("DELETE");
-        config.addAllowedMethod("PATCH");
-        source.registerCorsConfiguration("/**", config);
-        return new CorsFilter(source);
-    }
+
 
 /*    @Bean
     public ServletWebServerFactory servletContainer() {
@@ -90,14 +74,14 @@ public class MuzikumApplication implements CommandLineRunner {
     port 8080. With SSL it will use port 8443. So, any request for 8082 needs to be
     redirected to HTTPS on 8443.*/
 
-/*    private Connector httpToHttpsRedirectConnector() {
+    private Connector httpToHttpsRedirectConnector() {
         Connector connector = new Connector(TomcatServletWebServerFactory.DEFAULT_PROTOCOL);
         connector.setScheme("http");
         connector.setPort(8080);
         connector.setSecure(false);
         connector.setRedirectPort(8443);
         return connector;
-    }*/
+    }
 
 
     @Resource

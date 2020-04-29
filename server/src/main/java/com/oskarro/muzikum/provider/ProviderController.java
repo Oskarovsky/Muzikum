@@ -14,7 +14,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping(value = "/api/providers")
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class ProviderController {
 
     ProviderService providerService;
