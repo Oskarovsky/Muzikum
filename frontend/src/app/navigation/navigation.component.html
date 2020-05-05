@@ -14,45 +14,43 @@
   <button mat-button (click)="logout()" *ngIf="isLoggedIn">Wyloguj się</button>
 </mat-toolbar>
 
-<button mat-button routerLink="/" style="margin-bottom: 20px">Strona główna</button>
+<div class="row" style="width: 100%; align-content: center; display: inline-block; text-align: center; margin-bottom: 40px">
+    <button mat-button routerLink="/">Strona główna</button>
 
-<button mat-button [matMenuTriggerFor]="genreMenu">Gatunki</button>
-<mat-menu #genreMenu="matMenu" yPosition="below">
-  <button mat-menu-item routerLink="/tracklist/club">Club</button>
-  <button mat-menu-item routerLink="/tracklist/dance">Dance</button>
-  <button mat-menu-item routerLink="/tracklist/house">House</button>
-  <button mat-menu-item routerLink="/tracklist/retro">Retro</button>
-</mat-menu>
+    <button mat-button [matMenuTriggerFor]="genreMenu">Gatunki</button>
+    <mat-menu #genreMenu="matMenu" yPosition="below">
+      <button mat-menu-item routerLink="/tracklist/club">Club</button>
+      <button mat-menu-item routerLink="/tracklist/dance">Dance</button>
+      <button mat-menu-item routerLink="/tracklist/house">House</button>
+      <button mat-menu-item routerLink="/tracklist/retro">Retro</button>
+    </mat-menu>
 
-<button mat-button [matMenuTriggerFor]="providerMenu">Serwisy</button>
-<mat-menu #providerMenu="matMenu" xPosition="after">
-  <button mat-menu-item routerLink="/provider/1/details">Nuteczki</button>
-  <button mat-menu-item routerLink="/provider/2/details">Radioparty</button>
-  <button mat-menu-item routerLink="/provider/4/details">Billboard</button>
-  <button mat-menu-item routerLink="/provider/8/details">Apple</button>
-</mat-menu>
+    <button mat-button [matMenuTriggerFor]="providerMenu">Serwisy</button>
+    <mat-menu #providerMenu="matMenu" xPosition="after">
+      <button mat-menu-item routerLink="/provider/1/details">Nuteczki</button>
+      <button mat-menu-item routerLink="/provider/2/details">Radioparty</button>
+      <button mat-menu-item routerLink="/provider/4/details">Billboard</button>
+      <button mat-menu-item routerLink="/provider/8/details">Apple</button>
+    </mat-menu>
 
-<button mat-button [matMenuTriggerFor]="topMenu">Top ranking</button>
-<mat-menu #topMenu="matMenu" xPosition="after">
-  <button mat-menu-item>Club</button>
-  <button mat-menu-item>Retro</button>
-</mat-menu>
+    <button mat-button [matMenuTriggerFor]="topMenu">Top ranking</button>
+    <mat-menu #topMenu="matMenu" xPosition="after">
+      <button mat-menu-item>Club</button>
+      <button mat-menu-item>Retro</button>
+    </mat-menu>
 
-<button mat-button [matMenuTriggerFor]="videoMenu">Video</button>
-<mat-menu #videoMenu="matMenu" xPosition="after">
-  <button mat-menu-item routerLink="/video/category/MIX">Mixy</button>
-  <button mat-menu-item routerLink="/video/category/LUNA_MIX">Luna Mix</button>
-  <button mat-menu-item routerLink="/video/category/PSYCHO_PATH">Psychopath</button>
-  <button mat-menu-item routerLink="/video/category/RETRO">Retro</button>
-</mat-menu>
+    <button mat-button [matMenuTriggerFor]="videoMenu">Video</button>
+    <mat-menu #videoMenu="matMenu" xPosition="after">
+      <button mat-menu-item routerLink="/video/category/MIX">Mixy</button>
+      <button mat-menu-item routerLink="/video/category/LUNA_MIX">Luna Mix</button>
+      <button mat-menu-item routerLink="/video/category/PSYCHO_PATH">Psychopath</button>
+      <button mat-menu-item routerLink="/video/category/RETRO">Retro</button>
+    </mat-menu>
 
-<button mat-button [matMenuTriggerFor]="playlistMenu">Playlist</button>
-<mat-menu #playlistMenu="matMenu" xPosition="after">
-  <button mat-menu-item routerLink="/playlist/all">Playlisty użytkowników</button>
-  <button mat-menu-item *ngIf="isLoggedIn" routerLink="/playlist/all/{{username}}">Moje składanki</button>
-</mat-menu>
-
-
-
-
+    <button mat-button [matMenuTriggerFor]="playlistMenu">Playlist</button>
+    <mat-menu #playlistMenu="matMenu" xPosition="after">
+      <button mat-menu-item routerLink="/playlist/all">Playlisty użytkowników</button>
+      <button mat-menu-item *ngIf="isLoggedIn" routerLink="/playlist/all/{{username}}">Moje składanki</button>
+    </mat-menu>
+</div>
 
