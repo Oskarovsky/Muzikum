@@ -1,23 +1,17 @@
-<div class="container">
+<div class="container" style="display: inline-block; text-align: center;">
 
   <!-- Playlist menu -->
-  <div class="row" style="margin-top: 12px;">
+  <div class="row" style="align-content: center; display: inline-block; text-align: center;">
     <input type="text"
            [(ngModel)]="searchText"
            class="mat-form-field"
-           style="width: 50%;"
+           style="width: 100%;"
            placeholder="Wyszukaj playlistę..." />
-    <button mat-raised-button
-            type="button"
-            color="primary"
-            routerLink="/playlist/add"
-            style="margin-left: 10px;">Add playlist
-    </button>
   </div>
 
   <!-- Playlist content -->
-  <div class="row" style="margin-top: 28px;" *ngIf="isLoggedIn">
-    <div class="col-md-3">
+  <div class="row" style="margin-top: 28px; width: 100%; text-align: center;" *ngIf="isLoggedIn">
+    <div style="margin-top: 28px; width: 100%; display: inline-block">
       <br>
       <div class="list-group list-group-flush">
         <div *ngFor="let playlist of playlists | playlistFilter:searchText">
@@ -30,6 +24,14 @@
         </div>
       </div>
     </div>
+  </div>
+
+  <div style="text-align: left; margin-top: 10px">
+    <button mat-raised-button
+            type="button"
+            color="primary"
+            routerLink="/playlist/add">Add playlist
+    </button>
   </div>
 
   <div class="alert alert-warning" role="alert" *ngIf="!isLoggedIn">

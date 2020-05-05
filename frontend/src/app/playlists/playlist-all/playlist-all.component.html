@@ -1,17 +1,17 @@
-<div class="container">
+<div class="container" style="display: inline-block; text-align: center;">
 
-  <!-- Playlist menu -->
-  <div class="row" style="margin-top: 12px;">
+<!-- Playlist menu -->
+  <div class="row" style="align-content: center; display: inline-block; text-align: center;">
     <input type="text"
            [(ngModel)]="searchText"
            class="mat-form-field"
-           style="width: 50%;"
+           style="width: 100%;"
            placeholder="Wyszukaj playlistę..." />
   </div>
 
   <!-- Playlist content -->
-  <div class="row" style="margin-top: 28px;">
-    <div class="col-md-3">
+  <div class="row" style="margin-top: 28px; width: 100%; text-align: center;">
+    <div style="margin-top: 28px; width: 100%; display: inline-block">
       <br>
       <div class="list-group list-group-flush">
         <div *ngFor="let playlist of playlists | playlistFilter:searchText">
