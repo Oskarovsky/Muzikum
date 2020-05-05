@@ -1,3 +1,67 @@
+<div class="card bg-light">
+  <article class="card-body mx-auto" style="max-width: 400px;">
+
+    <form *ngIf="!isLoggedIn" name="form" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>
+
+    <h3 style="text-align: center;">Panel logowania</h3>
+
+<!--
+      <p>
+        <a href="" class="btn btn-block btn-twitter"> <i class="fa fa-twitter"></i> Zaloguj się za pomocą YouTube</a>
+        <a href="" class="btn btn-block btn-facebook"> <i class="fa fa-facebook"></i> Zaloguj się za pomocą Facebook</a>
+      </p>
+      <p class="divider-text">
+        <span class="bg-light">LUB</span>
+      </p>
+-->
+
+      <div class="form-group input-group">
+        <div class="input-group-prepend">
+          <span class="input-group-text"> <i class="fa fa-user fa-2x"></i> </span>
+        </div>
+        <div class="alert-danger" style="position: relative; text-align: center; font-size: 15px;" *ngIf="f.submitted && username.invalid">
+          <div *ngIf="username.errors.required">Nazwa użytkownika jest wymagana</div>
+        </div>
+        <input type="text" class="form-control" name="username" [(ngModel)]="form.username"
+               required minlength="3" maxlength="20" #username="ngModel" placeholder="Nazwa użytkownika lub adres email" />
+      </div> <!-- form-group// -->
+
+      <div class="form-group input-group">
+        <div class="input-group-prepend">
+          <span class="input-group-text"> <i class="fa fa-lock fa-2x"></i> </span>
+        </div>
+        <div class="alert-danger" style="position: relative; text-align: center; font-size: 15px;" *ngIf="f.submitted && password.invalid">
+          <div *ngIf="password.errors.required">Wymagane hasło</div>
+        </div>
+        <input type="password" class="form-control" name="password" [(ngModel)]="form.password"
+               required minlength="6" #password="ngModel" placeholder="Hasło" id="password"/>
+        <div class="alert alert-danger" role="alert" *ngIf="f.submitted && password.invalid">
+          <div *ngIf="password.errors.required">Wymagane hasło</div>
+        </div>
+      </div> <!-- form-group// -->
+
+      <div class="form-group">
+        <button type="submit" class="btn btn-primary btn-block" id="submit_register">Zaloguj się</button>
+      </div> <!-- form-group// -->
+
+
+      <p class="text-center">Chcesz stworzyć nowe konto? <a href="">Dołącz do nas!</a></p>
+      <div class="alert alert-warning" *ngIf="f.submitted && isLoginFailed">
+        Wystąpił błąd podczas rejestracji!<br />{{ errorMessage }}
+      </div>
+    </form>
+    <div class="alert alert-success" *ngIf="isLoggedIn">
+      Zalogowałeś się w portalu oskarro.com !
+    </div>
+  </article>
+</div> <!-- card.// -->
+
+
+
+
+<!--
+STARY PANEL LOGOWANIA
+
 <div class="mat-drawer-container">
 
   <div style="text-align: center">
@@ -71,3 +135,4 @@
 
 
 </div>
+-->

@@ -14,6 +14,9 @@ import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
+import com.oskarro.muzikum.user.role.Role;
+import com.oskarro.muzikum.user.role.RoleName;
+import com.oskarro.muzikum.user.role.RoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;

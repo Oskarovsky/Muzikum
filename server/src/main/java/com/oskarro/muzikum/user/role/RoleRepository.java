@@ -1,4 +1,4 @@
-package com.oskarro.muzikum.user;
+package com.oskarro.muzikum.user.role;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;

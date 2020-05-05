@@ -44,6 +44,7 @@ import { VideoEditComponent } from './videos/video-edit/video-edit.component';
 import { PlaylistAllComponent } from './playlists/playlist-all/playlist-all.component';
 import { HomeComponent } from './home/home.component';
 import { FooterComponent } from './footer/footer.component';
+import { ForgotPasswordComponent } from './user/forgot-password/forgot-password.component';
 
 
 @NgModule({
@@ -77,7 +78,8 @@ import { FooterComponent } from './footer/footer.component';
     VideoEditComponent,
     PlaylistAllComponent,
     HomeComponent,
-    FooterComponent
+    FooterComponent,
+    ForgotPasswordComponent
   ],
   imports: [
     AppRoutingModule,

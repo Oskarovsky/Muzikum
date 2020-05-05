@@ -54,6 +54,9 @@ dependencies {
 
 
     /* ============ region COMPILE ============ */
+    // Email support
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-mail', version: '2.2.6.RELEASE'
+
     // Lombok auto-generates things like getters and setters
     compileOnly 'org.projectlombok:lombok'
     compile 'org.slf4j:slf4j-nop:1.7.25'

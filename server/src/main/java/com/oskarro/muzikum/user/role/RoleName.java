@@ -1,4 +1,4 @@
-package com.oskarro.muzikum.user;
+package com.oskarro.muzikum.user.role;
 
 public enum  RoleName {
 
