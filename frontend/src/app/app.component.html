@@ -2,7 +2,19 @@
 <app-navigation></app-navigation>
 
 <!-- routing content -->
-<router-outlet></router-outlet>
+
+<div class="row" style="width: 100%">
+  <div class="col-sm">
+    <app-sidebar-left></app-sidebar-left>
+  </div>
+  <div class="col-md">
+      <router-outlet></router-outlet>
+  </div>
+  <div class="col-sm">
+    <app-sidebar-right></app-sidebar-right>
+  </div>
+</div>
+
 
 <!-- footer -->
 <app-footer class="mt-auto"></app-footer>

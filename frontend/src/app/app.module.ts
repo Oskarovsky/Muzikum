@@ -45,6 +45,8 @@ import { PlaylistAllComponent } from './playlists/playlist-all/playlist-all.comp
 import { HomeComponent } from './home/home.component';
 import { FooterComponent } from './footer/footer.component';
 import { ForgotPasswordComponent } from './user/forgot-password/forgot-password.component';
+import { SidebarLeftComponent } from './sidebar/sidebar-left/sidebar-left.component';
+import { SidebarRightComponent } from './sidebar/sidebar-right/sidebar-right.component';
 
 
 @NgModule({
@@ -79,7 +81,9 @@ import { ForgotPasswordComponent } from './user/forgot-password/forgot-password.
     PlaylistAllComponent,
     HomeComponent,
     FooterComponent,
-    ForgotPasswordComponent
+    ForgotPasswordComponent,
+    SidebarLeftComponent,
+    SidebarRightComponent
   ],
   imports: [
     AppRoutingModule,
