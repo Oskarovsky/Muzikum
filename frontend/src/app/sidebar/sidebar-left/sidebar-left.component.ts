@@ -26,6 +26,7 @@ export class SidebarLeftComponent implements OnInit {
   ngOnInit() {
     if (this.tokenStorage.getToken()) {
       this.getLastAddedPlaylists('5');
+      this.getLastAddedUsers('5');
     }
   }
 
