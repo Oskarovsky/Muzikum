@@ -1,20 +1,19 @@
 package com.oskarro.muzikum.playlist;
 
 import com.oskarro.muzikum.user.User;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import com.oskarro.muzikum.utils.DateAudit;
+import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 @Entity
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@Data
-public class Playlist {
+public class Playlist extends DateAudit {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
