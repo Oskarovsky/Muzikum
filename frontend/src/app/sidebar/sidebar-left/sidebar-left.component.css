@@ -1,0 +1,7 @@
+p.panel-playlists{
+  color: black;
+}
+p.panel-playlists:hover{
+  color: blue;
+  cursor: pointer;
+}

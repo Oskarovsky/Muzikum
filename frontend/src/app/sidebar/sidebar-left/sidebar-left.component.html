@@ -11,12 +11,11 @@
   </div>
 
   <div class="panel panel-default">
-    <div class="panel-heading">
+    <div class="panel-heading" style="margin-bottom: 5px">
       <h3 class="panel-title">Najnowsze składanki</h3>
     </div>
-    <div class="panel-body bg-grey text-center">
-      <img src="img/swoopthemes.jpg" alt="Swoop Themes" class="img-circle">
-      <h4>Swoop Themes</h4>
+    <div *ngFor="let playlist of playlists" class="bg-grey text-center">
+      <p class="panel-playlists" routerLink="playlist/{{playlist.id}}/details">{{ playlist.name }} - {{ playlist.user.username }}</p>
     </div>
   </div>
 

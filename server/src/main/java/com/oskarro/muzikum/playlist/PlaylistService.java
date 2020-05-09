@@ -21,4 +21,5 @@ public interface PlaylistService {
 
     List<Playlist> findAllPlaylistByUsername(String username);
 
+    List<Playlist> getFirstPlaylists(Integer numberOfPlaylists);
 }

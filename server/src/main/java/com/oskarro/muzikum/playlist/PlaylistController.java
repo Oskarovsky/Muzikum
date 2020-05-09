@@ -62,4 +62,10 @@ public class PlaylistController {
     public List<Playlist> getAllPlaylistByUserName(@PathVariable String username) {
         return playlistService.findAllPlaylistByUsername(username);
     }
+
+    @GetMapping(value = "/lastAdded/{quantity}")
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
+    public List<Playlist> getLastAddedPlaylist(@PathVariable Integer quantity) {
+        return playlistService.getFirstPlaylists(quantity);
+    }
 }

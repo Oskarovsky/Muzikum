@@ -39,6 +39,11 @@ export class PlaylistService {
     return this.http.get<Track[]>(PLAYLIST_API + '/' + playlistId + '/tracks');
   }
 
+  /** GET last added playlists */
+  getLastAddedPlaylists(numberOfPlaylists: string): Observable<Playlist[]> {
+    return this.http.get<Playlist[]>(PLAYLIST_API + '/lastAdded/' + numberOfPlaylists);
+  }
+
   addPlaylist(playlist: Playlist): Observable<Playlist> {
     return this.http.post<Playlist>(PLAYLIST_API  + '/add', playlist);
   }
