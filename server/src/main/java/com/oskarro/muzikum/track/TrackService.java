@@ -22,4 +22,6 @@ public interface TrackService {
     List<Track> findAllTracksFromPlaylist(Integer id);
 
     List<Track> findAllTracksFromVideo(Integer id);
+
+    Track getRandomTrack();
 }

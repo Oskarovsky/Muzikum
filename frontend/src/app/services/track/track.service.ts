@@ -54,4 +54,8 @@ export class TrackService {
     return this.http.delete(TRACK_API + '/' + id);
   }
 
+  getRandomTrack(): Observable<Track> {
+    return this.http.get<Track>(TRACK_API + '/random');
+  }
+
 }

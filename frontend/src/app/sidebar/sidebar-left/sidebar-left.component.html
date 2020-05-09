@@ -2,11 +2,14 @@
   <h3 style="text-align: center">SIDEBAR LEFT</h3>
   <div class="panel panel-default">
     <div class="panel-heading">
-      <h3 class="panel-title">Dzisiejsze hity</h3>
+      <h3 class="panel-title">Polecany utwór</h3>
     </div>
     <div class="panel-body bg-grey text-center">
-      <img src="img/swoopthemes.jpg" alt="Swoop Themes" class="img-circle">
-      <h4>Swoop Themes</h4>
+      <h3>{{randomTrack.title}}</h3>
+      <h4>{{randomTrack.artist}}</h4>
+      <h5>({{randomTrack.version}})</h5>
+      <p style="display: none" id="randomTrack">{{randomTrack.artist}} - {{randomTrack.title}} ({{randomTrack.version}})</p>
+      <button onclick="copyToClipboard('#randomTrack')">Skopiuj całą nazwę</button>
     </div>
   </div>
 
@@ -27,7 +30,6 @@
       <p class="panel-playlists">{{ user.username }}</p>
     </div>
   </div>
-
 
 </div>
 

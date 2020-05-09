@@ -71,5 +71,17 @@ public class TrackServiceImpl implements TrackService {
         return trackList;
     }
 
+    @Override
+    public Track getRandomTrack() {
+        long tracksQuantity = trackRepository.count();
+        int index = (int) (Math.random() * tracksQuantity);
+        Page<Track> trackPage = trackRepository.findAll(PageRequest.of(index, 1));
+        Track track = null;
+        if (trackPage.hasContent()) {
+            track = trackPage.getContent().get(0);
+        }
+        return track;
+    }
+
 
 }

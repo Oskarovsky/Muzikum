@@ -67,4 +67,10 @@ public class TrackController {
         this.trackRepository.deleteById(id);
     }
 
+    @GetMapping(value = "/random")
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
+    Track getRandom() {
+        return trackService.getRandomTrack();
+    }
+
 }

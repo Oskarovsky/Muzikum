@@ -6,6 +6,8 @@ import {TokenStorageService} from '../../services/auth/token-storage.service';
 import {ActivatedRoute} from '@angular/router';
 import {UserService} from '../../services/user/user.service';
 import {User} from '../../services/user/user';
+import {Track} from '../../tracks/track/model/track';
+import {TrackService} from '../../services/track/track.service';
 
 @Component({
   selector: 'app-sidebar-left',
@@ -17,8 +19,10 @@ export class SidebarLeftComponent implements OnInit {
   users: User[] = [];
   playlists: Playlist[] = [];
   sub: Subscription;
+  randomTrack: Track;
 
   constructor(private playlistService: PlaylistService,
+              private trackService: TrackService,
               private userService: UserService,
               private tokenStorage: TokenStorageService,
               private route: ActivatedRoute) { }
@@ -27,6 +31,7 @@ export class SidebarLeftComponent implements OnInit {
     if (this.tokenStorage.getToken()) {
       this.getLastAddedPlaylists('5');
       this.getLastAddedUsers('5');
+      this.getRandomTrack();
     }
   }
 
@@ -48,6 +53,17 @@ export class SidebarLeftComponent implements OnInit {
       },
       error => {
         alert('An error with fetching last added users has occurred');
+      }
+    );
+  }
+
+  public getRandomTrack() {
+    this.trackService.getRandomTrack().subscribe(
+      response => {
+        this.randomTrack = response;
+      },
+      error => {
+        alert('An error with fetching random track has occurred');
       }
     );
   }
