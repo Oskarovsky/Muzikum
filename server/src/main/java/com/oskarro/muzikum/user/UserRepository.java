@@ -23,4 +23,6 @@ public interface UserRepository extends JpaRepository<User, Integer> {
     Optional<User> findByResetToken(String resetToken);
 
     User save(User user);
+
+    List<User> findAllByOrderByCreatedAtDesc();
 }

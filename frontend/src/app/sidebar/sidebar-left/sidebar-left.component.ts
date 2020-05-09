@@ -4,6 +4,8 @@ import {Subscription} from 'rxjs';
 import {PlaylistService} from '../../services/playlist/playlist.service';
 import {TokenStorageService} from '../../services/auth/token-storage.service';
 import {ActivatedRoute} from '@angular/router';
+import {UserService} from '../../services/user/user.service';
+import {User} from '../../services/user/user';
 
 @Component({
   selector: 'app-sidebar-left',
@@ -12,10 +14,12 @@ import {ActivatedRoute} from '@angular/router';
 })
 export class SidebarLeftComponent implements OnInit {
 
+  users: User[] = [];
   playlists: Playlist[] = [];
   sub: Subscription;
 
   constructor(private playlistService: PlaylistService,
+              private userService: UserService,
               private tokenStorage: TokenStorageService,
               private route: ActivatedRoute) { }
 
@@ -32,6 +36,17 @@ export class SidebarLeftComponent implements OnInit {
       },
       error => {
         alert('An error with fetching last added playlist has occurred');
+      }
+    );
+  }
+
+  public getLastAddedUsers(numberOfUsers: string) {
+    this.userService.getLastAddedUsers(numberOfUsers).subscribe(
+      response => {
+        this.users = response;
+      },
+      error => {
+        alert('An error with fetching last added users has occurred');
       }
     );
   }

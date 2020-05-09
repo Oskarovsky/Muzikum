@@ -7,8 +7,12 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
+
 @Service
-public class UserDetailsServiceImpl implements UserDetailsService {
+public class UserDetailsServiceImpl implements UserDetailsService, UserService {
 
     @Autowired
     private UserRepository userRepository;
@@ -29,4 +33,14 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         return UserPrincipal.create(user);
     }
 
+
+    @Override
+    public List<User> getLastAddedUsers(Integer numberOfUsers) {
+        List<User> fetchedUsers = userRepository.findAllByOrderByCreatedAtDesc();
+        return fetchedUsers
+                .stream()
+                .limit(numberOfUsers)
+                .filter(Objects::nonNull)
+                .collect(Collectors.toList());
+    }
 }
