@@ -23,6 +23,6 @@ public interface PlaylistRepository extends CrudRepository<Playlist, Integer> {
 
     List<Playlist> findAllByUserUsername(String username);
 
-    List<Playlist> findAllByOrderByCreatedAtAsc();
+    List<Playlist> findAllByOrderByCreatedAtDesc();
 
 }

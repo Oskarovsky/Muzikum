@@ -15,7 +15,7 @@
       <h3 class="panel-title">Najnowsze składanki</h3>
     </div>
     <div *ngFor="let playlist of playlists" class="bg-grey text-center">
-      <p class="panel-playlists" routerLink="playlist/{{playlist.id}}/details">{{ playlist.name }} - {{ playlist.user.username }}</p>
+      <p class="panel-playlists" routerLink="playlist/{{playlist.id}}/details">{{ playlist.user.username }} - {{ playlist.name }}</p>
     </div>
   </div>
 

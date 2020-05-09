@@ -57,8 +57,8 @@ public class PlaylistServiceImpl implements PlaylistService {
 
     @Override
     public List<Playlist> getFirstPlaylists(Integer numberOfPlaylists) {
-        List<Playlist> allPlaylists = playlistRepository.findAll();
-        return allPlaylists
+        List<Playlist> fetchedPlaylists = playlistRepository.findAllByOrderByCreatedAtDesc();
+        return fetchedPlaylists
                 .stream()
                 .limit(numberOfPlaylists)
                 .filter(Objects::nonNull)
