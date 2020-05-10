@@ -18,11 +18,9 @@ import java.util.Optional;
 public class TrackServiceImpl implements TrackService {
 
     private final TrackRepository trackRepository;
-    private final PlaylistRepository playlistRepository;
 
-    public TrackServiceImpl(TrackRepository trackRepository, PlaylistRepository playlistRepository) {
+    public TrackServiceImpl(TrackRepository trackRepository) {
         this.trackRepository = trackRepository;
-        this.playlistRepository = playlistRepository;
     }
     @Override
     public List<Track> findAll() {
@@ -61,14 +59,12 @@ public class TrackServiceImpl implements TrackService {
 
     @Override
     public List<Track> findAllTracksFromPlaylist(Integer id) {
-        List<Track> trackList = new ArrayList<>(trackRepository.findTracksByPlaylistId(id));
-        return trackList;
+        return new ArrayList<>(trackRepository.findTracksByPlaylistId(id));
     }
 
     @Override
     public List<Track> findAllTracksFromVideo(Integer id) {
-        List<Track> trackList = new ArrayList<>(trackRepository.findTracksByVideoId(id));
-        return trackList;
+        return new ArrayList<>(trackRepository.findTracksByVideoId(id));
     }
 
     @Override

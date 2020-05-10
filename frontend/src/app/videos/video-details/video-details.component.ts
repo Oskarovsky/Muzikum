@@ -6,6 +6,7 @@ import {DomSanitizer} from '@angular/platform-browser';
 import {TrackService} from '../../services/track/track.service';
 import {Subscription} from 'rxjs';
 import {ActivatedRoute} from '@angular/router';
+import {Playlist} from '../../playlists/playlist/model/playlist';
 
 @Component({
   selector: 'app-video-details',
@@ -15,6 +16,7 @@ import {ActivatedRoute} from '@angular/router';
 export class VideoDetailsComponent implements OnInit {
 
   video: Video;
+  playlist: Playlist;
   tracks: Track[];
   sub: Subscription;
 
@@ -40,6 +42,22 @@ export class VideoDetailsComponent implements OnInit {
           error => {
             alert('An error with fetching video has occurred');
           });
+      }
+    });
+  }
+
+  public getPlaylistFormVideo() {
+    this.sub = this.route.params.subscribe(params => {
+      const id = params.id;
+      if (id) {
+        this.videoService.getPlaylistFromVideo(id).subscribe(
+          response => {
+            this.playlist = response;
+          },
+          error => {
+            alert('An error with fetching playlist for current video');
+          }
+        );
       }
     });
   }
