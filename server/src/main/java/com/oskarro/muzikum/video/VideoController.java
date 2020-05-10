@@ -19,14 +19,12 @@ public class VideoController {
     private final VideoService videoService;
     private final VideoRepository videoRepository;
     private final TrackService trackService;
-    private final PlaylistService playlistService;
 
     public VideoController(VideoService videoService, VideoRepository videoRepository,
-                           TrackService trackService, PlaylistService playlistService) {
+                           TrackService trackService) {
         this.videoService = videoService;
         this.videoRepository = videoRepository;
         this.trackService = trackService;
-        this.playlistService = playlistService;
     }
 
     @GetMapping(value = "/findAll")
