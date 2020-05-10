@@ -1,5 +1,6 @@
 package com.oskarro.muzikum.video;
 
+import com.oskarro.muzikum.playlist.Playlist;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -37,5 +38,13 @@ public class VideoServiceImpl implements VideoService {
     @Override
     public void deleteVideoById(Integer id) {
         videoRepository.deleteById(id);
+    }
+
+    @Override
+    public Playlist getPlaylistFromVideoById(Integer id) {
+        Video video = videoRepository
+                .findById(id)
+                .orElseThrow(() -> new RuntimeException("Fail! -> Cause: Video cannot be found"));
+        return video.getPlaylist();
     }
 }

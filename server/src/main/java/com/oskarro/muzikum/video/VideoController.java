@@ -1,6 +1,7 @@
 package com.oskarro.muzikum.video;
 
 import com.oskarro.muzikum.playlist.Playlist;
+import com.oskarro.muzikum.playlist.PlaylistService;
 import com.oskarro.muzikum.track.Track;
 import com.oskarro.muzikum.track.TrackService;
 import org.springframework.validation.BindingResult;
@@ -18,11 +19,14 @@ public class VideoController {
     private final VideoService videoService;
     private final VideoRepository videoRepository;
     private final TrackService trackService;
+    private final PlaylistService playlistService;
 
-    public VideoController(VideoService videoService, VideoRepository videoRepository, TrackService trackService) {
+    public VideoController(VideoService videoService, VideoRepository videoRepository,
+                           TrackService trackService, PlaylistService playlistService) {
         this.videoService = videoService;
         this.videoRepository = videoRepository;
         this.trackService = trackService;
+        this.playlistService = playlistService;
     }
 
     @GetMapping(value = "/findAll")
@@ -67,6 +71,12 @@ public class VideoController {
     @CrossOrigin(origins = "*", allowedHeaders = "*")
     public List<Track> getAllTracksFromVideo(@PathVariable Integer id) {
         return trackService.findAllTracksFromVideo(id);
+    }
+
+    @GetMapping(value = "/{id}/playlist")
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
+    public Playlist getPlaylistFromVideo(@PathVariable Integer id) {
+        return videoService.getPlaylistFromVideoById(id);
     }
 
 }

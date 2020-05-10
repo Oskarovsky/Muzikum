@@ -219,9 +219,9 @@ public class MuzikumApplication implements CommandLineRunner {
 
         // VIDEO PANE:
         Video video1 = Video.builder().id(1).name("Vixa").url("Dp--txMIGPI")
-                .category(Category.MIX.toString()).build();
+                .category(Category.MIX.toString()).playlist(playlist).build();
         Video video2 = Video.builder().id(2).name("Virus").url("MpWfj-2P-9M")
-                .category(Category.MIX.toString()).build();
+                .category(Category.MIX.toString()).playlist(playlist2).build();
         Video video3 = Video.builder().id(3).name("L'Italiano").url("moFuKK_Ac")
                 .category(Category.RETRO.name()).build();
         Video video4 = Video.builder().id(4).name("Luna Mix Vol. 9").url("WRooj5n80uo")

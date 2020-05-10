@@ -1,5 +1,6 @@
 package com.oskarro.muzikum.video;
 
+import com.oskarro.muzikum.playlist.Playlist;
 import com.oskarro.muzikum.track.Track;
 import lombok.*;
 
@@ -24,5 +25,9 @@ public class Video {
     private String url;
 
     private String category;
+
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "playlist_id")
+    private Playlist playlist;
 
 }

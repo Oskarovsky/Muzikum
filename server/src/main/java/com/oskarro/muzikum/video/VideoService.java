@@ -1,5 +1,7 @@
 package com.oskarro.muzikum.video;
 
+import com.oskarro.muzikum.playlist.Playlist;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -14,4 +16,6 @@ public interface VideoService {
     Optional findVideoById(Integer id);
 
     void deleteVideoById(Integer id);
+
+    Playlist getPlaylistFromVideoById(Integer id);
 }
