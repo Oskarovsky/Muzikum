@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 
 @RestController
+@RequestMapping(value = "/api/posts")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class PostController {
 
     private PostRepository postRepository;
@@ -17,17 +19,20 @@ public class PostController {
         this.postRepository = postRepository;
     }
 
-    @GetMapping(value = "/posts")
+    @GetMapping(value = "/all")
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
     public Page<Post> getAllPosts(Pageable pageable) {
         return postRepository.findAll(pageable);
     }
 
-    @PostMapping(value = "/posts")
+    @PostMapping(value = "/new")
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
     public Post createPost(@Valid @RequestBody Post post) {
         return postRepository.save(post);
     }
 
-    @PutMapping(value = "/posts/{postId}")
+    @PutMapping(value = "/{postId}")
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
     public Post updatePost(@PathVariable Integer postId, @Valid @RequestBody Post postRequest) {
         return postRepository.findById(postId)
                 .map(post -> {
@@ -38,7 +43,8 @@ public class PostController {
                 }).orElseThrow(() -> new ResourceNotFoundException("Post", "id", postId));
     }
 
-    @DeleteMapping(value = "/posts/{postId}")
+    @DeleteMapping(value = "/{postId}")
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
     public ResponseEntity<?> deletePost(@PathVariable Integer postId) {
         return postRepository.findById(postId)
                 .map(post -> {
