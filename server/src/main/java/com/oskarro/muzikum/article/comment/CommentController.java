@@ -23,12 +23,14 @@ public class CommentController {
     }
 
     @GetMapping(value = "/{postId}/comments")
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
     public Page<Comment> getAllCommentsByPostId(@PathVariable Integer postId,
                                                 Pageable pageable) {
         return commentRepository.findByPostId(postId, pageable);
     }
 
     @PostMapping(value = "/{postId}/comments")
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
     public Comment createComment(@PathVariable Integer postId,
                                  @Valid @RequestBody Comment comment) {
         return postRepository.findById(postId)
@@ -39,6 +41,7 @@ public class CommentController {
     }
 
     @PutMapping(value = "/{postId}/comments/{commentId}")
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
     public Comment updateComment(@PathVariable Integer postId,
                                  @PathVariable Integer commentId,
                                  @Valid @RequestBody Comment commentRequest) {
@@ -54,6 +57,7 @@ public class CommentController {
     }
 
     @DeleteMapping(value = "/{postId}/comments/{commentId}")
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
     public ResponseEntity<?> deleteComment(@PathVariable Integer postId,
                                            @PathVariable Integer commentId) {
         return commentRepository.findByIdAndPostId(commentId, postId)

@@ -22,12 +22,10 @@ import java.time.Instant;
 )
 public abstract class DateAudit implements Serializable {
 
-    @Temporal(TemporalType.TIMESTAMP)
     @CreatedDate
     @Column(name = "created_at", nullable = false, updatable = false)
     private Instant createdAt;
 
-    @Temporal(TemporalType.TIMESTAMP)
     @LastModifiedDate
     @Column(name = "updated_at", nullable = false)
     private Instant updatedAt;
