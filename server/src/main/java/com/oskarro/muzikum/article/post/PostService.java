@@ -15,6 +15,6 @@ public interface PostService {
 
     List<Post> findByUserId(Integer userId);
 
-    Optional<Post> getPost(Integer postId);
+    Optional<Post> getPostById(Integer postId);
 
 }

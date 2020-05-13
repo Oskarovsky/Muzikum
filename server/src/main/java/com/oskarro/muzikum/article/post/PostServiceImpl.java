@@ -8,11 +8,11 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class PostServiceBean implements PostService {
+public class PostServiceImpl implements PostService {
 
     PostRepository postRepository;
 
-    public PostServiceBean(PostRepository postRepository) {
+    public PostServiceImpl(PostRepository postRepository) {
         this.postRepository = postRepository;
     }
 
@@ -37,7 +37,7 @@ public class PostServiceBean implements PostService {
     }
 
     @Override
-    public Optional<Post> getPost(Integer postId) {
+    public Optional<Post> getPostById(Integer postId) {
         return postRepository.findById(postId);
     }
 }

@@ -9,18 +9,22 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @RestController
 @RequestMapping(value = "/api/posts")
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 public class CommentController {
 
-    private CommentRepository commentRepository;
-    private PostRepository postRepository;
+    private final CommentRepository commentRepository;
+    private final PostRepository postRepository;
+    final private CommentService commentService;
 
-    public CommentController(CommentRepository commentRepository, PostRepository postRepository) {
+    public CommentController(CommentRepository commentRepository, PostRepository postRepository,
+                             CommentService commentService) {
         this.commentRepository = commentRepository;
         this.postRepository = postRepository;
+        this.commentService = commentService;
     }
 
     @GetMapping(value = "/{postId}/comments")
@@ -28,7 +32,14 @@ public class CommentController {
     @CrossOrigin(origins = "*", allowedHeaders = "*")
     public Page<Comment> getAllCommentsByPostId(@PathVariable Integer postId,
                                                 Pageable pageable) {
-        return commentRepository.findByPostId(postId, pageable);
+        return commentService.getAllCommentsByPostId(postId, pageable);
+    }
+
+    @GetMapping(value = "/{postId}/comments/all")
+    @Transactional
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
+    public List<Comment> getAllCommentsByPostId(@PathVariable Integer postId) {
+        return commentService.getAllCommentsByPostId(postId);
     }
 
     @PostMapping(value = "/{postId}/comments")
@@ -60,6 +71,7 @@ public class CommentController {
 
     @DeleteMapping(value = "/{postId}/comments/{commentId}")
     @CrossOrigin(origins = "*", allowedHeaders = "*")
+    @Transactional
     public ResponseEntity<?> deleteComment(@PathVariable Integer postId,
                                            @PathVariable Integer commentId) {
         return commentRepository.findByIdAndPostId(commentId, postId)

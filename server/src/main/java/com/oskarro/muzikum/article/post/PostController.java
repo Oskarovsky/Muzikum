@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping(value = "/api/posts")
@@ -26,6 +27,11 @@ public class PostController {
     @CrossOrigin(origins = "*", allowedHeaders = "*")
     public Page<Post> getAllPosts(Pageable pageable) {
         return postRepository.findAll(pageable);
+    }
+
+    @GetMapping(value = "/{postId}")
+    public Optional<Post> getPostById(@PathVariable Integer postId) {
+        return postService.getPostById(postId);
     }
 
     @GetMapping(value = "/user/{username}")
