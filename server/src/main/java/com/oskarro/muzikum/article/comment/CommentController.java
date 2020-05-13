@@ -5,6 +5,7 @@ import com.oskarro.muzikum.exception.ResourceNotFoundException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -23,6 +24,7 @@ public class CommentController {
     }
 
     @GetMapping(value = "/{postId}/comments")
+    @Transactional
     @CrossOrigin(origins = "*", allowedHeaders = "*")
     public Page<Comment> getAllCommentsByPostId(@PathVariable Integer postId,
                                                 Pageable pageable) {

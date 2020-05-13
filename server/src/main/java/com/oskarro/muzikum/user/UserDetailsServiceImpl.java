@@ -43,4 +43,11 @@ public class UserDetailsServiceImpl implements UserDetailsService, UserService {
                 .filter(Objects::nonNull)
                 .collect(Collectors.toList());
     }
+
+    @Override
+    public List<User> getAllUsers() {
+        return userRepository.findAll();
+    }
+
+
 }

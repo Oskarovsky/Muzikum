@@ -2,6 +2,7 @@ package com.oskarro.muzikum.article.comment;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.oskarro.muzikum.article.post.Post;
+import com.oskarro.muzikum.user.User;
 import com.oskarro.muzikum.utils.DateAudit;
 import lombok.Getter;
 import lombok.Setter;
@@ -32,4 +33,7 @@ public class Comment extends DateAudit {
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JsonIgnore
     private Post post;
+
+    @ManyToOne
+    private User user;
 }

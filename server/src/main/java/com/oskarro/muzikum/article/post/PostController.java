@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @RestController
 @RequestMapping(value = "/api/posts")
@@ -14,9 +15,11 @@ import javax.validation.Valid;
 public class PostController {
 
     private PostRepository postRepository;
+    private PostService postService;
 
-    public PostController(PostRepository postRepository) {
+    public PostController(PostRepository postRepository, PostService postService) {
         this.postRepository = postRepository;
+        this.postService = postService;
     }
 
     @GetMapping(value = "/all")
@@ -25,10 +28,20 @@ public class PostController {
         return postRepository.findAll(pageable);
     }
 
+    @GetMapping(value = "/user/{username}")
+    public List<Post> getPostsByUsername(@PathVariable String username) {
+        return postService.findByUsername(username);
+    }
+
+    @GetMapping(value = "/userId/{userId}")
+    public List<Post> getPostsByUserId(@PathVariable Integer userId) {
+        return postService.findByUserId(userId);
+    }
+
     @PostMapping(value = "/new")
     @CrossOrigin(origins = "*", allowedHeaders = "*")
-    public Post createPost(@Valid @RequestBody Post post) {
-        return postRepository.save(post);
+    public void createPost(@Valid @RequestBody Post post) {
+        postService.createPost(post);
     }
 
     @PutMapping(value = "/{postId}")

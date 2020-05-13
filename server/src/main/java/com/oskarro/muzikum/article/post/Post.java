@@ -1,5 +1,6 @@
 package com.oskarro.muzikum.article.post;
 
+import com.oskarro.muzikum.user.User;
 import com.oskarro.muzikum.utils.DateAudit;
 import lombok.Getter;
 import lombok.Setter;
@@ -30,4 +31,7 @@ public class Post extends DateAudit {
     @NotNull
     @Lob
     private String content;
+
+    @ManyToOne
+    private User user;
 }
