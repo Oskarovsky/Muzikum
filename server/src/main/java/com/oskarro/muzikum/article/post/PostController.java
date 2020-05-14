@@ -4,6 +4,7 @@ import com.oskarro.muzikum.exception.ResourceNotFoundException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -35,6 +36,7 @@ public class PostController {
     }
 
     @GetMapping(value = "/user/{username}")
+    @Transactional
     public List<Post> getPostsByUsername(@PathVariable String username) {
         return postService.findByUsername(username);
     }
@@ -52,6 +54,7 @@ public class PostController {
 
     @PutMapping(value = "/{postId}")
     @CrossOrigin(origins = "*", allowedHeaders = "*")
+    @Transactional
     public Post updatePost(@PathVariable Integer postId, @Valid @RequestBody Post postRequest) {
         return postRepository.findById(postId)
                 .map(post -> {
