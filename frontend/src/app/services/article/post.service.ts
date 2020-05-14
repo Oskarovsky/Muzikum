@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { Playlist } from '../../playlists/playlist/model/playlist';
 import { Track } from 'src/app/tracks/track/model/track';
 import {environment} from '../../../environments/environment';
-import {Post} from '../../article/add-post/model/post';
+import {Post} from '../../article/model/post';
 
 const API: string = environment.serverUrl;
 const POST_API = API + '/posts';
@@ -40,7 +40,12 @@ export class PostService {
 
   /** POST add new post */
   addPost(post: Post): Observable<Post> {
-    return this.http.post<Post>(POST_API  + '/add', post);
+    return this.http.post<Post>(POST_API  + '/new', post);
+  }
+
+  /** UPDATE post by id */
+  updatePost(postId: string, post: Post): Observable<any> {
+    return this.http.put(POST_API + '/' + postId, post);
   }
 
   /** DELETE post by id */

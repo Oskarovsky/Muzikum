@@ -1,1 +1,27 @@
-<p>add-post works!</p>
+<div class="example-container">
+
+  <form name="form" #form="ngForm" (ngSubmit)="createPost(postTitle.value, postDescription.value, postContent.value)">
+    <mat-form-field appearance="fill">
+      <mat-label>Title</mat-label>
+      <input #postTitle matInput [(ngModel)]="modelPost.title" name="title" />
+    </mat-form-field> <br/>
+    <mat-form-field appearance="fill">
+      <mat-label>Description</mat-label>
+      <input #postDescription matInput [(ngModel)]="modelPost.description" name="description" />
+    </mat-form-field> <br/>
+    <mat-form-field appearance="fill">
+      <mat-label>Content</mat-label>
+      <input #postContent matInput [(ngModel)]="modelPost.content" name="content" />
+    </mat-form-field>
+    <br>
+    <button mat-raised-button
+            type="button"
+            (click)="createPost(postTitle.value, postDescription.value, postContent.value)"
+            color="primary"
+            routerLink="/post/user/{{modelUser.username}}"
+            style="margin-left: 10px;">Dodaj post
+    </button>
+  </form>
+
+
+</div>

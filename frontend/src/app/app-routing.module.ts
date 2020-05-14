@@ -24,6 +24,8 @@ import {VideoEditComponent} from './videos/video-edit/video-edit.component';
 import {PlaylistAllComponent} from './playlists/playlist-all/playlist-all.component';
 import {ProfileComponent} from './profile/profile.component';
 import {HomeComponent} from './home/home.component';
+import {PostComponent} from './article/post/post.component';
+import {AddPostComponent} from './article/add-post/add-post.component';
 
 
 const routes: Routes = [
@@ -49,6 +51,8 @@ const routes: Routes = [
   { path: 'user', component: BoardUserComponent },
   { path: 'mod', component: BoardModeratorComponent },
   { path: 'admin', component: BoardAdminComponent },
+  { path: 'post/user/:username', component: PostComponent},
+  { path: 'post/add', component: AddPostComponent},
   { path: 'video/category/:category', component: VideoComponent },
   { path: 'video/:id/edit', component: VideoEditComponent },
   { path: 'video/:id/details', component: VideoDetailsComponent },

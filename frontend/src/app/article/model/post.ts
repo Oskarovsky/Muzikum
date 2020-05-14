@@ -1,7 +1,9 @@
+import { User } from 'src/app/services/user/user';
+
 export class Post {
-  id: string;
+  id: number;
   content: string;
   title: string;
-  user: string;
+  user: User;
   description: string;
 }

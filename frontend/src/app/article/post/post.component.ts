@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {Post} from '../add-post/model/post';
+import {Post} from '../model/post';
 import {Subscription} from 'rxjs';
 import {PlaylistService} from '../../services/playlist/playlist.service';
 import {TokenStorageService} from '../../services/auth/token-storage.service';
@@ -13,7 +13,7 @@ import {PostService} from '../../services/article/post.service';
 })
 export class PostComponent implements OnInit {
 
-  post: Post;
+  posts: Post[];
   sub: Subscription;
   isLoggedIn = false;
 
@@ -24,7 +24,37 @@ export class PostComponent implements OnInit {
   ngOnInit() {
     if (this.tokenStorage.getToken()) {
       this.isLoggedIn = true;
-      this.getAllPlaylistByUsername();
+      this.getAllPostByUsername();
+    }
+  }
+
+  public getAllPostByUsername() {
+    this.sub = this.route.params.subscribe(params => {
+      const username = params.username;
+      if (username) {
+        this.postService.getAllPostsByUsername(username).subscribe(
+          response => {
+            this.posts = response;
+          },
+          error => {
+            alert('An error with fetching posts has occurred');
+          }
+        );
+      }
+    });
+  }
+
+  deletePost(id: number) {
+    if (confirm('Czy na pewno chcesz usunąć post?')) {
+      this.postService.deletePost(id).subscribe(
+        response => {
+          this.posts.splice(id, 1);
+          window.location.reload();
+        },
+        error => {
+          alert('Could not delete post');
+        }
+      );
     }
   }
 }
