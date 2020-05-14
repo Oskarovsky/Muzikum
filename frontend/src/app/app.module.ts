@@ -47,6 +47,8 @@ import { FooterComponent } from './footer/footer.component';
 import { ForgotPasswordComponent } from './user/forgot-password/forgot-password.component';
 import { SidebarLeftComponent } from './sidebar/sidebar-left/sidebar-left.component';
 import { SidebarRightComponent } from './sidebar/sidebar-right/sidebar-right.component';
+import { AddPostComponent } from './article/add-post/add-post.component';
+import { PostComponent } from './article/post/post.component';
 
 
 @NgModule({
@@ -83,7 +85,9 @@ import { SidebarRightComponent } from './sidebar/sidebar-right/sidebar-right.com
     FooterComponent,
     ForgotPasswordComponent,
     SidebarLeftComponent,
-    SidebarRightComponent
+    SidebarRightComponent,
+    AddPostComponent,
+    PostComponent
   ],
   imports: [
     AppRoutingModule,
