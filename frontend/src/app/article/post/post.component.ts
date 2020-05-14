@@ -16,6 +16,7 @@ export class PostComponent implements OnInit {
   posts: Post[];
   sub: Subscription;
   isLoggedIn = false;
+  username: string;
 
   constructor(private postService: PostService,
               private tokenStorage: TokenStorageService,
@@ -31,6 +32,7 @@ export class PostComponent implements OnInit {
   public getAllPostByUsername() {
     this.sub = this.route.params.subscribe(params => {
       const username = params.username;
+      this.username = username;
       if (username) {
         this.postService.getAllPostsByUsername(username).subscribe(
           response => {

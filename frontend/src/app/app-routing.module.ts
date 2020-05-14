@@ -26,6 +26,7 @@ import {ProfileComponent} from './profile/profile.component';
 import {HomeComponent} from './home/home.component';
 import {PostComponent} from './article/post/post.component';
 import {AddPostComponent} from './article/add-post/add-post.component';
+import {AdminPanelComponent} from './admin/admin-panel/admin-panel.component';
 
 
 const routes: Routes = [
@@ -51,6 +52,7 @@ const routes: Routes = [
   { path: 'user', component: BoardUserComponent },
   { path: 'mod', component: BoardModeratorComponent },
   { path: 'admin', component: BoardAdminComponent },
+  { path: 'admin/panel', component: AdminPanelComponent },
   { path: 'post/user/:username', component: PostComponent},
   { path: 'post/add', component: AddPostComponent},
   { path: 'video/category/:category', component: VideoComponent },

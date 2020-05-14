@@ -49,6 +49,7 @@ import { SidebarLeftComponent } from './sidebar/sidebar-left/sidebar-left.compon
 import { SidebarRightComponent } from './sidebar/sidebar-right/sidebar-right.component';
 import { AddPostComponent } from './article/add-post/add-post.component';
 import { PostComponent } from './article/post/post.component';
+import { AdminPanelComponent } from './admin/admin-panel/admin-panel.component';
 
 
 @NgModule({
@@ -87,7 +88,8 @@ import { PostComponent } from './article/post/post.component';
     SidebarLeftComponent,
     SidebarRightComponent,
     AddPostComponent,
-    PostComponent
+    PostComponent,
+    AdminPanelComponent
   ],
   imports: [
     AppRoutingModule,

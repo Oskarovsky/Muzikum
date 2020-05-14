@@ -1,0 +1,20 @@
+<div class="example-container">
+  <div style="display: inline-block; text-align: center;">
+    <mat-card-title>PANEL ADMINA</mat-card-title>
+    <!-- PANEL ADMIN content -->
+
+    <div style="text-align: left; margin-top: 10px">
+      <button mat-raised-button
+              type="button"
+              color="primary"
+              routerLink="/post/add">Dodaj nowy post
+      </button>
+    </div>
+
+
+    <div class="alert alert-warning" role="alert" *ngIf="!isUserLogged">
+      <a routerLink="/login">Zaloguj się</a>, aby uzyskać dostęp do panelu admina
+    </div>
+
+  </div>
+</div>
