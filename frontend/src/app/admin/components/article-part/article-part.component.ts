@@ -14,10 +14,10 @@ import {User} from '../../../services/user/user';
   templateUrl: './article-part.component.html',
   styleUrls: ['./article-part.component.css']
 })
-export class ArticlePartComponent implements AfterViewInit {
+export class ArticlePartComponent implements OnInit {
 
   displayedColumns: string[] = ['id', 'createdDate', 'title', 'user'];
-  dataSource = new MatTableDataSource(ELEMENT_DATA);
+  dataSource = new MatTableDataSource();
 
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
 
@@ -31,18 +31,18 @@ export class ArticlePartComponent implements AfterViewInit {
               private route: ActivatedRoute,
               private httpClient: HttpClient) { }
 
-  ngAfterViewInit() {
+  ngOnInit() {
     if (this.tokenStorage.getToken()) {
       this.isLoggedIn = true;
       this.getAllPosts();
       this.dataSource.paginator = this.paginator;
-/*      this.postService.getAllPosts().subscribe(
+      this.postService.getAllPosts().subscribe(
         data => {
-          this.dataSource.data = data;
+          this.dataSource.data = this.posts;
         }
       );
-      this.dataSource.data = this.posts;
-      this.dataSource.paginator = this.paginator;*/
+      // this.dataSource.data = this.posts;
+      this.dataSource.paginator = this.paginator;
     }
   }
 
@@ -71,31 +71,4 @@ export class ArticlePartComponent implements AfterViewInit {
       );
     }
   }
-
-  applyFilter(filterValue: string) {
-    filterValue = filterValue.trim();
-    filterValue = filterValue.toLowerCase();
-    this.dataSource.filter = filterValue;
-  }
-
 }
-
-export class Postx {
-  id: number;
-  content: string;
-  title: string;
-  user: User;
-  description: string;
-  createdDate: string;
-}
-
-const ELEMENT_DATA: Postx[] = [
-  {id: 1, content: 'John', title: 'Doe', user: null, description: 'xxxx', createdDate: 'xxxx'},
-  {id: 2, content: 'John', title: 'Doe', user: null, description: 'xxxx', createdDate: 'xxxx'},
-  {id: 3, content: 'John', title: 'Doe', user: null, description: 'xxxx', createdDate: 'xxxx'},
-  {id: 4, content: 'John', title: 'Doe', user: null, description: 'xxxx', createdDate: 'xxxx'},
-  {id: 6, content: 'John', title: 'Start', user: null, description: 'xxxx', createdDate: 'xxxx'},
-  {id: 7, content: 'John', title: 'JavaBIg', user: null, description: 'xxxx', createdDate: 'data tu'},
-  {id: 8, content: 'John', title: 'Doe', user: null, description: 'xxxx', createdDate: 'xxxx'},
-  {id: 9, content: 'John', title: 'Doe', user: null, description: 'xxxx', createdDate: 'xxxx'}
-];
