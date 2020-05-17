@@ -6,4 +6,5 @@ export class Post {
   title: string;
   user: User;
   description: string;
+  createdDate: string;
 }

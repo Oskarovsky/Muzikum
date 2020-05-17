@@ -2,7 +2,15 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule, NoopAnimationsModule } from '@angular/platform-browser/animations';
-import {MatButtonModule, MatCardModule, MatExpansionModule, MatInputModule, MatListModule, MatToolbarModule} from '@angular/material';
+import {
+    MatButtonModule,
+    MatCardModule,
+    MatExpansionModule,
+    MatInputModule,
+    MatListModule,
+    MatPaginatorModule,
+    MatToolbarModule
+} from '@angular/material';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -50,6 +58,7 @@ import { SidebarRightComponent } from './sidebar/sidebar-right/sidebar-right.com
 import { AddPostComponent } from './article/add-post/add-post.component';
 import { PostComponent } from './article/post/post.component';
 import { AdminPanelComponent } from './admin/admin-panel/admin-panel.component';
+import { ArticlePartComponent } from './admin/components/article-part/article-part.component';
 
 
 @NgModule({
@@ -89,32 +98,34 @@ import { AdminPanelComponent } from './admin/admin-panel/admin-panel.component';
     SidebarRightComponent,
     AddPostComponent,
     PostComponent,
-    AdminPanelComponent
+    AdminPanelComponent,
+    ArticlePartComponent
   ],
-  imports: [
-    AppRoutingModule,
-    NoopAnimationsModule,
-    BrowserModule,
-    AppRoutingModule,
-    BrowserAnimationsModule,
-    HttpClientModule,
-    MatButtonModule,
-    MatCardModule,
-    MatInputModule,
-    MatListModule,
-    MatToolbarModule,
-    MatGridListModule,
-    FormsModule,
-    MatMenuModule,
-    MatIconModule,
-    AngularFontAwesomeModule,
-    MatSelectModule,
-    ReactiveFormsModule,
-    MatTableModule,
-    MatTabsModule,
-    MatSortModule,
-    MatExpansionModule,
-  ],
+    imports: [
+        AppRoutingModule,
+        NoopAnimationsModule,
+        BrowserModule,
+        AppRoutingModule,
+        BrowserAnimationsModule,
+        HttpClientModule,
+        MatButtonModule,
+        MatCardModule,
+        MatInputModule,
+        MatListModule,
+        MatToolbarModule,
+        MatGridListModule,
+        FormsModule,
+        MatMenuModule,
+        MatIconModule,
+        AngularFontAwesomeModule,
+        MatSelectModule,
+        ReactiveFormsModule,
+        MatTableModule,
+        MatTabsModule,
+        MatSortModule,
+        MatExpansionModule,
+        MatPaginatorModule,
+    ],
   exports: [
     TrackComponent,
     TrackListComponent,

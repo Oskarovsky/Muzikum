@@ -24,7 +24,8 @@ export class AddPostComponent implements OnInit {
     title: '',
     description: '',
     content: '',
-    user: null
+    user: null,
+    createdDate: null
   };
 
   modelUser: User = {
@@ -67,7 +68,8 @@ export class AddPostComponent implements OnInit {
       title,
       description,
       content,
-      user: this.modelUser
+      user: this.modelUser,
+      createdDate: null
     };
     this.postService.addPost(newPost).subscribe(
       result => {
