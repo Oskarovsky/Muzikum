@@ -1,13 +1,10 @@
-import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Post} from '../../../article/model/post';
 import {Subscription} from 'rxjs';
 import {PostService} from '../../../services/article/post.service';
 import {TokenStorageService} from '../../../services/auth/token-storage.service';
 import {ActivatedRoute} from '@angular/router';
-import { MatPaginator } from '@angular/material/paginator';
 import {HttpClient} from '@angular/common/http';
-import { MatTableDataSource } from '@angular/material/table';
-import {User} from '../../../services/user/user';
 
 @Component({
   selector: 'app-article-part',
@@ -15,11 +12,6 @@ import {User} from '../../../services/user/user';
   styleUrls: ['./article-part.component.css']
 })
 export class ArticlePartComponent implements OnInit {
-
-  displayedColumns: string[] = ['id', 'createdDate', 'title', 'user'];
-  dataSource = new MatTableDataSource();
-
-  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
 
   posts: Post[];
   sub: Subscription;
@@ -35,14 +27,6 @@ export class ArticlePartComponent implements OnInit {
     if (this.tokenStorage.getToken()) {
       this.isLoggedIn = true;
       this.getAllPosts();
-      this.dataSource.paginator = this.paginator;
-      this.postService.getAllPosts().subscribe(
-        data => {
-          this.dataSource.data = this.posts;
-        }
-      );
-      // this.dataSource.data = this.posts;
-      this.dataSource.paginator = this.paginator;
     }
   }
 
