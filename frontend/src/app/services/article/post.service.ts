@@ -38,6 +38,11 @@ export class PostService {
     return this.http.get<Playlist>(POST_API + '/' + id);
   }
 
+  /** GET last added posts */
+  getLastAddedPosts(numberOfPosts: number): Observable<Post[]> {
+    return this.http.get<Post[]>(POST_API + '/lastAdded/' + numberOfPosts);
+  }
+
   /** POST add new post */
   addPost(post: Post): Observable<Post> {
     return this.http.post<Post>(POST_API  + '/new', post);

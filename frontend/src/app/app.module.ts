@@ -59,6 +59,7 @@ import { AddPostComponent } from './article/add-post/add-post.component';
 import { PostComponent } from './article/post/post.component';
 import { AdminPanelComponent } from './admin/admin-panel/admin-panel.component';
 import { ArticlePartComponent } from './admin/components/article-part/article-part.component';
+import {CKEditorModule} from 'ng2-ckeditor';
 
 
 @NgModule({
@@ -125,6 +126,7 @@ import { ArticlePartComponent } from './admin/components/article-part/article-pa
         MatSortModule,
         MatExpansionModule,
         MatPaginatorModule,
+        CKEditorModule
     ],
   exports: [
     TrackComponent,

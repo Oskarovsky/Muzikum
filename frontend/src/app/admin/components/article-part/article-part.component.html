@@ -1,6 +1,30 @@
-<div class="example-container">
-  <div style="display: inline-block; text-align: center;">
+<!--<div class="example-container">-->
+  <div style="display: inline-block; text-align: center; width: 100%">
     <!-- Post content -->
+
+    <div class="panel panel-default">
+      <div class="panel-heading" style="margin-bottom: 5px">
+        <h3 class="panel-title">Najnowsze posty</h3>
+      </div>
+      <table class="table table-striped">
+        <thead>
+        <tr>
+          <th scope="col" style="text-align: center">#</th>
+          <th scope="col" style="text-align: center">Tytuł</th>
+          <th scope="col" style="text-align: center">Użytkownik</th>
+          <th scope="col" style="text-align: center">Data utworzenia</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let post of posts | slice:0:5; let i=index; index as i">
+          <th scope="row">{{ post.id }}</th>
+          <td>{{ post.title }}</td>
+          <td>{{ post.user.username }}</td>
+          <td>{{ post.createdAt.substr(0, post.createdAt.indexOf('T')) }}</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
 
     <div style="text-align: left; margin-top: 10px">
       <button mat-raised-button
@@ -11,4 +35,4 @@
     </div>
 
   </div>
-</div>
+<!--</div>-->

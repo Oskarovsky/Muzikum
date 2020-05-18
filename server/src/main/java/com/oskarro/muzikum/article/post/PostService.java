@@ -17,4 +17,6 @@ public interface PostService {
 
     Optional<Post> getPostById(Integer postId);
 
+    List<Post> getLastAddedPosts(Integer numberOfPosts);
+
 }

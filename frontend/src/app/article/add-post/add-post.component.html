@@ -1,26 +1,32 @@
 <div class="example-container">
 
-  <form name="form" #form="ngForm" (ngSubmit)="createPost(postTitle.value, postDescription.value, postContent.value)">
-    <mat-form-field appearance="fill">
-      <mat-label>Title</mat-label>
-      <input #postTitle matInput [(ngModel)]="modelPost.title" name="title" />
-    </mat-form-field> <br/>
-    <mat-form-field appearance="fill">
-      <mat-label>Description</mat-label>
-      <input #postDescription matInput [(ngModel)]="modelPost.description" name="description" />
-    </mat-form-field> <br/>
-    <mat-form-field appearance="fill">
-      <mat-label>Content</mat-label>
-      <input #postContent matInput [(ngModel)]="modelPost.content" name="content" />
-    </mat-form-field>
-    <br>
-    <button mat-raised-button
-            type="button"
-            (click)="createPost(postTitle.value, postDescription.value, postContent.value)"
-            color="primary"
-            routerLink="/post/user/{{modelUser.username}}"
-            style="margin-left: 10px;">Dodaj post
-    </button>
+  <form role="form" #myForm="ngForm" accept-charset="UTF-8" (ngSubmit)="onSubmit()" novalidate style="margin: 30px;">
+    <div class="form-group">
+      <input autofocus autocomplete="none" type="text" name="Title" placeholder="Enter Title"
+             [(ngModel)]="modelPost.title" class="form-control" required #PostTitle
+             id="PostTitle">
+    </div>
+    <div class="form-group">
+      <input autofocus autocomplete="none" type="text" name="Description" placeholder="Enter Description"
+             [(ngModel)]="modelPost.description" class="form-control" required #PostDescription
+             id="PostDescription">
+    </div>
+    <ckeditor [(ngModel)]="modelPost.content" #PostContent name="PageContent" required
+              [config]="ckeConfig" debounce="500">
+    </ckeditor>
+    <div class="form-group mt-4">
+      <div class="row">
+        <div class="col-3 col-md-3 mb-3">
+          <button mat-raised-button
+                  type="button"
+                  (click)="createPost(PostTitle.value, PostDescription.value, PostContent.value)"
+                  color="primary"
+                  routerLink="/post/user/{{modelUser.username}}"
+                  style="margin-left: 10px;">Dodaj post
+          </button>
+        </div>
+      </div>
+    </div>
   </form>
 
 

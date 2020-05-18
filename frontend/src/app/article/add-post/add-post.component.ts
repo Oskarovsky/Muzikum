@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import { Post } from '../model/post';
 import {Playlist} from '../../playlists/playlist/model/playlist';
 import {User} from '../../services/user/user';
@@ -6,6 +6,7 @@ import {Comment} from '../model/comment';
 import {PostService} from '../../services/article/post.service';
 import {CommentService} from '../../services/article/comment.service';
 import {TokenStorageService} from '../../services/auth/token-storage.service';
+import {Route, Router} from '@angular/router';
 
 @Component({
   selector: 'app-add-post',
@@ -14,10 +15,18 @@ import {TokenStorageService} from '../../services/auth/token-storage.service';
 })
 export class AddPostComponent implements OnInit {
 
+  name = 'ng2-ckeditor';
+  ckeConfig: any;
+  content: string;
+  log: string;
+  res: any;
+  @ViewChild('Post', {static: false}) Post: any;
+
   posts: Post[] = [];
   comments: Comment[] = [];
   isUserLogged = false;
   user: null;
+  post = new Post();
 
   modelPost: Post = {
     id: null,
@@ -25,7 +34,7 @@ export class AddPostComponent implements OnInit {
     description: '',
     content: '',
     user: null,
-    createdDate: null
+    createdAt: null
   };
 
   modelUser: User = {
@@ -38,7 +47,8 @@ export class AddPostComponent implements OnInit {
 
   constructor(private postService: PostService,
               private commentService: CommentService,
-              private tokenStorageService: TokenStorageService) { }
+              private tokenStorageService: TokenStorageService,
+              private router: Router) { }
 
   ngOnInit() {
     this.isUserLogged = !!this.tokenStorageService.getToken();
@@ -49,6 +59,20 @@ export class AddPostComponent implements OnInit {
       this.modelUser.password = this.tokenStorageService.getUser().password;
     }
     this.getAllPosts();
+    this.ckeConfig = {
+      allowedContent: false,
+      extraPlugins: 'divarea',
+      forcePasteAsPlainText: true
+    };
+  }
+
+  onSubmit() {
+    this.postService.addPost(this.post).subscribe(
+      (data: any) => {
+        alert('Data saved successfully');
+      }
+    );
+
   }
 
   public getAllPosts() {
@@ -69,7 +93,7 @@ export class AddPostComponent implements OnInit {
       description,
       content,
       user: this.modelUser,
-      createdDate: null
+      createdAt: null
     };
     this.postService.addPost(newPost).subscribe(
       result => {

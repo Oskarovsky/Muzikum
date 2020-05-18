@@ -26,13 +26,13 @@ export class ArticlePartComponent implements OnInit {
   ngOnInit() {
     if (this.tokenStorage.getToken()) {
       this.isLoggedIn = true;
-      this.getAllPosts();
+      this.getLastAddedPosts(5);
     }
   }
 
 
-  public getAllPosts() {
-    this.postService.getAllPosts().subscribe(
+  public getLastAddedPosts(numberOfPosts: number) {
+    this.postService.getLastAddedPosts(numberOfPosts).subscribe(
       response => {
         this.posts = response;
       },

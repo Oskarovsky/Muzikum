@@ -5,7 +5,9 @@ import com.oskarro.muzikum.user.User;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class PostServiceImpl implements PostService {
@@ -39,5 +41,15 @@ public class PostServiceImpl implements PostService {
     @Override
     public Optional<Post> getPostById(Integer postId) {
         return postRepository.findById(postId);
+    }
+
+    @Override
+    public List<Post> getLastAddedPosts(Integer numberOfPosts) {
+        List<Post> fetchedPosts = postRepository.findAllByOrderByCreatedAtDesc();
+        return fetchedPosts
+                .stream()
+                .limit(numberOfPosts)
+                .filter(Objects::nonNull)
+                .collect(Collectors.toList());
     }
 }

@@ -1,6 +1,7 @@
 package com.oskarro.muzikum.article.post;
 
 import com.oskarro.muzikum.exception.ResourceNotFoundException;
+import com.oskarro.muzikum.user.User;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
@@ -73,5 +74,12 @@ public class PostController {
                     postRepository.delete(post);
                     return ResponseEntity.ok().build();
                 }).orElseThrow(() -> new ResourceNotFoundException("Post", "id", postId));
+    }
+
+    @GetMapping(value = "/lastAdded/{quantity}")
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
+    @Transactional
+    public List<Post> getLastAddedUsers(@PathVariable Integer quantity) {
+        return postService.getLastAddedPosts(quantity);
     }
 }
