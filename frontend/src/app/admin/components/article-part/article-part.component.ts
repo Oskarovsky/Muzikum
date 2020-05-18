@@ -26,6 +26,7 @@ export class ArticlePartComponent implements OnInit {
   ngOnInit() {
     if (this.tokenStorage.getToken()) {
       this.isLoggedIn = true;
+      this.username = this.tokenStorage.getUser().username;
       this.getLastAddedPosts(5);
     }
   }
