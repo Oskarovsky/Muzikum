@@ -60,6 +60,7 @@ import { PostComponent } from './article/post/post.component';
 import { AdminPanelComponent } from './admin/admin-panel/admin-panel.component';
 import { ArticlePartComponent } from './admin/components/article-part/article-part.component';
 import {CKEditorModule} from 'ng2-ckeditor';
+import { PostDetailsComponent } from './article/post-details/post-details.component';
 
 
 @NgModule({
@@ -100,7 +101,8 @@ import {CKEditorModule} from 'ng2-ckeditor';
     AddPostComponent,
     PostComponent,
     AdminPanelComponent,
-    ArticlePartComponent
+    ArticlePartComponent,
+    PostDetailsComponent
   ],
     imports: [
         AppRoutingModule,

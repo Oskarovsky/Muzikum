@@ -10,8 +10,8 @@
             <a class="list-group-item list-group-item-action">
               {{ post.title }}
               <i class="material-icons" (click)="deletePost(post.id)" style="float:right;">delete</i>
-              <i class="material-icons" style="float:right; margin-right: 2px;" routerLink="../../playlist/{{post.id}}/edit">edit</i>
-              <i class="material-icons" style="float:right; margin-right: 2px;" routerLink="../../playlist/{{post.id}}/details">slideshow</i>
+              <i class="material-icons" style="float:right; margin-right: 2px;" [routerLink]="['/post', post.id, 'edit']">edit</i>
+              <i class="material-icons" style="float:right; margin-right: 2px;" [routerLink]="['/post', post.id, 'details']">slideshow</i>
             </a>
           </div>
         </div>
