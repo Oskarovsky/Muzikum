@@ -17,7 +17,7 @@
         <div *ngFor="let playlist of playlists | playlistFilter:searchText">
           <a class="list-group-item list-group-item-action">
             {{ playlist.name }}
-            <i class="material-icons" style="float:right; margin-right: 2px;" routerLink="../../playlist/{{playlist.id}}/details">slideshow</i>
+            <i class="material-icons" style="float:right; margin-right: 2px;" [routerLink]="['/playlist', playlist.id, 'details']">slideshow</i>
           </a>
         </div>
       </div>

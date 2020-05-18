@@ -19,8 +19,8 @@
           <a class="list-group-item list-group-item-action">
             {{ playlist.name }}
             <i class="material-icons" (click)="deletePlaylist(playlist.id)" style="float:right;">delete</i>
-            <i class="material-icons" style="float:right; margin-right: 2px;" routerLink="../../playlist/{{playlist.id}}/edit">edit</i>
-            <i class="material-icons" style="float:right; margin-right: 2px;" routerLink="../../playlist/{{playlist.id}}/details">slideshow</i>
+            <i class="material-icons" style="float:right; margin-right: 2px;" [routerLink]="['/playlist', playlist.id, 'edit']">edit</i>
+            <i class="material-icons" style="float:right; margin-right: 2px;" [routerLink]="['/playlist', playlist.id, 'details']">slideshow</i>
           </a>
         </div>
       </div>
