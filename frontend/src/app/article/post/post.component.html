@@ -1,21 +1,35 @@
 <div class="example-container">
-  <div style="display: inline-block; text-align: center;">
+  <div>
     <mat-card-title>Wszystkie posty dodane przez użytkownika {{username}}</mat-card-title>
     <!-- Post content -->
-    <div class="row" style="margin-top: 28px; width: 100%; text-align: center;" *ngIf="isLoggedIn">
-      <div style="margin-top: 28px; width: 100%; display: inline-block">
-        <br>
-        <div class="list-group list-group-flush">
-          <div *ngFor="let post of posts">
-            <a class="list-group-item list-group-item-action">
-              {{ post.title }}
-              <i class="material-icons" (click)="deletePost(post.id)" style="float:right;">delete</i>
-              <i class="material-icons" style="float:right; margin-right: 2px;" [routerLink]="['/post', post.id, 'edit']">edit</i>
-              <i class="material-icons" style="float:right; margin-right: 2px;" [routerLink]="['/post', post.id, 'details']">slideshow</i>
-            </a>
-          </div>
-        </div>
-      </div>
+    <div class="row" style="margin-top: 28px; width: 100%; text-align: center; display: inline-block" *ngIf="isLoggedIn">
+      <table class="table table-striped" style="margin: 0 auto">
+        <thead>
+        <tr>
+          <th scope="col" style="text-align: center">#</th>
+          <th scope="col" style="text-align: center">Tytuł</th>
+          <th scope="col" style="text-align: center">Użytkownik</th>
+          <th scope="col" style="text-align: center">Data utworzenia</th>
+          <th scope="col" style="text-align: center"></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let post of posts | slice:0:5; let i=index; index as i">
+          <td>{{ post.id }}</td>
+          <td>{{ post.title }}</td>
+          <td>{{ post.user.username }}</td>
+          <td>{{ post.createdAt.substr(0, post.createdAt.indexOf('T')) }}</td>
+          <td>
+            <i class="material-icons" (click)="deletePost(post.id)" style="float:right;">delete</i>
+            <i class="material-icons" style="float:right; margin-right: 2px;" [routerLink]="['/post', post.id, 'edit']">edit</i>
+            <i class="material-icons" style="float:right; margin-right: 2px;" [routerLink]="['/post', post.id, 'details']">slideshow</i>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+
+
+
     </div>
 
     <div style="text-align: left; margin-top: 10px">
