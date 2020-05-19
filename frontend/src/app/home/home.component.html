@@ -2,12 +2,16 @@
   <header class="jumbotron">
     <p *ngIf="isLoggedIn">Cześć {{ currentUser.username }} !</p>
     <p *ngIf="!isLoggedIn">Jesteś nowy? <a routerLink="/register">Dołącz do naszej ekipy</a></p>
-    <div id="fb-root"></div>
-    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/pl_PL/sdk.js#xfbml=1&version=v6.0&appId=3206283756069780&autoLogAppEvents=1"></script>
+
   </header>
 
-  <div class="fb-login-button" data-size="large" data-button-type="continue_with"
-       data-layout="default" data-auto-logout-link="true" data-use-continue-as="true" data-width="">
+    <!-- Post list content -->
+  <div class="shadowbox">
+    <div style="text-align: center; font-size: 30px;">Ważne informacje</div>
+    <div *ngFor="let post of posts" class="bg-grey text-center">
+      <h4>{{post.title}}</h4>
+      <p class="panel-playlists" [routerLink]="['post', post.id, 'details']">Zobacz</p>
+      <hr style="width:70%">
+    </div>
   </div>
-
 </div>

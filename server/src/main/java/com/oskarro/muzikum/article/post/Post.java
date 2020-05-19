@@ -2,8 +2,7 @@ package com.oskarro.muzikum.article.post;
 
 import com.oskarro.muzikum.user.User;
 import com.oskarro.muzikum.utils.DateAudit;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -12,6 +11,9 @@ import javax.validation.constraints.Size;
 @Entity
 @Getter
 @Setter
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 @Table(name = "posts")
 public class Post extends DateAudit {
 

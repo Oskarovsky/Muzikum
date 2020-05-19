@@ -1,5 +1,8 @@
 package com.oskarro.muzikum;
 
+import com.oskarro.muzikum.article.post.Post;
+import com.oskarro.muzikum.article.post.PostRepository;
+import com.oskarro.muzikum.article.post.PostService;
 import com.oskarro.muzikum.crawler.CrawlerService;
 import com.oskarro.muzikum.playlist.Playlist;
 import com.oskarro.muzikum.playlist.PlaylistRepository;
@@ -113,6 +116,8 @@ public class MuzikumApplication implements CommandLineRunner {
         VideoService videoService = applicationContext.getBean(VideoService.class);
         PasswordEncoder encoder = applicationContext.getBean(PasswordEncoder.class);
         UserRepository userRepository = applicationContext.getBean(UserRepository.class);
+        PostRepository postRepository = applicationContext.getBean(PostRepository.class);
+        PostService postService = applicationContext.getBean(PostService.class);
 
         // USER ROLES CREATOR
         Role roleAdmin = new Role();
@@ -236,6 +241,14 @@ public class MuzikumApplication implements CommandLineRunner {
         Track track03 = Track.builder().title("one tow three").artist("test").version("dsd edit").video(video2).build();
 
         trackRepository.saveAll(Arrays.asList(track1, track01, track02, track03, track4, track5));
+
+        Post postFirst = Post.builder().
+                title("Otwarcie nowej strony")
+                .description("Opis wszystkich opcji dostępnych na stronie")
+                .content("Dostępnych jest wiele nowych super rzeczy, które są idealne dla fanów muzyki klubowej")
+                .user(userAdmin)
+                .build();
+        postRepository.save(postFirst);
 
     }
 
