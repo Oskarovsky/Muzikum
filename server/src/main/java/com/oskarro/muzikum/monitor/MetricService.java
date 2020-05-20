@@ -1,4 +1,4 @@
-package com.oskarro.muzikum.statistics;
+package com.oskarro.muzikum.monitor;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;

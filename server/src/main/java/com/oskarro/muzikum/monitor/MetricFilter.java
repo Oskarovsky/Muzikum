@@ -1,4 +1,4 @@
-package com.oskarro.muzikum.statistics;
+package com.oskarro.muzikum.monitor;
 
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.support.WebApplicationContextUtils;

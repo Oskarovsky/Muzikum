@@ -1,6 +1,5 @@
-package com.oskarro.muzikum.statistics;
+package com.oskarro.muzikum.monitor;
 
-import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.text.SimpleDateFormat;
@@ -88,6 +87,8 @@ public class MetricServiceImpl implements MetricService{
     private void increaseStatusMetric(final int status) {
         statusMetric.merge(status, 1, Integer::sum);
     }
+
+
 
     public Map<String, ConcurrentHashMap<Integer, Integer>> getFullMetric() {
         return metricMap;

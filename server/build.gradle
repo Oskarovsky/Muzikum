@@ -82,6 +82,10 @@ dependencies {
     compile group: 'net.coobird', name: 'thumbnailator', version: '0.4.1'
     compile group: 'com.mortennobel', name: 'java-image-scaling', version: '0.8.5'
 
+    // Libraries for metrics and statistics
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-actuator', version: '2.3.0.RELEASE'
+    compile group: 'io.micrometer', name: 'micrometer-core', version: '1.5.1'
+
     // For Java 8 Date/Time Support
     compile group: 'com.fasterxml.jackson.datatype', name: 'jackson-datatype-jsr310', version: '2.11.0'
 

@@ -1,4 +1,4 @@
-package com.oskarro.muzikum.statistics;
+package com.oskarro.muzikum.monitor;
 
 import org.springframework.web.bind.annotation.*;
 
@@ -26,6 +26,22 @@ public class MetricController {
     @ResponseBody
     public Map<String, ConcurrentHashMap<Integer, Integer>> getMetric() {
         return metricService.getFullMetric();
+    }
+
+/*    @GetMapping(value = "/metric-graph-data-old")
+    @ResponseBody
+    public Object[][] drawMetric() {
+        final Object[][] result = metricService.getGraphData();
+        for (int i = 1; i < result[0].length; i++) {
+            result[0][i] = result[0][i].toString();
+        }
+        return result;
+    }*/
+
+    @GetMapping(value = "/metric-data")
+    @ResponseBody
+    public Object[][] getMetricData() {
+        return metricService.getGraphData();
     }
 
 
