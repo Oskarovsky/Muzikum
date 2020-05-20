@@ -17,7 +17,7 @@
         </thead>
         <tbody>
         <tr *ngFor="let post of posts | slice:0:5; let i=index; index as i">
-          <th scope="row">{{ post.id }}</th>
+          <td>{{ post.id }}</td>
           <td>{{ post.title }}</td>
           <td>{{ post.user.username }}</td>
           <td>{{ post.createdAt.substr(0, post.createdAt.indexOf('T')) }}</td>
