@@ -1,6 +1,7 @@
 package com.oskarro.muzikum.statistics;
 
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 public interface MetricService {
 
@@ -8,11 +9,9 @@ public interface MetricService {
 
     Map<Integer, Integer> getStatusMetric();
 
-/*    Map getFullMetric();
+    Map<String, ConcurrentHashMap<Integer, Integer>> getFullMetric();
 
-    Map getStatusMetric();
-
-    Object[][] getGraphData();*/
+    Object[][] getGraphData();
 
 
 }
