@@ -41,7 +41,8 @@ export class AddPostComponent implements OnInit {
     id: null,
     username: '',
     email: '',
-    password: ''
+    password: '',
+    createdAt: ''
   };
 
 

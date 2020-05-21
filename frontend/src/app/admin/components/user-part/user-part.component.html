@@ -1,0 +1,48 @@
+<div class="panel panel-default">
+  <div class="panel-heading" style="margin-bottom: 5px">
+    <h3 class="panel-title">Ostatnio dołączyli</h3>
+  </div>
+  <table class="table table-striped">
+    <thead>
+    <tr>
+      <th scope="col" style="text-align: center">#</th>
+      <th scope="col" style="text-align: center">Użytkownik</th>
+      <th scope="col" style="text-align: center">Data utworzenia</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let user of users | slice:0:5; let i=index; index as i">
+      <td>{{ user.id }}</td>
+      <td>{{ user.username }}</td>
+      <td>{{ user.createdAt.substr(0, user.createdAt.indexOf('T')) }}</td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="panel panel-default">
+  <div class="panel-heading" style="margin-bottom: 5px">
+    <h3 class="panel-title">Wyszukaj użytkownika</h3>
+  </div>
+  <div class="md-form">
+    <input type="search" [(ngModel)]="searchText" placeholder="Search text">
+  </div>
+  <table class="table table-striped">
+    <thead>
+    <tr>
+<!--      <th scope="col" style="text-align: center">#</th>
+      <th scope="col" style="text-align: center">Użytkownik</th>
+      <th scope="col" style="text-align: center">Data utworzenia</th>-->
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let user of users | userFilter:searchText">
+      <td>{{ user.id }}</td>
+      <td>{{ user.username }}</td>
+      <td>{{ user.email }}</td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+
+

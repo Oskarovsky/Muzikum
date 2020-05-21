@@ -61,6 +61,8 @@ import { AdminPanelComponent } from './admin/admin-panel/admin-panel.component';
 import { ArticlePartComponent } from './admin/components/article-part/article-part.component';
 import {CKEditorModule} from 'ng2-ckeditor';
 import { PostDetailsComponent } from './article/post-details/post-details.component';
+import { UserPartComponent } from './admin/components/user-part/user-part.component';
+import { UserFilterPipe } from './services/user/user-filter.pipe';
 
 
 @NgModule({
@@ -102,7 +104,9 @@ import { PostDetailsComponent } from './article/post-details/post-details.compon
     PostComponent,
     AdminPanelComponent,
     ArticlePartComponent,
-    PostDetailsComponent
+    PostDetailsComponent,
+    UserPartComponent,
+    UserFilterPipe,
   ],
     imports: [
         AppRoutingModule,

@@ -20,7 +20,8 @@ export class AdminPanelComponent implements OnInit {
     id: null,
     username: '',
     email: '',
-    password: ''
+    password: '',
+    createdAt: ''
   };
 
   constructor(private tokenStorageService: TokenStorageService) { }

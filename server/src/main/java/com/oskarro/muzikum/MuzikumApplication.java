@@ -23,6 +23,9 @@ import com.oskarro.muzikum.video.Category;
 import com.oskarro.muzikum.video.Video;
 import com.oskarro.muzikum.video.VideoRepository;
 import com.oskarro.muzikum.video.VideoService;
+import com.oskarro.muzikum.voting.Vote;
+import com.oskarro.muzikum.voting.VotingRepository;
+import com.oskarro.muzikum.voting.VotingService;
 import org.apache.catalina.connector.Connector;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -118,6 +121,8 @@ public class MuzikumApplication implements CommandLineRunner {
         UserRepository userRepository = applicationContext.getBean(UserRepository.class);
         PostRepository postRepository = applicationContext.getBean(PostRepository.class);
         PostService postService = applicationContext.getBean(PostService.class);
+        VotingService votingService = applicationContext.getBean(VotingService.class);
+        VotingRepository votingRepository = applicationContext.getBean(VotingRepository.class);
 
         // USER ROLES CREATOR
         Role roleAdmin = new Role();
@@ -249,6 +254,11 @@ public class MuzikumApplication implements CommandLineRunner {
                 .user(userAdmin)
                 .build();
         postRepository.save(postFirst);
+
+        Vote vote1 = Vote.builder().user(userAdmin).track(track01).build();
+        Vote vote2 = Vote.builder().user(userJacek).track(track02).build();
+        Vote vote3 = Vote.builder().user(userAdmin).track(track03).build();
+        votingRepository.saveAll(Arrays.asList(vote1, vote2, vote3));
 
     }
 

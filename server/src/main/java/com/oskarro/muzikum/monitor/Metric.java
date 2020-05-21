@@ -22,7 +22,12 @@ public class Metric extends DateAudit {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    private String STATUS_200_OK;
+    private String STATUS_201_CREATED;
+    private String STATUS_202_ACCEPTED;
+    private String STATUS_204_NO_CONTENT;
+    private String STATUS_205_RESET_CONTENT;
 
-
+    private String STATUS_OTHER;
 
 }
