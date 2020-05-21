@@ -39,13 +39,13 @@ public class VotingController {
 
     @PostMapping(value = "/track/{trackId}/add")
     @CrossOrigin(origins = "*", allowedHeaders = "*")
-    void addVoteForTrackById(@PathVariable Integer trackId, @RequestBody User user, BindingResult bindingResult) throws ValidationException {
+    void addVoteForTrackById(@PathVariable Integer trackId, @RequestBody Vote voteRequest, BindingResult bindingResult) throws ValidationException {
         if (bindingResult.hasErrors()) {
             throw new ValidationException("There are a problem with binding");
         }
         Track track = trackService.findById(trackId).orElseThrow(() -> new ResourceNotFoundException("Track", "id", trackId));
-        if (!votingService.isVotedForTrackByUser(trackId, user.getId())) {
-            Vote vote = Vote.builder().track(track).user(user).build();
+        if (!votingService.isVotedForTrackByUser(trackId, voteRequest.getUser().getId())) {
+            Vote vote = Vote.builder().track(track).user(voteRequest.getUser()).build();
             votingRepository.save(vote);
         } else {
             throw new RuntimeException("Fail! -> Cause: User can vote for track only once");
