@@ -10,7 +10,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
 @Service
-public class MetricServiceImpl implements MetricService{
+public class MetricServiceImpl implements MetricService {
 
     private ConcurrentMap<String, ConcurrentHashMap<Integer, Integer>> metricMap;
     private final ConcurrentMap<Integer, Integer> statusMetric;
@@ -87,7 +87,6 @@ public class MetricServiceImpl implements MetricService{
     private void increaseStatusMetric(final int status) {
         statusMetric.merge(status, 1, Integer::sum);
     }
-
 
 
     public Map<String, ConcurrentHashMap<Integer, Integer>> getFullMetric() {
