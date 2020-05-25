@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import {Playlist} from "../playlist/model/playlist";
-import {PlaylistService} from "../../services/playlist/playlist.service";
-import {Subscription} from "rxjs";
-import {ActivatedRoute} from "@angular/router";
-import {TrackService} from "../../services/track/track.service";
-import {Track} from "../../tracks/track/model/track";
+import {Playlist} from '../playlist/model/playlist';
+import {PlaylistService} from '../../services/playlist/playlist.service';
+import {Subscription} from 'rxjs';
+import {ActivatedRoute} from '@angular/router';
+import {TrackService} from '../../services/track/track.service';
+import {Track} from '../../tracks/track/model/track';
 
 @Component({
   selector: 'app-playlist-details',
@@ -18,6 +18,8 @@ export class PlaylistDetailsComponent implements OnInit {
   tracks: Track[] = [];
 
   sub: Subscription;
+
+  viewsNumber: number;
 
   constructor(private playlistService: PlaylistService,
               private trackService: TrackService,
@@ -34,7 +36,7 @@ export class PlaylistDetailsComponent implements OnInit {
         this.tracks = result;
       },
       error => {
-        alert('An error has occurred while downloading tracks')
+        alert('An error has occurred while downloading tracks');
       }
     );
   }
@@ -48,7 +50,7 @@ export class PlaylistDetailsComponent implements OnInit {
             this.tracks = response;
           },
           error => {
-            alert('An error with fetching tracks has occurred')
+            alert('An error with fetching tracks has occurred');
           }
         );
       }
@@ -62,12 +64,26 @@ export class PlaylistDetailsComponent implements OnInit {
         this.playlistService.getPlaylist(id).subscribe(
           response => {
             this.playlist = response;
+            this.updateViewsNumber(id);
           },
           error => {
-            alert('An error with fetching playlist has occurred')
+            alert('An error with fetching playlist has occurred');
           });
       }
     });
+  }
+
+  public updateViewsNumber(id: number) {
+    if (id) {
+      this.playlistService.updatePlaylistViewsNumber(id).subscribe(
+        response => {
+          this.viewsNumber = response;
+        },
+        error => {
+          alert('An error with updating views number has occurred');
+        }
+      );
+    }
   }
 
 }

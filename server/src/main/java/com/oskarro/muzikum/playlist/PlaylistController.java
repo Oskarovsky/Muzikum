@@ -40,7 +40,6 @@ public class PlaylistController {
     @GetMapping(value = "/{id}")
     @CrossOrigin(origins = "*", allowedHeaders = "*")
     Optional<Playlist> getPlaylistById(@PathVariable Integer id) {
-        sessionComponent.updateSessionViews(id);
         return playlistService.findPlaylistById(id);
     }
 
