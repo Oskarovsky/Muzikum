@@ -5,6 +5,7 @@ import {TrackService} from "../../services/track/track.service";
 import {Location} from "@angular/common";
 import {Subscription} from "rxjs";
 import {TokenStorageService} from '../../services/auth/token-storage.service';
+import { Track } from 'src/app/tracks/track/model/track';
 
 @Component({
   selector: 'app-provider-details',
@@ -20,6 +21,8 @@ export class ProviderDetailsComponent implements OnInit {
   sub: Subscription;
 
   tracks: Array<any>;
+
+  favoriteTrack: Track;
 
   private roles: string[];
   isLoggedIn = false;
@@ -71,8 +74,8 @@ export class ProviderDetailsComponent implements OnInit {
   }
 
   addTrackToFavorites(id: number, username: string) {
-    this.trackService.addTrackToFavorites(id, username);
+    this.trackService.addTrackToFavorites(id, username).subscribe((data: any) => {
+      this.favoriteTrack = data;
+    });
   }
-
-
 }

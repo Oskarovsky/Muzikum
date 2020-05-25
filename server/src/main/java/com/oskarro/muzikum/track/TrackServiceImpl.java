@@ -90,7 +90,11 @@ public class TrackServiceImpl implements TrackService {
                 .orElseThrow(() -> new ResourceNotFoundException("User", "username", username));
         Track track = trackRepository.findById(trackId)
                 .orElseThrow(() -> new ResourceNotFoundException("Track", "trackId", trackId));
-        track.setPoints(track.getPosition() + 1);
+        if (track.getPosition() == null) {
+            track.setPoints(1);
+        } else {
+            track.setPoints(track.getPosition() + 1);
+        }
         user.setFavoriteTrack(track);
         userRepository.save(user);
         trackRepository.save(track);
