@@ -16,7 +16,8 @@ import {Route, Router} from '@angular/router';
 export class AddPostComponent implements OnInit {
 
   name = 'ng2-ckeditor';
-  ckeConfig: any;
+  ckeConfigForDescription: any;
+  ckeConfigForContent: any;
   content: string;
   log: string;
   res: any;
@@ -60,10 +61,17 @@ export class AddPostComponent implements OnInit {
       this.modelUser.password = this.tokenStorageService.getUser().password;
     }
     this.getAllPosts();
-    this.ckeConfig = {
+    this.ckeConfigForDescription = {
       allowedContent: false,
       extraPlugins: 'divarea',
-      forcePasteAsPlainText: true
+      forcePasteAsPlainText: true,
+      height: 100,
+    };
+    this.ckeConfigForContent = {
+      allowedContent: false,
+      extraPlugins: 'divarea',
+      forcePasteAsPlainText: true,
+      height: 350,
     };
   }
 

@@ -6,11 +6,12 @@
   </header>
 
     <!-- Post list content -->
-  <div class="shadowbox">
+  <div style="margin-bottom: 20px">
     <div style="text-align: center; font-size: 30px;">Ważne informacje</div>
-    <div *ngFor="let post of posts" class="bg-grey text-center">
+    <div *ngFor="let post of posts | slice:0:5; let i=index; index as i" class="bg-grey text-center card">
       <h4>{{post.title}}</h4>
-      <p class="panel-playlists" [routerLink]="['post', post.id, 'details']">Zobacz</p>
+      <p style="text-align: justify" [innerHTML]="post.description"></p>
+      <button type="submit" [routerLink]="['post', post.id, 'details']">Przeczytaj całość</button>
       <hr style="width:70%">
     </div>
   </div>
