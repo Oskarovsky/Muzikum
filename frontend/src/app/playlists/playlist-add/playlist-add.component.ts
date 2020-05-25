@@ -31,7 +31,8 @@ export class PlaylistAddComponent implements OnInit {
     username: '',
     email: '',
     password: '',
-    createdAt: ''
+    createdAt: '',
+    favoriteTracks: null
   };
 
   constructor(private playlistService: PlaylistService,

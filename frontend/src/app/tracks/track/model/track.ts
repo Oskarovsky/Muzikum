@@ -1,5 +1,6 @@
 import {Playlist} from '../../../playlists/playlist/model/playlist';
 import {Video} from '../../../videos/video/model/video';
+import { User } from 'src/app/services/user/user';
 
 export interface Track {
   id: number;
@@ -12,4 +13,5 @@ export interface Track {
   position: number;
   playlist: Playlist;
   video: Video;
+  favoriteUsers: User[];
 }

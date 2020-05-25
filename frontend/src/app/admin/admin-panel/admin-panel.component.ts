@@ -21,7 +21,8 @@ export class AdminPanelComponent implements OnInit {
     username: '',
     email: '',
     password: '',
-    createdAt: ''
+    createdAt: '',
+    favoriteTracks: null
   };
 
   constructor(private tokenStorageService: TokenStorageService) { }

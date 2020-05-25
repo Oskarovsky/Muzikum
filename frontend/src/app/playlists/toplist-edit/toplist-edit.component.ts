@@ -22,7 +22,8 @@ export class ToplistEditComponent implements OnInit {
     url: '',
     position: null,
     playlist: null,
-    video: null
+    video: null,
+    favoriteUsers: null
   };
 
 

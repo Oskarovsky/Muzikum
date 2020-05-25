@@ -19,7 +19,7 @@ export class PlaylistEditComponent implements OnInit {
 
   playlist: Playlist;
 
-  playlist_id;
+  playlistId;
 
   constructor(private playlistService: PlaylistService,
               private trackService: TrackService,
@@ -32,7 +32,7 @@ export class PlaylistEditComponent implements OnInit {
   getPlaylist() {
     this.sub = this.route.params.subscribe(params => {
       const id = params.id;
-      this.playlist_id = id;
+      this.playlistId = id;
       if (id) {
         this.playlistService.getPlaylist(id).subscribe((playlist: any) => {
           this.playlist = playlist;
@@ -68,7 +68,7 @@ export class PlaylistEditComponent implements OnInit {
   }
 
   updatePlaylist(updatedPlaylist: Playlist) {
-    updatedPlaylist.id = this.playlist_id;
+    updatedPlaylist.id = this.playlistId;
     this.playlistService.addPlaylist(updatedPlaylist).subscribe(
       result => {
 
@@ -119,7 +119,8 @@ export class PlaylistEditComponent implements OnInit {
       url: '',
       position: null,
       playlist: this.playlist,
-      video: null
+      video: null,
+      favoriteUsers: null
     };
 
     this.trackService.saveTrackToPlaylist(newTrack).subscribe(

@@ -55,7 +55,6 @@ public class PlaylistController {
         return sessionComponent.updateSessionViews(id);
     }
 
-
     @PostMapping(value = "/add")
     @CrossOrigin(origins = "*", allowedHeaders = "*")
     public void addPlaylist(@RequestBody Playlist playlist) {

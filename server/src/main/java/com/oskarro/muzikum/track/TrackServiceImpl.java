@@ -1,7 +1,10 @@
 package com.oskarro.muzikum.track;
 
+import com.oskarro.muzikum.exception.ResourceNotFoundException;
 import com.oskarro.muzikum.playlist.Playlist;
 import com.oskarro.muzikum.playlist.PlaylistRepository;
+import com.oskarro.muzikum.user.User;
+import com.oskarro.muzikum.user.UserRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -18,9 +21,11 @@ import java.util.Optional;
 public class TrackServiceImpl implements TrackService {
 
     private final TrackRepository trackRepository;
+    private final UserRepository userRepository;
 
-    public TrackServiceImpl(TrackRepository trackRepository) {
+    public TrackServiceImpl(TrackRepository trackRepository, UserRepository userRepository) {
         this.trackRepository = trackRepository;
+        this.userRepository = userRepository;
     }
     @Override
     public List<Track> findAll() {
@@ -77,6 +82,18 @@ public class TrackServiceImpl implements TrackService {
             track = trackPage.getContent().get(0);
         }
         return track;
+    }
+
+    @Override
+    public void addTrackToFavorite(Integer trackId, String username) {
+        User user = userRepository.findByUsername(username)
+                .orElseThrow(() -> new ResourceNotFoundException("User", "username", username));
+        Track track = trackRepository.findById(trackId)
+                .orElseThrow(() -> new ResourceNotFoundException("Track", "trackId", trackId));
+        track.setPoints(track.getPosition() + 1);
+        user.setFavoriteTrack(track);
+        userRepository.save(user);
+        trackRepository.save(track);
     }
 
 

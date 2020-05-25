@@ -59,15 +59,19 @@ export class ProviderDetailsComponent implements OnInit {
         });
         this.trackService.getTracksByProviderId(id).subscribe((track: any) => {
           this.tracks = track;
-        })
+        });
       }
-    })
+    });
   }
 
   getAllTracksFromProviderByGenre(id: string, genre: string) {
     this.trackService.getTracksFromProviderByGenre(id, genre).subscribe((data: any) => {
       this.tracks = data;
-    })
+    });
+  }
+
+  addTrackToFavorites(id: number, username: string) {
+    this.trackService.addTrackToFavorites(id, username);
   }
 
 

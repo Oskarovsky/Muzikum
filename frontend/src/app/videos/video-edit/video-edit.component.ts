@@ -82,7 +82,8 @@ export class VideoEditComponent implements OnInit {
       url: '',
       position: null,
       playlist: null,
-      video: this.video
+      video: this.video,
+      favoriteUsers: null
     };
 
     this.trackService.saveTrackToVideo(newTrack).subscribe(

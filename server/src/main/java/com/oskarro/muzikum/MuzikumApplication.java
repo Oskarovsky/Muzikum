@@ -241,7 +241,8 @@ public class MuzikumApplication implements CommandLineRunner {
 
 
 
-        Track track01 = Track.builder().title("First shit title").artist("Med").version("dsd edit").video(video1).build();
+        Track track01 = Track.builder().title("First shit title").artist("Med")
+                .version("dsd edit").video(video1).build();
         Track track02 = Track.builder().title("Firseconddtitle").artist("Msssed").version("dsd edit").video(video2).build();
         Track track03 = Track.builder().title("one tow three").artist("test").version("dsd edit").video(video2).build();
 
@@ -259,6 +260,13 @@ public class MuzikumApplication implements CommandLineRunner {
         Vote vote2 = Vote.builder().user(userJacek).track(track02).build();
         Vote vote3 = Vote.builder().user(userAdmin).track(track03).build();
         votingRepository.saveAll(Arrays.asList(vote1, vote2, vote3));
+
+
+        User userOskar = User.builder().id(1).username("Oski").email("djoskarro@interia.pl")
+                .password(encoder.encode("123456")).roles(new HashSet<>(Collections.singletonList(roleUser))).build();
+        userOskar.setFavoriteTrack(track01);
+        userRepository.saveAll(Arrays.asList(userAdmin, userJacek));
+
 
     }
 

@@ -1,5 +1,6 @@
 package com.oskarro.muzikum.user;
 
+import com.oskarro.muzikum.track.Track;
 import com.oskarro.muzikum.user.role.Role;
 import com.oskarro.muzikum.utils.DateAudit;
 import lombok.*;
@@ -9,9 +10,7 @@ import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 @Entity
 @Getter
@@ -64,5 +63,31 @@ public class User extends DateAudit {
 
     @Column(name = "reset_token")
     private String resetToken;
+
+    @ManyToOne
+    @JoinColumn(name = "favorite_track")
+    private Track favoriteTrack;
+
+//    @ManyToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+//    @JoinTable(name = "users_favorite_tracks",
+//            joinColumns = @JoinColumn(name = "user_id"),
+//            inverseJoinColumns = @JoinColumn(name = "track_id"))
+//    private Set<Track> favoriteTracks = new HashSet<>();
+//
+//    public void addFavoriteTrack(Track track) {
+//        if (this.favoriteTracks == null) {
+//            this.favoriteTracks = new HashSet<Track>();
+//        }
+//        this.favoriteTracks.add(track);
+//        if (track.getFavoriteUsers() == null) {
+//            track.setFavoriteUsers(new HashSet<User>());
+//        }
+//        track.getFavoriteUsers().add(this);
+//    }
+//
+//    public void removeFavoriteTrack(Track track) {
+//        this.favoriteTracks.remove(track);
+//        track.getFavoriteUsers().remove(this);
+//    }
 
 }

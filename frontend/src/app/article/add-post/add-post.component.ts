@@ -6,6 +6,7 @@ import {PostService} from '../../services/article/post.service';
 import {CommentService} from '../../services/article/comment.service';
 import {TokenStorageService} from '../../services/auth/token-storage.service';
 import {Router} from '@angular/router';
+import {Track} from '../../tracks/track/model/track';
 
 @Component({
   selector: 'app-add-post',
@@ -42,7 +43,8 @@ export class AddPostComponent implements OnInit {
     username: '',
     email: '',
     password: '',
-    createdAt: ''
+    createdAt: '',
+    favoriteTracks: null
   };
 
 

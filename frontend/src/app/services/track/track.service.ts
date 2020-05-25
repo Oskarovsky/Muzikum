@@ -58,4 +58,8 @@ export class TrackService {
     return this.http.get<Track>(TRACK_API + '/random');
   }
 
+  addTrackToFavorites(id: number, username: string): Observable<any> {
+    return this.http.get<any>(TRACK_API + '/' + id + '/addToFavorites/' + username);
+  }
+
 }

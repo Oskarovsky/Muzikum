@@ -1,5 +1,7 @@
 package com.oskarro.muzikum.track;
 
+import com.oskarro.muzikum.user.User;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -24,4 +26,6 @@ public interface TrackService {
     List<Track> findAllTracksFromVideo(Integer id);
 
     Track getRandomTrack();
+
+    void addTrackToFavorite(Integer trackId, String username);
 }
