@@ -210,7 +210,7 @@ public class MuzikumApplication implements CommandLineRunner {
         //System.out.println(ariaChartsProvider.map((Provider provider1) -> crawlerService.getWeb(provider1, Genre.club)).toString());
 
         // PLAYLIST CREATING
-        Playlist playlist = Playlist.builder().id(1).name("MyTop").user(userAdmin).build();
+        Playlist playlist = Playlist.builder().id(1).name("MyTop").user(userAdmin).views(10).build();
         Playlist playlist2 = Playlist.builder().id(2).name("SecondTop").user(userJacek).build();
         playlistRepository.saveAll(Arrays.asList(playlist, playlist2));
 

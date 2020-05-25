@@ -51,4 +51,8 @@ export class PlaylistService {
   deletePlaylist(id: number): Observable<any> {
     return this.http.delete<Playlist>(PLAYLIST_API + '/' + id);
   }
+
+  updatePlaylistViewsNumber(id: number): Observable<any> {
+    return this.http.get<number>(PLAYLIST_API + '/' + id + '/updateViews');
+  }
 }

@@ -1,12 +1,11 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import { Post } from '../model/post';
-import {Playlist} from '../../playlists/playlist/model/playlist';
+import {Post} from '../model/post';
 import {User} from '../../services/user/user';
 import {Comment} from '../model/comment';
 import {PostService} from '../../services/article/post.service';
 import {CommentService} from '../../services/article/comment.service';
 import {TokenStorageService} from '../../services/auth/token-storage.service';
-import {Route, Router} from '@angular/router';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-add-post',
@@ -63,13 +62,13 @@ export class AddPostComponent implements OnInit {
     this.getAllPosts();
     this.ckeConfigForDescription = {
       allowedContent: false,
-      extraPlugins: 'divarea',
+      // extraPlugins: 'divarea',
       forcePasteAsPlainText: true,
       height: 100,
     };
     this.ckeConfigForContent = {
       allowedContent: false,
-      extraPlugins: 'divarea',
+      // extraPlugins: 'divarea',
       forcePasteAsPlainText: true,
       height: 350,
     };

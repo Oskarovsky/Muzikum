@@ -21,7 +21,9 @@ export class PlaylistAddComponent implements OnInit {
   modelPlaylist: Playlist = {
     id: null,
     name: '',
-    user: null
+    user: null,
+    points: null,
+    views: null
   };
 
   modelUser: User = {
@@ -61,7 +63,9 @@ export class PlaylistAddComponent implements OnInit {
     const newPlaylist: Playlist = {
       id: null,
       name,
-      user: this.modelUser
+      user: this.modelUser,
+      points: null,
+      views: null
     };
     this.playlistService.addPlaylist(newPlaylist).subscribe(
       result => {

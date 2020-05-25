@@ -1,15 +1,7 @@
 <div class="example-container">
 
   <h3>Playlista: {{playlist.name}}</h3>
-
-
-  <div class="col-md-9">
-    <div class="row">
-      <div class="col-md-12">
-        <p *ngIf="this.tracks.length === 0">Nie ma żadnych utworów w tej składance</p>
-      </div>
-    </div>
-  </div>
+  <p style="float: right">Liczba odsłon: {{playlist.views}}</p>
 
   <!-- Track list -->
   <table class="table table-striped">
@@ -31,6 +23,17 @@
     </tbody>
   </table>
 
-  <button type="button" class="btn btn-dark" routerLink="../edit">Edytuj</button>
+  <div class="col-md-9">
+    <div class="row">
+      <div class="col-md-12">
+        <p *ngIf="this.tracks.length === 0">Nie ma żadnych utworów w tej składance</p>
+      </div>
+    </div>
+  </div>
+
+  <br/>
+  <div class="col-md-12">
+    <button type="button" class="btn btn-dark" routerLink="../edit">Edytuj</button>
+  </div>
 
 </div>

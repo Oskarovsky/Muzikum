@@ -1,5 +1,6 @@
 package com.oskarro.muzikum.playlist;
 
+import com.oskarro.muzikum.monitor.SessionComponent;
 import com.oskarro.muzikum.provider.Provider;
 import com.oskarro.muzikum.track.Track;
 import com.oskarro.muzikum.track.TrackRepository;
@@ -18,12 +19,16 @@ public class PlaylistController {
     private final TrackService trackService;
     private final PlaylistRepository playlistRepository;
     private final TrackRepository trackRepository;
+    private final SessionComponent sessionComponent;
 
-    public PlaylistController(PlaylistService playlistService, TrackService trackService, PlaylistRepository playlistRepository, TrackRepository trackRepository) {
+    public PlaylistController(PlaylistService playlistService, TrackService trackService,
+                              PlaylistRepository playlistRepository, TrackRepository trackRepository,
+                              SessionComponent sessionComponent) {
         this.playlistService = playlistService;
         this.trackService = trackService;
         this.playlistRepository = playlistRepository;
         this.trackRepository = trackRepository;
+        this.sessionComponent = sessionComponent;
     }
 
     @GetMapping(value = "/findAll")
@@ -35,6 +40,7 @@ public class PlaylistController {
     @GetMapping(value = "/{id}")
     @CrossOrigin(origins = "*", allowedHeaders = "*")
     Optional<Playlist> getPlaylistById(@PathVariable Integer id) {
+        sessionComponent.updateSessionViews(id);
         return playlistService.findPlaylistById(id);
     }
 
@@ -43,6 +49,13 @@ public class PlaylistController {
     List<Track> getAllTracksFromPlaylist(@PathVariable Integer id) {
         return trackService.findAllTracksFromPlaylist(id);
     }
+
+    @GetMapping(value = "/{id}/updateViews")
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
+    Integer getViewsNumber(@PathVariable Integer id) {
+        return sessionComponent.updateSessionViews(id);
+    }
+
 
     @PostMapping(value = "/add")
     @CrossOrigin(origins = "*", allowedHeaders = "*")

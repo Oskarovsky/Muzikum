@@ -28,4 +28,6 @@ public class Playlist extends DateAudit {
 
     private Integer points;
 
+    private Integer views;
+
 }
