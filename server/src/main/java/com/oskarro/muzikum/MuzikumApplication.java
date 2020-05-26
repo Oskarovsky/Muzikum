@@ -16,6 +16,8 @@ import com.oskarro.muzikum.track.Track;
 import com.oskarro.muzikum.track.TrackRepository;
 import com.oskarro.muzikum.track.TrackService;
 import com.oskarro.muzikum.user.*;
+import com.oskarro.muzikum.user.favorite.FavoriteTrack;
+import com.oskarro.muzikum.user.favorite.FavoriteTrackRepository;
 import com.oskarro.muzikum.user.role.Role;
 import com.oskarro.muzikum.user.role.RoleName;
 import com.oskarro.muzikum.user.role.RoleRepository;
@@ -123,6 +125,7 @@ public class MuzikumApplication implements CommandLineRunner {
         PostService postService = applicationContext.getBean(PostService.class);
         VotingService votingService = applicationContext.getBean(VotingService.class);
         VotingRepository votingRepository = applicationContext.getBean(VotingRepository.class);
+        FavoriteTrackRepository favoriteTrackRepository = applicationContext.getBean(FavoriteTrackRepository.class);
 
         // USER ROLES CREATOR
         Role roleAdmin = new Role();
@@ -261,11 +264,16 @@ public class MuzikumApplication implements CommandLineRunner {
         Vote vote3 = Vote.builder().user(userAdmin).track(track03).build();
         votingRepository.saveAll(Arrays.asList(vote1, vote2, vote3));
 
+//
+//        User userGosia = User.builder().id(1).username("Gosia").email("djoskarro@interia.pl")
+//                .password(encoder.encode("123456")).roles(new HashSet<>(Collections.singletonList(roleUser))).build();
+//        userRepository.save(userGosia);
 
-        User userOskar = User.builder().id(1).username("Oski").email("djoskarro@interia.pl")
-                .password(encoder.encode("123456")).roles(new HashSet<>(Collections.singletonList(roleUser))).build();
-        userOskar.setFavoriteTrack(track01);
-        userRepository.saveAll(Arrays.asList(userAdmin, userJacek));
+        FavoriteTrack favoriteTrack001 = FavoriteTrack.builder().track(track01).user(userAdmin).build();
+        FavoriteTrack favoriteTrack002 = FavoriteTrack.builder().track(track02).user(userAdmin).build();
+        FavoriteTrack favoriteTrack003 = FavoriteTrack.builder().track(track03).user(userAdmin).build();
+        favoriteTrackRepository.saveAll(Arrays.asList(favoriteTrack001, favoriteTrack002, favoriteTrack003));
+
 
 
     }

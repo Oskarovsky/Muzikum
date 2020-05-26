@@ -24,6 +24,8 @@ export class ProviderDetailsComponent implements OnInit {
 
   favoriteTrack: Track;
 
+  favoriteTracksByUser:
+
   private roles: string[];
   isLoggedIn = false;
   showAdminBoard = false;

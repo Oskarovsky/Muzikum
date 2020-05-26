@@ -20,6 +20,8 @@ public interface FavoriteTrackRepository extends JpaRepository<FavoriteTrack, In
 
     List<FavoriteTrack> findFavoriteTracksByTrackId(Integer trackId);
 
+    List<FavoriteTrack> findFavoriteTracksByUserUsername(String username);
+
     Optional<FavoriteTrack> findFavoriteTrackByTrackIdAndUserUsername(Integer trackId, String username);
 
     void deleteById(Integer id);
