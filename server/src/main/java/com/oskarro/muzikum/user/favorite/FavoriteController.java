@@ -33,4 +33,17 @@ public class FavoriteController {
                 .orElseThrow(() -> new ResourceNotFoundException("Track", "id", x))));
         return tracks;
     }
+
+    @GetMapping(value = "/{username}/tracks/ids")
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
+    List<Integer> getAllFavoriteTracksIds(@PathVariable String username) {
+        List<FavoriteTrack> favoriteTracks = favoriteTrackRepository.findFavoriteTracksByUserUsername(username);
+        List<Track> tracks = new ArrayList<>();
+        favoriteTracks.forEach(x -> tracks.add(trackService.findById(x.getTrack().getId())
+                .orElseThrow(() -> new ResourceNotFoundException("Track", "id", x))));
+        List<Integer> tracksIds = new ArrayList<>();
+        tracks.forEach(x -> tracksIds.add(x.getId()));
+        return tracksIds;
+    }
+
 }

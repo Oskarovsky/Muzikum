@@ -6,6 +6,7 @@ import {Location} from "@angular/common";
 import {Subscription} from "rxjs";
 import {TokenStorageService} from '../../services/auth/token-storage.service';
 import { Track } from 'src/app/tracks/track/model/track';
+import {FavoriteService} from '../../services/favorite/favorite.service';
 
 @Component({
   selector: 'app-provider-details',
@@ -24,7 +25,9 @@ export class ProviderDetailsComponent implements OnInit {
 
   favoriteTrack: Track;
 
-  favoriteTracksByUser:
+  favoriteTracksByUser: Array<Track>;
+
+  favoriteTracksIds: Array<number>;
 
   private roles: string[];
   isLoggedIn = false;
@@ -34,6 +37,7 @@ export class ProviderDetailsComponent implements OnInit {
 
   constructor(private providerService: ProviderService,
               private trackService: TrackService,
+              private favoriteService: FavoriteService,
               private route: ActivatedRoute,
               private location: Location,
               private router: Router,
@@ -51,6 +55,7 @@ export class ProviderDetailsComponent implements OnInit {
       this.showModeratorBoard = this.roles.includes('ROLE_MODERATOR');
 
       this.username = user.username;
+      this.getAllFavoritesTracksIdsByUser(this.username);
     }
 
     this.sub = this.route.params.subscribe(params => {
@@ -80,4 +85,17 @@ export class ProviderDetailsComponent implements OnInit {
       this.favoriteTrack = data;
     });
   }
+
+  getAllFavoritesTracksByUser(username: string) {
+    this.favoriteService.getAllFavoritesTracksByUsername(username).subscribe((track: any) => {
+      this.favoriteTracksByUser = track;
+    });
+  }
+
+  getAllFavoritesTracksIdsByUser(username: string) {
+    this.favoriteService.getAllFavoritesTracksIdsByUsername(username).subscribe((id: any) => {
+      this.favoriteTracksIds = id;
+    });
+  }
+
 }
