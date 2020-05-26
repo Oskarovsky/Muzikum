@@ -1,5 +1,7 @@
 package com.oskarro.muzikum.track;
 
+import com.oskarro.muzikum.user.favorite.FavoriteService;
+import com.oskarro.muzikum.user.favorite.FavoriteTrackRepository;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,10 +16,15 @@ public class TrackController {
 
     private final TrackService trackService;
     private final TrackRepository trackRepository;
+    private final FavoriteTrackRepository favoriteTrackRepository;
+    private final FavoriteService favoriteService;
 
-    public TrackController(TrackService trackService, TrackRepository trackRepository) {
+    public TrackController(TrackService trackService, TrackRepository trackRepository,
+                           FavoriteTrackRepository favoriteTrackRepository, FavoriteService favoriteService) {
         this.trackService = trackService;
         this.trackRepository = trackRepository;
+        this.favoriteTrackRepository = favoriteTrackRepository;
+        this.favoriteService = favoriteService;
     }
 
     @GetMapping(value = "/findAll")
@@ -76,7 +83,7 @@ public class TrackController {
     @GetMapping(value = "/{id}/addToFavorites/{username}")
     @CrossOrigin(origins = "*", allowedHeaders = "*")
     public void addTrackToFavorites(@PathVariable Integer id, @PathVariable String username) {
-        trackService.addTrackToFavorite(id, username);
+        favoriteService.addTrackToFavorite(id, username);
     }
 
 }
