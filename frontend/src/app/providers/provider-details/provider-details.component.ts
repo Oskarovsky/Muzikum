@@ -1,9 +1,9 @@
 import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute, Router} from "@angular/router";
-import {ProviderService} from "../../services/provider/provider.service";
-import {TrackService} from "../../services/track/track.service";
-import {Location} from "@angular/common";
-import {Subscription} from "rxjs";
+import {ActivatedRoute, Router} from '@angular/router';
+import {ProviderService} from '../../services/provider/provider.service';
+import {TrackService} from '../../services/track/track.service';
+import {Location} from '@angular/common';
+import {Subscription} from 'rxjs';
 import {TokenStorageService} from '../../services/auth/token-storage.service';
 import { Track } from 'src/app/tracks/track/model/track';
 import {FavoriteService} from '../../services/favorite/favorite.service';
@@ -25,9 +25,11 @@ export class ProviderDetailsComponent implements OnInit {
 
   favoriteTrack: Track;
 
-  favoriteTracksByUser: Array<Track>;
+  favoriteTracksByUser: Track[] = [];
 
-  favoriteTracksIds: Array<number>;
+  favoriteTracksIds: number[] = [];
+
+  clicked  = [];
 
   private roles: string[];
   isLoggedIn = false;
@@ -55,7 +57,7 @@ export class ProviderDetailsComponent implements OnInit {
       this.showModeratorBoard = this.roles.includes('ROLE_MODERATOR');
 
       this.username = user.username;
-      this.getAllFavoritesTracksIdsByUser(this.username);
+      this.getAllFavoritesTracksIdsByUser(user.username);
     }
 
     this.sub = this.route.params.subscribe(params => {
@@ -71,6 +73,10 @@ export class ProviderDetailsComponent implements OnInit {
           this.tracks = track;
         });
       }
+    });
+
+    this.tracks.forEach(() => {
+      this.clicked.push(false);
     });
   }
 

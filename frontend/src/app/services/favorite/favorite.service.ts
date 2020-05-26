@@ -13,10 +13,10 @@ export class FavoriteService {
   constructor(private http: HttpClient) { }
 
   getAllFavoritesTracksByUsername(username: string): Observable<any> {
-    return this.http.get<Track>(FAVORITES_API + '/' + username + '/tracks');
+    return this.http.get<Track[]>(FAVORITES_API + '/' + username + '/tracks');
   }
 
   getAllFavoritesTracksIdsByUsername(username: string): Observable<any> {
-    return this.http.get<Track>(FAVORITES_API + '/' + username + '/tracks/ids');
+    return this.http.get<number[]>(FAVORITES_API + '/' + username + '/tracks/ids');
   }
 }

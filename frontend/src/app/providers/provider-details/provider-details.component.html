@@ -1,5 +1,6 @@
 <div class="example-container">
 <h3>Najlepsze utwory według serwisu: {{provider.name}}</h3>
+  <h4>{{favoriteTracksIds.length}}</h4>
 <mat-tab-group animationDuration="0ms">
   <mat-tab label="{{genre.toString()}}" *ngFor="let genre of genres" [routerLink]="['/provider/', provider.id, 'tracks', genre.toString()]">
 
@@ -22,16 +23,23 @@
         <td *ngIf="track.genre===genre">{{ track.title }}</td>
         <td *ngIf="track.genre===genre">{{ track.artist }}</td>
         <td *ngIf="track.genre===genre">{{ track.version }}</td>
-        <td *ngIf="track.genre===genre && isLoggedIn && favoriteTracksIds.includes(track)" style="text-align: center">
-          <button mat-raised-button
+        <td *ngIf="track.genre===genre && isLoggedIn" style="text-align: center">
+          Lubię to!
+        </td>
+        <td *ngIf="track.genre===genre && isLoggedIn"  style="text-align: center">
+          <button mat-raised-button *ngIf="!favoriteTracksIds.toString().includes(track.id.toString())"
+                  (click)="addTrackToFavorites(track.id, username); clicked[i] = true;"
+                  [disabled]="clicked[i]"
+                  type="button"
+                  color="primary"
+                  style="margin-left: 10px;">Dodaj
+          </button>
+          <button mat-raised-button disabled *ngIf="favoriteTracksIds.toString().includes(track.id.toString())"
                   (click)="addTrackToFavorites(track.id, username)"
                   type="button"
                   color="primary"
-                  style="margin-left: 10px;">Lubię to!
+                  style="margin-left: 10px;">Dodany
           </button>
-        </td>
-        <td *ngIf="track.genre===genre && isLoggedIn"  style="text-align: center">
-          Dodaj
         </td>
         <td *ngIf="track.genre===genre && !isLoggedIn"  style="text-align: center">
           <p>Zaloguj się !</p>

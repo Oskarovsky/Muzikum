@@ -34,16 +34,16 @@ export class TrackListComponent implements OnInit {
       } else if (id && genre) {
         this.trackService.getTracksFromProviderByGenre(id, genre).subscribe((track: any) => {
           this.tracks = track;
-        })
+        });
       } else if (!id && genre) {
         this.trackService.getTracksByGenre(genre).subscribe((track: any) => {
           this.tracks = track;
-        })
+        });
       } else if (providerName && !id && !genre) {
         this.trackService.getTracksByProviderName(providerName).subscribe((track: any) => {
           this.tracks = track;
-        })
+        });
       }
-    })
+    });
   }
 }
