@@ -274,6 +274,20 @@ public class MuzikumApplication implements CommandLineRunner {
         FavoriteTrack favoriteTrack003 = FavoriteTrack.builder().track(track03).user(userAdmin).build();
         favoriteTrackRepository.saveAll(Arrays.asList(favoriteTrack001, favoriteTrack002, favoriteTrack003));
 
+        Track popularTrackRetro = Track.builder().artist("Scooter").title("Maria (I like it loud)").version("Original Mix")
+                .genre(Genre.RETRO.toString()).points(2).build();
+        Track popularTrackClub = Track.builder().artist("Oskarro").title("Vixologia").version("Extended Mix")
+                .genre(Genre.CLUB.toString()).points(4).build();
+        Track popularTrackDance = Track.builder().artist("Danya").title("My Love").version("Ozi Remix")
+                .genre(Genre.DANCE.toString()).points(3).build();
+        Track popularTrackTechno = Track.builder().artist("Bumps").title("O shit!").version("Original Mix")
+                .genre(Genre.TECHNO.toString()).points(2).build();
+        Track popularTrackHouse = Track.builder().artist("Calian").title("Summer ending").version("Radio Mix")
+                .genre(Genre.HOUSE.toString()).points(5).build();
+
+        trackRepository.saveAll(Arrays.asList(popularTrackClub, popularTrackDance, popularTrackHouse,
+                popularTrackRetro, popularTrackTechno));
+
 
 
     }
