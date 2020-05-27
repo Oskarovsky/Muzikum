@@ -28,10 +28,10 @@ export class SidebarLeftComponent implements OnInit {
               private route: ActivatedRoute) { }
 
   ngOnInit() {
+    this.getLastAddedPlaylists('5');
+    this.getLastAddedUsers('5');
+    this.getRandomTrack();
     if (this.tokenStorage.getToken()) {
-      this.getLastAddedPlaylists('5');
-      this.getLastAddedUsers('5');
-      this.getRandomTrack();
     }
   }
 
