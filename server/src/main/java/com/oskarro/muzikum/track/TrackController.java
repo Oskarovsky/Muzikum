@@ -86,4 +86,10 @@ public class TrackController {
         favoriteService.addTrackToFavorite(id, username);
     }
 
+    @GetMapping(value = "/genre/{genre}/top")
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
+    public Track getMostPopularTrackByGenre(@PathVariable String genre) {
+        return trackService.getMostPopularTrackByGenre(genre);
+    }
+
 }

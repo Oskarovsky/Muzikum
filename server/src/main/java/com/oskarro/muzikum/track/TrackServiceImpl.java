@@ -12,9 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.BindingResult;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 @Transactional
@@ -98,6 +96,17 @@ public class TrackServiceImpl implements TrackService {
         user.setFavoriteTrack(track);
         userRepository.save(user);
         trackRepository.save(track);
+    }
+
+    @Override
+    public Track getMostPopularTrackByGenre(String genre) {
+        List<Track> allTracksByGenre = findTracksByGenre(genre);
+        return allTracksByGenre
+                .stream()
+                .filter(track -> track.getPoints() != null)
+                .max(Comparator.comparing(Track::getPoints))
+                .orElseThrow(NoSuchElementException::new);
+
     }
 
 

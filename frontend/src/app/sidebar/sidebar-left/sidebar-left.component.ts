@@ -20,6 +20,11 @@ export class SidebarLeftComponent implements OnInit {
   playlists: Playlist[] = [];
   sub: Subscription;
   randomTrack: Track;
+  popularTrackRetro: Track;
+  popularTrackClub: Track;
+  popularTrackDance: Track;
+  popularTrackHouse: Track;
+  popularTrackTechno: Track;
 
   constructor(private playlistService: PlaylistService,
               private trackService: TrackService,
@@ -31,6 +36,9 @@ export class SidebarLeftComponent implements OnInit {
     this.getLastAddedPlaylists('5');
     this.getLastAddedUsers('5');
     this.getRandomTrack();
+    this.getMostPopularTrackByGenre('RETRO', 'RETRO');
+    this.getMostPopularTrackByGenre('CLUB', 'CLUB');
+    this.getMostPopularTrackByGenre('DANCE', 'DANCE');
     if (this.tokenStorage.getToken()) {
     }
   }
@@ -64,6 +72,27 @@ export class SidebarLeftComponent implements OnInit {
       },
       error => {
         alert('An error with fetching random track has occurred');
+      }
+    );
+  }
+
+  public getMostPopularTrackByGenre(genre: string, option: string) {
+    this.trackService.getMostPopularTrackByGenre(genre).subscribe(
+      response => {
+        if (option === 'RETRO') {
+          this.popularTrackRetro = response;
+        } else if (option === 'CLUB') {
+          this.popularTrackClub = response;
+        } else if (option === 'DANCE') {
+          this.popularTrackDance = response;
+        } else if (option === 'HOUSE') {
+          this.popularTrackHouse = response;
+        } else if (option === 'TECHNO') {
+          this.popularTrackTechno = response;
+        }
+      },
+      error => {
+        alert('An error with fetching the most popular track by genre: ' + genre);
       }
     );
   }

@@ -28,4 +28,6 @@ public interface TrackService {
     Track getRandomTrack();
 
     void addTrackToFavorite(Integer trackId, String username);
+
+    Track getMostPopularTrackByGenre(String genre);
 }

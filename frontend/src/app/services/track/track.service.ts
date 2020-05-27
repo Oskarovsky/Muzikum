@@ -62,4 +62,8 @@ export class TrackService {
     return this.http.get<any>(TRACK_API + '/' + id + '/addToFavorites/' + username);
   }
 
+  getMostPopularTrackByGenre(genre: string): Observable<Track> {
+    return this.http.get<Track>(TRACK_API + '/genre/' + genre + '/top');
+  }
+
 }
