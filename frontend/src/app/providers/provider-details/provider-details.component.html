@@ -13,7 +13,7 @@
         <th scope="col">Artysta</th>
         <th scope="col">Tytuł</th>
         <th scope="col">Wersja</th>
-        <th scope="col" style="text-align: center">Zagłosuj</th>
+        <th *ngIf="isLoggedIn" scope="col" style="text-align: center">Zagłosuj</th>
         <th scope="col" style="text-align: center">Dodaj do ulubionych</th>
       </tr>
       </thead>
@@ -42,7 +42,7 @@
           </button>
         </td>
         <td *ngIf="track.genre===genre && !isLoggedIn"  style="text-align: center">
-          <p>Zaloguj się !</p>
+          <p><a [routerLink]="['/login']">Zaloguj się !</a></p>
         </td>
       </tr>
       </tbody>
