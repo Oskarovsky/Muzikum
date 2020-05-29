@@ -9,20 +9,20 @@
     <table class="table table-striped">
       <thead>
       <tr>
-        <th scope="col">#</th>
-        <th scope="col">Artysta</th>
-        <th scope="col">Tytuł</th>
-        <th scope="col">Wersja</th>
+        <th scope="col" style="text-align: center">#</th>
+        <th scope="col" style="text-align: center">Artysta</th>
+        <th scope="col" style="text-align: center">Tytuł</th>
+        <th scope="col" style="text-align: center">Wersja</th>
         <th *ngIf="isLoggedIn" scope="col" style="text-align: center">Zagłosuj</th>
         <th scope="col" style="text-align: center">Dodaj do ulubionych</th>
       </tr>
       </thead>
       <tbody>
       <tr *ngFor="let track of tracks | slice:0:10; let i=index; index as i">
-        <th *ngIf="track.genre===genre" scope="row">{{ track.position }}</th>
-        <td *ngIf="track.genre===genre">{{ track.title }}</td>
-        <td *ngIf="track.genre===genre">{{ track.artist }}</td>
-        <td *ngIf="track.genre===genre">{{ track.version }}</td>
+        <th *ngIf="track.genre===genre" scope="row" style="text-align: center">{{ track.position }}</th>
+        <td *ngIf="track.genre===genre" style="text-align: center">{{ track.title }}</td>
+        <td *ngIf="track.genre===genre" style="text-align: center">{{ track.artist }}</td>
+        <td *ngIf="track.genre===genre" style="text-align: center">{{ track.version }}</td>
         <td *ngIf="track.genre===genre && isLoggedIn" style="text-align: center">
           Lubię to!
         </td>
@@ -42,7 +42,7 @@
           </button>
         </td>
         <td *ngIf="track.genre===genre && !isLoggedIn"  style="text-align: center">
-          <p><a [routerLink]="['/login']">Zaloguj się !</a></p>
+          <button mat-stroked-button [routerLink]="['/login']">Zaloguj się !</button>
         </td>
       </tr>
       </tbody>

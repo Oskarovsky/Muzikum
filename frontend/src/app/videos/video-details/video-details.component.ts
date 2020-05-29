@@ -7,6 +7,7 @@ import {TrackService} from '../../services/track/track.service';
 import {Subscription} from 'rxjs';
 import {ActivatedRoute} from '@angular/router';
 import {Playlist} from '../../playlists/playlist/model/playlist';
+import {TokenStorageService} from '../../services/auth/token-storage.service';
 
 @Component({
   selector: 'app-video-details',
@@ -19,13 +20,24 @@ export class VideoDetailsComponent implements OnInit {
   playlist: Playlist;
   tracks: Track[];
   sub: Subscription;
+  showAdminBoard = false;
+  private roles: string[];
+  isLoggedIn = false;
+
+
 
   constructor(private videoService: VideoService,
+              private tokenStorage: TokenStorageService,
               private trackService: TrackService,
               private route: ActivatedRoute,
               private sanitizer: DomSanitizer) {}
 
   ngOnInit() {
+    if (this.tokenStorage.getToken()) {
+      this.isLoggedIn = true;
+      this.roles = this.tokenStorage.getUser().roles;
+      this.showAdminBoard = this.roles.includes('ROLE_ADMIN');
+    }
     this.getVideoById();
     this.getAllTracksFromVideo();
   }

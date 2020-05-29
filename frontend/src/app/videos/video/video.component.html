@@ -25,7 +25,8 @@
         <iframe width="640" height="360"
                 [src]=video.safeUrl>
         </iframe> <br/>
-        <button *ngIf="isLoggedIn" mat-flat-button color="primary" routerLink="../../{{video.id}}/details">Pokaż tracklistę / Sprawdź szczegóły</button>
+        <button *ngIf="isLoggedIn" mat-flat-button color="primary" [routerLink]="['/video', video.id, 'details']">Pokaż tracklistę / Sprawdź szczegóły</button>
+        <button *ngIf="!isLoggedIn" mat-stroked-button color="primary" [routerLink]="['/login']">Zaloguj się, aby zobaczyć tracklistę!</button>
       </ng-template>
     </mat-expansion-panel>
   </mat-accordion>

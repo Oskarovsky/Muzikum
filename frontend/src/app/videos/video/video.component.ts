@@ -7,6 +7,7 @@ import {Subscription} from 'rxjs';
 import {ActivatedRoute} from '@angular/router';
 import {NavigationComponent} from '../../navigation/navigation.component';
 import {PlaylistService} from '../../services/playlist/playlist.service';
+import {TokenStorageService} from '../../services/auth/token-storage.service';
 
 @Component({
   selector: 'app-video',
@@ -24,11 +25,15 @@ export class VideoComponent implements OnInit {
   isLoggedIn = false;
 
   constructor(private videoService: VideoService,
+              private tokenStorage: TokenStorageService,
               private playlistService: PlaylistService,
               private sanitizer: DomSanitizer,
               private route: ActivatedRoute) {}
 
   ngOnInit() {
+    if (this.tokenStorage.getToken()) {
+      this.isLoggedIn = true;
+    }
     this.getVideosByCategory();
   }
 
