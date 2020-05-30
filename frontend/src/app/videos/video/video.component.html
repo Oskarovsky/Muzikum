@@ -15,9 +15,10 @@
   </div>
 
   <mat-accordion>
-    <mat-expansion-panel *ngFor="let video of videos | videoFilter:searchText" style="text-align: center">
+    <mat-expansion-panel *ngFor="let video of videos | videoFilter:searchText"
+                         style="text-align: center; background-color: #610061">
       <mat-expansion-panel-header>
-        <mat-panel-title>
+        <mat-panel-title style="color: white">
           {{ video.name }}
         </mat-panel-title>
       </mat-expansion-panel-header>

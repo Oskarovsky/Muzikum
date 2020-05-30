@@ -33,6 +33,15 @@ body {
   color: #ffffff;
 }
 
+.mat-flat-button.mat-primary {
+  background: #610061;
+  color: #ffffff;
+}
+.mat-stroked-button.mat-primary {
+  background: #610061;
+  color: #ffffff;
+}
+
 
 .example-icon {
   padding: 0 14px;

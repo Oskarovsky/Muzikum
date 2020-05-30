@@ -4,7 +4,7 @@
     <div class="panel-heading" style="background-color: #610061">
       <h3 class="panel-title" style="color: white" >Polecany utwór</h3>
     </div>
-    <div class="panel-body text-center">
+    <div class="panel-body text-center" style="color: #d4d4d4; background-color: #181818">
       <h3>{{randomTrack.title}}</h3>
       <h4>{{randomTrack.artist}}</h4>
       <h5>({{randomTrack.version}})</h5>
@@ -15,49 +15,51 @@
 
   <div class="panel panel-default">
     <div class="panel-heading" style="background-color: #610061">
-      <h3 class="panel-title" style="color: white">TOP 5</h3>
+      <h3 class="panel-title" style="color: white;">TOP 5</h3>
     </div>
-    <table class="table table-bordered table-striped">
+    <table class="table table-bordered" style="color: #d4d4d4; background-color: #181818">
       <tbody>
       <tr>
-        <td>Retro</td>
-        <td>{{popularTrackRetro.title}}</td>
+        <td style="text-align: center">RETRO</td>
+        <td style="text-align: center">{{popularTrackRetro.title}}</td>
       </tr>
       <tr>
-        <td>Club</td>
-        <td>{{popularTrackClub.title}}</td>
+        <td style="text-align: center">CLUB</td>
+        <td style="text-align: center">{{popularTrackClub.title}}</td>
       </tr>
       <tr>
-        <td>Dance</td>
-        <td>{{popularTrackDance.title}}</td>
+        <td style="text-align: center">DANCE</td>
+        <td style="text-align: center">{{popularTrackDance.title}}</td>
       </tr>
       <tr>
-        <td>House</td>
-        <td>xxx</td>
+        <td style="text-align: center">HOUSE</td>
+        <td style="text-align: center">{{popularTrackHouse.title}}</td>
       </tr>
       <tr>
-        <td>Techno</td>
-        <td>xxx</td>
+        <td style="text-align: center">TECHNO</td>
+        <td style="text-align: center">{{popularTrackTechno.title}}</td>
       </tr>
       </tbody>
     </table>
   </div>
 
-  <div class="panel panel-default">
+  <div class="panel panel-default" style="background-color: #181818">
     <div class="panel-heading" style="background-color: #610061; margin-bottom: 5px">
       <h3 class="panel-title" style="color: white">Najnowsze składanki</h3>
     </div>
-    <div *ngFor="let playlist of playlists" class="bg-grey text-center">
-      <p class="panel-playlists" routerLink="playlist/{{playlist.id}}/details">{{ playlist.user.username }} - {{ playlist.name }}</p>
+    <div *ngFor="let playlist of playlists" class="text-center" style="color: #d4d4d4; background-color: #181818">
+      <p class="panel-playlists" routerLink="playlist/{{playlist.id}}/details" style="color: white;">
+        {{ playlist.user.username }} - {{ playlist.name }}
+      </p>
     </div>
   </div>
 
-  <div class="panel panel-default">
+  <div class="panel panel-default" style="background-color: #181818">
     <div class="panel-heading" style="background-color: #610061; margin-bottom: 5px">
       <h3 class="panel-title" style="color: white">Ostatnio dołączyli</h3>
     </div>
-    <div *ngFor="let user of users" class="bg-grey text-center">
-      <p class="panel-playlists">{{ user.username }}</p>
+    <div *ngFor="let user of users" class="text-center" style="color: #d4d4d4; background-color: #181818">
+      <p class="panel-playlists" style="color: white;">{{ user.username }}</p>
     </div>
   </div>
 
