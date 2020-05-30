@@ -23,6 +23,7 @@ export class VideoComponent implements OnInit {
   sub: Subscription;
   videoCategory: string;
   isLoggedIn = false;
+  showAdminBoard = false;
 
   constructor(private videoService: VideoService,
               private tokenStorage: TokenStorageService,
@@ -33,6 +34,7 @@ export class VideoComponent implements OnInit {
   ngOnInit() {
     if (this.tokenStorage.getToken()) {
       this.isLoggedIn = true;
+      this.showAdminBoard = this.tokenStorage.getUser().roles.includes('ROLE_ADMIN');
     }
     this.getVideosByCategory();
   }
