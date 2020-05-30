@@ -7,12 +7,14 @@
 
     <!-- Post list content -->
   <div style="margin-bottom: 20px">
-    <div style="text-align: center; font-size: 30px;">Ważne informacje</div>
-    <div *ngFor="let post of posts | slice:0:5; let i=index; index as i" class="bg-grey card">
+
+    <div *ngFor="let post of posts | slice:0:5; let i=index; index as i"
+         class="card" style="background-color: #f5eeff">
       <h4 style="text-align: center">{{post.title}}</h4>
       <div [innerHTML]="post.description"></div>
       <button type="submit" [routerLink]="['post', post.id, 'details']">Przeczytaj całość</button>
       <hr style="width:70%">
     </div>
+
   </div>
 </div>

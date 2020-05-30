@@ -1,7 +1,14 @@
 <div class="example-container" style="margin-top: 20px">
 
+  <div class="d-flex align-items-center p-3 my-3 text-white-50 rounded shadow-sm" style="background-color: purple">
+    <img class="mr-3" src="../../../assets/img/logo_oskarro.png" alt="" width="48" height="48">
+    <div class="lh-100">
+      <h4 class="mb-0 text-white lh-100">{{video.name}}</h4>
+      <small>Oskarro.com</small>
+    </div>
+  </div>
+
   <div style="text-align:center">
-    <h3>{{video.name}}</h3>
     <iframe width="640" height="360" [src]=video.safeUrl></iframe>
   </div>
   <br/>
@@ -13,6 +20,7 @@
       </div>
     </div>
   </div>
+
 
   <!-- Track list -->
   <table *ngIf="isLoggedIn" class="table table-striped">

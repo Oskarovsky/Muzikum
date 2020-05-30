@@ -1,11 +1,9 @@
-<mat-toolbar color="primary">
+<mat-toolbar color="primary" style="border-bottom:3px solid purple;" >
   <img src="../../assets/img/logo_oskarro.png" height="40" width="40" style="margin-right: 20px">
   <span>{{title}}</span>
   <span class="example-spacer"></span>
   <mat-icon class="example-icon" aria-hidden="false" aria-label="Example user verified icon">headset</mat-icon>
   <button mat-button routerLink="/admin/panel" *ngIf="showAdminBoard">Admin</button>
-<!--  <button mat-button routerLink="/mod" *ngIf="showModeratorBoard">Moderator</button>-->
-<!--  <button mat-button routerLink="/user" *ngIf="isLoggedIn">User</button>-->
 
   <button mat-button routerLink="/register" *ngIf="!isLoggedIn">Zarejestruj się</button>
   <button mat-button routerLink="/login" *ngIf="!isLoggedIn">Zaloguj się</button>
@@ -15,9 +13,9 @@
 </mat-toolbar>
 
 <div class="row" style="width: 100%; align-content: center; display: inline-block; text-align: center; margin-bottom: 40px">
-    <button mat-button routerLink="/">Strona główna</button>
+    <button mat-button routerLink="/" style="color: white">Strona główna</button>
 
-    <button mat-button [matMenuTriggerFor]="genreMenu">Gatunki</button>
+    <button mat-button [matMenuTriggerFor]="genreMenu" style="color: white">Gatunki</button>
     <mat-menu #genreMenu="matMenu" yPosition="below">
       <button mat-menu-item routerLink="/tracklist/club">Club</button>
       <button mat-menu-item routerLink="/tracklist/dance">Dance</button>
@@ -25,7 +23,7 @@
       <button mat-menu-item routerLink="/tracklist/retro">Retro</button>
     </mat-menu>
 
-    <button mat-button [matMenuTriggerFor]="providerMenu">Serwisy</button>
+    <button mat-button [matMenuTriggerFor]="providerMenu" style="color: white">Serwisy</button>
     <mat-menu #providerMenu="matMenu" xPosition="after">
       <button mat-menu-item routerLink="/provider/1/details">Nuteczki</button>
       <button mat-menu-item routerLink="/provider/2/details">Radioparty</button>
@@ -33,13 +31,13 @@
       <button mat-menu-item routerLink="/provider/8/details">Apple</button>
     </mat-menu>
 
-    <button mat-button [matMenuTriggerFor]="topMenu">Top ranking</button>
+    <button mat-button [matMenuTriggerFor]="topMenu" style="color: white">Top ranking</button>
     <mat-menu #topMenu="matMenu" xPosition="after">
       <button mat-menu-item>Club</button>
       <button mat-menu-item>Retro</button>
     </mat-menu>
 
-    <button mat-button [matMenuTriggerFor]="videoMenu">Video</button>
+    <button mat-button [matMenuTriggerFor]="videoMenu" style="color: white">Video</button>
     <mat-menu #videoMenu="matMenu" xPosition="after">
       <button mat-menu-item routerLink="/video/category/MIX">Mixy</button>
       <button mat-menu-item routerLink="/video/category/LUNA_MIX">Luna Mix</button>
@@ -47,7 +45,7 @@
       <button mat-menu-item routerLink="/video/category/RETRO">Retro</button>
     </mat-menu>
 
-    <button mat-button [matMenuTriggerFor]="playlistMenu">Playlist</button>
+    <button mat-button [matMenuTriggerFor]="playlistMenu" style="color: white">Playlist</button>
     <mat-menu #playlistMenu="matMenu" xPosition="after">
       <button mat-menu-item routerLink="/playlist/all">Playlisty użytkowników</button>
       <button mat-menu-item *ngIf="isLoggedIn" routerLink="/playlist/all/{{username}}">Moje składanki</button>

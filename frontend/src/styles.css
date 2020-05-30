@@ -29,9 +29,10 @@ body {
 }
 
 .mat-toolbar.mat-primary {
-  background: #333300;
-  color: #fff;
+  background: #000000;
+  color: #ffffff;
 }
+
 
 .example-icon {
   padding: 0 14px;
@@ -46,4 +47,7 @@ body {
   margin-right: 8px;
 }
 
+.both-sidebar {
+  background-color: purple
+}
 

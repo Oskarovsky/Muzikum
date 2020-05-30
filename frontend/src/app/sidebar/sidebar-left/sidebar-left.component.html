@@ -1,10 +1,10 @@
 <div>
   <h3 style="text-align: center">SIDEBAR LEFT</h3>
   <div class="panel panel-default">
-    <div class="panel-heading">
-      <h3 class="panel-title">Polecany utwór</h3>
+    <div class="panel-heading" style="background-color: #610061">
+      <h3 class="panel-title" style="color: white" >Polecany utwór</h3>
     </div>
-    <div class="panel-body bg-grey text-center">
+    <div class="panel-body text-center">
       <h3>{{randomTrack.title}}</h3>
       <h4>{{randomTrack.artist}}</h4>
       <h5>({{randomTrack.version}})</h5>
@@ -14,8 +14,8 @@
   </div>
 
   <div class="panel panel-default">
-    <div class="panel-heading">
-      <h3 class="panel-title">TOP 5</h3>
+    <div class="panel-heading" style="background-color: #610061">
+      <h3 class="panel-title" style="color: white">TOP 5</h3>
     </div>
     <table class="table table-bordered table-striped">
       <tbody>
@@ -44,8 +44,8 @@
   </div>
 
   <div class="panel panel-default">
-    <div class="panel-heading" style="margin-bottom: 5px">
-      <h3 class="panel-title">Najnowsze składanki</h3>
+    <div class="panel-heading" style="background-color: #610061; margin-bottom: 5px">
+      <h3 class="panel-title" style="color: white">Najnowsze składanki</h3>
     </div>
     <div *ngFor="let playlist of playlists" class="bg-grey text-center">
       <p class="panel-playlists" routerLink="playlist/{{playlist.id}}/details">{{ playlist.user.username }} - {{ playlist.name }}</p>
@@ -53,8 +53,8 @@
   </div>
 
   <div class="panel panel-default">
-    <div class="panel-heading" style="margin-bottom: 5px">
-      <h3 class="panel-title">Ostatnio dołączyli</h3>
+    <div class="panel-heading" style="background-color: #610061; margin-bottom: 5px">
+      <h3 class="panel-title" style="color: white">Ostatnio dołączyli</h3>
     </div>
     <div *ngFor="let user of users" class="bg-grey text-center">
       <p class="panel-playlists">{{ user.username }}</p>

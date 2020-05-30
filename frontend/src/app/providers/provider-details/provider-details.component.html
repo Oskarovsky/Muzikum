@@ -1,6 +1,13 @@
 <div class="example-container">
-<h3>Najlepsze utwory według serwisu: {{provider.name}}</h3>
-  <h4>{{favoriteTracksIds.length}}</h4>
+
+<div class="d-flex align-items-center p-3 my-3 text-white-50" style="background-color: purple">
+  <img class="mr-3" src="../../../assets/img/logo_oskarro.png" alt="" width="48" height="48">
+  <div class="lh-100">
+    <h4 class="mb-0 text-white lh-100">Najlepsze utowry z serwisu {{provider.name}}</h4>
+    <small>Oskarro.com</small>
+  </div>
+</div>
+
 <mat-tab-group animationDuration="0ms">
   <mat-tab label="{{genre.toString()}}" *ngFor="let genre of genres" [routerLink]="['/provider/', provider.id, 'tracks', genre.toString()]">
 
