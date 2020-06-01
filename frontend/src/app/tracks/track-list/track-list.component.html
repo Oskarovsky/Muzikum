@@ -1,14 +1,24 @@
 <div class="example-container">
-<mat-card>
-  <mat-card-title>Muzikum</mat-card-title>
+<mat-card style="background-color: rgba(0,0,0,0.8); color: white">
+  <mat-card-title>The best track by genre</mat-card-title>
   <mat-card-content>
-    <mat-list>
-      <mat-list-item *ngFor="let track of tracks">
+    <mat-list *ngIf="!isLoggedIn">
+      <mat-list-item *ngFor="let track of tracks | slice:0:5; let i=index; index as i" style="color: white">
         <h3 mat-line>{{track.title}}</h3>
         <h2 mat-line>{{track.version}}</h2>
         <h2 mat-line>{{track.artist}}</h2>
       </mat-list-item>
     </mat-list>
+    <mat-list *ngIf="isLoggedIn">
+      <mat-list-item *ngFor="let track of tracks | slice:0:10; let i=index; index as i" style="color: white">
+          <h3 mat-line>{{track.title}}</h3>
+          <h2 mat-line>{{track.version}}</h2>
+          <h2 mat-line>{{track.artist}}</h2>
+      </mat-list-item>
+    </mat-list>
   </mat-card-content>
 </mat-card>
+  <div *ngIf="!isLoggedIn"  class="alert alert-warning" role="alert">
+    <a routerLink="/login">Zaloguj się</a>, jeśli chcesz zobaczyć więcej utworów!
+  </div>
 </div>

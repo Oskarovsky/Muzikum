@@ -4,6 +4,7 @@ import com.oskarro.muzikum.playlist.Playlist;
 import com.oskarro.muzikum.provider.Provider;
 import com.oskarro.muzikum.record.Record;
 import com.oskarro.muzikum.user.User;
+import com.oskarro.muzikum.utils.DateAudit;
 import com.oskarro.muzikum.video.Video;
 import lombok.*;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
@@ -19,7 +20,7 @@ import java.util.Set;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class Track {
+public class Track extends DateAudit {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

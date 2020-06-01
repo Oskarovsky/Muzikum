@@ -37,4 +37,6 @@ public interface TrackRepository extends CrudRepository<Track, Integer> {
     long count();
 
     Page<Track> findAll(Pageable pageable);
+
+    List<Track> findByGenreOrderByCreatedAtDesc(String genre);
 }

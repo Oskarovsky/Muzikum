@@ -30,4 +30,6 @@ public interface TrackService {
     void addTrackToFavorite(Integer trackId, String username);
 
     Track getMostPopularTrackByGenre(String genre);
+
+    List<Track> getLastAddedTracksByGenre(String genre, Integer numberOfTracks);
 }

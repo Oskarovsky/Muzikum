@@ -1,18 +1,15 @@
 package com.oskarro.muzikum.track;
 
 import com.oskarro.muzikum.exception.ResourceNotFoundException;
-import com.oskarro.muzikum.playlist.Playlist;
-import com.oskarro.muzikum.playlist.PlaylistRepository;
 import com.oskarro.muzikum.user.User;
 import com.oskarro.muzikum.user.UserRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.validation.BindingResult;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -107,6 +104,16 @@ public class TrackServiceImpl implements TrackService {
                 .max(Comparator.comparing(Track::getPoints))
                 .orElseThrow(NoSuchElementException::new);
 
+    }
+
+    @Override
+    public List<Track> getLastAddedTracksByGenre(String genre, Integer numberOfTracks) {
+        List<Track> fetchedTracks = trackRepository.findByGenreOrderByCreatedAtDesc(genre.toUpperCase());
+        return fetchedTracks
+                .stream()
+                .limit(numberOfTracks)
+                .filter(Objects::nonNull)
+                .collect(Collectors.toList());
     }
 
 
