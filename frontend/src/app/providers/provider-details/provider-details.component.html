@@ -8,35 +8,34 @@
   </div>
 </div>
 
-<mat-tab-group animationDuration="0ms" style="background-color: rgba(19,19,19,0.73); color: white">
+<mat-tab-group color="accent" animationDuration="0ms">
   <mat-tab
     label="{{genre.toString()}}" *ngFor="let genre of genres"
-    style="background-color: #4b4b4b"
     [routerLink]="['/provider/', provider.id, 'tracks', genre.toString()]">
 
     <mat-card-content>
     <!-- Track list -->
-    <table class="table" style="background-color: #b6b6b6">
+    <table class="table" style="background-color: rgba(0,0,0,0.8); color: white; margin-top: 5px">
       <thead>
       <tr>
-        <th scope="col" style="text-align: center">#</th>
-        <th scope="col" style="text-align: center">Artysta</th>
-        <th scope="col" style="text-align: center">Tytuł</th>
-        <th scope="col" style="text-align: center">Wersja</th>
-        <th *ngIf="isLoggedIn" scope="col" style="text-align: center">Zagłosuj</th>
-        <th scope="col" style="text-align: center">Dodaj do ulubionych</th>
+        <th scope="col" style="text-align: center; font-size: 18px">#</th>
+        <th scope="col" style="text-align: center; font-size: 18px">Artysta</th>
+        <th scope="col" style="text-align: center; font-size: 18px">Tytuł</th>
+        <th scope="col" style="text-align: center; font-size: 18px">Wersja</th>
+        <th *ngIf="isLoggedIn" scope="col" style="text-align: center; font-size: 18px">Zagłosuj</th>
+        <th scope="col" style="text-align: center; font-size: 18px">Dodaj do ulubionych</th>
       </tr>
       </thead>
       <tbody>
       <tr *ngFor="let track of tracks | slice:0:10; let i=index; index as i">
-        <th *ngIf="track.genre===genre" scope="row" style="text-align: center">{{ track.position }}</th>
-        <td *ngIf="track.genre===genre" style="text-align: center">{{ track.title }}</td>
-        <td *ngIf="track.genre===genre" style="text-align: center">{{ track.artist }}</td>
-        <td *ngIf="track.genre===genre" style="text-align: center">{{ track.version }}</td>
-        <td *ngIf="track.genre===genre && isLoggedIn" style="text-align: center">
+        <th *ngIf="track.genre===genre" scope="row" style="text-align: center; vertical-align: middle;">{{ track.position }}</th>
+        <td *ngIf="track.genre===genre" style="text-align: center; vertical-align: middle;">{{ track.title }}</td>
+        <td *ngIf="track.genre===genre" style="text-align: center; vertical-align: middle;">{{ track.artist }}</td>
+        <td *ngIf="track.genre===genre" style="text-align: center; vertical-align: middle;">{{ track.version }}</td>
+        <td *ngIf="track.genre===genre && isLoggedIn" style="text-align: center; vertical-align: middle;">
           Lubię to!
         </td>
-        <td *ngIf="track.genre===genre && isLoggedIn"  style="text-align: center">
+        <td *ngIf="track.genre===genre && isLoggedIn"  style="text-align: center; vertical-align: middle;">
           <button mat-raised-button *ngIf="!favoriteTracksIds.toString().includes(track.id.toString())"
                   (click)="addTrackToFavorites(track.id, username); clicked[i] = true;"
                   [disabled]="clicked[i]"
@@ -51,7 +50,7 @@
                   style="margin-left: 10px;">Dodany
           </button>
         </td>
-        <td *ngIf="track.genre===genre && !isLoggedIn"  style="text-align: center">
+        <td *ngIf="track.genre===genre && !isLoggedIn"  style="text-align: center; vertical-align: middle;">
           <button mat-stroked-button [routerLink]="['/login']">Zaloguj się !</button>
         </td>
       </tr>

@@ -25,7 +25,8 @@
             ],
             "styles": [
               "./node_modules/@angular/material/prebuilt-themes/deeppurple-amber.css",
-              "src/styles.css"
+              "src/styles.css",
+              "src/sass/styles.scss"
             ],
             "scripts": [
               "src/assets/js/scripts.js"
@@ -185,5 +186,10 @@
       }
     }
   },
-  "defaultProject": "frontend"
+  "defaultProject": "frontend",
+  "schematics": {
+    "@schematics/angular:component": {
+      "styleext": "scss"
+    }
+  }
 }

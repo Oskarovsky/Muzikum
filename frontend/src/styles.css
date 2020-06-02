@@ -34,14 +34,24 @@ body {
 }
 
 .mat-flat-button.mat-primary {
-  background: #610061;
-  color: #ffffff;
-}
-.mat-stroked-button.mat-primary {
-  background: #610061;
+  background: purple;
   color: #ffffff;
 }
 
+.mat-stroked-button.mat-primary {
+  background: purple;
+  color: #ffffff;
+}
+
+.mat-tab-group.mat-accent {
+  background: purple;
+}
+
+.mat-divider{
+  border-top-width: 2px;
+  border-top-style: dashed;
+  border-top-color: rgba(219, 204, 204, 0.43);
+}
 
 .example-icon {
   padding: 0 14px;
@@ -59,4 +69,3 @@ body {
 .both-sidebar {
   background-color: purple
 }
-

@@ -11,7 +11,7 @@ import {FavoriteService} from '../../services/favorite/favorite.service';
 @Component({
   selector: 'app-provider-details',
   templateUrl: './provider-details.component.html',
-  styleUrls: ['./provider-details.component.css']
+  styleUrls: ['./provider-details.component.css'],
 })
 export class ProviderDetailsComponent implements OnInit {
 
