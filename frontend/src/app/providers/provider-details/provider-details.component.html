@@ -41,13 +41,16 @@
                   [disabled]="clicked[i]"
                   type="button"
                   color="primary"
-                  style="margin-left: 10px;">Dodaj
+                  class="btn btn-primary"
+                  style="margin-left: 10px; color: white">Dodaj
           </button>
-          <button mat-raised-button disabled *ngIf="favoriteTracksIds.toString().includes(track.id.toString())"
+          <button mat-raised-button *ngIf="favoriteTracksIds.toString().includes(track.id.toString())"
                   (click)="addTrackToFavorites(track.id, username)"
                   type="button"
-                  color="primary"
-                  style="margin-left: 10px;">Dodany
+                  color="accent"
+                  [disabled]="true"
+                  class="btn btn-primary"
+                  style="margin-left: 10px; color: white">Dodany
           </button>
         </td>
         <td *ngIf="track.genre===genre && !isLoggedIn"  style="text-align: center; vertical-align: middle;">

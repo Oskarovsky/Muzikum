@@ -31,6 +31,8 @@ export class ProviderDetailsComponent implements OnInit {
 
   clicked  = [];
 
+  buttonText: Array<string>;
+
   private roles: string[];
   isLoggedIn = false;
   showAdminBoard = false;
@@ -77,6 +79,10 @@ export class ProviderDetailsComponent implements OnInit {
 
     this.tracks.forEach(() => {
       this.clicked.push(false);
+    });
+
+    this.tracks.forEach(() => {
+      this.buttonText.push('Dodaj');
     });
   }
 
