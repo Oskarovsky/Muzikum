@@ -38,8 +38,11 @@
 
     <button mat-button [matMenuTriggerFor]="topMenu" style="color: white">Top ranking</button>
       <mat-menu #topMenu="matMenu" xPosition="after">
-        <button mat-menu-item>Club</button>
-        <button mat-menu-item>Retro</button>
+        <button mat-menu-item routerLink="/toplist/retro">Retro</button>
+        <button mat-menu-item routerLink="/toplist/club">Club</button>
+        <button mat-menu-item routerLink="/toplist/dance">Dance</button>
+        <button mat-menu-item routerLink="/toplist/house">House</button>
+        <button mat-menu-item routerLink="/toplist/techno">Techno</button>
       </mat-menu>
 
     <button mat-button [matMenuTriggerFor]="videoMenu" style="color: white">Video</button>

@@ -1,15 +1,15 @@
 <div class="example-container">
   <mat-card style="background-color: rgba(0,0,0,0.8); color: white">
-    <mat-card-title>Muzyka {{tracks[0].genre}} na dziś</mat-card-title>
+    <mat-card-title>TOPLISTA {{tracks[0].genre}}</mat-card-title>
     <mat-card-content>
       <mat-list *ngIf="!isLoggedIn">
-        <mat-list-item *ngFor="let track of tracks | slice:0:10; let i=index; index as i" style="color: white">
-          <h3 mat-line>{{track.artist}} - {{track.title}} ({{track.version}})</h3>
+        <mat-list-item *ngFor="let track of tracks | slice:0:10; let i=index; index as i;" style="color: white">
+          <h3 mat-line>#{{i}} {{track.artist}} - {{track.title}} ({{track.version}})</h3>
         </mat-list-item>
       </mat-list>
       <mat-list *ngIf="isLoggedIn">
         <mat-list-item *ngFor="let track of tracks | slice:0:20; let i=index; index as i" style="color: white">
-          <h3 mat-line>{{track.artist}} - {{track.title}} ({{track.version}})</h3>
+          <h3 mat-line>#{{i}} {{track.artist}} - {{track.title}} ({{track.version}})</h3>
           <mat-divider ></mat-divider>
         </mat-list-item>
       </mat-list>

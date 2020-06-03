@@ -20,6 +20,8 @@ export class ToplistComponent implements OnInit {
 
   isLoggedIn = false;
 
+  numer = 0;
+
   constructor(private trackService: TrackService,
               private providerService: ProviderService,
               private tokenStorage: TokenStorageService,
