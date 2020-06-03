@@ -107,6 +107,17 @@ public class TrackServiceImpl implements TrackService {
     }
 
     @Override
+    public List<Track> getListOfMostPopularTracksByGenre(String genre, Integer numberOfTracks) {
+        List<Track> allTracksByGenre = findTracksByGenre(genre);
+
+        return allTracksByGenre.stream()
+                .filter(track -> track.getPoints() != null)
+                .sorted(Comparator.comparingInt(Track::getPoints).reversed())
+                .limit(numberOfTracks)
+                .collect(Collectors.toList());
+    }
+
+    @Override
     public List<Track> getLastAddedTracksByGenre(String genre, Integer numberOfTracks) {
         List<Track> fetchedTracks = trackRepository.findByGenreOrderByCreatedAtDesc(genre.toUpperCase());
         return fetchedTracks

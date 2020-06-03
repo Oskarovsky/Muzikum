@@ -31,5 +31,7 @@ public interface TrackService {
 
     Track getMostPopularTrackByGenre(String genre);
 
+    List<Track> getListOfMostPopularTracksByGenre(String genre, Integer numberOfTracks);
+
     List<Track> getLastAddedTracksByGenre(String genre, Integer numberOfTracks);
 }

@@ -92,6 +92,12 @@ public class TrackController {
         return trackService.getMostPopularTrackByGenre(genre);
     }
 
+    @GetMapping(value = "/genre/{genre}/top/{numberOfTracks}")
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
+    public List<Track> getListOfMostPopularTracksByGenre(@PathVariable String genre, @PathVariable Integer numberOfTracks) {
+        return trackService.getListOfMostPopularTracksByGenre(genre, numberOfTracks);
+    }
+
     @GetMapping(value = "/genre/{genre}/{numberOfTracks}")
     @CrossOrigin(origins = "*", allowedHeaders = "*")
     public List<Track> getLastAddedTracksByGenre(@PathVariable String genre, @PathVariable Integer numberOfTracks) {
