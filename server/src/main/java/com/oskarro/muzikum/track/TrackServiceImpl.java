@@ -127,5 +127,15 @@ public class TrackServiceImpl implements TrackService {
                 .collect(Collectors.toList());
     }
 
+    @Override
+    public List<Track> getLastAddedTracksByUsername(String username, Integer numberOfTracks) {
+        List<Track> fetchedTracks = trackRepository.findByUserUsernameOrderByCreatedAtDesc(username);
+        return fetchedTracks
+                .stream()
+                .limit(numberOfTracks)
+                .filter(Objects::nonNull)
+                .collect(Collectors.toList());
+    }
+
 
 }

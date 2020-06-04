@@ -28,18 +28,20 @@ import {PostComponent} from './article/post/post.component';
 import {AddPostComponent} from './article/add-post/add-post.component';
 import {AdminPanelComponent} from './admin/admin-panel/admin-panel.component';
 import {PostDetailsComponent} from './article/post-details/post-details.component';
+import {TrackAddComponent} from './tracks/track-add/track-add.component';
 
 
 const routes: Routes = [
-  { path: 'tracklist', component: TrackListComponent },
   { path: '', component: HomeComponent },
   { path: 'track/:id', component: TrackComponent },
+  { path: 'tracks/add', component: TrackAddComponent },
+  { path: 'tracklist', component: TrackListComponent },
+  { path: 'tracklist/:genre', component: TrackListComponent },
   { path: 'provider/:id/tracks', component: TrackListComponent },
   { path: 'provider', component: ProviderListComponent },
   { path: 'provider/:id/details', component: ProviderDetailsComponent },
   { path: 'provider/:providerName/all-tracks', component: TrackListComponent },
   { path: 'provider/:id/tracks/:genre', component: TrackListComponent },
-  { path: 'tracklist/:genre', component: TrackListComponent },
   { path: 'toplist/:genre', component: ToplistComponent },
   { path: 'playlist/all', component: PlaylistAllComponent },
   { path: 'playlist/all/:username', component: PlaylistComponent },

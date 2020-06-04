@@ -63,6 +63,7 @@ import {CKEditorModule} from 'ng2-ckeditor';
 import { PostDetailsComponent } from './article/post-details/post-details.component';
 import { UserPartComponent } from './admin/components/user-part/user-part.component';
 import { UserFilterPipe } from './services/user/user-filter.pipe';
+import { TrackAddComponent } from './tracks/track-add/track-add.component';
 
 
 @NgModule({
@@ -107,6 +108,7 @@ import { UserFilterPipe } from './services/user/user-filter.pipe';
     PostDetailsComponent,
     UserPartComponent,
     UserFilterPipe,
+    TrackAddComponent,
   ],
     imports: [
         AppRoutingModule,

@@ -25,6 +25,8 @@ export class SidebarLeftComponent implements OnInit {
   popularTrackDance: Track;
   popularTrackHouse: Track;
   popularTrackTechno: Track;
+  isLoggedIn = false;
+  username: string;
 
   constructor(private playlistService: PlaylistService,
               private trackService: TrackService,
@@ -40,6 +42,8 @@ export class SidebarLeftComponent implements OnInit {
     this.getMostPopularTrackByGenre('CLUB', 'CLUB');
     this.getMostPopularTrackByGenre('DANCE', 'DANCE');
     if (this.tokenStorage.getToken()) {
+      this.isLoggedIn = true;
+      this.username = this.tokenStorage.getUser().username;
     }
   }
 

@@ -289,6 +289,14 @@ public class MuzikumApplication implements CommandLineRunner {
                 popularTrackRetro, popularTrackTechno));
 
 
+        Track userTrack1 = Track.builder().artist("Hitman").title("One River").version("Original Mix")
+                .genre(Genre.TECHNO.toString()).points(1).user(userAdmin).build();
+        Track userTrack2 = Track.builder().artist("OneSound").title("Magician Dream").version("Dave Aude Mix")
+                .genre(Genre.DANCE.toString()).points(3).user(userAdmin).build();
+        Track userTrack3 = Track.builder().artist("BeatBoxer").title("Night Our").version("Vinyl Edit")
+                        .genre(Genre.DANCE.toString()).points(1).user(userAdmin).build();
+
+        trackRepository.saveAll(Arrays.asList(userTrack1, userTrack2, userTrack3));
 
     }
 

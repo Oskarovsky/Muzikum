@@ -57,6 +57,10 @@ public class Track extends DateAudit {
     @JoinColumn(name = "video_id")
     private Video video;
 
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    User user;
+
 
 
 //    @ManyToMany(mappedBy = "favoriteTracks")

@@ -1,6 +1,7 @@
 package com.oskarro.muzikum.track;
 
 import com.oskarro.muzikum.provider.Provider;
+import com.oskarro.muzikum.user.User;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.CrudRepository;
@@ -39,4 +40,6 @@ public interface TrackRepository extends CrudRepository<Track, Integer> {
     Page<Track> findAll(Pageable pageable);
 
     List<Track> findByGenreOrderByCreatedAtDesc(String genre);
+
+    List<Track> findByUserUsernameOrderByCreatedAtDesc(String username);
 }

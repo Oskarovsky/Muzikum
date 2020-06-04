@@ -1,6 +1,28 @@
 <div>
   <div class="panel panel-default">
     <div class="panel-heading" style="background-color: #610061">
+      <h3 class="panel-title" style="color: white" >Twoje utwory</h3>
+    </div>
+    <div *ngIf="isLoggedIn" class="panel-body text-center" style="color: #d4d4d4; background-color: #181818">
+      <button mat-raised-button
+              type="button"
+              color="primary"
+              [routerLink]="['/tracks', 'add']"
+              style="margin-left: 10px;">Dodaj nowy utwór
+      </button>
+    </div>
+    <div *ngIf="!isLoggedIn" class="panel-body text-center" style="color: #d4d4d4; background-color: #181818">
+      <button mat-raised-button
+              type="button"
+              color="primary"
+              [routerLink]="['/login']"
+              style="margin-left: 10px;">Zaloguj się, aby dodać utwór!
+      </button>
+    </div>
+  </div>
+
+  <div class="panel panel-default">
+    <div class="panel-heading" style="background-color: #610061">
       <h3 class="panel-title" style="color: white" >Polecany utwór</h3>
     </div>
     <div class="panel-body text-center" style="color: #d4d4d4; background-color: #181818">
