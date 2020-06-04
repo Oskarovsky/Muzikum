@@ -4,18 +4,19 @@
     <mat-card-content>
       <mat-list *ngIf="!isLoggedIn">
         <mat-list-item *ngFor="let track of tracks | slice:0:10; let i=index; index as i;" style="color: white">
-          <h3 mat-line>#{{i}} {{track.artist}} - {{track.title}} ({{track.version}})</h3>
+          <h3 mat-line>#{{i+1}} {{track.artist}} - {{track.title}} ({{track.version}})</h3>
+          <mat-divider ></mat-divider>
         </mat-list-item>
       </mat-list>
       <mat-list *ngIf="isLoggedIn">
         <mat-list-item *ngFor="let track of tracks | slice:0:20; let i=index; index as i" style="color: white">
-          <h3 mat-line>#{{i}} {{track.artist}} - {{track.title}} ({{track.version}})</h3>
+          <h3 mat-line>#{{i+1}} {{track.artist}} - {{track.title}} ({{track.version}})</h3>
           <mat-divider ></mat-divider>
         </mat-list-item>
       </mat-list>
     </mat-card-content>
   </mat-card>
   <div *ngIf="!isLoggedIn"  class="alert alert-warning" role="alert">
-    <a routerLink="/login">Zaloguj się</a>, jeśli chcesz zobaczyć więcej utworów!
+    <a routerLink="/login">Zaloguj się</a>, jeśli chcesz zobaczyć całą toplistę!
   </div>
 </div>
