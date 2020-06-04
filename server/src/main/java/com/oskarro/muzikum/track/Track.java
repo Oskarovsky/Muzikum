@@ -1,5 +1,6 @@
 package com.oskarro.muzikum.track;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.oskarro.muzikum.playlist.Playlist;
 import com.oskarro.muzikum.provider.Provider;
 import com.oskarro.muzikum.record.Record;
@@ -42,18 +43,22 @@ public class Track extends DateAudit {
     private Integer position;
 
     @ManyToOne
+    @JsonIgnore
     @JoinColumn(name = "provider_id")
     private Provider provider;
 
     @ManyToOne
+    @JsonIgnore
     @JoinColumn(name = "record_id")
     private Record record;
 
     @ManyToOne
+    @JsonIgnore
     @JoinColumn(name = "playlist_id")
     private Playlist playlist;
 
     @ManyToOne
+    @JsonIgnore
     @JoinColumn(name = "video_id")
     private Video video;
 

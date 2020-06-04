@@ -1,5 +1,6 @@
 package com.oskarro.muzikum.user;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.oskarro.muzikum.track.Track;
 import com.oskarro.muzikum.user.role.Role;
 import com.oskarro.muzikum.utils.DateAudit;
@@ -43,6 +44,7 @@ public class User extends DateAudit {
 
     @NotNull
     @Size(min=6, max = 100)
+    @JsonIgnore
     @Column(name = "password", nullable = false)
     private String password;
 
@@ -52,18 +54,22 @@ public class User extends DateAudit {
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles = new HashSet<>();
 
+    @JsonIgnore
     @Column(name = "enabled")
     private boolean isEnabled;
 
     @Column(name = "created_on")
     private Date createdOn;
 
+    @JsonIgnore
     @Column(name = "last_login")
     private Date lastLogin;
 
+    @JsonIgnore
     @Column(name = "reset_token")
     private String resetToken;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "favorite_track")
     private Track favoriteTrack;
