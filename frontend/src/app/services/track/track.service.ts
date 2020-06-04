@@ -74,4 +74,8 @@ export class TrackService {
     return this.http.get(TRACK_API + '/genre/' + genre + '/top/' + numberOfTracks);
   }
 
+  getLastAddedTracksByUsername(username: string, numberOfTracks: number): Observable<Track[]> {
+    return this.http.get<Track[]>(TRACK_API + '/user/' + username + '/' + numberOfTracks);
+  }
+
 }

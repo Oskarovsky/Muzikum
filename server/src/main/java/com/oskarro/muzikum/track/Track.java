@@ -63,6 +63,7 @@ public class Track extends DateAudit {
     private Video video;
 
     @ManyToOne
+    @JsonIgnore
     @JoinColumn(name = "user_id")
     User user;
 

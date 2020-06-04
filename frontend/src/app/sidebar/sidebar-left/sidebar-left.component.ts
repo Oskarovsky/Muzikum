@@ -25,6 +25,7 @@ export class SidebarLeftComponent implements OnInit {
   popularTrackDance: Track;
   popularTrackHouse: Track;
   popularTrackTechno: Track;
+  usersTrack: Track[] = [];
   isLoggedIn = false;
   username: string;
 
@@ -44,6 +45,7 @@ export class SidebarLeftComponent implements OnInit {
     if (this.tokenStorage.getToken()) {
       this.isLoggedIn = true;
       this.username = this.tokenStorage.getUser().username;
+      this.getLastAddedTracksByUsername(this.username, 5);
     }
   }
 
@@ -73,6 +75,17 @@ export class SidebarLeftComponent implements OnInit {
     this.trackService.getRandomTrack().subscribe(
       response => {
         this.randomTrack = response;
+      },
+      error => {
+        alert('An error with fetching random track has occurred');
+      }
+    );
+  }
+
+  public getLastAddedTracksByUsername(username: string, numberOfTracks: number) {
+    this.trackService.getLastAddedTracksByUsername(username, numberOfTracks).subscribe(
+      response => {
+        this.usersTrack = response;
       },
       error => {
         alert('An error with fetching random track has occurred');

@@ -4,12 +4,25 @@
       <h3 class="panel-title" style="color: white" >Twoje utwory</h3>
     </div>
     <div *ngIf="isLoggedIn" class="panel-body text-center" style="color: #d4d4d4; background-color: #181818">
-      <button mat-raised-button
-              type="button"
-              color="primary"
-              [routerLink]="['/tracks', 'add']"
-              style="margin-left: 10px;">Dodaj nowy utwór
-      </button>
+        <p *ngFor="let userTrack of usersTrack" class="panel-playlists" style="color: white;">
+          {{ userTrack.artist }} - {{ userTrack.title }}
+        </p>
+      <span>
+        <button mat-raised-button
+                type="button"
+                color="primary"
+                [routerLink]="['/tracks', 'add']"
+                style="margin-left: 10px;">Dodaj nowy utwór
+        </button>
+      </span>
+      <span>
+        <button mat-raised-button
+                type="button"
+                color="primary"
+                [routerLink]="['/profile']"
+                style="margin-left: 10px;">Pokaż więcej
+        </button>
+      </span>
     </div>
     <div *ngIf="!isLoggedIn" class="panel-body text-center" style="color: #d4d4d4; background-color: #181818">
       <button mat-raised-button
