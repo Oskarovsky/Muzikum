@@ -104,4 +104,10 @@ public class TrackController {
         return trackService.getLastAddedTracksByGenre(genre, numberOfTracks);
     }
 
+    @GetMapping(value = "/user/{username}/{numberOfTracks}")
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
+    public List<Track> getLastAddedTracksByUsername(@PathVariable String username, @PathVariable Integer numberOfTracks) {
+        return trackService.getLastAddedTracksByUsername(username, numberOfTracks);
+    }
+
 }
