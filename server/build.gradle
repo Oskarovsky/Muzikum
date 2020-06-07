@@ -115,3 +115,9 @@ jar {
     baseName = 'muzikum'
     version = version
 }
+
+bootRun {
+    if (project.hasProperty('args')) {
+        args project.args.split(',')
+    }
+}

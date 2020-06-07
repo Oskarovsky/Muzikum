@@ -29,6 +29,8 @@ import com.oskarro.muzikum.voting.Vote;
 import com.oskarro.muzikum.voting.VotingRepository;
 import com.oskarro.muzikum.voting.VotingService;
 import org.apache.catalina.connector.Connector;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -36,12 +38,16 @@ import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
 import org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory;
 import org.springframework.context.ApplicationContext;
+import org.springframework.core.env.Environment;
 import org.springframework.data.jpa.convert.threeten.Jsr310JpaConverters;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.apache.commons.lang3.StringUtils;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -52,6 +58,14 @@ import java.util.stream.Stream;
         Jsr310JpaConverters.class
 })
 public class MuzikumApplication implements CommandLineRunner {
+
+    private static final Logger log = LoggerFactory.getLogger(MuzikumApplication.class);
+
+    private final Environment env;
+
+    public MuzikumApplication(Environment env) {
+        this.env = env;
+    }
 
     @PostConstruct
     void init() {
@@ -99,6 +113,8 @@ public class MuzikumApplication implements CommandLineRunner {
 
     public static void main(String[] args) {
         ApplicationContext applicationContext = SpringApplication.run(MuzikumApplication.class, args);
+        Environment env = applicationContext.getEnvironment();
+        logApplicationStartup(env);
 
         // BEANS
         CrawlerService crawlerService = applicationContext.getBean(CrawlerService.class);
@@ -298,6 +314,38 @@ public class MuzikumApplication implements CommandLineRunner {
 
         trackRepository.saveAll(Arrays.asList(userTrack1, userTrack2, userTrack3));
 
+    }
+
+    private static void logApplicationStartup(Environment env) {
+        String protocol = "http";
+        if (env.getProperty("server.ssl.key-store") != null) {
+            protocol = "https";
+        }
+        String serverPort = env.getProperty("server.port");
+        String contextPath = env.getProperty("server.servlet.context-path");
+        if (StringUtils.isBlank(contextPath)) {
+            contextPath = "/";
+        }
+        String hostAddress = "localhost";
+        try {
+            hostAddress = InetAddress.getLocalHost().getHostAddress();
+        } catch (UnknownHostException e) {
+            log.warn("The host name could not be determined, using `localhost` as fallback");
+        }
+        log.info("\n----------------------------------------------------------\n\t" +
+                        "Application '{}' is running! Access URLs:\n\t" +
+                        "Local: \t\t{}://localhost:{}{}\n\t" +
+                        "External: \t{}://{}:{}{}\n\t" +
+                        "Profile(s): \t{}\n----------------------------------------------------------",
+                env.getProperty("spring.application.name"),
+                protocol,
+                serverPort,
+                contextPath,
+                protocol,
+                hostAddress,
+                serverPort,
+                contextPath,
+                env.getActiveProfiles());
     }
 
     @Override
