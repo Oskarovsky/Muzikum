@@ -1,5 +1,7 @@
 package com.oskarro.muzikum.security;
 
+import com.oskarro.muzikum.exception.AppException;
+import com.oskarro.muzikum.exception.BadRequestException;
 import com.oskarro.muzikum.security.jwt.JwtTokenProvider;
 import com.oskarro.muzikum.security.jwt.JwtResponse;
 import com.oskarro.muzikum.security.payload.ApiResponse;
@@ -14,16 +16,19 @@ import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
+import com.oskarro.muzikum.user.email.EmailService;
 import com.oskarro.muzikum.user.role.Role;
 import com.oskarro.muzikum.user.role.RoleName;
 import com.oskarro.muzikum.user.role.RoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.mail.SimpleMailMessage;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
@@ -48,7 +53,14 @@ public class AuthController {
     @Autowired
     JwtTokenProvider jwtTokenProvider;
 
-    @PostMapping(value = "/signin")
+    @Autowired
+    private ConfirmationTokenRepository confirmationTokenRepository;
+
+    @Autowired
+    private EmailService emailService;
+
+
+    @RequestMapping(value = "/signin", method = RequestMethod.POST)
     @CrossOrigin(origins = "*", allowedHeaders = "*")
     public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
 
@@ -72,7 +84,7 @@ public class AuthController {
                                         roles));
     }
 
-    @PostMapping("/signup")
+    @RequestMapping(value = "/signup", method = RequestMethod.POST)
     @CrossOrigin(origins = "*", allowedHeaders = "*")
     public ResponseEntity<?> registerUser(@Valid @RequestBody SignupRequest signupRequest) {
         if (userRepository.existsByUsername(signupRequest.getUsername())) {
@@ -124,9 +136,37 @@ public class AuthController {
         user.setRoles(roles);
         userRepository.save(user);
 
+        ConfirmationToken confirmationToken = new ConfirmationToken(user);
+        confirmationTokenRepository.save(confirmationToken);
+
+        SimpleMailMessage mailMessage = new SimpleMailMessage();
+        mailMessage.setTo(user.getEmail());
+        mailMessage.setSubject("Complete Registration");
+        mailMessage.setFrom("info.oskarro@gmail.com");
+        mailMessage.setText("TO confirm your account, please click here: " +
+                "http://localhost:8080/confirm-account?token=" + confirmationToken.getConfirmationToken());
+        emailService.sendEmail(mailMessage);
+
+
         return ResponseEntity.ok(new ApiResponse(true, "User registered successfully!"));
     }
 
+    @RequestMapping(value="/confirm-account", method= {RequestMethod.GET, RequestMethod.POST})
+    public ResponseEntity<?> confirmUserAccount(@RequestParam("token") String confirmationToken) {
 
+        ConfirmationToken token = confirmationTokenRepository.findByConfirmationToken(confirmationToken);
+
+        if(token != null) {
+            User user = userRepository.findByEmail(token.getUser().getEmail()).orElseThrow(
+                    () -> new UsernameNotFoundException("User not found with email: " + token.getUser().getEmail())
+            );
+            user.setEnabled(true);
+            userRepository.save(user);
+            return ResponseEntity.ok(new ApiResponse(true, "Token confirmed successfully!"));
+        }
+        else {
+            throw new AppException("The link is invalid or broken!");
+        }
+    }
 
 }
