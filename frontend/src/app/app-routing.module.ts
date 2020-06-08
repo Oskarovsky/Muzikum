@@ -65,7 +65,7 @@ const routes: Routes = [
   { path: 'mod', component: BoardModeratorComponent },
   { path: 'admin', component: BoardAdminComponent },
   { path: 'admin/panel', component: AdminPanelComponent },
-  { path: 'confirm-account', component: TokenConfirmationComponent },
+  { path: 'confirm-account/:token', component: TokenConfirmationComponent },
 
   /* GLOBAL */
   { path: '', component: HomeComponent },

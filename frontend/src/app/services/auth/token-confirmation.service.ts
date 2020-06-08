@@ -1,5 +1,7 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {environment} from '../../../environments/environment';
+import {HttpClient} from '@angular/common/http';
+import {Observable} from 'rxjs';
 
 const API: string = environment.serverUrl;
 
@@ -8,5 +10,11 @@ const API: string = environment.serverUrl;
 })
 export class TokenConfirmationService {
 
-  constructor() { }
+  constructor(private http: HttpClient) { }
+
+  /** GET Token confirmation */
+  tokenConfirm(token: string): Observable<any> {
+    return this.http.get(API + '/auth/confirm-account/' + token);
+  }
+
 }

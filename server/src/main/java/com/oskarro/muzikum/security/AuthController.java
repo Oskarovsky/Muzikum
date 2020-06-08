@@ -149,15 +149,16 @@ public class AuthController {
 
         if (activeProfile.equals("dev")) {
             mailMessage.setText("TO confirm your account, please click here: " +
-                    "http://localhost:4200/confirm-account?token=" + confirmationToken.getConfirmationToken());
+                    "http://localhost:4200/app/confirm-account/" + confirmationToken.getConfirmationToken());
         }
         emailService.sendEmail(mailMessage);
 
         return ResponseEntity.ok(new ApiResponse(true, "User registered successfully!"));
     }
 
-    @RequestMapping(value="/confirm-account", method= {RequestMethod.GET, RequestMethod.POST})
-    public ResponseEntity<?> confirmUserAccount(@RequestParam("token") String confirmationToken) {
+    @RequestMapping(value="/confirm-account/{token}", method= {RequestMethod.GET, RequestMethod.POST})
+    public ResponseEntity<?> confirmUserAccount(@PathVariable("token") String confirmationToken) {
+        System.out.println("TOKEN: " + confirmationToken);
 
         ConfirmationToken token = confirmationTokenRepository.findByConfirmationToken(confirmationToken);
 
@@ -166,6 +167,7 @@ public class AuthController {
                     () -> new UsernameNotFoundException("User not found with email: " + token.getUser().getEmail())
             );
             user.setEnabled(true);
+            System.out.println(String.format("USER %s ENABLED", user.getUsername()));
             userRepository.save(user);
             return ResponseEntity.ok(new ApiResponse(true, "Token confirmed successfully!"));
         }
