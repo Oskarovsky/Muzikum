@@ -29,10 +29,10 @@ import {AddPostComponent} from './article/add-post/add-post.component';
 import {AdminPanelComponent} from './admin/admin-panel/admin-panel.component';
 import {PostDetailsComponent} from './article/post-details/post-details.component';
 import {TrackAddComponent} from './tracks/track-add/track-add.component';
+import {TokenConfirmationComponent} from './auth/token-confirmation/token-confirmation.component';
 
 
 const routes: Routes = [
-  { path: '', component: HomeComponent },
   { path: 'track/:id', component: TrackComponent },
   { path: 'tracks/add', component: TrackAddComponent },
   { path: 'tracklist', component: TrackListComponent },
@@ -49,13 +49,6 @@ const routes: Routes = [
   { path: 'playlist/add', component: PlaylistAddComponent },
   { path: 'playlist/:id/edit', component: PlaylistEditComponent },
   { path: 'playlist/:id/details', component: PlaylistDetailsComponent },
-  { path: 'login', component: LoginComponent },
-  { path: 'register', component: RegisterComponent },
-  { path: 'profile', component: ProfileComponent },
-  { path: 'user', component: BoardUserComponent },
-  { path: 'mod', component: BoardModeratorComponent },
-  { path: 'admin', component: BoardAdminComponent },
-  { path: 'admin/panel', component: AdminPanelComponent },
   { path: 'post/user/:username', component: PostComponent},
   { path: 'post/add', component: AddPostComponent},
   { path: 'post/:id/details', component: PostDetailsComponent},
@@ -63,6 +56,19 @@ const routes: Routes = [
   { path: 'video/:id/edit', component: VideoEditComponent },
   { path: 'video/:id/details', component: VideoDetailsComponent },
   { path: 'video/add', component: VideoAddComponent },
+
+  /* USER */
+  { path: 'login', component: LoginComponent },
+  { path: 'register', component: RegisterComponent },
+  { path: 'profile', component: ProfileComponent },
+  { path: 'user', component: BoardUserComponent },
+  { path: 'mod', component: BoardModeratorComponent },
+  { path: 'admin', component: BoardAdminComponent },
+  { path: 'admin/panel', component: AdminPanelComponent },
+  { path: 'confirm-account', component: TokenConfirmationComponent },
+
+  /* GLOBAL */
+  { path: '', component: HomeComponent },
   { path: '', redirectTo: '', pathMatch: 'full' },
   { path: '**', component: NotFoundComponent}
 ];

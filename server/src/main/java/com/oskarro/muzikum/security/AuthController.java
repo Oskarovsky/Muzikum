@@ -21,6 +21,7 @@ import com.oskarro.muzikum.user.role.Role;
 import com.oskarro.muzikum.user.role.RoleName;
 import com.oskarro.muzikum.user.role.RoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -59,6 +60,8 @@ public class AuthController {
     @Autowired
     private EmailService emailService;
 
+    @Value("${spring.profiles.active}")
+    private String activeProfile;
 
     @RequestMapping(value = "/signin", method = RequestMethod.POST)
     @CrossOrigin(origins = "*", allowedHeaders = "*")
@@ -143,10 +146,12 @@ public class AuthController {
         mailMessage.setTo(user.getEmail());
         mailMessage.setSubject("Complete Registration");
         mailMessage.setFrom("info.oskarro@gmail.com");
-        mailMessage.setText("TO confirm your account, please click here: " +
-                "http://localhost:8080/confirm-account?token=" + confirmationToken.getConfirmationToken());
-        emailService.sendEmail(mailMessage);
 
+        if (activeProfile.equals("dev")) {
+            mailMessage.setText("TO confirm your account, please click here: " +
+                    "http://localhost:4200/confirm-account?token=" + confirmationToken.getConfirmationToken());
+        }
+        emailService.sendEmail(mailMessage);
 
         return ResponseEntity.ok(new ApiResponse(true, "User registered successfully!"));
     }
@@ -156,7 +161,7 @@ public class AuthController {
 
         ConfirmationToken token = confirmationTokenRepository.findByConfirmationToken(confirmationToken);
 
-        if(token != null) {
+        if (token != null) {
             User user = userRepository.findByEmail(token.getUser().getEmail()).orElseThrow(
                     () -> new UsernameNotFoundException("User not found with email: " + token.getUser().getEmail())
             );

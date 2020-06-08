@@ -115,6 +115,9 @@ public class MuzikumApplication implements CommandLineRunner {
         ApplicationContext applicationContext = SpringApplication.run(MuzikumApplication.class, args);
         Environment env = applicationContext.getEnvironment();
         logApplicationStartup(env);
+        for (String profileName : env.getActiveProfiles()) {
+            System.out.println("Currently active profile - " + profileName);
+        }
 
         // BEANS
         CrawlerService crawlerService = applicationContext.getBean(CrawlerService.class);
