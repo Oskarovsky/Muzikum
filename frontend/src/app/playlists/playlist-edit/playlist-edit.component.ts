@@ -120,7 +120,8 @@ export class PlaylistEditComponent implements OnInit {
       position: null,
       playlist: this.playlist,
       video: null,
-      favoriteUsers: null
+      favoriteUsers: null,
+      user: null
     };
 
     this.trackService.saveTrackToPlaylist(newTrack).subscribe(

@@ -14,4 +14,5 @@ export interface Track {
   playlist: Playlist;
   video: Video;
   favoriteUsers: User[];
+  user: User;
 }

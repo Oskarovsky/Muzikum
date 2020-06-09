@@ -50,6 +50,10 @@ export class TrackService {
     return this.http.post<Track>(TRACK_API + '/add', track);
   }
 
+  addTrack(track: Track): Observable<Track> {
+    return this.http.post<Track>(TRACK_API + '/add', track);
+  }
+
   deleteTrackFromPlaylist(id: number): Observable<any> {
     return this.http.delete(TRACK_API + '/' + id);
   }
