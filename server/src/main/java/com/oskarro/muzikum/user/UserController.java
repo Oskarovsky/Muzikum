@@ -14,6 +14,9 @@ public class UserController {
     @Autowired
     UserService userService;
 
+    @Autowired
+    UserDao userDao;
+
     @GetMapping(value = "/lastAdded/{quantity}")
     @CrossOrigin(origins = "*", allowedHeaders = "*")
     public List<User> getLastAddedUsers(@PathVariable Integer quantity) {
@@ -23,7 +26,7 @@ public class UserController {
     @GetMapping(value = "/all")
     @CrossOrigin(origins = "*", allowedHeaders = "*")
     public List<User> getAllUsers() {
-        return userService.findAll();
+        return userDao.findAll();
     }
 
 
