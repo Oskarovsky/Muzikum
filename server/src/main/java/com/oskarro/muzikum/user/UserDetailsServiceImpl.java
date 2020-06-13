@@ -1,6 +1,6 @@
 package com.oskarro.muzikum.user;
 
-import com.oskarro.muzikum.model.GenericServiceImpl;
+import com.oskarro.muzikum.model.GenericDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -13,10 +13,17 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Service
-public class UserDetailsServiceImpl extends GenericServiceImpl<User, Integer> implements UserDetailsService, UserService {
+public class UserDetailsServiceImpl implements UserDetailsService, UserService {
+
+    @Autowired
+    private UserDaoImpl dao;
 
     @Autowired
     private UserRepository userRepository;
+
+    public UserDetailsServiceImpl() {
+        super();
+    }
 
     @Override
     @Transactional

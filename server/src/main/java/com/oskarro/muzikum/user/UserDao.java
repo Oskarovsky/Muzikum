@@ -2,54 +2,26 @@ package com.oskarro.muzikum.user;
 
 import com.oskarro.muzikum.model.GenericDao;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Consumer;
 
-@Component
-public class UserDao implements GenericDao<User, Integer> {
+public interface UserDao {
 
-    private final EntityManager entityManager;
+    User findOne(Integer id);
 
-    public UserDao(EntityManager entityManager) {
-        this.entityManager = entityManager;
-    }
+    List<User> findAll();
 
-    @Override
-    public void add(User entity) {
+    void save(User entity);
 
-    }
+    void update(User entity);
 
-    @Override
-    public void saveOrUpdate(User entity) {
+    void delete(User entity);
 
-    }
-
-    @Override
-    public void update(User entity) {
-
-    }
-
-    @Override
-    public void delete(User entity) {
-
-    }
-
-    @Override
-    public void deleteById(Integer key) {
-
-    }
-
-    @Override
-    public Optional<User> findOne(Integer key) {
-        return Optional.ofNullable(entityManager.find(User.class, key));
-    }
-
-    @Override
-    public List<User> findAll() {
-        Query query = entityManager.createQuery("SELECT e FROM User e");
-        return query.getResultList();
-    }
+    void deleteById(Integer entityId);
 }
