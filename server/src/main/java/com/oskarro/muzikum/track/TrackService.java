@@ -37,5 +37,7 @@ public interface TrackService {
 
     List<Track> getLastAddedTracksByUsername(String username, Integer numberOfTracks);
 
+    List<Track> getLastAddedTracksByGenreOnlyWithUser(String genre, Integer numberOfTracks);
+
 
 }

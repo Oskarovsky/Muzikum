@@ -110,10 +110,10 @@ public class TrackController {
         return trackService.getLastAddedTracksByUsername(username, numberOfTracks);
     }
 
-    @GetMapping(value = "/test/{id}")
+    @GetMapping(value = "/genre/{genre}/lastAddedByUser/{numberOfTracks}")
     @CrossOrigin(origins = "*", allowedHeaders = "*")
-    public Track getLastAddedTracksByUsername(@PathVariable Integer id) {
-        return trackService.fi(username, numberOfTracks);
+    public List<Track> getLastAddedTracksByGenreOnlyWithUser(@PathVariable String genre, @PathVariable Integer numberOfTracks) {
+        return trackService.getLastAddedTracksByGenreOnlyWithUser(genre, numberOfTracks);
     }
 
 }

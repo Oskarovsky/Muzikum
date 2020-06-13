@@ -143,6 +143,17 @@ public class TrackServiceImpl implements TrackService {
                 .collect(Collectors.toList());
     }
 
+    @Override
+    public List<Track> getLastAddedTracksByGenreOnlyWithUser(String genre, Integer numberOfTracks) {
+        List<Track> fetchedTracks = trackRepository.findByGenreOrderByCreatedAtDesc(genre.toUpperCase());
+        return fetchedTracks
+                .stream()
+                .limit(numberOfTracks)
+                .filter(Objects::nonNull)
+                .filter(track -> track.getUser() != null)
+                .collect(Collectors.toList());
+    }
+
 
 
 
