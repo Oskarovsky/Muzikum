@@ -1,6 +1,7 @@
 package com.oskarro.muzikum.user;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.oskarro.muzikum.track.Track;
 import com.oskarro.muzikum.user.role.Role;
 import com.oskarro.muzikum.utils.DateAudit;
@@ -44,7 +45,7 @@ public class User extends DateAudit {
 
     @NotNull
     @Size(min=6, max = 100)
-    @JsonIgnore
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @Column(name = "password", nullable = false)
     private String password;
 

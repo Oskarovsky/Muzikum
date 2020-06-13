@@ -79,7 +79,7 @@ export class TrackAddComponent implements OnInit {
         newTrack.title = title;
         newTrack.artist = artist;
         newTrack.genre = genre;
-        newTrack.version = version
+        newTrack.version = version;
         this.track = response;
       },
       error => {

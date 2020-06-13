@@ -1,19 +1,21 @@
-<div class="card my-5">
+<div class="card my-5" style="background-color: #000000">
   <div class="card-body">
     <form #userForm="ngForm">
       <div class="form-group">
-        <label for="title">Tytuł</label>
+        <label for="title" style="color: white">Tytuł</label>
         <input #trackTitle type="text" matInput [(ngModel)]="modelTrack.title"
                class="form-control"
+               style="background-color: #e5e1e1"
                id="title"
                name="title"
                placeholder="Enter title">
       </div>
 
       <div class="form-group">
-        <label for="artist">Artysta</label>
+        <label for="artist" style="color: white">Artysta</label>
         <input #trackArtist matInput type="text" [(ngModel)]="modelTrack.artist"
                class="form-control"
+               style="background-color: #e5e1e1"
                id="artist"
                name="artist"
                placeholder="Enter title"
@@ -21,9 +23,10 @@
       </div>
 
       <div class="form-group">
-        <label for="version">Wersja</label>
+        <label for="version" style="color: white">Wersja</label>
         <input #trackVersion matInput type="text" [(ngModel)]="modelTrack.version"
                class="form-control"
+               style="background-color: #e5e1e1"
                id="version"
                name="version"
                placeholder="Enter title"
@@ -31,25 +34,15 @@
       </div>
 
       <div class="form-group">
-        <mat-form-field>
-          <mat-label>Gatunek</mat-label>
-          <mat-select #trackGenre [(ngModel)]="modelTrack.genre">
+        <mat-form-field style="color: white">
+          <label for="genres" style="color: white">Gatunek</label>
+          <mat-select #trackGenre [(ngModel)]="modelTrack.genre" style="color: black" id="genres">
             <mat-option *ngFor="let genre of genres" [value]="genre">
               {{genre}}
             </mat-option>
           </mat-select>
         </mat-form-field>
       </div>
-
-<!--      <div class="form-group">-->
-<!--        <label for="genre">Gatunek</label>-->
-<!--        <input #trackGenres matInput type="" [(ngModel)]="modelTrack.genre"-->
-<!--               class="form-control"-->
-<!--               id="genre"-->
-<!--               name="genre"-->
-<!--               placeholder="Enter genre"-->
-<!--               required #trackGenre="ngModel">-->
-<!--      </div>-->
 
       <button type="submit" [disabled]="!userForm.form.valid"
               (click)="addNewTrack(trackTitle.value, trackArtist.value, trackVersion.value, trackGenre.value)"
