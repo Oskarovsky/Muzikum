@@ -65,7 +65,7 @@ public class Track extends DateAudit {
     @ManyToOne
     @JsonIgnore
     @JoinColumn(name = "user_id")
-    User user;
+    private User user;
 
 
 

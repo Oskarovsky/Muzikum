@@ -3,6 +3,7 @@ import { Track } from '../track/model/track';
 import {Subscription} from 'rxjs';
 import {TokenStorageService} from '../../services/auth/token-storage.service';
 import {TrackService} from '../../services/track/track.service';
+import {User} from '../../services/user/user';
 
 @Component({
   selector: 'app-track-add',
@@ -17,6 +18,32 @@ export class TrackAddComponent implements OnInit {
   username: string;
   showAdminBoard = false;
 
+  modelTrack: Track = {
+    id: null,
+    title: '',
+    artist: '',
+    points: null,
+    genre: null,
+    version: '',
+    url: '',
+    position: null,
+    playlist: null,
+    video: null,
+    favoriteUsers: null,
+    user: null
+  };
+
+  modelUser: User = {
+    id: null,
+    username: '',
+    email: '',
+    password: '',
+    createdAt: '',
+    favoriteTracks: null
+  };
+
+  genres: string[] = ['CLUB', 'RETRO', 'DANCE', 'HOUSE', 'TECHNO'];
+
   constructor(private tokenStorage: TokenStorageService,
               private trackService: TrackService) { }
 
@@ -24,6 +51,10 @@ export class TrackAddComponent implements OnInit {
     if (this.tokenStorage.getToken()) {
       this.isLoggedIn = true;
       this.showAdminBoard = this.tokenStorage.getUser().roles.includes('ROLE_ADMIN');
+      this.modelUser.username = this.tokenStorage.getUser().username;
+      this.modelUser.id = this.tokenStorage.getUser().id;
+      this.modelUser.email = this.tokenStorage.getUser().email;
+      this.modelUser.password = this.tokenStorage.getUser().password;
     }
   }
 
@@ -40,11 +71,15 @@ export class TrackAddComponent implements OnInit {
       playlist: null,
       video: null,
       favoriteUsers: null,
-      user: this.tokenStorage.getUser()
+      user: this.modelUser
     };
 
     this.trackService.addTrack(newTrack).subscribe(
       response => {
+        newTrack.title = title;
+        newTrack.artist = artist;
+        newTrack.genre = genre;
+        newTrack.version = version
         this.track = response;
       },
       error => {
