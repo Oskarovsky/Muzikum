@@ -20,5 +20,11 @@ public class UserController {
         return userService.getLastAddedUsers(quantity);
     }
 
+    @GetMapping(value = "/all")
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
+    public List<User> getAllUsers() {
+        return userService.findAll();
+    }
+
 
 }

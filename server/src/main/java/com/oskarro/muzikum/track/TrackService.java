@@ -38,5 +38,4 @@ public interface TrackService {
     List<Track> getLastAddedTracksByUsername(String username, Integer numberOfTracks);
 
 
-
 }

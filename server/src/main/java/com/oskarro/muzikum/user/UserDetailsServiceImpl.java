@@ -1,5 +1,6 @@
 package com.oskarro.muzikum.user;
 
+import com.oskarro.muzikum.model.GenericDaoImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -12,7 +13,7 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Service
-public class UserDetailsServiceImpl implements UserDetailsService, UserService {
+public class UserDetailsServiceImpl extends GenericDaoImpl<User, Integer> implements UserDetailsService, UserService {
 
     @Autowired
     private UserRepository userRepository;
@@ -48,6 +49,7 @@ public class UserDetailsServiceImpl implements UserDetailsService, UserService {
     public List<User> getAllUsers() {
         return userRepository.findAll();
     }
+
 
 
 }
