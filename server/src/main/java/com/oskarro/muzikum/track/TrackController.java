@@ -110,4 +110,10 @@ public class TrackController {
         return trackService.getLastAddedTracksByUsername(username, numberOfTracks);
     }
 
+    @GetMapping(value = "/test/{id}")
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
+    public Track getLastAddedTracksByUsername(@PathVariable Integer id) {
+        return trackService.fi(username, numberOfTracks);
+    }
+
 }

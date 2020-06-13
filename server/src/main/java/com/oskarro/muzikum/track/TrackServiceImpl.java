@@ -3,6 +3,7 @@ package com.oskarro.muzikum.track;
 import com.oskarro.muzikum.exception.ResourceNotFoundException;
 import com.oskarro.muzikum.user.User;
 import com.oskarro.muzikum.user.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -15,13 +16,18 @@ import java.util.stream.Collectors;
 @Transactional
 public class TrackServiceImpl implements TrackService {
 
+    @Autowired
+    private TrackDaoImpl dao;
+
     private final TrackRepository trackRepository;
     private final UserRepository userRepository;
 
     public TrackServiceImpl(TrackRepository trackRepository, UserRepository userRepository) {
+        super();
         this.trackRepository = trackRepository;
         this.userRepository = userRepository;
     }
+
     @Override
     public List<Track> findAll() {
         return trackRepository.findAll();

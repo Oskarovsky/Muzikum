@@ -6,6 +6,4 @@ public interface UserService {
 
     List<User> getLastAddedUsers(Integer numberOfUsers);
 
-    List<User> getAllUsers();
-
 }

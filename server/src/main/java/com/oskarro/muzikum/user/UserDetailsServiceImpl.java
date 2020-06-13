@@ -52,10 +52,6 @@ public class UserDetailsServiceImpl implements UserDetailsService, UserService {
                 .collect(Collectors.toList());
     }
 
-    @Override
-    public List<User> getAllUsers() {
-        return userRepository.findAll();
-    }
 
 
 
