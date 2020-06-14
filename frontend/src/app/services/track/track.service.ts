@@ -82,4 +82,8 @@ export class TrackService {
     return this.http.get<Track[]>(TRACK_API + '/user/' + username + '/' + numberOfTracks);
   }
 
+  getLastAddedTracksByGenreOnlyWithUser(genre: string, numberOfTracks: number) {
+    return this.http.get<Track>(TRACK_API + '/genre/' + genre + '/lastAddedByUser/' + numberOfTracks);
+  }
+
 }
