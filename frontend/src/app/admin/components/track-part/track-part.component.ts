@@ -14,7 +14,7 @@ import {TrackService} from '../../../services/track/track.service';
 })
 export class TrackPartComponent implements OnInit {
 
-  tracks: Track[];
+  tracks: Track[] = [];
   sub: Subscription;
   isLoggedIn = false;
   username: string;
@@ -29,14 +29,18 @@ export class TrackPartComponent implements OnInit {
     if (this.tokenStorage.getToken()) {
       this.isLoggedIn = true;
       this.username = this.tokenStorage.getUser().username;
+      this.getLastAddedTracksByGenreOnlyWithUser('CLUB', 5);
       this.getLastAddedTracksByGenreOnlyWithUser('RETRO', 5);
+      this.getLastAddedTracksByGenreOnlyWithUser('DANCE', 5);
+      this.getLastAddedTracksByGenreOnlyWithUser('HOUSE', 5);
+      this.getLastAddedTracksByGenreOnlyWithUser('TECHNO', 5);
     }
   }
 
   public getLastAddedTracksByGenreOnlyWithUser(genre: string, numberOfTracks: number) {
     this.trackService.getLastAddedTracksByGenreOnlyWithUser(genre, numberOfTracks).subscribe(
       (response: any) => {
-        this.tracks = response;
+        this.tracks = this.tracks.concat(response);
       },
       error => {
         alert('An error with fetching tracks has occurred');

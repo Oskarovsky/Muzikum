@@ -11,6 +11,7 @@ export interface Track {
   version: string;
   url: string;
   position: number;
+  createdAt: string;
   playlist: Playlist;
   video: Video;
   favoriteUsers: User[];

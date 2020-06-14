@@ -79,6 +79,7 @@ export class VideoEditComponent implements OnInit {
       points: null,
       genre: '',
       version,
+      createdAt: '',
       url: '',
       position: null,
       playlist: null,
