@@ -89,6 +89,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     .antMatchers("/api/auth/**").permitAll()
                     .antMatchers("/api/playlist/lastAdded/**").permitAll()
                     .antMatchers("/actuator/*").permitAll()
+                    .antMatchers("/track/v2/*").permitAll()
                     .anyRequest().authenticated();
         // Add our custom JWT security filter
         httpSecurity.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);

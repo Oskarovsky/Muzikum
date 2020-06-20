@@ -12,6 +12,8 @@ import {TokenStorageService} from '../../services/auth/token-storage.service';
 })
 export class TrackListComponent implements OnInit {
 
+  displayedColumns: string[] = ['#', 'Tytuł', 'Artysta', 'Wersja', 'Ulubione', 'Zagłosuj'];
+
   tracks: Array<any>;
 
   genres: Array<any>;

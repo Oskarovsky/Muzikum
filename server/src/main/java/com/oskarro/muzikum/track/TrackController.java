@@ -18,19 +18,21 @@ public class TrackController {
     private final TrackRepository trackRepository;
     private final FavoriteTrackRepository favoriteTrackRepository;
     private final FavoriteService favoriteService;
+    private final TrackDao trackDao;
 
     public TrackController(TrackService trackService, TrackRepository trackRepository,
-                           FavoriteTrackRepository favoriteTrackRepository, FavoriteService favoriteService) {
+                           FavoriteTrackRepository favoriteTrackRepository, FavoriteService favoriteService, TrackDao trackDao) {
         this.trackService = trackService;
         this.trackRepository = trackRepository;
         this.favoriteTrackRepository = favoriteTrackRepository;
         this.favoriteService = favoriteService;
+        this.trackDao = trackDao;
     }
 
     @GetMapping(value = "/findAll")
     @CrossOrigin(origins = "*", allowedHeaders = "*")
     List<Track> findAll() {
-        return trackService.findAll();
+        return trackDao.findAll();
     }
 
     @GetMapping(value = "/id/{id}")
