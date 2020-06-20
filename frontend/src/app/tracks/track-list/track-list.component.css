@@ -1,14 +1,14 @@
-h1
-{
+h1 {
   text-align: center;
   color: #4CAF50;
 }
-
 
 #tracks {
   font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
   border-collapse: collapse;
   width: 100%;
+  color: white;
+  background-color: #313131;
 }
 
 #tracks td, #tracks th {
@@ -16,14 +16,15 @@ h1
   padding: 8px;
 }
 
-#tracks tr:nth-child(even){background-color: #f2f2f2;}
+#tracks tr:nth-child(even){background-color: #313131;}
 
-#tracks tr:hover {background-color: #ddd;}
+#tracks tr:hover {background-color: #505050;}
 
 #tracks th {
   padding-top: 12px;
   padding-bottom: 12px;
   text-align: left;
-  background-color: #4CAF50;
+  background-color: purple;
   color: white;
 }
+
