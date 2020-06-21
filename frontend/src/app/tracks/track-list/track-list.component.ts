@@ -4,6 +4,8 @@ import {Subscription} from 'rxjs';
 import {ProviderService} from '../../services/provider/provider.service';
 import {ActivatedRoute} from '@angular/router';
 import {TokenStorageService} from '../../services/auth/token-storage.service';
+import {FavoriteService} from '../../services/favorite/favorite.service';
+import {Track} from '../track/model/track';
 
 @Component({
   selector: 'app-track-list',
@@ -22,15 +24,31 @@ export class TrackListComponent implements OnInit {
 
   isLoggedIn = false;
 
+  favoriteTracksByUser: Track[] = [];
+
+  favoriteTrack: Track;
+
+  favoriteTracksIds: number[] = [];
+
+  username: string;
+
+  clicked  = [];
+
+
   constructor(private trackService: TrackService,
               private providerService: ProviderService,
               private tokenStorage: TokenStorageService,
+              private favoriteService: FavoriteService,
               private route: ActivatedRoute) {
   }
 
   ngOnInit() {
-    if (this.tokenStorage.getToken()) {
+    this.isLoggedIn = !!this.tokenStorage.getToken();
+    if (this.isLoggedIn) {
       this.isLoggedIn = true;
+      const user = this.tokenStorage.getUser();
+      this.username = user.username;
+      this.getAllFavoritesTracksIdsByUser(user.username);
     }
     this.sub = this.route.params.subscribe(params => {
       const id = params.id;
@@ -58,6 +76,18 @@ export class TrackListComponent implements OnInit {
           this.tracks = track;
         });*/
       }
+    });
+  }
+
+  getAllFavoritesTracksIdsByUser(username: string) {
+    this.favoriteService.getAllFavoritesTracksIdsByUsername(username).subscribe((id: any) => {
+      this.favoriteTracksIds = id;
+    });
+  }
+
+  addTrackToFavorites(id: number, username: string) {
+    this.trackService.addTrackToFavorites(id, username).subscribe((data: any) => {
+      this.favoriteTrack = data;
     });
   }
 }

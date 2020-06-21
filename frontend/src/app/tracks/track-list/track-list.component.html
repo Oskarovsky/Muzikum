@@ -41,11 +41,32 @@
       <td>
         {{ track.version }}
       </td>
-      <td style="text-align: center">
-        Lubię To!
+      <td *ngIf="isLoggedIn" style="text-align: center">
+        <button mat-raised-button *ngIf="!favoriteTracksIds.toString().includes(track.id.toString())"
+                (click)="addTrackToFavorites(track.id, username); clicked[i] = true;"
+                [disabled]="clicked[i]"
+                type="button"
+                color="primary"
+                class="btn btn-primary"
+                style="margin-left: 10px; color: white">Dodaj
+        </button>
+        <button mat-raised-button *ngIf="favoriteTracksIds.toString().includes(track.id.toString())"
+                (click)="addTrackToFavorites(track.id, username)"
+                type="button"
+                color="accent"
+                [disabled]="true"
+                class="btn btn-primary"
+                style="margin-left: 10px; color: white">Dodany
+        </button>
       </td>
-      <td style="text-align: center">
-        Zagłosuj
+      <td *ngIf="!isLoggedIn"  style="text-align: center; vertical-align: middle;">
+        <button mat-stroked-button [routerLink]="['/login']">Zaloguj się !</button>
+      </td>
+      <td *ngIf="isLoggedIn" style="text-align: center; vertical-align: middle;">
+        Lubię to!
+      </td>
+      <td *ngIf="!isLoggedIn" style="text-align: center; vertical-align: middle;">
+        Lubię to!
       </td>
     </tr>
   </table>
