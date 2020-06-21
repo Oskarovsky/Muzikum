@@ -63,10 +63,25 @@
         <button mat-stroked-button [routerLink]="['/login']">Zaloguj się !</button>
       </td>
       <td *ngIf="isLoggedIn" style="text-align: center; vertical-align: middle;">
-        Lubię to!
+        <button mat-raised-button *ngIf="!votedTracksIds.toString().includes(track.id.toString())"
+                (click)="addVoteForTrack(track.id, username); clickedVote[i] = true;"
+                [disabled]="clickedVote[i]"
+                type="button"
+                color="primary"
+                class="btn btn-primary"
+                style="margin-left: 10px; color: white">Lubię To!
+        </button>
+        <button mat-raised-button *ngIf="votedTracksIds.toString().includes(track.id.toString())"
+                (click)="addVoteForTrack(track.id, username)"
+                type="button"
+                color="accent"
+                [disabled]="true"
+                class="btn btn-primary"
+                style="margin-left: 10px; color: white">Już to lubisz.
+        </button>
       </td>
-      <td *ngIf="!isLoggedIn" style="text-align: center; vertical-align: middle;">
-        Lubię to!
+      <td *ngIf="!isLoggedIn"  style="text-align: center; vertical-align: middle;">
+        <button mat-stroked-button [routerLink]="['/login']">Zaloguj się !</button>
       </td>
     </tr>
   </table>

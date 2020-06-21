@@ -109,7 +109,6 @@ public class TrackServiceImpl implements TrackService {
                 .filter(track -> track.getPoints() != null)
                 .max(Comparator.comparing(Track::getPoints))
                 .orElseThrow(NoSuchElementException::new);
-
     }
 
     @Override

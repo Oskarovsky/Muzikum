@@ -23,7 +23,15 @@ export class VoteService {
     return this.http.get(VOTE_API + '/track/' + id + '/all');
   }
 
-  addVoteForTrackById(id: string, track: Track): Observable<any> {
-    return this.http.post<Vote>(VOTE_API + '/track' + id + '/add', track);
+  addVoteForTrackById(id: number, username: string): Observable<any> {
+    return this.http.get(VOTE_API + '/track/' + id + '/add/' + username);
+  }
+
+  getAllVotedTracksByUser(username: string): Observable<any> {
+    return this.http.get(VOTE_API + '/' + username + '/tracks');
+  }
+
+  getAllVotedTracksIdsByUser(username: string): Observable<any> {
+    return this.http.get(VOTE_API + '/' + username + '/tracks/ids');
   }
 }

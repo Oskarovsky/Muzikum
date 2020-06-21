@@ -6,6 +6,7 @@ import {ActivatedRoute} from '@angular/router';
 import {TokenStorageService} from '../../services/auth/token-storage.service';
 import {FavoriteService} from '../../services/favorite/favorite.service';
 import {Track} from '../track/model/track';
+import {VoteService} from '../../services/vote/vote.service';
 
 @Component({
   selector: 'app-track-list',
@@ -28,17 +29,24 @@ export class TrackListComponent implements OnInit {
 
   favoriteTrack: Track;
 
+  votedTrack: Track;
+
+  votedTracksIds: number[] = [];
+
   favoriteTracksIds: number[] = [];
 
   username: string;
 
   clicked  = [];
 
+  clickedVote  = [];
+
 
   constructor(private trackService: TrackService,
               private providerService: ProviderService,
               private tokenStorage: TokenStorageService,
               private favoriteService: FavoriteService,
+              private voteService: VoteService,
               private route: ActivatedRoute) {
   }
 
@@ -49,6 +57,7 @@ export class TrackListComponent implements OnInit {
       const user = this.tokenStorage.getUser();
       this.username = user.username;
       this.getAllFavoritesTracksIdsByUser(user.username);
+      this.getAllVotedTracksIdsByUser(user.username);
     }
     this.sub = this.route.params.subscribe(params => {
       const id = params.id;
@@ -85,9 +94,21 @@ export class TrackListComponent implements OnInit {
     });
   }
 
+  getAllVotedTracksIdsByUser(username: string) {
+    this.voteService.getAllVotedTracksIdsByUser(username).subscribe((id: any) => {
+      this.votedTracksIds = id;
+    });
+  }
+
   addTrackToFavorites(id: number, username: string) {
     this.trackService.addTrackToFavorites(id, username).subscribe((data: any) => {
       this.favoriteTrack = data;
+    });
+  }
+
+  addVoteForTrack(trackId: number, username: string) {
+    this.voteService.addVoteForTrackById(trackId, username).subscribe((data: any) => {
+      this.votedTrack = data;
     });
   }
 }

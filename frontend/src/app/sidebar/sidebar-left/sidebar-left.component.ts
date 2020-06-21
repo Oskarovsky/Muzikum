@@ -42,6 +42,8 @@ export class SidebarLeftComponent implements OnInit {
     this.getMostPopularTrackByGenre('RETRO', 'RETRO');
     this.getMostPopularTrackByGenre('CLUB', 'CLUB');
     this.getMostPopularTrackByGenre('DANCE', 'DANCE');
+    this.getMostPopularTrackByGenre('HOUSE', 'HOUSE');
+    this.getMostPopularTrackByGenre('TECHNO', 'TECHNO');
     if (this.tokenStorage.getToken()) {
       this.isLoggedIn = true;
       this.username = this.tokenStorage.getUser().username;

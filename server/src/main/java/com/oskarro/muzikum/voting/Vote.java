@@ -20,10 +20,10 @@ public class Vote {
 
     @OneToOne
     @JoinColumn(name = "user_id")
-    User user;
+    private User user;
 
     @ManyToOne
     @JoinColumn(name = "track_id")
-    Track track;
+    private Track track;
 
 }
