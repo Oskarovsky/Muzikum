@@ -106,11 +106,11 @@
       <td>
         {{ track.version }}
       </td>
-      <td style="text-align: center">
-        Lubię To!
+      <td *ngIf="!isLoggedIn"  style="text-align: center; vertical-align: middle;">
+        <button mat-stroked-button [routerLink]="['/login']">Zaloguj się !</button>
       </td>
-      <td style="text-align: center">
-        Zagłosuj
+      <td *ngIf="!isLoggedIn"  style="text-align: center; vertical-align: middle;">
+        <button mat-stroked-button [routerLink]="['/login']">Zaloguj się !</button>
       </td>
     </tr>
   </table>

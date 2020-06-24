@@ -4,8 +4,8 @@
   <p style="float: right">Liczba odsłon: {{playlist.views}}</p>
 
   <!-- Track list -->
-  <table class="table table-striped">
-    <thead>
+  <table class="table" style="border-bottom: white solid 1px">
+    <thead class="list-header">
     <tr>
       <th scope="col">#</th>
       <th scope="col">Artist</th>
@@ -13,7 +13,7 @@
       <th scope="col">Version</th>
     </tr>
     </thead>
-    <tbody>
+    <tbody class="list-body">
     <tr *ngFor="let track of tracks; index as i">
       <th scope="row">{{ i + 1 }}</th>
       <td>{{ track.title }}</td>
@@ -32,8 +32,13 @@
   </div>
 
   <br/>
-  <div class="col-md-12">
+
+  <div *ngIf="isLoggedIn" class="col-md-12">
     <button type="button" class="btn btn-dark" routerLink="../edit">Edytuj</button>
+  </div>
+
+  <div>
+    <button type="button" class="btn btn-dark" [routerLink]="['/playlist', 'all']">Powrót</button>
   </div>
 
 </div>

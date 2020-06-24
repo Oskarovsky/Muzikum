@@ -5,6 +5,7 @@ import {Subscription} from 'rxjs';
 import {ActivatedRoute} from '@angular/router';
 import {TrackService} from '../../services/track/track.service';
 import {Track} from '../../tracks/track/model/track';
+import {TokenStorageService} from '../../services/auth/token-storage.service';
 
 @Component({
   selector: 'app-playlist-details',
@@ -14,18 +15,20 @@ import {Track} from '../../tracks/track/model/track';
 export class PlaylistDetailsComponent implements OnInit {
 
   playlist: Playlist;
-
   tracks: Track[] = [];
-
   sub: Subscription;
-
   viewsNumber: number;
+  isLoggedIn = false;
 
   constructor(private playlistService: PlaylistService,
               private trackService: TrackService,
+              private tokenStorage: TokenStorageService,
               private route: ActivatedRoute) { }
 
   ngOnInit() {
+    if (this.tokenStorage.getToken()) {
+      this.isLoggedIn = true;
+    }
     this.getPlaylistById();
     this.getAllTracksFromPlaylist();
   }

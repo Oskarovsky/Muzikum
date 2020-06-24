@@ -13,14 +13,9 @@ import {TokenStorageService} from '../../services/auth/token-storage.service';
 export class ToplistComponent implements OnInit {
 
   tracks: Array<any>;
-
   genres: Array<any>;
-
   sub: Subscription;
-
   isLoggedIn = false;
-
-  numer = 0;
 
   constructor(private trackService: TrackService,
               private providerService: ProviderService,
