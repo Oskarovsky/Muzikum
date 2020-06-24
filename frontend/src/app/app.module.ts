@@ -66,6 +66,8 @@ import { UserFilterPipe } from './services/user/user-filter.pipe';
 import { TrackAddComponent } from './tracks/track-add/track-add.component';
 import { TokenConfirmationComponent } from './auth/token-confirmation/token-confirmation.component';
 import { TrackPartComponent } from './admin/components/track-part/track-part.component';
+import { AboutComponent } from './info/about/about.component';
+import { ContactComponent } from './info/contact/contact.component';
 
 
 @NgModule({
@@ -113,6 +115,8 @@ import { TrackPartComponent } from './admin/components/track-part/track-part.com
     TrackAddComponent,
     TokenConfirmationComponent,
     TrackPartComponent,
+    AboutComponent,
+    ContactComponent,
   ],
     imports: [
         AppRoutingModule,

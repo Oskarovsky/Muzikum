@@ -30,6 +30,8 @@ import {AdminPanelComponent} from './admin/admin-panel/admin-panel.component';
 import {PostDetailsComponent} from './article/post-details/post-details.component';
 import {TrackAddComponent} from './tracks/track-add/track-add.component';
 import {TokenConfirmationComponent} from './auth/token-confirmation/token-confirmation.component';
+import {ContactComponent} from './info/contact/contact.component';
+import {AboutComponent} from './info/about/about.component';
 
 
 const routes: Routes = [
@@ -56,6 +58,10 @@ const routes: Routes = [
   { path: 'video/:id/edit', component: VideoEditComponent },
   { path: 'video/:id/details', component: VideoDetailsComponent },
   { path: 'video/add', component: VideoAddComponent },
+
+  /* INFO*/
+  { path: 'info/about', component: AboutComponent },
+  { path: 'info/contact', component: ContactComponent },
 
   /* USER */
   { path: 'login', component: LoginComponent },

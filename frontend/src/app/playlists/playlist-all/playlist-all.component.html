@@ -1,7 +1,11 @@
-<div class="example-container">
+<div class="example-container" style="border: 1px solid rebeccapurple">
+
+  <div style="color: white">
+    <h3>Playlisty użytkowników</h3>
+  </div>
 
 <!-- Playlist menu -->
-  <div class="row" style="align-content: center; display: inline-block; text-align: center;">
+  <div style="align-content: center; display: inline-block; text-align: center; border: purple solid 3px; background-color: purple">
     <input type="text"
            [(ngModel)]="searchText"
            class="mat-form-field"
@@ -10,8 +14,8 @@
   </div>
 
   <!-- Playlist content -->
-  <div style="margin-top: 28px; width: 100%; text-align: center;">
-    <div style="margin-top: 28px; width: 100%; display: inline-block">
+  <div style="margin-top: 10px; width: 100%; text-align: center;">
+    <div style="margin-top: 10px; width: 100%; display: inline-block">
       <br>
       <div class="list-group list-group-flush">
         <div *ngFor="let playlist of playlists | playlistFilter:searchText">
@@ -23,4 +27,12 @@
       </div>
     </div>
   </div>
+
+  <div *ngIf="isLoggedIn">
+    <button type="button" class="btn btn-dark" [routerLink]="['/playlist', 'add']">Dodaj playlistę</button>
+  </div>
+  <div *ngIf="!isLoggedIn">
+    <button type="button" class="btn btn-dark" [routerLink]="['/login']">Zaloguj się, aby dodać playlistę</button>
+  </div>
+
 </div>

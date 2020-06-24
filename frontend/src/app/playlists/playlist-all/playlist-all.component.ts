@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {Playlist} from '../playlist/model/playlist';
 import {PlaylistService} from '../../services/playlist/playlist.service';
+import {TokenStorageService} from '../../services/auth/token-storage.service';
 
 @Component({
   selector: 'app-playlist-all',
@@ -11,10 +12,15 @@ export class PlaylistAllComponent implements OnInit {
 
   playlists: Playlist[] = [];
   searchText: string;
+  isLoggedIn = false;
 
-  constructor(private playlistService: PlaylistService) { }
+  constructor(private playlistService: PlaylistService,
+              private tokenStorage: TokenStorageService) { }
 
   ngOnInit() {
+    if (this.tokenStorage.getToken()) {
+      this.isLoggedIn = true;
+    }
     this.getAllPlaylists();
   }
 
