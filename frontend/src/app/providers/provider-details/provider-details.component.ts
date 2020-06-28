@@ -38,7 +38,7 @@ export class ProviderDetailsComponent implements OnInit {
 
   clickedVote  = [];
 
-  buttonText: Array<string>;
+  numberOfTracks = 5;
 
   private roles: string[];
   isLoggedIn = false;
@@ -86,13 +86,10 @@ export class ProviderDetailsComponent implements OnInit {
       }
     });
 
-    this.tracks.forEach(() => {
+/*    this.tracks.forEach(() => {
       this.clicked.push(false);
     });
-
-    this.tracks.forEach(() => {
-      this.buttonText.push('Dodaj');
-    });
+*/
   }
 
   getAllTracksFromProviderByGenre(id: string, genre: string) {

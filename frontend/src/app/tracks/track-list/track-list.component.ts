@@ -41,6 +41,8 @@ export class TrackListComponent implements OnInit {
 
   clickedVote  = [];
 
+  numberOfTracks = 5;
+
 
   constructor(private trackService: TrackService,
               private providerService: ProviderService,
@@ -58,12 +60,10 @@ export class TrackListComponent implements OnInit {
       this.username = user.username;
       this.getAllFavoritesTracksIdsByUser(user.username);
       this.getAllVotedTracksIdsByUser(user.username);
+      this.numberOfTracks = 10;
     }
     this.sub = this.route.params.subscribe(params => {
-      const id = params.id;
-      const numberOfTracks = params.numberOfTracks;
       const genre = params.genre;
-      const providerName = params.providerName;
       if (genre) {
         this.trackService.getLastAddedTracksByGenre(genre, 10).subscribe((track: any) => {
           this.tracks = track;
