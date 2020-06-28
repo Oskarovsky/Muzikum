@@ -7,6 +7,7 @@ import {Subscription} from 'rxjs';
 import {TokenStorageService} from '../../services/auth/token-storage.service';
 import { Track } from 'src/app/tracks/track/model/track';
 import {FavoriteService} from '../../services/favorite/favorite.service';
+import {VoteService} from '../../services/vote/vote.service';
 
 @Component({
   selector: 'app-provider-details',
@@ -29,7 +30,13 @@ export class ProviderDetailsComponent implements OnInit {
 
   favoriteTracksIds: number[] = [];
 
+  votedTracksIds: number[] = [];
+
+  votedTrack: Track;
+
   clicked  = [];
+
+  clickedVote  = [];
 
   buttonText: Array<string>;
 
@@ -43,6 +50,7 @@ export class ProviderDetailsComponent implements OnInit {
               private trackService: TrackService,
               private favoriteService: FavoriteService,
               private route: ActivatedRoute,
+              private voteService: VoteService,
               private location: Location,
               private router: Router,
               private tokenStorageService: TokenStorageService) { }
@@ -60,6 +68,7 @@ export class ProviderDetailsComponent implements OnInit {
 
       this.username = user.username;
       this.getAllFavoritesTracksIdsByUser(user.username);
+      this.getAllVotedTracksIdsByUser(user.username);
     }
 
     this.sub = this.route.params.subscribe(params => {
@@ -107,6 +116,18 @@ export class ProviderDetailsComponent implements OnInit {
   getAllFavoritesTracksIdsByUser(username: string) {
     this.favoriteService.getAllFavoritesTracksIdsByUsername(username).subscribe((id: any) => {
       this.favoriteTracksIds = id;
+    });
+  }
+
+  getAllVotedTracksIdsByUser(username: string) {
+    this.voteService.getAllVotedTracksIdsByUser(username).subscribe((id: any) => {
+      this.votedTracksIds = id;
+    });
+  }
+
+  addVoteForTrack(trackId: number, username: string) {
+    this.voteService.addVoteForTrackById(trackId, username).subscribe((data: any) => {
+      this.votedTrack = data;
     });
   }
 

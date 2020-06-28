@@ -1,7 +1,11 @@
-<div class="example-container">
+<div class="example-container" style="border: 1px solid purple; background-color: black;">
+
+  <div style="color: white; margin: 5px">
+    <h3>Twoje playlisty</h3>
+  </div>
 
   <!-- Playlist menu -->
-  <div class="row" style="align-content: center; display: inline-block; text-align: center;">
+  <div class="search-panel">
     <input type="text"
            [(ngModel)]="searchText"
            class="mat-form-field"
@@ -10,28 +14,22 @@
   </div>
 
   <!-- Playlist content -->
-  <div class="row" style="margin-top: 28px; width: 100%; text-align: center;" *ngIf="isLoggedIn">
-    <div style="margin-top: 28px; width: 100%; display: inline-block">
-      <br>
-      <div class="list-group list-group-flush">
-        <div *ngFor="let playlist of playlists | playlistFilter:searchText">
-          <a class="list-group-item list-group-item-action">
-            {{ playlist.name }}
-            <i class="material-icons" (click)="deletePlaylist(playlist.id)" style="float:right;">delete</i>
-            <i class="material-icons" style="float:right; margin-right: 2px;" [routerLink]="['/playlist', playlist.id, 'edit']">edit</i>
-            <i class="material-icons" style="float:right; margin-right: 2px;" [routerLink]="['/playlist', playlist.id, 'details']">slideshow</i>
-          </a>
-        </div>
+  <div style="margin-top: 10px; width: 100%; text-align: center; display: inline-block">
+    <div class="list-group list-group-flush">
+      <div *ngFor="let playlist of playlists | playlistFilter:searchText">
+        <a class="list-group-item list-group-item-action"
+           style="background: black; color: white; border: rebeccapurple 1px solid; margin-top: 3px">
+          {{ playlist.name }}
+          <i class="material-icons" (click)="deletePlaylist(playlist.id)" style="float:right;">delete</i>
+          <i class="material-icons" style="float:right; margin-right: 2px;" [routerLink]="['/playlist', playlist.id, 'edit']">edit</i>
+          <i class="material-icons" style="float:right; margin-right: 2px;" [routerLink]="['/playlist', playlist.id, 'details']">slideshow</i>
+        </a>
       </div>
     </div>
   </div>
 
-  <div style="text-align: left; margin-top: 10px">
-    <button mat-raised-button
-            type="button"
-            color="primary"
-            routerLink="/playlist/add">Add playlist
-    </button>
+  <div *ngIf="isLoggedIn" style="text-align: center; margin-bottom: 3px">
+    <button type="button" class="btn btn-dark" [routerLink]="['/playlist', 'add']">Dodaj playlistę</button>
   </div>
 
   <div class="alert alert-warning" role="alert" *ngIf="!isLoggedIn">

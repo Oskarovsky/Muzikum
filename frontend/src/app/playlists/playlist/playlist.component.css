@@ -1,0 +1,8 @@
+.search-panel {
+  margin-left: 15px;
+  align-content: center;
+  display: inline-block;
+  text-align: center;
+  border: purple solid 3px;
+  background-color: purple
+}
