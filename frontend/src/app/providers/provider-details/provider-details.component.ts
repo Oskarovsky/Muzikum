@@ -69,6 +69,7 @@ export class ProviderDetailsComponent implements OnInit {
       this.username = user.username;
       this.getAllFavoritesTracksIdsByUser(user.username);
       this.getAllVotedTracksIdsByUser(user.username);
+      this.numberOfTracks = 10;
     }
 
     this.sub = this.route.params.subscribe(params => {
@@ -85,11 +86,6 @@ export class ProviderDetailsComponent implements OnInit {
         });
       }
     });
-
-/*    this.tracks.forEach(() => {
-      this.clicked.push(false);
-    });
-*/
   }
 
   getAllTracksFromProviderByGenre(id: string, genre: string) {

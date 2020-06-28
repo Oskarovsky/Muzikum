@@ -16,12 +16,12 @@ export class ProviderService {
 
   constructor(private http: HttpClient) {}
 
-  /** GET all providers **/
+  /* GET all providers **/
   getAllProviders(): Observable<Provider[]> {
     return this.http.get<Provider[]>(PROVIDER_API + '/findAll');
   }
 
-  /** GET provider by id **/
+  /* GET provider by id **/
   getProvider(id: string): Observable<any> {
     return this.http.get<any>(PROVIDER_API + '/' + id);
   }
@@ -54,8 +54,7 @@ export class ProviderService {
     };
   }
 
-
-  /** Log a ProviderService message with the MessageService */
+  /* Log a ProviderService message with the MessageService */
   private log(message: string) {
     // TODO
   }

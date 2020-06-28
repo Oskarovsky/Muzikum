@@ -74,6 +74,18 @@ public class TrackServiceImpl implements TrackService {
     }
 
     @Override
+    public List<Track> findRandomTracksByProviderIdAndGenre(Integer id, String genre, int numberOfTracks) {
+        Random rand = new Random();
+        List<Track> fetchedTracks = trackRepository.findTracksByProviderIdAndGenre(id, genre.toUpperCase());
+        return rand
+                .ints(numberOfTracks, 0, fetchedTracks.size())
+                .mapToObj(fetchedTracks::get)
+                .filter(Objects::nonNull)
+                .collect(Collectors.toList());
+    }
+
+
+    @Override
     public Track getRandomTrack() {
         long tracksQuantity = trackRepository.count();
         int index = (int) (Math.random() * tracksQuantity);
