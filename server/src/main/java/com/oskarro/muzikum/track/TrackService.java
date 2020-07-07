@@ -21,6 +21,8 @@ public interface TrackService {
 
     List<Track> findRandomTracksByProviderIdAndGenre(Integer id, String genre, int numberOfTracks);
 
+    List<Track> findRandomTracksByProviderForAllGenres(Integer providerId, int numberOfTracks);
+
     List<Track> findTracksByProviderName(String name);
 
     List<Track> findAllTracksFromPlaylist(Integer id);

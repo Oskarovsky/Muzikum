@@ -79,4 +79,11 @@ public class ProviderController {
                                                            @PathVariable int numberOfTracks) {
         return trackService.findRandomTracksByProviderIdAndGenre(providerId, genre, numberOfTracks);
     }
+
+    @GetMapping(value = "/{providerId}/tracks/{numberOfTracks}")
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
+    public List<Track> getRandomTracksByProviderForAllGenres(@PathVariable Integer providerId,
+                                                             @PathVariable int numberOfTracks) {
+        return trackService.findRandomTracksByProviderForAllGenres(providerId, numberOfTracks);
+    }
 }

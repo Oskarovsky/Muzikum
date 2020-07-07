@@ -34,6 +34,14 @@ export class ProviderService {
     return this.http.post(PROVIDER_API + '/add', provider);
   }
 
+  getRandomTracksByProviderIdAndGenre(providerId: number, genre: string, numberOfTracks: number): Observable<any> {
+    return this.http.get<any[]>(PROVIDER_API + '/' + providerId + '/genre/' + genre + '/tracks/' + numberOfTracks);
+  }
+
+  getRandomTracksByProviderForAllGenres(providerId: number, numberOfTracks: number): Observable<any> {
+    return this.http.get<any[]>(PROVIDER_API + '/' + providerId + '/tracks/' + numberOfTracks);
+  }
+
   /**
    * Handle Http operation that failed.
    * Let the app continue.

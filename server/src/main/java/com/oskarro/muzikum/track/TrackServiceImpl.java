@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Service
 @Transactional
@@ -77,6 +78,9 @@ public class TrackServiceImpl implements TrackService {
     public List<Track> findRandomTracksByProviderIdAndGenre(Integer id, String genre, int numberOfTracks) {
         Random rand = new Random();
         List<Track> fetchedTracks = trackRepository.findTracksByProviderIdAndGenre(id, genre.toUpperCase());
+        if (fetchedTracks.size() == 0) {
+            return new ArrayList<>();
+        }
         return rand
                 .ints(numberOfTracks, 0, fetchedTracks.size())
                 .mapToObj(fetchedTracks::get)
@@ -84,6 +88,23 @@ public class TrackServiceImpl implements TrackService {
                 .collect(Collectors.toList());
     }
 
+    @Override
+    public List<Track> findRandomTracksByProviderForAllGenres(Integer providerId, int numberOfTracks) {
+        List<List<Track>> targetList = new ArrayList<>();
+//        List<Track> clubTracks = findRandomTracksByProviderIdAndGenre(providerId, "CLUB", numberOfTracks);
+//        List<Track> retroTracks = findRandomTracksByProviderIdAndGenre(providerId, "RETRO", numberOfTracks);
+//        List<Track> houseTracks = findRandomTracksByProviderIdAndGenre(providerId, "HOUSE", numberOfTracks);
+//        List<Track> technoTracks = findRandomTracksByProviderIdAndGenre(providerId, "TECHNO", numberOfTracks);
+//        List<Track> danceTracks = findRandomTracksByProviderIdAndGenre(providerId, "DANCE", numberOfTracks);
+        return Stream.of(
+                findRandomTracksByProviderIdAndGenre(providerId, "CLUB", numberOfTracks),
+                findRandomTracksByProviderIdAndGenre(providerId, "RETRO", numberOfTracks),
+                findRandomTracksByProviderIdAndGenre(providerId, "HOUSE", numberOfTracks))
+//                findRandomTracksByProviderIdAndGenre(providerId, "TECHNO", numberOfTracks),
+//                findRandomTracksByProviderIdAndGenre(providerId, "DANCE", numberOfTracks)                )
+                .flatMap(Collection::stream)
+                .collect(Collectors.toList());
+    }
 
     @Override
     public Track getRandomTrack() {

@@ -3,7 +3,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {ProviderService} from '../../services/provider/provider.service';
 import {TrackService} from '../../services/track/track.service';
 import {Location} from '@angular/common';
-import {Subscription} from 'rxjs';
+import {Observable, Subscription} from 'rxjs';
 import {TokenStorageService} from '../../services/auth/token-storage.service';
 import { Track } from 'src/app/tracks/track/model/track';
 import {FavoriteService} from '../../services/favorite/favorite.service';
@@ -22,7 +22,9 @@ export class ProviderDetailsComponent implements OnInit {
 
   sub: Subscription;
 
-  tracks: Array<any>;
+  tracks: Array<Track> = [];
+
+  tracksAlter: Array<any>;
 
   favoriteTrack: Track;
 
@@ -39,6 +41,8 @@ export class ProviderDetailsComponent implements OnInit {
   clickedVote  = [];
 
   numberOfTracks = 5;
+
+  fetchedTracksFromProvider: Track[] = [];
 
   private roles: string[];
   isLoggedIn = false;
@@ -58,6 +62,7 @@ export class ProviderDetailsComponent implements OnInit {
 
   ngOnInit() {
     this.isLoggedIn = !!this.tokenStorageService.getToken();
+
 
     if (this.isLoggedIn) {
       const user = this.tokenStorageService.getUser();
@@ -81,11 +86,17 @@ export class ProviderDetailsComponent implements OnInit {
         this.providerService.getAllGenresFromProvider(id).subscribe((genre: any) => {
           this.genres = genre;
         });
-        this.trackService.getTracksByProviderId(id).subscribe((track: any) => {
-          this.tracks = track;
-        });
+        this.getRandomTracksByProviderForAllGenres(id, 5);
+
+        // this.trackService.getTracksByProviderId(id).subscribe((track: any) => {
+        //   this.tracks = track;
+        // });
       }
     });
+    // for (const gen of this.genres) {
+    //   console.log('XXXX -- ' + gen);
+    //   this.getRandomTracksByProviderIdAndGenre(8, gen, 5);
+    // }
   }
 
   getAllTracksFromProviderByGenre(id: string, genre: string) {
@@ -111,6 +122,19 @@ export class ProviderDetailsComponent implements OnInit {
       this.favoriteTracksIds = id;
     });
   }
+
+  getRandomTracksByProviderIdAndGenre(providerId: number, genre: string, numberOfTracks: number) {
+    this.providerService.getRandomTracksByProviderIdAndGenre(providerId, genre, numberOfTracks).subscribe((track: any) => {
+      this.tracks.push(track);
+    });
+  }
+
+  getRandomTracksByProviderForAllGenres(providerId: number, numberOfTracks: number) {
+    this.providerService.getRandomTracksByProviderForAllGenres(providerId, numberOfTracks).subscribe((track: any) => {
+      this.tracks = track;
+    });
+  }
+
 
   getAllVotedTracksIdsByUser(username: string) {
     this.voteService.getAllVotedTracksIdsByUser(username).subscribe((id: any) => {
