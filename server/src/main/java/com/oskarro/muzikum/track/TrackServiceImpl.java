@@ -90,18 +90,12 @@ public class TrackServiceImpl implements TrackService {
 
     @Override
     public List<Track> findRandomTracksByProviderForAllGenres(Integer providerId, int numberOfTracks) {
-        List<List<Track>> targetList = new ArrayList<>();
-//        List<Track> clubTracks = findRandomTracksByProviderIdAndGenre(providerId, "CLUB", numberOfTracks);
-//        List<Track> retroTracks = findRandomTracksByProviderIdAndGenre(providerId, "RETRO", numberOfTracks);
-//        List<Track> houseTracks = findRandomTracksByProviderIdAndGenre(providerId, "HOUSE", numberOfTracks);
-//        List<Track> technoTracks = findRandomTracksByProviderIdAndGenre(providerId, "TECHNO", numberOfTracks);
-//        List<Track> danceTracks = findRandomTracksByProviderIdAndGenre(providerId, "DANCE", numberOfTracks);
         return Stream.of(
                 findRandomTracksByProviderIdAndGenre(providerId, "CLUB", numberOfTracks),
                 findRandomTracksByProviderIdAndGenre(providerId, "RETRO", numberOfTracks),
-                findRandomTracksByProviderIdAndGenre(providerId, "HOUSE", numberOfTracks))
-//                findRandomTracksByProviderIdAndGenre(providerId, "TECHNO", numberOfTracks),
-//                findRandomTracksByProviderIdAndGenre(providerId, "DANCE", numberOfTracks)                )
+                findRandomTracksByProviderIdAndGenre(providerId, "HOUSE", numberOfTracks),
+                findRandomTracksByProviderIdAndGenre(providerId, "TECHNO", numberOfTracks),
+                findRandomTracksByProviderIdAndGenre(providerId, "DANCE", numberOfTracks)                )
                 .flatMap(Collection::stream)
                 .collect(Collectors.toList());
     }
