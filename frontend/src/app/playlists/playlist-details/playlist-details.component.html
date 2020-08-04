@@ -33,12 +33,9 @@
 
   <br/>
 
-  <div *ngIf="isLoggedIn" class="col-md-12">
-    <button type="button" class="btn btn-dark" routerLink="../edit">Edytuj</button>
-  </div>
-
-  <div>
-    <button type="button" class="btn btn-dark" [routerLink]="['/playlist', 'all']">Powrót</button>
+  <div class="col-md-12">
+    <button *ngIf="isLoggedIn" type="button" class="btn btn-dark" routerLink="../edit" style="margin-right: 4px">Edytuj</button>
+    <button type="button" class="btn btn-dark" [routerLink]="['/playlist', 'all']">Wróć</button>
   </div>
 
 </div>

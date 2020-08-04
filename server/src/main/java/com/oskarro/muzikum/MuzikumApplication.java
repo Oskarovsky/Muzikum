@@ -28,7 +28,10 @@ import com.oskarro.muzikum.video.VideoService;
 import com.oskarro.muzikum.voting.Vote;
 import com.oskarro.muzikum.voting.VotingRepository;
 import com.oskarro.muzikum.voting.VotingService;
+import org.apache.catalina.Context;
 import org.apache.catalina.connector.Connector;
+import org.apache.tomcat.util.descriptor.web.SecurityCollection;
+import org.apache.tomcat.util.descriptor.web.SecurityConstraint;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
@@ -37,7 +40,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
 import org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory;
+import org.springframework.boot.web.servlet.server.ServletWebServerFactory;
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.Bean;
 import org.springframework.core.env.Environment;
 import org.springframework.data.jpa.convert.threeten.Jsr310JpaConverters;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -73,7 +78,7 @@ public class MuzikumApplication implements CommandLineRunner {
     }
 
 
-/*    @Bean
+    @Bean
     public ServletWebServerFactory servletContainer() {
         // Enable SSL Traffic
         TomcatServletWebServerFactory tomcat = new TomcatServletWebServerFactory() {
@@ -91,7 +96,7 @@ public class MuzikumApplication implements CommandLineRunner {
         // Add HTTP to HTTPS redirect
         tomcat.addAdditionalTomcatConnectors(httpToHttpsRedirectConnector());
         return tomcat;
-    }*/
+    }
 
 
 /*    We need to redirect from HTTP to HTTPS. Without SSL, this application used

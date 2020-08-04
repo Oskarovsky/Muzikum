@@ -53,7 +53,6 @@ public class Track extends DateAudit {
     private Record record;
 
     @ManyToOne
-    @JsonIgnore
     @JoinColumn(name = "playlist_id")
     private Playlist playlist;
 

@@ -80,3 +80,18 @@ function copyToClipboard(element) {
   document.execCommand("copy");
   $temp.remove();
 }
+
+$(document).ready(function() {
+  $("#formButton").click(function() {
+    $("#form1").toggle();
+    $("#button1").toggle();
+    var $this = $(this);
+    $this.toggleClass('formButton');
+    if($this.hasClass('formButton')){
+      $this.text('Dodaj nowy utwór');
+    } else {
+      $this.text('Anuluj');
+    }
+  });
+});
+

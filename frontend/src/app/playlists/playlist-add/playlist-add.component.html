@@ -1,17 +1,21 @@
-<div class="example-container">
+<div class="example-container" style="background-color: rgba(0,0,0,0.8);">
 
   <form name="form" #form="ngForm" (ngSubmit)="createPlaylist(playlistName.value)">
-    <mat-form-field appearance="fill">
-      <mat-label>Title</mat-label>
-      <input #playlistName matInput [(ngModel)]="modelPlaylist.name" name="name" />
-    </mat-form-field>
-    <br>
+    <div class="row">
+    <label for="title" style="color: white">Nazwa playlisty</label>
+    </div>
+    <div class="row">
+      <input #playlistName
+           matInput
+           id="title"
+           [(ngModel)]="modelPlaylist.name"
+           name="name" />
+    </div>
     <button mat-raised-button
             type="button"
             (click)="createPlaylist(playlistName.value)"
             color="primary"
-            routerLink="/playlist/all/{{modelUser.username}}"
-            style="margin-left: 10px;">Dodaj playlistę
+            routerLink="/playlist/all/{{modelUser.username}}">Dodaj playlistę
     </button>
   </form>
 

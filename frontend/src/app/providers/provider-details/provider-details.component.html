@@ -20,8 +20,8 @@
             <th scope="col" style="text-align: center; font-size: 18px">Artysta</th>
             <th scope="col" style="text-align: center; font-size: 18px">Tytuł</th>
             <th scope="col" style="text-align: center; font-size: 18px">Wersja</th>
-            <th scope="col" style="text-align: center; font-size: 18px">Ulubione</th>
-            <th scope="col" style="text-align: center; font-size: 18px">Zagłosuj</th>
+            <th *ngIf=isLoggedIn scope="col" style="text-align: center; font-size: 18px">Ulubione</th>
+            <th *ngIf=isLoggedIn scope="col" style="text-align: center; font-size: 18px">Zagłosuj</th>
           </tr>
         </thead>
         <tbody>
@@ -48,9 +48,9 @@
                       style="margin-left: 10px; color: white">Dodany
               </button>
             </td>
-            <td *ngIf="!isLoggedIn"  style="text-align: center; vertical-align: middle;">
-              <button mat-stroked-button [routerLink]="['/login']">Zaloguj się !</button>
-            </td>
+<!--            <td *ngIf="!isLoggedIn"  style="text-align: center; vertical-align: middle;">-->
+<!--              <button mat-stroked-button [routerLink]="['/login']">Zaloguj się !</button>-->
+<!--            </td>-->
             <td *ngIf="track.genre===genre && isLoggedIn"  style="text-align: center; vertical-align: middle;">
               <button mat-raised-button *ngIf="!votedTracksIds.toString().includes(track.id.toString())"
                       (click)="addVoteForTrack(track.id, username); clickedVote[i] = true;"
@@ -68,9 +68,6 @@
                       class="btn btn-primary"
                       style="margin-left: 10px; color: white">Już to lubisz.
               </button>
-            </td>
-            <td *ngIf="track.genre===genre && !isLoggedIn"  style="text-align: center; vertical-align: middle;">
-              <button mat-stroked-button [routerLink]="['/login']">Zaloguj się !</button>
             </td>
           </tr>
         </tbody>

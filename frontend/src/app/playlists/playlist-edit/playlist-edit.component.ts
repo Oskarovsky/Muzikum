@@ -5,6 +5,8 @@ import {PlaylistService} from '../../services/playlist/playlist.service';
 import {TrackService} from '../../services/track/track.service';
 import {Subscription} from 'rxjs';
 import {ActivatedRoute, Route} from '@angular/router';
+import {User} from '../../services/user/user';
+import {TokenStorageService} from '../../services/auth/token-storage.service';
 
 @Component({
   selector: 'app-playlist-edit',
@@ -14,18 +16,36 @@ import {ActivatedRoute, Route} from '@angular/router';
 export class PlaylistEditComponent implements OnInit {
 
   tracks: Track[] = [];
-
   sub: Subscription;
-
+  isLoggedIn = false;
   playlist: Playlist;
-
   playlistId;
 
+  modelUser: User = {
+    id: null,
+    username: '',
+    email: '',
+    password: '',
+    createdAt: '',
+    favoriteTracks: null
+  };
+
+  genres: string[] = ['CLUB', 'RETRO', 'DANCE', 'HOUSE', 'TECHNO'];
+
   constructor(private playlistService: PlaylistService,
+              private tokenStorage: TokenStorageService,
               private trackService: TrackService,
               private route: ActivatedRoute) { }
 
   ngOnInit() {
+    if (this.tokenStorage.getToken()) {
+      this.isLoggedIn = true;
+      this.modelUser.username = this.tokenStorage.getUser().username;
+      this.modelUser.id = this.tokenStorage.getUser().id;
+      this.modelUser.email = this.tokenStorage.getUser().email;
+      this.modelUser.password = this.tokenStorage.getUser().password;
+    }
+
     this.getPlaylistById();
     this.getAllTracksFromPlaylist();
   }
@@ -37,6 +57,21 @@ export class PlaylistEditComponent implements OnInit {
         this.playlistService.getPlaylist(id).subscribe((playlist: any) => {
           this.playlist = playlist;
         });
+      }
+    });
+  }
+
+  public getPlaylistById() {
+    this.sub = this.route.params.subscribe(params => {
+      const id = params.id;
+      if (id) {
+        this.playlistService.getPlaylist(id).subscribe(
+          response => {
+            this.playlist = response;
+          },
+          error => {
+            alert('An error with fetching playlist has occurred');
+          });
       }
     });
   }
@@ -79,21 +114,6 @@ export class PlaylistEditComponent implements OnInit {
     );
   }
 
-  public getPlaylistById() {
-    this.sub = this.route.params.subscribe(params => {
-      const id = params.id;
-      if (id) {
-        this.playlistService.getPlaylist(id).subscribe(
-          response => {
-            this.playlist = response;
-          },
-          error => {
-            alert('An error with fetching playlist has occurred');
-          });
-      }
-    });
-  }
-
   deleteTrack(id: number) {
     if (confirm('Czy na pewno chcesz usunąć ten utwór?')) {
       this.trackService.deleteTrackFromPlaylist(id).subscribe(
@@ -122,7 +142,7 @@ export class PlaylistEditComponent implements OnInit {
       playlist: this.playlist,
       video: null,
       favoriteUsers: null,
-      user: null
+      user: this.modelUser
     };
 
     this.trackService.saveTrackToPlaylist(newTrack).subscribe(
