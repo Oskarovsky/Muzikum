@@ -5,6 +5,7 @@ import com.oskarro.muzikum.track.Track;
 import com.oskarro.muzikum.track.TrackService;
 import com.oskarro.muzikum.user.User;
 import com.oskarro.muzikum.user.favorite.FavoriteTrack;
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -18,17 +19,12 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/vote")
 @CrossOrigin(origins = "*", allowedHeaders = "*")
+@AllArgsConstructor
 public class VotingController {
 
     VotingRepository votingRepository;
     TrackService trackService;
     VotingService votingService;
-
-    public VotingController(VotingRepository votingRepository, TrackService trackService, VotingService votingService) {
-        this.votingRepository = votingRepository;
-        this.trackService = trackService;
-        this.votingService = votingService;
-    }
 
     @GetMapping(value = "/track/{trackId}")
     @CrossOrigin(origins = "*", allowedHeaders = "*")
@@ -44,8 +40,14 @@ public class VotingController {
 
     @GetMapping(value = "/track/{trackId}/add/{username}")
     @CrossOrigin(origins = "*", allowedHeaders = "*")
-    public void addVoteForTrackById(@PathVariable Integer trackId, @PathVariable String username) throws ValidationException {
+    public void addVoteForTrackById(@PathVariable Integer trackId, @PathVariable String username) {
         votingService.addVoteForTrack(trackId, username);
+    }
+
+    @PostMapping(value = "/track")
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
+    public void voteForTrackById(@RequestBody Vote vote) throws ValidationException {
+        votingService.voteForTrack(vote);
     }
 
     @GetMapping(value = "/{username}/tracks")

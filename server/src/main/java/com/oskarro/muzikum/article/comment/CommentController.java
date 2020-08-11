@@ -2,6 +2,7 @@ package com.oskarro.muzikum.article.comment;
 
 import com.oskarro.muzikum.article.post.PostRepository;
 import com.oskarro.muzikum.exception.ResourceNotFoundException;
+import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
@@ -14,18 +15,12 @@ import java.util.List;
 @RestController
 @RequestMapping(value = "/api/posts")
 @CrossOrigin(origins = "*", allowedHeaders = "*")
+@AllArgsConstructor
 public class CommentController {
 
     private final CommentRepository commentRepository;
     private final PostRepository postRepository;
     final private CommentService commentService;
-
-    public CommentController(CommentRepository commentRepository, PostRepository postRepository,
-                             CommentService commentService) {
-        this.commentRepository = commentRepository;
-        this.postRepository = postRepository;
-        this.commentService = commentService;
-    }
 
     @GetMapping(value = "/{postId}/comments")
     @Transactional
