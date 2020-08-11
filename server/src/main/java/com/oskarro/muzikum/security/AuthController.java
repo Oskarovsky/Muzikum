@@ -25,6 +25,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mail.SimpleMailMessage;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -36,11 +37,10 @@ import org.springframework.web.bind.annotation.*;
 
 import static java.time.Instant.now;
 
-
+@Slf4j
 @RestController
 @RequestMapping(value = "/api/auth")
 @CrossOrigin(origins = "*", allowedHeaders = "*")
-@Slf4j
 public class AuthController {
 
     @Autowired
@@ -146,19 +146,30 @@ public class AuthController {
         ConfirmationToken confirmationToken = new ConfirmationToken(user);
         confirmationTokenRepository.save(confirmationToken);
 
-        SimpleMailMessage mailMessage = new SimpleMailMessage();
-        mailMessage.setTo(user.getEmail());
-        mailMessage.setSubject("Complete Registration");
-        mailMessage.setFrom("info.oskarro@gmail.com");
+        String textMessage = null;
 
         if (activeProfile.equals("dev")) {
-            mailMessage.setText("To confirm your account, please click here: " +
-                    "http://localhost:4200/app/confirm-account/" + confirmationToken.getConfirmationToken());
+            textMessage = "To confirm your account, please click here: " +
+                    "https://localhost:4200/app/confirm-account/" + confirmationToken.getConfirmationToken();
+        } else if (activeProfile.equals("prod")) {
+            textMessage = "To confirm your account, please click here: " +
+                    "https://oskarro.com/app/confirm-account/" + confirmationToken.getConfirmationToken();
         }
-        emailService.sendEmail(mailMessage);
+        sendEmail("Complete Registration", "info.oskarro@gmail.com", textMessage, user.getEmail());
+        log.info("Activation email sent!!");
 
         return ResponseEntity.ok(
                 new ApiResponse(true, "User registered successfully!"));
+    }
+
+    @Async
+    void sendEmail(String subject, String sender, String text, String recipient) {
+        SimpleMailMessage mailMessage = new SimpleMailMessage();
+        mailMessage.setTo(recipient);
+        mailMessage.setSubject(subject);
+        mailMessage.setFrom(sender);
+        mailMessage.setText(text);
+        emailService.sendEmail(mailMessage);
     }
 
     @RequestMapping(value="/confirm-account/{token}", method= {RequestMethod.GET, RequestMethod.POST})
@@ -172,11 +183,12 @@ public class AuthController {
                     () -> new UsernameNotFoundException("User not found with email: " + token.getUser().getEmail())
             );
             user.setEnabled(true);
-            System.out.println(String.format("USER %s ENABLED", user.getUsername()));
+            System.out.printf("USER %s ENABLED%n", user.getUsername());
             userRepository.save(user);
+            sendEmail("Success confirmation", "info.oskarro@gmail.com",
+                    "Your email has been confirmed!", user.getEmail());
             return ResponseEntity.ok(new ApiResponse(true, "Token confirmed successfully!"));
-        }
-        else {
+        } else {
             throw new AppException("The link is invalid or broken!");
         }
     }
