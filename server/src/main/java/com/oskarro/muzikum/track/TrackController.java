@@ -2,6 +2,7 @@ package com.oskarro.muzikum.track;
 
 import com.oskarro.muzikum.user.favorite.FavoriteService;
 import com.oskarro.muzikum.user.favorite.FavoriteTrackRepository;
+import lombok.AllArgsConstructor;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,6 +13,7 @@ import java.util.Optional;
 @RestController
 @RequestMapping(value = "/api/tracks")
 @CrossOrigin(origins = "*", allowedHeaders = "*")
+@AllArgsConstructor
 public class TrackController {
 
     private final TrackService trackService;
@@ -19,15 +21,6 @@ public class TrackController {
     private final FavoriteTrackRepository favoriteTrackRepository;
     private final FavoriteService favoriteService;
     private final TrackDao trackDao;
-
-    public TrackController(TrackService trackService, TrackRepository trackRepository,
-                           FavoriteTrackRepository favoriteTrackRepository, FavoriteService favoriteService, TrackDao trackDao) {
-        this.trackService = trackService;
-        this.trackRepository = trackRepository;
-        this.favoriteTrackRepository = favoriteTrackRepository;
-        this.favoriteService = favoriteService;
-        this.trackDao = trackDao;
-    }
 
     @GetMapping(value = "/findAll")
     @CrossOrigin(origins = "*", allowedHeaders = "*")

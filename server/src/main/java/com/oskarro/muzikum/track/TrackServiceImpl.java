@@ -30,16 +30,19 @@ public class TrackServiceImpl implements TrackService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<Track> findAll() {
         return trackRepository.findAll();
     }
 
     @Override
+    @Transactional(readOnly = true)
     public Optional<Track> findById(Integer id) {
         return trackRepository.findById(id);
     }
 
     @Override
+    @Transactional
     public Track saveTrack(Track track) {
         return trackRepository.save(track);
     }
