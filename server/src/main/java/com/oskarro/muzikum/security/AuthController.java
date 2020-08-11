@@ -1,14 +1,14 @@
 package com.oskarro.muzikum.security;
 
 import com.oskarro.muzikum.exception.AppException;
-import com.oskarro.muzikum.exception.BadRequestException;
 import com.oskarro.muzikum.security.jwt.JwtTokenProvider;
 import com.oskarro.muzikum.security.jwt.JwtResponse;
 import com.oskarro.muzikum.security.payload.ApiResponse;
 import com.oskarro.muzikum.security.payload.LoginRequest;
-import com.oskarro.muzikum.security.payload.SignupRequest;
+import com.oskarro.muzikum.security.payload.RegisterRequest;
 import com.oskarro.muzikum.user.*;
 
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -20,6 +20,7 @@ import com.oskarro.muzikum.user.email.EmailService;
 import com.oskarro.muzikum.user.role.Role;
 import com.oskarro.muzikum.user.role.RoleName;
 import com.oskarro.muzikum.user.role.RoleRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
@@ -33,10 +34,13 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
+import static java.time.Instant.now;
+
 
 @RestController
 @RequestMapping(value = "/api/auth")
 @CrossOrigin(origins = "*", allowedHeaders = "*")
+@Slf4j
 public class AuthController {
 
     @Autowired
@@ -89,27 +93,27 @@ public class AuthController {
 
     @RequestMapping(value = "/signup", method = RequestMethod.POST)
     @CrossOrigin(origins = "*", allowedHeaders = "*")
-    public ResponseEntity<?> registerUser(@Valid @RequestBody SignupRequest signupRequest) {
-        if (userRepository.existsByUsername(signupRequest.getUsername())) {
+    public ResponseEntity<?> registerUser(@Valid @RequestBody RegisterRequest registerRequest) {
+        if (userRepository.existsByUsername(registerRequest.getUsername())) {
             return ResponseEntity
                     .badRequest()
                     .body(new ApiResponse(false,"Fail -> Username is already taken!"));
-        }
-
-        if (userRepository.existsByEmail(signupRequest.getEmail())) {
+        } else if (userRepository.existsByEmail(registerRequest.getEmail())) {
             return ResponseEntity
                     .badRequest()
-                    .body("Fail -> Email is already in use!");
+                    .body(new ApiResponse(false,"Fail -> Email is already in use!"));
         }
 
         // Creating new user's account
         User user = User.builder()
-                .username(signupRequest.getUsername())
-                .email(signupRequest.getEmail())
-                .password(encoder.encode(signupRequest.getPassword()))
+                .username(registerRequest.getUsername())
+                .email(registerRequest.getEmail())
+                .password(encoder.encode(registerRequest.getPassword()))
+                .createdOn(Date.from(now()))
+                .isEnabled(false)
                 .build();
 
-        Set<String> stringRoles = signupRequest.getRole();
+        Set<String> stringRoles = registerRequest.getRole();
         Set<Role> roles = new HashSet<>();
 
         if (stringRoles == null) {
@@ -148,12 +152,13 @@ public class AuthController {
         mailMessage.setFrom("info.oskarro@gmail.com");
 
         if (activeProfile.equals("dev")) {
-            mailMessage.setText("TO confirm your account, please click here: " +
+            mailMessage.setText("To confirm your account, please click here: " +
                     "http://localhost:4200/app/confirm-account/" + confirmationToken.getConfirmationToken());
         }
         emailService.sendEmail(mailMessage);
 
-        return ResponseEntity.ok(new ApiResponse(true, "User registered successfully!"));
+        return ResponseEntity.ok(
+                new ApiResponse(true, "User registered successfully!"));
     }
 
     @RequestMapping(value="/confirm-account/{token}", method= {RequestMethod.GET, RequestMethod.POST})

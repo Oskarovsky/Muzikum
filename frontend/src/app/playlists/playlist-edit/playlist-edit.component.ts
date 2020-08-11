@@ -128,13 +128,13 @@ export class PlaylistEditComponent implements OnInit {
     }
   }
 
-  addTrackToPlaylist(title: string, artist: string, version: string) {
+  addTrackToPlaylist(title: string, artist: string, version: string, genre: string) {
     const newTrack: Track = {
       id: null,
       title,
       artist,
       points: null,
-      genre: '',
+      genre,
       version,
       createdAt: '',
       url: '',

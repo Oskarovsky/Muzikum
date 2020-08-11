@@ -9,9 +9,7 @@ import lombok.*;
 import org.hibernate.annotations.NaturalId;
 
 import javax.persistence.*;
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
 import java.util.*;
 
 @Entity
@@ -27,23 +25,23 @@ import java.util.*;
 public class User extends DateAudit {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "id", nullable = false, updatable = false)
     private Integer id;
 
-    @NotNull
+    @NotBlank(message = "Username is required")
     @Size(min=3, max = 32)
     @Column(name = "username", nullable = false, unique = true)
     private String username;
 
     @NaturalId
-    @NotNull
+    @NotEmpty(message = "Email is required")
     @Size(max = 50)
     @Email
     @Column(name = "email", nullable = false, unique = true)
     private String email;
 
-    @NotNull
+    @NotBlank(message = "Password is required")
     @Size(min=6, max = 100)
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @Column(name = "password", nullable = false)

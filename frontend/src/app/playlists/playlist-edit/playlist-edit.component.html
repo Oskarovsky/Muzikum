@@ -115,7 +115,7 @@
 
   <div class="pull-right">
     <button mat-raised-button
-            (click)="addTrackToPlaylist(newArtist.value, newTitle.value, newVersion.value)"
+            (click)="addTrackToPlaylist(newArtist.value, newTitle.value, newVersion.value, newGenre.value)"
             type="submit"
             id="button1"
             color="primary"
@@ -131,8 +131,9 @@
   </div>
 
   <button mat-raised-button
+          id="buttonSave"
           type="button"
-          class="btn btn-warning pull-left"
+          class="buttonSave btn btn-warning pull-left"
           routerLink="../details"
           style="margin-left: 10px; margin-top: 10px">Zapisz playlistę
   </button>

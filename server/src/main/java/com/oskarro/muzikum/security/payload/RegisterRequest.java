@@ -1,6 +1,8 @@
 package com.oskarro.muzikum.security.payload;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.Set;
@@ -9,7 +11,9 @@ import javax.validation.constraints.*;
 
 @Getter
 @Setter
-public class SignupRequest {
+@AllArgsConstructor
+@NoArgsConstructor
+public class RegisterRequest {
 
     @NotBlank
     @Size(min = 3, max = 50)
