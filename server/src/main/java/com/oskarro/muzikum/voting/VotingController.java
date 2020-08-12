@@ -1,5 +1,6 @@
 package com.oskarro.muzikum.voting;
 
+import com.oskarro.muzikum.dto.VoteDto;
 import com.oskarro.muzikum.exception.ResourceNotFoundException;
 import com.oskarro.muzikum.track.Track;
 import com.oskarro.muzikum.track.TrackService;

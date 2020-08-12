@@ -1,5 +1,7 @@
 package com.oskarro.muzikum.voting;
 
+import com.oskarro.muzikum.dto.VoteDto;
+
 public interface VotingService {
 
     Integer getNumberOfVotesByTrackId(Integer trackId);

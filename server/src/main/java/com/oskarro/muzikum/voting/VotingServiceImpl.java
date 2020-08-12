@@ -1,7 +1,9 @@
 package com.oskarro.muzikum.voting;
 
+import com.oskarro.muzikum.dto.VoteDto;
 import com.oskarro.muzikum.exception.AppException;
 import com.oskarro.muzikum.exception.ResourceNotFoundException;
+import com.oskarro.muzikum.security.AuthService;
 import com.oskarro.muzikum.track.Track;
 import com.oskarro.muzikum.track.TrackRepository;
 import com.oskarro.muzikum.user.User;
@@ -19,12 +21,20 @@ import static com.oskarro.muzikum.voting.VoteType.UPVOTE;
 
 @Slf4j
 @Service
-@AllArgsConstructor
 public class VotingServiceImpl implements VotingService {
 
     private final VotingRepository votingRepository;
     private final UserRepository userRepository;
     private final TrackRepository trackRepository;
+    private final AuthService authService;
+
+    public VotingServiceImpl(VotingRepository votingRepository, UserRepository userRepository,
+                             TrackRepository trackRepository, AuthService authService) {
+        this.votingRepository = votingRepository;
+        this.userRepository = userRepository;
+        this.trackRepository = trackRepository;
+        this.authService = authService;
+    }
 
     @Override
     public Integer getNumberOfVotesByTrackId(Integer trackId) {
@@ -80,6 +90,14 @@ public class VotingServiceImpl implements VotingService {
                 track.setPoints(track.getPoints() - 1);
             }
         }
+    }
+
+    private Vote mapToVote(VoteDto voteDto, Track track) {
+        return Vote.builder()
+                .voteType(voteDto.getVoteType())
+                .track(track)
+                .user(authService.getCurrentUser())
+                .build();
     }
 
     @Override

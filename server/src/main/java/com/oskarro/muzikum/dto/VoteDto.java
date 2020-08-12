@@ -12,4 +12,5 @@ public class VoteDto {
 
     private VoteType voteType;
     private Integer trackId;
+    private Integer userId;
 }
