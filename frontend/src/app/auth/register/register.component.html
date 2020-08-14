@@ -1,15 +1,17 @@
-<div class="card bg-light">
-  <article class="card-body mx-auto" style="max-width: 400px;">
+<div class="card" style="background: rgba(0,0,0,0.8)">
+  <h3 class="card-header" style="text-align: center; color: white">
+    REJESTRACJA
+  </h3>
+  <article class="card-body mx-auto" style="max-width: 100%; min-width: 50%">
+    <h4 class="card-title mt-3 text-center" style="color: white">Dołącz do naszej ekipy!</h4>
 
     <form *ngIf="!isSuccessful" name="form" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>
-
-      <h4 class="card-title mt-3 text-center">Dołącz do naszej ekipy!</h4>
-      <p class="text-center">Słuchaj najlepszej muzyki zupełnie za darmo.</p>
       <p>
-        <a href="" class="btn btn-block btn-twitter"> <i class="fa fa-twitter"></i> Zaloguj się za pomocą YouTube</a>
-        <a href="" class="btn btn-block btn-facebook"> <i class="fa fa-facebook"></i> Zaloguj się za pomocą Facebook</a>
+        <a href="" class="btn btn-block btn-facebook">
+          <i class="fa fa-facebook"></i> Zaloguj się za pomocą Facebook
+        </a>
       </p>
-      <p class="divider-text">
+      <p class="divider-text" style="color: black">
         <span class="bg-light">LUB</span>
       </p>
 
@@ -61,18 +63,18 @@
       </div> <!-- form-group// -->
 
       <div class="form-group">
-        <div style="position: relative; text-align: center; font-size: 15px;">
+        <div style="position: relative; text-align: center; font-size: 15px; color: white">
           <input type="checkbox" name="terms" id="terms"> Zgadzam się na warunki regulaminu
         </div>
       </div><!-- form-group// -->
 
 
       <div class="form-group">
-        <button type="submit" class="btn btn-primary btn-block" id="submit_register" disabled>Dodaj konto</button>
+        <button type="submit" class="btn btn-dark btn-block" id="submit_register" disabled>Zarejestruj się</button>
       </div> <!-- form-group// -->
 
 
-      <p class="text-center">Masz już konto? <a [routerLink]="['/login']">Zaloguj się!</a></p>
+      <p class="text-center" style="color: white">Masz już konto? <a [routerLink]="['/login']">Zaloguj się!</a></p>
       <div class="alert alert-warning" *ngIf="f.submitted && isSignUpFailed">
         Wystąpił błąd podczas rejestracji!<br />{{ errorMessage }}
       </div>
