@@ -27,3 +27,10 @@
   color: #fff;
 }
 
+input.ng-invalid.ng-touched{
+  border: 3px solid red;
+}
+
+input.ng-valid.ng-touched{
+  border: 3px solid #17c217;
+}
