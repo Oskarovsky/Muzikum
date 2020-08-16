@@ -20,6 +20,17 @@
 <div class="row" style="width: 100%; align-content: center; display: inline-block; text-align: center; margin-bottom: 40px">
     <button mat-button routerLink="/" style="color: white">Strona główna</button>
 
+    <button mat-button [matMenuTriggerFor]="tracksMenu" style="color: white">Utwory</button>
+    <mat-menu #tracksMenu="matMenu" yPosition="below">
+      <button mat-menu-item routerLink="/tracks/vixa">Vixa</button>
+      <button mat-menu-item routerLink="/tracks/club">Club</button>
+      <button mat-menu-item routerLink="/tracks/dance">Dance</button>
+      <button mat-menu-item routerLink="/tracks/retro">Retro</button>
+      <button mat-menu-item routerLink="/tracks/techno">Techno</button>
+      <button mat-menu-item routerLink="/tracks/house">House</button>
+      <button mat-menu-item routerLink="/tracks/disco">Disco</button>
+    </mat-menu>
+
     <button mat-button [matMenuTriggerFor]="genreMenu" style="color: white">Gatunki</button>
       <mat-menu #genreMenu="matMenu" yPosition="below">
         <button mat-menu-item routerLink="/tracklist/club">Club</button>

@@ -32,13 +32,20 @@ import {TrackAddComponent} from './tracks/track-add/track-add.component';
 import {TokenConfirmationComponent} from './auth/token-confirmation/token-confirmation.component';
 import {ContactComponent} from './info/contact/contact.component';
 import {AboutComponent} from './info/about/about.component';
+import {TracksPartComponent} from './tracks/tracks-part/tracks-part.component';
 
 
 const routes: Routes = [
   { path: 'track/:id', component: TrackComponent },
   { path: 'tracks/add', component: TrackAddComponent },
+
+  /* TRACKS */
   { path: 'tracklist', component: TrackListComponent },
   { path: 'tracklist/:genre', component: TrackListComponent },
+  { path: 'tracks/:genre', component: TracksPartComponent },
+
+
+
   { path: 'provider/:id/tracks', component: TrackListComponent },
   { path: 'provider', component: ProviderListComponent },
   { path: 'provider/:id/details', component: ProviderDetailsComponent },
@@ -59,7 +66,7 @@ const routes: Routes = [
   { path: 'video/:id/details', component: VideoDetailsComponent },
   { path: 'video/add', component: VideoAddComponent },
 
-  /* INFO*/
+  /* INFO */
   { path: 'info/about', component: AboutComponent },
   { path: 'info/contact', component: ContactComponent },
 

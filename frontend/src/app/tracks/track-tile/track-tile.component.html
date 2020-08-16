@@ -1,0 +1,29 @@
+<div class="row post" *ngFor="let track of data">
+  <p>{{track.artist}}</p>
+  <div class="col-md-1">
+    <app-track-vote-button [track]="track"></app-track-vote-button>
+  </div>
+  <div class="col-md-11">
+        <span class="subreddit-info">
+            <span class="subreddit-text"><a class="posturl" routerLink="">{{track.title}}</a></span>
+            <span>Posted by <a class="username" routerLink="/user/{{track.user.username}}">{{track.user.username}}</a></span>
+        </span>
+    <hr />
+    <div class="post-title">
+      <a class="postname" href="{{track.url}}">{{track.title}}</a>
+    </div>
+    <div>
+      <p class="post-text">{{track.artist}}</p>
+    </div>
+    <hr />
+    <span>
+            <a class="btnCommments" role="button">
+<!--                <fa-icon [icon]="faComments"></fa-icon>-->
+<!--                Comments({{track.commentNum}})-->
+            </a>
+            <button class="login">
+                Sprawdź
+            </button>
+    </span>
+  </div>
+</div>

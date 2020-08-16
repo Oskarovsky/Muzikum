@@ -68,6 +68,9 @@ import { TokenConfirmationComponent } from './auth/token-confirmation/token-conf
 import { TrackPartComponent } from './admin/components/track-part/track-part.component';
 import { AboutComponent } from './info/about/about.component';
 import { ContactComponent } from './info/contact/contact.component';
+import { TrackTileComponent } from './tracks/track-tile/track-tile.component';
+import { TrackVoteButtonComponent } from './tracks/track-vote-button/track-vote-button.component';
+import { TracksPartComponent } from './tracks/tracks-part/tracks-part.component';
 
 
 @NgModule({
@@ -117,6 +120,9 @@ import { ContactComponent } from './info/contact/contact.component';
     TrackPartComponent,
     AboutComponent,
     ContactComponent,
+    TrackTileComponent,
+    TrackVoteButtonComponent,
+    TracksPartComponent,
   ],
     imports: [
         AppRoutingModule,
