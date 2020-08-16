@@ -59,7 +59,7 @@ export class TrackAddComponent implements OnInit {
     }
   }
 
-  public addNewTrack(title: string, artist: string, version: string, genre: string) {
+  public addNewTrack(title: string, artist: string, version: string, genre: string, url: string) {
     const newTrack: Track = {
       id: null,
       title,
@@ -67,7 +67,7 @@ export class TrackAddComponent implements OnInit {
       points: null,
       genre,
       version,
-      url: '',
+      url,
       createdAt: '',
       position: null,
       playlist: null,
@@ -82,6 +82,7 @@ export class TrackAddComponent implements OnInit {
         newTrack.artist = artist;
         newTrack.genre = genre;
         newTrack.version = version;
+        newTrack.url = url;
         this.track = response;
       },
       error => {

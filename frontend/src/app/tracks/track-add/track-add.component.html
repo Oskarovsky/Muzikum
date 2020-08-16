@@ -8,7 +8,7 @@
                style="background-color: #e5e1e1"
                id="title"
                name="title"
-               placeholder="Enter title">
+               placeholder="Wprowadź tytuł">
       </div>
 
       <div class="form-group">
@@ -18,7 +18,7 @@
                style="background-color: #e5e1e1"
                id="artist"
                name="artist"
-               placeholder="Enter title"
+               placeholder="Wprowadź nazwę artysty"
                required #trackArtist="ngModel">
       </div>
 
@@ -29,7 +29,7 @@
                style="background-color: #e5e1e1"
                id="version"
                name="version"
-               placeholder="Enter title"
+               placeholder="Wprowadź nazwę wersji/remixu"
                required #trackVersion="ngModel">
       </div>
 
@@ -44,8 +44,19 @@
         </mat-form-field>
       </div>
 
+      <div class="form-group">
+        <label for="version" style="color: white">URL</label>
+        <input #trackUrl matInput type="text" [(ngModel)]="modelTrack.url"
+               class="form-control"
+               style="background-color: #e5e1e1"
+               id="url"
+               name="url"
+               placeholder="Wprowadź link do utworu"
+               required #trackUrl="ngModel">
+      </div>
+
       <button type="submit" [disabled]="!userForm.form.valid"
-              (click)="addNewTrack(trackTitle.value, trackArtist.value, trackVersion.value, trackGenre.value)"
+              (click)="addNewTrack(trackTitle.value, trackArtist.value, trackVersion.value, trackGenre.value, trackUrl.value)"
               class="btn btn-info">Submit</button>
     </form>
   </div>
