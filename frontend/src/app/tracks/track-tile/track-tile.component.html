@@ -4,25 +4,21 @@
   </div>
   <div class="col-md-11">
         <span class="subreddit-info">
-            <span class="subreddit-text"><a class="posturl" routerLink="">{{track.title}}</a></span>
-<!--            <span>Posted by <a class="username" routerLink="/user/{{track.user.username}}">{{track.user.username}}</a></span>-->
+            <span class="subreddit-text"><a class="posturl" routerLink="">Dodano {{track.createdAt}}</a></span>
+            <span> Autor <a class="username" routerLink="/user/">{{track.user}}</a></span>
         </span>
     <hr />
-    <div class="post-title">
-      <a class="postname" href="{{track.url}}">{{track.title}}</a>
+    <div *ngIf="track.version !== null" class="post-title">
+      <a class="postname" href="/tracks/{{track.id}}">{{track.artist}} - {{track.title}} ({{track.version}})</a>
     </div>
-    <div>
-      <p class="post-text">{{track.artist}}</p>
+    <div *ngIf="track.version === null" class="post-title">
+      <a class="postname" href="/tracks/{{track.id}}">{{track.artist}} - {{track.title}}</a>
     </div>
     <hr />
     <span>
-            <a class="btnCommments" role="button">
-<!--                <fa-icon [icon]="faComments"></fa-icon>-->
-<!--                Comments({{track.commentNum}})-->
-            </a>
-            <button class="login">
-                Sprawdź
-            </button>
+      <a class="btnCommments" role="button">
+       <button class="btn-info">Sprawdź</button>
+      </a>
     </span>
   </div>
 </div>
