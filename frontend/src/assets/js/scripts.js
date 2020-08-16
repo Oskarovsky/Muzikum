@@ -18,7 +18,7 @@ function passwordCompare() {
   confirm_password.onkeyup = validatePassword;
 }
 
-let check = function () {
+let enableRegisterButton = function () {
   if (document.getElementById('password').value === document.getElementById('confirm_password').value) {
     document.getElementById('message').style.display = "none"
     document.getElementById('submit_register').disabled = false;
@@ -26,9 +26,31 @@ let check = function () {
     document.getElementById('message').style.display = "inline"
     document.getElementById('message').style.color = 'red';
     document.getElementById('message').innerHTML = 'Niepoprawne hasło';
-    document.getElementById('submit_register').disabled = false;
+    document.getElementById('submit_register').disabled = true;
   }
 };
+
+let comparePassword = function () {
+  if (document.getElementById('password').value === document.getElementById('confirm_password').value
+  && document.getElementById('password').value !== '') {
+    document.getElementById('message').style.display = "none"
+    document.getElementById('submit_register').disabled = false;
+  } else {
+    document.getElementById('message').style.display = "inline"
+    document.getElementById('message').style.color = 'red';
+    document.getElementById('message').innerHTML = 'Niepoprawne hasło';
+    document.getElementById('submit_register').disabled = true;
+  }
+}
+
+let enableLoginButton = function () {
+  if (document.getElementById("password_form").value !== ''
+    && document.getElementById("username_form").value !== '') {
+    document.getElementById('submit_login').disabled = false;
+  } else {
+    document.getElementById('submit_login').disabled = true;
+  }
+}
 
 
 $(document).ready(function () {

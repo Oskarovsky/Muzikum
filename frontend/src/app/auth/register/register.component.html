@@ -26,7 +26,7 @@
           <div *ngIf="username.errors.maxlength">Nazwa użytkownika nie może zawierać więcej niż 20 znaków</div>
         </div>
         <input type="text" class="form-control" name="username" [(ngModel)]="form.username"
-               required minlength="3" maxlength="20" #username="ngModel" placeholder="Nazwa użytkownika" />
+               required minlength="3" maxlength="20" #username="ngModel" placeholder="Nazwa użytkownika" onkeyup='enableRegisterButton();'/>
       </div> <!-- form-group// -->
 
       <div class="form-group input-group">
@@ -37,7 +37,7 @@
           <div *ngIf="email.errors.required">Wymagany adres email</div><div *ngIf="email.errors.email">Niepoprawny email</div>
         </div>
         <input type="email" class="form-control" name="email" [(ngModel)]="form.email"
-          required email #email="ngModel" placeholder="Email" />
+          required email #email="ngModel" placeholder="Email" onkeyup='enableRegisterButton();'/>
       </div> <!-- form-group end.// -->
 
       <div class="form-group input-group">
@@ -49,7 +49,7 @@
           <div *ngIf="password.errors.minlength">Hasło musi zawierać minimum 6 znaków</div>
         </div>
         <input type="password" class="form-control" name="password" [(ngModel)]="form.password"
-          required minlength="6" #password="ngModel" placeholder="Hasło" id="password" />
+          required minlength="6" #password="ngModel" placeholder="Hasło" id="password" onkeyup='comparePassword();'/>
       </div> <!-- form-group// -->
 
       <div class="form-group input-group">
@@ -60,7 +60,7 @@
           <div id="message"></div>
         </div>
         <input class="form-control" placeholder="Powtórz hasło" type="password"
-               id="confirm_password" name="confirm_password" onkeyup='check();'> <br/>
+               id="confirm_password" name="confirm_password" onkeyup='comparePassword();'> <br/>
       </div> <!-- form-group// -->
 
       <div class="form-group">
