@@ -22,4 +22,21 @@
 
 .votecount{
   font-weight: bold;
+  color: black;
+  background-color: red;
+  font-size: 17px;
+}
+
+.votecount.green{
+  font-weight: bold;
+  color: black;
+  background-color: green;
+  font-size: 17px;
+}
+
+.votecount.default{
+  font-weight: bold;
+  color: black;
+  background-color: gray;
+  font-size: 17px;
 }

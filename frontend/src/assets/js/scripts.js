@@ -52,6 +52,32 @@ let enableLoginButton = function () {
   }
 }
 
+$(document).ready(function test() {
+  var els = document.getElementsByClassName('votecount');
+  for (var i = 0; i < els.length; i++) {
+    var cell = els[i];
+    if (cell.textContent < 0) {
+      cell.classList.remove('green')
+    } else if (cell.textContent > 0) {
+      cell.classList.add('green');
+    } else {
+      cell.classList.add('default');
+    }
+  }
+});
+
+// $(document).ready(function(){
+//   $(".votecount").filter(function() {
+//     var div = $('div:contains(On Call)', this);
+//     if (div.length === 0) return false;
+//
+//     var points = div.text();
+//
+//     return points <= 0;
+//
+//   }).css("color","red");
+// });
+
 
 $(document).ready(function () {
   $imgSrc = $('#imgProfile').attr('src');
