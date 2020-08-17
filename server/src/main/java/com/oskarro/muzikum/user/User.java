@@ -73,26 +73,5 @@ public class User extends DateAudit {
     @JoinColumn(name = "favorite_track")
     private Track favoriteTrack;
 
-//    @ManyToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
-//    @JoinTable(name = "users_favorite_tracks",
-//            joinColumns = @JoinColumn(name = "user_id"),
-//            inverseJoinColumns = @JoinColumn(name = "track_id"))
-//    private Set<Track> favoriteTracks = new HashSet<>();
-//
-//    public void addFavoriteTrack(Track track) {
-//        if (this.favoriteTracks == null) {
-//            this.favoriteTracks = new HashSet<Track>();
-//        }
-//        this.favoriteTracks.add(track);
-//        if (track.getFavoriteUsers() == null) {
-//            track.setFavoriteUsers(new HashSet<User>());
-//        }
-//        track.getFavoriteUsers().add(this);
-//    }
-//
-//    public void removeFavoriteTrack(Track track) {
-//        this.favoriteTracks.remove(track);
-//        track.getFavoriteUsers().remove(this);
-//    }
 
 }
