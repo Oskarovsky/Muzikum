@@ -40,7 +40,7 @@ public class Track extends DateAudit {
 
     private String url;
 
-    private UrlSource urlSource;
+    private String urlSource;
 
     private Integer position;
 

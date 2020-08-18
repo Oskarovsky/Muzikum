@@ -27,7 +27,7 @@ export class TrackAddComponent implements OnInit {
     version: '',
     createdAt: '',
     url: '',
-    urlSource: '',
+    urlSource: null,
     position: null,
     playlist: null,
     video: null,
