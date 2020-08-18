@@ -109,8 +109,8 @@ public class AuthController {
                 .username(registerRequest.getUsername())
                 .email(registerRequest.getEmail())
                 .password(encoder.encode(registerRequest.getPassword()))
-                .createdOn(Date.from(now()))
-                .isEnabled(false)
+                .createdDate(Date.from(now()))
+                .activated(false)
                 .build();
 
         Set<String> stringRoles = registerRequest.getRole();
@@ -182,7 +182,7 @@ public class AuthController {
             User user = userRepository.findByEmail(token.getUser().getEmail()).orElseThrow(
                     () -> new UsernameNotFoundException("User not found with email: " + token.getUser().getEmail())
             );
-            user.setEnabled(true);
+            user.setActivated(true);
             System.out.printf("USER %s ENABLED%n", user.getUsername());
             userRepository.save(user);
             sendEmail("Success confirmation", "info.oskarro@gmail.com",

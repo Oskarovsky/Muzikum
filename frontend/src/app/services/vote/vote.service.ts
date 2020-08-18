@@ -4,6 +4,7 @@ import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {Vote} from '../../voting/vote';
 import {Track} from '../../tracks/track/model/track';
+import {VotePayload} from '../../tracks/track-vote-button/model/vote-payload';
 
 const API: string = environment.serverUrl;
 const VOTE_API = API + '/vote';
@@ -25,6 +26,10 @@ export class VoteService {
 
   addVoteForTrackById(id: number, username: string): Observable<any> {
     return this.http.get(VOTE_API + '/track/' + id + '/add/' + username);
+  }
+
+  voteForTrack(votePayload: VotePayload): Observable<any> {
+    return this.http.post(VOTE_API + '/track', votePayload);
   }
 
   getAllVotedTracksByUser(username: string): Observable<any> {

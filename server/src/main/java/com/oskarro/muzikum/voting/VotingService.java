@@ -8,7 +8,7 @@ public interface VotingService {
 
     void addVoteForTrack(Integer trackId, String username);
 
-    void voteForTrack(Vote vote);
+    void voteForTrack(VoteDto vote);
 
     boolean isVotedForTrackByUser(Integer trackId, Integer userId);
 

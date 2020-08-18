@@ -2,10 +2,12 @@
   <div class="votecount">{{track.points}}</div>
   <div>
     <span>
-      <img src="../../../assets/img/thumbs_up.png" alt="thumbs_up" style="max-width:50%; max-height:50%;">
+      <img (click)="upvotePost()" src="../../../assets/img/thumbs_up.png" alt="thumbs_up"
+           style="max-width:50%; max-height:50%;">
     </span>
     <span>
-      <img src="../../../assets/img/thumbs_down.png" alt="thumbs_down" style="max-width:50%; max-height:50%;">
+      <img (click)="downvotePost()" src="../../../assets/img/thumbs_down.png" alt="thumbs_down"
+           style="max-width:50%; max-height:50%;">
     </span>
   </div>
 </div>

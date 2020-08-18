@@ -65,13 +65,21 @@ public class VotingServiceImpl implements VotingService {
     }
 
     @Override
-    public void voteForTrack(Vote vote) {
-        Track track = trackRepository.findById(vote.getTrack().getId())
-                .orElseThrow(() -> new ResourceNotFoundException("Track", "id", vote.getTrack().getId()));
-        if (isVotedForTrackByUser(track.getId(), vote.getUser().getId())) {
+    public void voteForTrack(VoteDto voteDto) {
+        Track track = trackRepository.findById(voteDto.getTrackId())
+                .orElseThrow(() -> new ResourceNotFoundException("Track", "id", voteDto.getTrackId()));
+        User user = userRepository.findById(voteDto.getUserId())
+                .orElseThrow(() -> new ResourceNotFoundException("User", "id", voteDto.getUserId()));
+        if (isVotedForTrackByUser(track.getId(), voteDto.getUserId())) {
             throw new AppException("You have already voted for this track");
         }
-        addVote(track, vote.getVoteType());
+        addVote(track, voteDto.getVoteType());
+        Vote vote = Vote.builder()
+                .track(track)
+                .user(user)
+                .voteType(voteDto.getVoteType())
+                .build();
+
         votingRepository.save(vote);
         trackRepository.save(track);
     }

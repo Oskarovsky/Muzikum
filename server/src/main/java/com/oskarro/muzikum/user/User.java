@@ -10,6 +10,7 @@ import org.hibernate.annotations.NaturalId;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
+import java.time.Instant;
 import java.util.*;
 
 @Entity
@@ -53,16 +54,33 @@ public class User extends DateAudit {
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles = new HashSet<>();
 
-    @JsonIgnore
-    @Column(name = "enabled")
-    private boolean isEnabled;
+    @Size(max = 256)
+    @Column(name = "image_url")
+    private String imageUrl;
 
-    @Column(name = "created_on")
-    private Date createdOn;
+    @Size(max = 20)
+    @Column(name = "activation_key")
+    @JsonIgnore
+    private String activationKey;
+
+    @Size(max = 20)
+    @Column(name = "reset_key")
+    @JsonIgnore
+    private String resetKey;
+
+    @Column(name = "reset_date")
+    private Instant resetDate = null;
 
     @JsonIgnore
-    @Column(name = "last_login")
-    private Date lastLogin;
+    @Column(name = "activated")
+    private boolean activated;
+
+    @Column(name = "created_date")
+    private Date createdDate;
+
+    @JsonIgnore
+    @Column(name = "last_login_date")
+    private Date lastLoginDate;
 
     @JsonIgnore
     @Column(name = "reset_token")

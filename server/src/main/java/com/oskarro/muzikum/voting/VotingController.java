@@ -47,7 +47,7 @@ public class VotingController {
 
     @PostMapping(value = "/track")
     @CrossOrigin(origins = "*", allowedHeaders = "*")
-    public void voteForTrackById(@RequestBody Vote vote) throws ValidationException {
+    public void voteForTrackById(@RequestBody VoteDto vote) throws ValidationException {
         votingService.voteForTrack(vote);
     }
 
