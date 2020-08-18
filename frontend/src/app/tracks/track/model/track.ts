@@ -10,6 +10,7 @@ export interface Track {
   genre: string;
   version: string;
   url: string;
+  urlSource: string;
   position: number;
   createdAt: string;
   playlist: Playlist;

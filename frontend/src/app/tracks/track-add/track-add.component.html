@@ -55,8 +55,20 @@
                required #trackUrl="ngModel">
       </div>
 
+      <div class="form-group">
+        <mat-form-field style="color: white">
+          <label for="genres" style="color: white">Żródło URL</label>
+          <mat-select #trackUrlSource [(ngModel)]="modelTrack.urlSource" style="color: black" id="urlSource">
+            <mat-option *ngFor="let urlSource of urlSources" [value]="urlSource">
+              {{urlSource}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
       <button type="submit" [disabled]="!userForm.form.valid"
-              (click)="addNewTrack(trackTitle.value, trackArtist.value, trackVersion.value, trackGenre.value, trackUrl.value)"
+              (click)="addNewTrack(trackTitle.value, trackArtist.value, trackVersion.value,
+              trackGenre.value, trackUrl.value, trackUrlSource.value)"
               class="btn btn-info">Submit</button>
     </form>
   </div>

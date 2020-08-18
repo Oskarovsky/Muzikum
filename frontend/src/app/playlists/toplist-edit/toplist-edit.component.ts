@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import {ActivatedRoute} from "@angular/router";
-import { Track } from "../../tracks/track/model/track";
+import {ActivatedRoute} from '@angular/router';
+import { Track } from '../../tracks/track/model/track';
 import { FormGroup, FormControl } from '@angular/forms';
-import {HttpClient} from "@angular/common/http";
-import {TrackService} from "../../services/track/track.service";
+import {HttpClient} from '@angular/common/http';
+import {TrackService} from '../../services/track/track.service';
 
 @Component({
   selector: 'app-toplist-edit',
@@ -20,6 +20,7 @@ export class ToplistEditComponent implements OnInit {
     genre: '',
     version: '',
     url: '',
+    urlSource: '',
     createdAt: '',
     position: null,
     playlist: null,

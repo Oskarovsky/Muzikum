@@ -27,6 +27,7 @@ export class TrackAddComponent implements OnInit {
     version: '',
     createdAt: '',
     url: '',
+    urlSource: '',
     position: null,
     playlist: null,
     video: null,
@@ -45,6 +46,8 @@ export class TrackAddComponent implements OnInit {
 
   genres: string[] = ['CLUB', 'RETRO', 'DANCE', 'HOUSE', 'TECHNO'];
 
+  urlSources: string[] = ['ZIPPYSHARE', 'KRAKENFILES', 'SOUNDCLOUD'];
+
   constructor(private tokenStorage: TokenStorageService,
               private trackService: TrackService) { }
 
@@ -59,7 +62,7 @@ export class TrackAddComponent implements OnInit {
     }
   }
 
-  public addNewTrack(title: string, artist: string, version: string, genre: string, url: string) {
+  public addNewTrack(title: string, artist: string, version: string, genre: string, url: string, urlSource: string) {
     const newTrack: Track = {
       id: null,
       title,
@@ -68,6 +71,7 @@ export class TrackAddComponent implements OnInit {
       genre,
       version,
       url,
+      urlSource,
       createdAt: '',
       position: null,
       playlist: null,

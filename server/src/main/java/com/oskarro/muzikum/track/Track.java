@@ -40,6 +40,8 @@ public class Track extends DateAudit {
 
     private String url;
 
+    private UrlSource urlSource;
+
     private Integer position;
 
     @ManyToOne

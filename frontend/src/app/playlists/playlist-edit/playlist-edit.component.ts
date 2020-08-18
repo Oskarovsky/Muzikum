@@ -138,6 +138,7 @@ export class PlaylistEditComponent implements OnInit {
       version,
       createdAt: '',
       url: '',
+      urlSource: '',
       position: null,
       playlist: this.playlist,
       video: null,
