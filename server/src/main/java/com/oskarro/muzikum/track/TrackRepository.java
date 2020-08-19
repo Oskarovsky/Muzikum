@@ -4,6 +4,7 @@ import com.oskarro.muzikum.provider.Provider;
 import com.oskarro.muzikum.user.User;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -13,7 +14,7 @@ import java.util.Optional;
 
 @RepositoryRestResource
 @CrossOrigin(origins = "https://localhost:4200")
-public interface TrackRepository extends CrudRepository<Track, Integer> {
+public interface TrackRepository extends JpaRepository<Track, Integer> {
 
     List<Track> findAll();
 
@@ -42,4 +43,6 @@ public interface TrackRepository extends CrudRepository<Track, Integer> {
     List<Track> findByGenreOrderByCreatedAtDesc(String genre);
 
     List<Track> findByUserUsernameOrderByCreatedAtDesc(String username);
+
+    Page<Track> findByGenreOrderByCreatedAtDesc(String genre, Pageable pageable);
 }

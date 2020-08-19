@@ -3,12 +3,17 @@ package com.oskarro.muzikum.track;
 import com.oskarro.muzikum.user.favorite.FavoriteService;
 import com.oskarro.muzikum.user.favorite.FavoriteTrackRepository;
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+
 import javax.xml.bind.ValidationException;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @RestController
 @RequestMapping(value = "/api/tracks")
@@ -111,4 +116,30 @@ public class TrackController {
         return trackService.getLastAddedTracksByGenreOnlyWithUser(genre, numberOfTracks);
     }
 
+    @GetMapping(value = "/genre/{genre}/list")
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
+    public ResponseEntity<Map<String, Object>> getAllTracks(
+            @PathVariable String genre,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size
+    ) {
+        try {
+            List<Track> tracks = new ArrayList<>();
+            Pageable paging = PageRequest.of(page, size);
+            Page<Track> pageTracks;
+            pageTracks = trackRepository.findByGenreOrderByCreatedAtDesc(genre, paging);
+            tracks = pageTracks.getContent();
+            if (tracks.isEmpty()) {
+                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            }
+            Map<String, Object> response = new HashMap<>();
+            response.put("tracks", tracks);
+            response.put("currentPage", pageTracks.getNumber());
+            response.put("totalItems", pageTracks.getTotalElements());
+            response.put("totalPages", pageTracks.getTotalPages());
+            return new ResponseEntity<>(response, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 }
