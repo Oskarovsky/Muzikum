@@ -37,7 +37,7 @@ export class TracksPartComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.route.queryParams.subscribe(x => this.getTrackOnPage( this.genre, x.page || 1));
+    this.route.queryParams.subscribe(x => this.getTrackOnPage( this.genre, x.page || 0));
   }
 
   getTrackOnPage(genre, page) {
