@@ -124,10 +124,10 @@ public class TrackController {
             @RequestParam(defaultValue = "10") int size
     ) {
         try {
-            List<Track> tracks = new ArrayList<>();
+            List<Track> tracks;
             Pageable paging = PageRequest.of(page, size);
             Page<Track> pageTracks;
-            pageTracks = trackRepository.findByGenreOrderByCreatedAtDesc(genre, paging);
+            pageTracks = trackRepository.findByGenreOrderByCreatedAtDesc(genre.toUpperCase(), paging);
             tracks = pageTracks.getContent();
             if (tracks.isEmpty()) {
                 return new ResponseEntity<>(HttpStatus.NO_CONTENT);

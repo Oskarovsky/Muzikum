@@ -71,6 +71,7 @@ import { ContactComponent } from './info/contact/contact.component';
 import { TrackTileComponent } from './tracks/track-tile/track-tile.component';
 import { TrackVoteButtonComponent } from './tracks/track-vote-button/track-vote-button.component';
 import { TracksPartComponent } from './tracks/tracks-part/tracks-part.component';
+import {NgxPaginationModule} from 'ngx-pagination';
 
 
 @NgModule({
@@ -148,7 +149,8 @@ import { TracksPartComponent } from './tracks/tracks-part/tracks-part.component'
         MatSortModule,
         MatExpansionModule,
         MatPaginatorModule,
-        CKEditorModule
+        CKEditorModule,
+        NgxPaginationModule
     ],
   exports: [
     TrackComponent,

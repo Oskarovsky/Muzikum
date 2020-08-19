@@ -86,4 +86,12 @@ export class TrackService {
     return this.http.get<Track>(TRACK_API + '/genre/' + genre + '/lastAddedByUser/' + numberOfTracks);
   }
 
+  getPageTracksByGenre(params, genre: string): Observable<any> {
+    return this.http.get(TRACK_API + '/genre/' + genre + '/list', params);
+  }
+
+  getPageTracksByGenreOnServer(genre, page): Observable<any> {
+    return this.http.get<any>(TRACK_API + '/genre/' + genre + `/list?page=${page}`);
+  }
+
 }
