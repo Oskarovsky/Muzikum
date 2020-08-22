@@ -1,7 +1,5 @@
 package com.oskarro.muzikum.playlist;
 
-import com.oskarro.muzikum.track.Track;
-
 import java.util.List;
 import java.util.Optional;
 

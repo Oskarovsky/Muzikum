@@ -4,12 +4,10 @@ import com.oskarro.muzikum.dto.VoteDto;
 import com.oskarro.muzikum.exception.AppException;
 import com.oskarro.muzikum.exception.ResourceNotFoundException;
 import com.oskarro.muzikum.security.AuthService;
-import com.oskarro.muzikum.track.Track;
+import com.oskarro.muzikum.track.model.Track;
 import com.oskarro.muzikum.track.TrackRepository;
 import com.oskarro.muzikum.user.User;
 import com.oskarro.muzikum.user.UserRepository;
-import com.oskarro.muzikum.user.favorite.FavoriteTrack;
-import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 

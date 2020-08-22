@@ -139,6 +139,8 @@ export class PlaylistEditComponent implements OnInit {
       createdAt: '',
       url: '',
       urlSource: '',
+      urlPlugin: '',
+      safeUrl: '',
       position: null,
       playlist: this.playlist,
       video: null,

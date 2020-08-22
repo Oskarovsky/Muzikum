@@ -1,6 +1,7 @@
 import {Playlist} from '../../../playlists/playlist/model/playlist';
 import {Video} from '../../../videos/video/model/video';
 import { User } from 'src/app/services/user/user';
+import {SafeResourceUrl} from '@angular/platform-browser';
 
 export interface Track {
   id: number;
@@ -11,6 +12,8 @@ export interface Track {
   version: string;
   url: string;
   urlSource: string;
+  urlPlugin: string;
+  safeUrl: SafeResourceUrl;
   position: number;
   createdAt: string;
   playlist: Playlist;

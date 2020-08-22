@@ -14,15 +14,17 @@
     <div *ngIf="track.version === null" class="post-title">
       <a class="postname" href="/tracks/{{track.id}}">{{track.artist}} - {{track.title}}</a>
     </div>
-    <div *ngIf="track.urlSource === null" class="post-title">
+    <div *ngIf="track.urlSource !== null" class="post-title">
       <p>{{track.url}}</p>
+      <p>{{track.urlPlugin}}</p>
     </div>
     <div *ngIf="track.urlSource === 'ZIPPYSHARE'" class="post-title">
       <embed flashvars="baseurl=https://api.zippyshare.com/api/&amp;file=vJgPJz71&amp;server=26&amp;flashid=zs_playervJgPJz71&amp;availablequality=both&amp;bordercolor=#cccccc&amp;forecolor=#000000&amp;backcolor=#e8e8e8&amp;darkcolor=#000000&amp;lightcolor=#ff6600" allowfullscreen="false" allowscriptaccess="always" type="application/x-shockwave-flash" src="https://api.zippyshare.com/api/player.swf" name="zs_playervJgPJz71" wmode="transparent" id="zs_playervJgPJz71" width="100%" height="80">
     </div>
     <div *ngIf="track.urlSource === 'KRAKENFILES'" class="post-title">
-      <iframe src="https://krakenfiles.com/getEmbedPlayer/1f02d877ff?width=450&amp;autoplay=false&amp;date=18-08-2020" width="450" height="100" frameborder="0"></iframe>
+      <iframe [src]="track.safeUrl" width="450" height="100" frameborder="0"></iframe>
     </div>
+<!--    https://krakenfiles.com/getEmbedPlayer/1f02d877ff?width=450&amp;autoplay=false&amp;date=18-08-2020-->
     <div *ngIf="track.urlSource === 'SOUNDCLOUD'" class="post-title">
       <div style="font-size: 10px; color: #cccccc;line-break: anywhere;word-break: normal;overflow: hidden;white-space: nowrap;text-overflow: ellipsis; font-family: Interstate,Lucida Grande,Lucida Sans Unicode,Lucida Sans,Garuda,Verdana,Tahoma,sans-serif;font-weight: 100;"><a href="https://soundcloud.com/oskarro" title="Oskarro" target="_blank" style="color: #cccccc; text-decoration: none;">Oskarro</a> · <a href="https://soundcloud.com/oskarro/oskarro-retro" title="Oskarro - RETRO" target="_blank" style="color: #cccccc; text-decoration: none;">Oskarro - RETRO</a></div>
       <iframe width="100%" height="80px" scrolling="no" frameborder="no" allow="autoplay"

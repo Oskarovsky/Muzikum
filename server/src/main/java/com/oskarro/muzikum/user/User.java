@@ -2,7 +2,7 @@ package com.oskarro.muzikum.user;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.oskarro.muzikum.track.Track;
+import com.oskarro.muzikum.track.model.Track;
 import com.oskarro.muzikum.user.role.Role;
 import com.oskarro.muzikum.utils.DateAudit;
 import lombok.*;

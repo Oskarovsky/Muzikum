@@ -1,12 +1,9 @@
 package com.oskarro.muzikum.video;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.oskarro.muzikum.playlist.Playlist;
-import com.oskarro.muzikum.track.Track;
 import lombok.*;
 
 import javax.persistence.*;
-import java.util.Set;
 
 @Data
 @Entity

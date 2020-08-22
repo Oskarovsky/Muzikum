@@ -1,11 +1,9 @@
 package com.oskarro.muzikum.track;
 
-import com.oskarro.muzikum.provider.Provider;
-import com.oskarro.muzikum.user.User;
+import com.oskarro.muzikum.track.model.Track;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 import org.springframework.web.bind.annotation.CrossOrigin;
 

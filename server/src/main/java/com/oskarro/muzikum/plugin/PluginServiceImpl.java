@@ -12,8 +12,9 @@ import java.net.URL;
 import static java.nio.charset.StandardCharsets.UTF_8;
 
 @Service
-public class PluginServiceImpl {
+public class PluginServiceImpl implements PluginService {
 
+    @Override
     public PluginKrakenResponse readJsonFromKrakenFiles(String jsonUrl) throws IOException, ParseException {
         Object object = new JSONParser().parse(IOUtils.toString(new URL(jsonUrl), UTF_8));
         JSONObject jsonObject =  (JSONObject) object;
@@ -24,10 +25,11 @@ public class PluginServiceImpl {
                 .build();
     }
 
+    @Override
     public String prepareScript(PluginKrakenResponse response) {
         StringBuilder script = new StringBuilder("https://krakenfiles.com/getEmbedPlayer/");
         script.append(response.getHash());
-        script.append("?width=450&amp;autoplay=false&amp;date=");
+        script.append("?width=450&autoplay=false&date=");
         script.append(response.getUploadDate());
         System.out.println(script);
         return String.valueOf(script);

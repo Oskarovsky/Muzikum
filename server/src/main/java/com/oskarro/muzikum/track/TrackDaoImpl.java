@@ -1,8 +1,7 @@
 package com.oskarro.muzikum.track;
 
 import com.oskarro.muzikum.model.AbstractJpaDao;
-import com.oskarro.muzikum.user.User;
-import com.oskarro.muzikum.user.UserDao;
+import com.oskarro.muzikum.track.model.Track;
 import org.springframework.stereotype.Repository;
 
 @Repository

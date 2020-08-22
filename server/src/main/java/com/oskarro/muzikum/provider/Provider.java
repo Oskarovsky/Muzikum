@@ -1,6 +1,6 @@
 package com.oskarro.muzikum.provider;
 
-import com.oskarro.muzikum.track.Genre;
+import com.oskarro.muzikum.track.model.Genre;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

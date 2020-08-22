@@ -1,8 +1,8 @@
 package com.oskarro.muzikum.provider.contractor;
 
 import com.oskarro.muzikum.provider.Provider;
-import com.oskarro.muzikum.track.Genre;
-import com.oskarro.muzikum.track.Track;
+import com.oskarro.muzikum.track.model.Genre;
+import com.oskarro.muzikum.track.model.Track;
 import com.oskarro.muzikum.track.TrackService;
 import lombok.extern.slf4j.Slf4j;
 import org.json.JSONException;

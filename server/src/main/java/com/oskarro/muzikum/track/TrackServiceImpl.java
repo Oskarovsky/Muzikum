@@ -1,14 +1,19 @@
 package com.oskarro.muzikum.track;
 
 import com.oskarro.muzikum.exception.ResourceNotFoundException;
+import com.oskarro.muzikum.plugin.PluginKrakenResponse;
+import com.oskarro.muzikum.plugin.PluginService;
+import com.oskarro.muzikum.track.model.Track;
 import com.oskarro.muzikum.user.User;
 import com.oskarro.muzikum.user.UserRepository;
+import org.json.simple.parser.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.io.IOException;
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -22,11 +27,14 @@ public class TrackServiceImpl implements TrackService {
 
     private final TrackRepository trackRepository;
     private final UserRepository userRepository;
+    private final PluginService pluginService;
 
-    public TrackServiceImpl(TrackRepository trackRepository, UserRepository userRepository) {
+    public TrackServiceImpl(TrackRepository trackRepository, UserRepository userRepository,
+                            PluginService pluginService) {
         super();
         this.trackRepository = trackRepository;
         this.userRepository = userRepository;
+        this.pluginService = pluginService;
     }
 
     @Override
@@ -44,6 +52,15 @@ public class TrackServiceImpl implements TrackService {
     @Override
     @Transactional
     public Track saveTrack(Track track) {
+        if (!Objects.equals(track.getUrl(), "")) {
+            try {
+                PluginKrakenResponse response = pluginService.readJsonFromKrakenFiles(track.getUrl());
+                String pluginScript = pluginService.prepareScript(response);
+                track.setUrlPlugin(pluginScript);
+            } catch (IOException | ParseException e) {
+                e.printStackTrace();
+            }
+        }
         return trackRepository.save(track);
     }
 

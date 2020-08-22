@@ -1,7 +1,7 @@
 package com.oskarro.muzikum.user.favorite;
 
 import com.oskarro.muzikum.exception.ResourceNotFoundException;
-import com.oskarro.muzikum.track.Track;
+import com.oskarro.muzikum.track.model.Track;
 import com.oskarro.muzikum.track.TrackRepository;
 import com.oskarro.muzikum.user.User;
 import com.oskarro.muzikum.user.UserRepository;

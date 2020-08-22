@@ -1,6 +1,6 @@
 package com.oskarro.muzikum.voting;
 
-import com.oskarro.muzikum.track.Track;
+import com.oskarro.muzikum.track.model.Track;
 import com.oskarro.muzikum.user.User;
 import lombok.*;
 

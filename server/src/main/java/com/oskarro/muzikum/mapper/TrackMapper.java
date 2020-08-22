@@ -1,7 +1,7 @@
 package com.oskarro.muzikum.mapper;
 
 import com.oskarro.muzikum.dto.TrackDto;
-import com.oskarro.muzikum.track.Track;
+import com.oskarro.muzikum.track.model.Track;
 import org.mapstruct.InheritInverseConfiguration;
 import org.mapstruct.Mapper;
 

@@ -2,16 +2,12 @@ package com.oskarro.muzikum.voting;
 
 import com.oskarro.muzikum.dto.VoteDto;
 import com.oskarro.muzikum.exception.ResourceNotFoundException;
-import com.oskarro.muzikum.track.Track;
+import com.oskarro.muzikum.track.model.Track;
 import com.oskarro.muzikum.track.TrackService;
-import com.oskarro.muzikum.user.User;
-import com.oskarro.muzikum.user.favorite.FavoriteTrack;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
 import javax.xml.bind.ValidationException;
 import java.util.ArrayList;
 import java.util.List;

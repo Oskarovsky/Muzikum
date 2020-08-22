@@ -82,6 +82,8 @@ export class VideoEditComponent implements OnInit {
       createdAt: '',
       url: '',
       urlSource: '',
+      urlPlugin: '',
+      safeUrl: '',
       position: null,
       playlist: null,
       video: this.video,

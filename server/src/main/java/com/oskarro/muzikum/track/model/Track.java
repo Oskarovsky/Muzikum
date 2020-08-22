@@ -1,4 +1,4 @@
-package com.oskarro.muzikum.track;
+package com.oskarro.muzikum.track.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.oskarro.muzikum.playlist.Playlist;
@@ -41,6 +41,8 @@ public class Track extends DateAudit {
     private String url;
 
     private String urlSource;
+
+    private String urlPlugin;
 
     private Integer position;
 

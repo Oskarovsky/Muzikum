@@ -1,7 +1,7 @@
 package com.oskarro.muzikum.user.favorite;
 
 import com.oskarro.muzikum.exception.ResourceNotFoundException;
-import com.oskarro.muzikum.track.Track;
+import com.oskarro.muzikum.track.model.Track;
 import com.oskarro.muzikum.track.TrackService;
 import org.springframework.web.bind.annotation.*;
 

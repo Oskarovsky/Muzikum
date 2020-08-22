@@ -35,7 +35,7 @@ export class TrackService {
   }
 
   getTracksByProviderName(providerName: string) {
-    return this.http.get(PROVIDER_API + '/' + providerName + '/all-tracks')
+    return this.http.get(PROVIDER_API + '/' + providerName + '/all-tracks');
   }
 
   addTrackToRanking(track: Track): Observable<any> {
@@ -90,8 +90,8 @@ export class TrackService {
     return this.http.get(TRACK_API + '/genre/' + genre + '/list', params);
   }
 
-  getPageTracksByGenreOnServer(genre, page): Observable<any> {
-    return this.http.get<any>(TRACK_API + '/genre/' + genre + `/list?page=${page}`);
+  getPageTracksByGenreOnServer(genre, page): Observable<Track[]> {
+    return this.http.get<Track[]>(TRACK_API + '/genre/' + genre + `/list?page=${page}`);
   }
 
 }

@@ -1,8 +1,7 @@
 package com.oskarro.muzikum.video;
 
 import com.oskarro.muzikum.playlist.Playlist;
-import com.oskarro.muzikum.playlist.PlaylistService;
-import com.oskarro.muzikum.track.Track;
+import com.oskarro.muzikum.track.model.Track;
 import com.oskarro.muzikum.track.TrackService;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;

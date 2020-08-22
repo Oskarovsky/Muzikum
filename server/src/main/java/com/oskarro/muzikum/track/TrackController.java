@@ -1,5 +1,6 @@
 package com.oskarro.muzikum.track;
 
+import com.oskarro.muzikum.track.model.Track;
 import com.oskarro.muzikum.user.favorite.FavoriteService;
 import com.oskarro.muzikum.user.favorite.FavoriteTrackRepository;
 import lombok.AllArgsConstructor;

@@ -21,6 +21,8 @@ export class ToplistEditComponent implements OnInit {
     version: '',
     url: '',
     urlSource: '',
+    urlPlugin: '',
+    safeUrl: '',
     createdAt: '',
     position: null,
     playlist: null,

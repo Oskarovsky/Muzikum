@@ -1,8 +1,7 @@
 package com.oskarro.muzikum.playlist;
 
 import com.oskarro.muzikum.monitor.SessionComponent;
-import com.oskarro.muzikum.provider.Provider;
-import com.oskarro.muzikum.track.Track;
+import com.oskarro.muzikum.track.model.Track;
 import com.oskarro.muzikum.track.TrackRepository;
 import com.oskarro.muzikum.track.TrackService;
 import org.springframework.web.bind.annotation.*;
