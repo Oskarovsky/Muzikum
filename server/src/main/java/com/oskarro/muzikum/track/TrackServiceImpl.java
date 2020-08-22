@@ -55,7 +55,8 @@ public class TrackServiceImpl implements TrackService {
     public Track saveTrack(Track track) {
         if (!Objects.equals(track.getUrl(), "")) {
             try {
-                PluginKrakenResponse response = pluginService.readJsonFromKrakenFiles(track.getUrl());
+                String jsonUrl = pluginService.getJsonUrlFromWebsiteUrl(track.getUrl());
+                PluginKrakenResponse response = pluginService.readJsonFromKrakenFiles(jsonUrl);
                 String pluginScript = pluginService.prepareScript(response);
                 track.setUrlPlugin(pluginScript);
             } catch (IOException | ParseException e) {
