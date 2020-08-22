@@ -38,9 +38,13 @@ public class PluginServiceImpl implements PluginService {
 
     @Override
     public String getJsonUrlFromWebsiteUrl(String websiteUrl) {
-        String trackHash = websiteUrl.substring(websiteUrl.indexOf("view/") + 5, websiteUrl.indexOf("/file"));
-        String resultUrl = "https://krakenfiles.com/json/" + trackHash;
-        return String.valueOf(resultUrl);
+        if (websiteUrl.contains("view")) {
+            String trackHash = websiteUrl.substring(websiteUrl.indexOf("view/") + 5, websiteUrl.indexOf("/file"));
+            String resultUrl = "https://krakenfiles.com/json/" + trackHash;
+            return String.valueOf(resultUrl);
+        } else {
+            return websiteUrl;
+        }
     }
 
 }

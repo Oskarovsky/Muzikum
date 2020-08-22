@@ -4,6 +4,7 @@ import com.oskarro.muzikum.exception.ResourceNotFoundException;
 import com.oskarro.muzikum.plugin.PluginKrakenResponse;
 import com.oskarro.muzikum.plugin.PluginService;
 import com.oskarro.muzikum.track.model.Track;
+import com.oskarro.muzikum.track.model.UrlSource;
 import com.oskarro.muzikum.user.User;
 import com.oskarro.muzikum.user.UserRepository;
 import org.json.simple.parser.ParseException;
@@ -55,10 +56,12 @@ public class TrackServiceImpl implements TrackService {
     public Track saveTrack(Track track) {
         if (!Objects.equals(track.getUrl(), "")) {
             try {
-                String jsonUrl = pluginService.getJsonUrlFromWebsiteUrl(track.getUrl());
-                PluginKrakenResponse response = pluginService.readJsonFromKrakenFiles(jsonUrl);
-                String pluginScript = pluginService.prepareScript(response);
-                track.setUrlPlugin(pluginScript);
+                if (Objects.equals(track.getUrlSource(), UrlSource.KRAKENFILES.toString())) {
+                    String jsonUrl = pluginService.getJsonUrlFromWebsiteUrl(track.getUrl());
+                    PluginKrakenResponse response = pluginService.readJsonFromKrakenFiles(jsonUrl);
+                    String pluginScript = pluginService.prepareScript(response);
+                    track.setUrlPlugin(pluginScript);
+                }
             } catch (IOException | ParseException e) {
                 e.printStackTrace();
             }
