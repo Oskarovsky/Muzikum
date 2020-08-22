@@ -14,6 +14,7 @@ import static java.nio.charset.StandardCharsets.UTF_8;
 @Service
 public class PluginServiceImpl implements PluginService {
 
+
     @Override
     public PluginKrakenResponse readJsonFromKrakenFiles(String jsonUrl) throws IOException, ParseException {
         Object object = new JSONParser().parse(IOUtils.toString(new URL(jsonUrl), UTF_8));
@@ -33,6 +34,11 @@ public class PluginServiceImpl implements PluginService {
         script.append(response.getUploadDate());
         System.out.println(script);
         return String.valueOf(script);
+    }
+
+    @Override
+    public String getJsonUrlFromWebsiteUrl(String websiteUrl) {
+        StringBuilder url = websiteUrl;
     }
 
 }
