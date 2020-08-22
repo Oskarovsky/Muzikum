@@ -143,4 +143,10 @@ public class TrackController {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+    @GetMapping(value = "/genre/{genre}/page/{idPage}")
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
+    public List<Track> getTracksByGenreFromOnePage(@PathVariable String genre, @PathVariable int idPage) {
+        return trackService.getAddedTracksByGenreFromPage(genre, idPage);
+    }
 }

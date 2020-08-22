@@ -43,5 +43,5 @@ public interface TrackService {
 
     List<Track> getLastAddedTracksByGenreOnlyWithUser(String genre, Integer numberOfTracks);
 
-
+    List<Track> getAddedTracksByGenreFromPage(String genre, int page);
 }

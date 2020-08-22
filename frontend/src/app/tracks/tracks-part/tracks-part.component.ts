@@ -36,25 +36,16 @@ export class TracksPartComponent implements OnInit {
               private sanitizer: DomSanitizer) {
     this.sub = this.route.params.subscribe(params => {
       this.genre = params.genre;
+      this.page = params.page || 0;
     });
 
-    this.route.queryParams.subscribe(queryParams => {
-      this.page = queryParams.page || 0;
-    });
-
-    this.trackService.getAllTracks().subscribe(track => {
+    this.trackService.getTracksByGenreFromOnePage(this.genre, this.page).subscribe(track => {
       this.tracks$ = track;
       this.secureAllUrl(this.tracks$);
     });
   }
 
   ngOnInit() {
-  }
-
-  getTrackOnPage(genre, page) {
-    this.trackService.getPageTracksByGenreOnServer(genre, page).subscribe(track => {
-      this.tracks$ = track;
-    });
   }
 
   secureAllUrl(allTracks: Track[]) {

@@ -10,6 +10,7 @@ import org.json.simple.parser.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -200,7 +201,15 @@ public class TrackServiceImpl implements TrackService {
                 .collect(Collectors.toList());
     }
 
-
+    @Override
+    public List<Track> getAddedTracksByGenreFromPage(String genre, int page) {
+        Pageable pageable = PageRequest.of(page, 10);
+        Page<Track> fetchedTracks = trackRepository.findByGenreOrderByCreatedAtDesc(genre.toUpperCase(), pageable);
+        return fetchedTracks
+                .stream()
+                .filter(Objects::nonNull)
+                .collect(Collectors.toList());
+    }
 
 
 }

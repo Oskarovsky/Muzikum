@@ -3,7 +3,6 @@ import {RouterModule, Routes} from '@angular/router';
 import {TrackComponent} from './tracks/track/track.component';
 import {TrackListComponent} from './tracks/track-list/track-list.component';
 import {ProviderListComponent} from './providers/provider-list/provider-list.component';
-import {ProviderComponent} from './providers/provider/provider.component';
 import {NotFoundComponent} from './not-found/not-found.component';
 import {ToplistComponent} from './playlists/toplist/toplist.component';
 import {ToplistEditComponent} from './playlists/toplist-edit/toplist-edit.component';
@@ -43,8 +42,7 @@ const routes: Routes = [
   { path: 'tracklist', component: TrackListComponent },
   { path: 'tracklist/:genre', component: TrackListComponent },
   { path: 'tracks/:genre', component: TracksPartComponent },
-
-
+  { path: 'tracks/:genre/:page', component: TracksPartComponent },
 
   { path: 'provider/:id/tracks', component: TrackListComponent },
   { path: 'provider', component: ProviderListComponent },

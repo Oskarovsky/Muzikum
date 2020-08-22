@@ -94,4 +94,8 @@ export class TrackService {
     return this.http.get<Track[]>(TRACK_API + '/genre/' + genre + `/list?page=${page}`);
   }
 
+  getTracksByGenreFromOnePage(genre: string, page: number): Observable<Track[]> {
+    return this.http.get<Track[]>(TRACK_API + '/genre/' + genre + '/page/' + page);
+  }
+
 }
