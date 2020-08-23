@@ -1,4 +1,4 @@
-package com.oskarro.muzikum;
+package com.oskarro.muzikum.service;
 
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;

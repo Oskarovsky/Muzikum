@@ -1,10 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Track} from '../track/model/track';
 import {TrackService} from '../../services/track/track.service';
 import {Subscription} from 'rxjs';
 import {ActivatedRoute} from '@angular/router';
 import {DomSanitizer} from '@angular/platform-browser';
-import {Video} from '../../videos/video/model/video';
 
 @Component({
   selector: 'app-tracks-part',
@@ -13,22 +12,15 @@ import {Video} from '../../videos/video/model/video';
 })
 export class TracksPartComponent implements OnInit {
 
-  tracks$: Array<Track> = [];
   sub: Subscription;
 
   tracks: Track[];
+  totalNumberOfTracks: number;
+  totalNumberOfPages: number;
+  numberOfPage: number;
 
   genre: string;
-
-  pager = {};
-  pageOfItems = [];
-
-  page = 1;
-  count = 0;
-  pageSize = 3;
-  pageSizes = [3, 6, 9];
-
-  urlMap = new Map();
+  currentPage: number;
 
 
   constructor(private trackService: TrackService,
@@ -36,17 +28,19 @@ export class TracksPartComponent implements OnInit {
               private sanitizer: DomSanitizer) {
     this.sub = this.route.params.subscribe(params => {
       this.genre = params.genre;
-      this.page = params.page || 0;
+      this.currentPage = params.page || 0;
     });
 
-    this.trackService.getTracksByGenreFromOnePage(this.genre, this.page).subscribe(track => {
-      this.tracks$ = track;
-      this.secureAllUrl(this.tracks$);
+    this.trackService.getTrackPageByGenre(this.genre, this.currentPage).subscribe(trackResponse => {
+      this.totalNumberOfTracks = trackResponse.totalElements;
+      this.numberOfPage = trackResponse.numberPage;
+      this.totalNumberOfPages = trackResponse.totalPages;
+      this.tracks = trackResponse.trackList;
+      this.secureAllUrl(this.tracks);
     });
   }
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   secureAllUrl(allTracks: Track[]) {
     for (const track of allTracks) {

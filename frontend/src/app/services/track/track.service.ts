@@ -3,6 +3,7 @@ import {HttpClient, HttpParams} from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Track } from 'src/app/tracks/track/model/track';
 import {environment} from '../../../environments/environment';
+import {TrackResponse} from '../../tracks/track/model/track-response';
 
 const API: string = environment.serverUrl;
 const TRACK_API = API + '/tracks';
@@ -90,12 +91,12 @@ export class TrackService {
     return this.http.get(TRACK_API + '/genre/' + genre + '/list', params);
   }
 
-  getPageTracksByGenreOnServer(genre, page): Observable<Track[]> {
-    return this.http.get<Track[]>(TRACK_API + '/genre/' + genre + `/list?page=${page}`);
-  }
-
   getTracksByGenreFromOnePage(genre: string, page: number): Observable<Track[]> {
     return this.http.get<Track[]>(TRACK_API + '/genre/' + genre + '/page/' + page);
+  }
+
+  getTrackPageByGenre(genre: string, page: number): Observable<TrackResponse> {
+    return this.http.get<TrackResponse>(TRACK_API + '/genre/' + genre + '/pages/' + page);
   }
 
 }

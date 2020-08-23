@@ -2,6 +2,11 @@
   <div class="container">
 
     <hr />
-      <app-track-tile [data]="tracks$" [mapUrl]="urlMap"></app-track-tile>
+      <app-track-tile [tracks]="tracks"
+                      [totalNumberOfTracks]="totalNumberOfTracks"
+                      [currentPage]="currentPage"
+                      [totalNumberOfPages]="totalNumberOfPages"
+      >
+      </app-track-tile>
   </div>
 </div>
