@@ -1,6 +1,7 @@
 package com.oskarro.muzikum.track;
 
 import com.oskarro.muzikum.track.model.Track;
+import com.oskarro.muzikum.track.model.TrackPageResponse;
 import com.oskarro.muzikum.user.favorite.FavoriteService;
 import com.oskarro.muzikum.user.favorite.FavoriteTrackRepository;
 import lombok.AllArgsConstructor;
@@ -148,5 +149,11 @@ public class TrackController {
     @CrossOrigin(origins = "*", allowedHeaders = "*")
     public List<Track> getTracksByGenreFromOnePage(@PathVariable String genre, @PathVariable int idPage) {
         return trackService.getAddedTracksByGenreFromPage(genre, idPage);
+    }
+
+    @GetMapping(value = "/genre/{genre}/pages/{idPage}")
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
+    public TrackPageResponse getTrackPageByGenre(@PathVariable String genre, @PathVariable int idPage) {
+        return trackService.getTrackPageByGenre(genre, idPage);
     }
 }

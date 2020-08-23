@@ -226,9 +226,9 @@ public class TrackServiceImpl implements TrackService {
         Pageable pageable = PageRequest.of(page, 10);
         Page<Track> fetchedTracks = trackRepository.findByGenreOrderByCreatedAtDesc(genre.toUpperCase(), pageable);
         List<Track> trackList = fetchedTracks
-                .stream()
-                .filter(Objects::nonNull)
-                .collect(Collectors.toList());
+                                    .stream()
+                                    .filter(Objects::nonNull)
+                                    .collect(Collectors.toList());
         return TrackPageResponse.builder()
                 .trackList(trackList)
                 .totalPages(fetchedTracks.getTotalPages())
