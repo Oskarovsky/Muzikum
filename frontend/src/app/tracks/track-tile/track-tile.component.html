@@ -17,7 +17,7 @@
     <div *ngIf="track.urlSource !== null" class="post-title">
     </div>
     <div *ngIf="track.urlSource === 'ZIPPYSHARE'" class="post-title">
-      <embed flashvars="baseurl=https://api.zippyshare.com/api/&amp;file=vJgPJz71&amp;server=26&amp;flashid=zs_playervJgPJz71&amp;availablequality=both&amp;bordercolor=#cccccc&amp;forecolor=#000000&amp;backcolor=#e8e8e8&amp;darkcolor=#000000&amp;lightcolor=#ff6600" allowfullscreen="false" allowscriptaccess="always" type="application/x-shockwave-flash" src="https://api.zippyshare.com/api/player.swf" name="zs_playervJgPJz71" wmode="transparent" id="zs_playervJgPJz71" width="100%" height="80">
+      <iframe [src]="track.safeUrl" width="450" height="100" frameborder="0"></iframe>
     </div>
     <div *ngIf="track.urlSource === 'KRAKENFILES'" class="post-title">
       <iframe [src]="track.safeUrl" width="450" height="100" frameborder="0"></iframe>
@@ -38,5 +38,3 @@
     </span>
   </div>
 </div>
-
-

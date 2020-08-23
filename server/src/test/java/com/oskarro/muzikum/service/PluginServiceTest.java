@@ -45,4 +45,10 @@ public class PluginServiceTest {
                 "https://krakenfiles.com/getEmbedPlayer/9b77ee2da1?width=450&autoplay=false&date=02-08-2020");
     }
 
+    @Test
+    public void test_prepareScriptForZippyshare() {
+        String scriptResult = pluginService.prepareScriptForZippyshare("https://www35.zippyshare.com/v/kvVGY0Yt/file.html");
+        System.out.println(scriptResult);
+    }
+
 }

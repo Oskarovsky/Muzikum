@@ -11,4 +11,6 @@ public interface PluginService {
     String prepareScript(PluginKrakenResponse response);
 
     String getJsonUrlFromWebsiteUrl(String websiteUrl);
+
+    String prepareScriptForZippyshare(String websiteUrl);
 }

@@ -61,6 +61,11 @@ public class TrackServiceImpl implements TrackService {
                     PluginKrakenResponse response = pluginService.readJsonFromKrakenFiles(jsonUrl);
                     String pluginScript = pluginService.prepareScript(response);
                     track.setUrlPlugin(pluginScript);
+                } else if (Objects.equals(track.getUrlSource(), UrlSource.ZIPPYSHARE.toString())) {
+                    String pluginScript = pluginService.prepareScriptForZippyshare(track.getUrl());
+                    track.setUrlPlugin(pluginScript);
+                } else if (Objects.equals(track.getUrlSource(), UrlSource.SOUNDCLOUD.toString())) {
+                    // TODO SOUNDCLOUD
                 }
             } catch (IOException | ParseException e) {
                 e.printStackTrace();

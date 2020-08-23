@@ -47,4 +47,28 @@ public class PluginServiceImpl implements PluginService {
         }
     }
 
+    @Override
+    public String prepareScriptForZippyshare(String websiteUrl) {
+        String serverId = "www" + websiteUrl.substring(websiteUrl.indexOf("www") + 3, websiteUrl.indexOf(".zippy"));
+        String trackHash = websiteUrl.substring(websiteUrl.indexOf("/v/") + 3, websiteUrl.indexOf("/file"));
+        String resultUrl = "https://api.zippyshare.com/api/jplayer_embed.jsp?" +
+                "key=" + trackHash + "&" +
+                "server=" + serverId + "&" +
+                "width=450";
+        return resultUrl;
+    }
+
+//          <iframe src="https://api.zippyshare.com/api/jplayer_embed.jsp?key=XGBt2z5D&amp;server=www87&amp;width=550"
+//          width="550" height="92" frameborder="0"></iframe>
+
+    // https://www35.zippyshare.com/v/kvVGY0Yt/file.html
+
+//          <embed flashvars="baseurl=https://api.zippyshare.com/api/&amp;file=vJgPJz71&amp;server=26&amp;
+//          flashid=zs_playervJgPJz71&amp;availablequality=both&amp;bordercolor=#cccccc&amp;forecolor=#000000&amp;
+//          backcolor=#e8e8e8&amp;darkcolor=#000000&amp;lightcolor=#ff6600"
+//
+//          allowfullscreen="false" allowscriptaccess="always" type="application/x-shockwave-flash"
+//          src="https://api.zippyshare.com/api/player.swf"
+//          name="zs_playervJgPJz71" wmode="transparent" id="zs_playervJgPJz71" width="450px" height="80">
+
 }
