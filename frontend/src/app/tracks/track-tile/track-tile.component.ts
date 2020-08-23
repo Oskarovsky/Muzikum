@@ -15,6 +15,10 @@ export class TrackTileComponent implements OnInit {
 
   constructor() {}
 
-  ngOnInit() {}
+  ngOnInit() {
+  }
+
+
+
 
 }
