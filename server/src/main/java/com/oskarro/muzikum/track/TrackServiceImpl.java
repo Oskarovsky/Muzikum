@@ -4,6 +4,7 @@ import com.oskarro.muzikum.exception.ResourceNotFoundException;
 import com.oskarro.muzikum.plugin.PluginKrakenResponse;
 import com.oskarro.muzikum.plugin.PluginService;
 import com.oskarro.muzikum.track.model.Track;
+import com.oskarro.muzikum.track.model.TrackPageResponse;
 import com.oskarro.muzikum.track.model.UrlSource;
 import com.oskarro.muzikum.user.User;
 import com.oskarro.muzikum.user.UserRepository;
@@ -219,6 +220,24 @@ public class TrackServiceImpl implements TrackService {
                 .filter(Objects::nonNull)
                 .collect(Collectors.toList());
     }
+
+    @Override
+    public TrackPageResponse getTrackPageByGenre(String genre, int page) {
+        Pageable pageable = PageRequest.of(page, 10);
+        Page<Track> fetchedTracks = trackRepository.findByGenreOrderByCreatedAtDesc(genre.toUpperCase(), pageable);
+        List<Track> trackList = fetchedTracks
+                .stream()
+                .filter(Objects::nonNull)
+                .collect(Collectors.toList());
+        return TrackPageResponse.builder()
+                .trackList(trackList)
+                .totalPages(fetchedTracks.getTotalPages())
+                .totalElements(fetchedTracks.getTotalElements())
+                .numberPage(fetchedTracks.getNumber())
+                .build();
+    }
+
+
 
 
 }

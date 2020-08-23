@@ -1,6 +1,7 @@
 package com.oskarro.muzikum.track;
 
 import com.oskarro.muzikum.track.model.Track;
+import com.oskarro.muzikum.track.model.TrackPageResponse;
 
 import java.util.List;
 import java.util.Optional;
@@ -44,4 +45,6 @@ public interface TrackService {
     List<Track> getLastAddedTracksByGenreOnlyWithUser(String genre, Integer numberOfTracks);
 
     List<Track> getAddedTracksByGenreFromPage(String genre, int page);
+
+    TrackPageResponse getTrackPageByGenre(String genre, int page);
 }
