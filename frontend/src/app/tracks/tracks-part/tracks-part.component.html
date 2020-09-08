@@ -12,10 +12,12 @@
 
   <div *ngIf="totalNumberOfPages > 1">
     <div class="row col-sm-10">
-      <h3>Total Rows: {{totalNumberOfPages}}</h3>
+      <h3>Ilość stron: {{totalNumberOfPages}}</h3>
       <span *ngFor="let item of createRange(totalNumberOfPages)">
-        <a type='button' href="app/tracks/{{genre}}/{{item}}">{{item}}</a>
+        <a *ngIf="currentPage != item" type='button' href="app/tracks/{{genre}}/{{item}}">{{item}}</a>
       </span>
+      <a *ngIf="currentPage > 1" type='button' href="app/tracks/{{genre}}/{{previousPage(currentPage)}}">Poprzednia</a>
+      <a *ngIf="currentPage < totalNumberOfPages" type='button' href="app/tracks/{{genre}}/{{nextPage(currentPage)}}">Następna</a>
     </div>
   </div>
 </div>

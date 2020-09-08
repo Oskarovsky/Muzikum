@@ -57,12 +57,12 @@ export class TracksPartComponent implements OnInit {
     return items;
   }
 
-  refresh(): void {
-    location.replace('https://medium.com');
-    location.reload();
+  nextPage(currentPage) {
+    return +currentPage + 1;
   }
 
-
-
+  previousPage(currentPage: number) {
+    return currentPage - 1;
+  }
 
 }
