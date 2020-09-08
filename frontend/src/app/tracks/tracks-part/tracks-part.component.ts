@@ -16,7 +16,7 @@ export class TracksPartComponent implements OnInit {
 
   tracks: Track[];
   totalNumberOfTracks: number;
-  totalNumberOfPages: number;
+  totalNumberOfPages;
   numberOfPage: number;
 
   genre: string;
@@ -46,6 +46,20 @@ export class TracksPartComponent implements OnInit {
     for (const track of allTracks) {
       track.safeUrl = this.sanitizer.bypassSecurityTrustResourceUrl(`${track.urlPlugin}`);
     }
+  }
+
+  // tslint:disable-next-line:variable-name
+  createRange(number) {
+    const items: number[] = [];
+    for (let i = 1; i <= number; i++) {
+      items.push(i);
+    }
+    return items;
+  }
+
+  refresh(): void {
+    location.replace('https://medium.com');
+    location.reload();
   }
 
 

@@ -9,4 +9,13 @@
       >
       </app-track-tile>
   </div>
+
+  <div *ngIf="totalNumberOfPages > 1">
+    <div class="row col-sm-10">
+      <h3>Total Rows: {{totalNumberOfPages}}</h3>
+      <span *ngFor="let item of createRange(totalNumberOfPages)">
+        <a type='button' href="app/tracks/{{genre}}/{{item}}">{{item}}</a>
+      </span>
+    </div>
+  </div>
 </div>
