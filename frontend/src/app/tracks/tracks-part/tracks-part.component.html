@@ -13,9 +13,18 @@
   <div *ngIf="totalNumberOfPages > 1">
     <div class="row col-sm-10">
       <h3>Ilość stron: {{totalNumberOfPages}}</h3>
-      <span *ngFor="let item of createRange(totalNumberOfPages)">
-        <a *ngIf="currentPage != item" type='button' href="app/tracks/{{genre}}/{{item}}">{{item}}</a>
+      <span class="pagination">
+        <a *ngIf="currentPage > 1" type='button' href="app/tracks/{{genre}}/{{previousPage(currentPage)}}">&laquo;</a>
       </span>
+      <div class="pagination" *ngFor="let item of createRange(totalNumberOfPages)">
+        <a *ngIf="currentPage != item && item < currentPage" type='button' href="app/tracks/{{genre}}/{{item}}">{{item}}</a>
+        <a class="active" *ngIf="currentPage == item" type='button' href="app/tracks/{{genre}}/{{item}}">{{item}}</a>
+        <a *ngIf="currentPage != item && item > currentPage" type='button' href="app/tracks/{{genre}}/{{item}}">{{item}}</a>
+      </div>
+      <span class="pagination">
+        <a *ngIf="currentPage < totalNumberOfPages" type='button' href="app/tracks/{{genre}}/{{nextPage(currentPage)}}">&raquo;</a>
+      </span>
+
       <a *ngIf="currentPage > 1" type='button' href="app/tracks/{{genre}}/{{previousPage(currentPage)}}">Poprzednia</a>
       <a *ngIf="currentPage < totalNumberOfPages" type='button' href="app/tracks/{{genre}}/{{nextPage(currentPage)}}">Następna</a>
     </div>
