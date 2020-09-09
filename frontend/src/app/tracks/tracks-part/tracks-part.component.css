@@ -13,7 +13,7 @@
 .pagination a.active {
   background-color: purple;
   color: white;
-  border: 1px solid purple;
+  border: 1px solid white;
 }
 
 .pagination a:hover:not(.active) {background-color: #ddd;}
@@ -27,3 +27,8 @@
   border-top-right-radius: 5px;
   border-bottom-right-radius: 5px;
 }
+
+
+
+
+

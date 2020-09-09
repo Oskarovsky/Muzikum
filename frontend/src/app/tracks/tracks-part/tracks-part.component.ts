@@ -28,10 +28,10 @@ export class TracksPartComponent implements OnInit {
               private sanitizer: DomSanitizer) {
     this.sub = this.route.params.subscribe(params => {
       this.genre = params.genre;
-      this.currentPage = params.page || 0;
+      this.currentPage = params.page || 1;
     });
 
-    this.trackService.getTrackPageByGenre(this.genre, this.currentPage).subscribe(trackResponse => {
+    this.trackService.getTrackPageByGenre(this.genre, +this.currentPage - 1).subscribe(trackResponse => {
       this.totalNumberOfTracks = trackResponse.totalElements;
       this.numberOfPage = trackResponse.numberPage;
       this.totalNumberOfPages = trackResponse.totalPages;
