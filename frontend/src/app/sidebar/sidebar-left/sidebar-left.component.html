@@ -12,7 +12,8 @@
                 type="button"
                 color="primary"
                 [routerLink]="['/tracks', 'add']"
-                style="margin-left: 10px;">Dodaj nowy utwór
+                style="margin-left: 10px;">
+                      <i class="material-icons">add_circle_outline</i>
         </button>
       </span>
       <span>
@@ -20,7 +21,8 @@
                 type="button"
                 color="primary"
                 [routerLink]="['/profile']"
-                style="margin-left: 10px;">Pokaż więcej
+                style="margin-left: 10px;">
+                      <i class="material-icons">list</i>
         </button>
       </span>
     </div>
@@ -43,7 +45,9 @@
       <h4>{{randomTrack.artist}}</h4>
       <h5>({{randomTrack.version}})</h5>
       <p style="display: none" id="randomTrack">{{randomTrack.artist}} - {{randomTrack.title}} ({{randomTrack.version}})</p>
-      <button onclick="copyToClipboard('#randomTrack')">Skopiuj całą nazwę</button>
+      <button onclick="copyToClipboard('#randomTrack')">
+        <i class="material-icons">content_copy</i>
+      </button>
     </div>
   </div>
 

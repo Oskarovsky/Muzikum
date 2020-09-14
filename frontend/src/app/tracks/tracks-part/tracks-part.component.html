@@ -20,7 +20,7 @@
 <!--        <a *ngIf="currentPage != item && item > currentPage" type='button' href="app/tracks/{{genre}}/{{item}}">{{item}}</a>-->
 <!--      </div>-->
       <span class="pagination">
-        <a class="active" type='button' href="app/tracks/{{genre}}/{{currentPage}}">{{currentPage}}</a>
+        <a class="active" type='button' href="app/tracks/{{genre}}/{{currentPage}}">{{currentPage}} / {{totalNumberOfPages}}</a>
       </span>
       <span class="pagination">
         <a *ngIf="currentPage < totalNumberOfPages" type='button' href="app/tracks/{{genre}}/{{nextPage(currentPage)}}">&raquo;</a>
