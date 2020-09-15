@@ -16,12 +16,14 @@ import java.util.stream.Collectors;
 public class UserDetailsServiceImpl implements UserDetailsService, UserService {
 
     private UserRepository userRepository;
-
     private TrackRepository trackRepository;
+    private UserStatisticsRepository userStatisticsRepository;
 
-    public UserDetailsServiceImpl(UserRepository userRepository, TrackRepository trackRepository) {
+    public UserDetailsServiceImpl(UserRepository userRepository, TrackRepository trackRepository,
+                                  UserStatisticsRepository userStatisticsRepository) {
         this.userRepository = userRepository;
         this.trackRepository = trackRepository;
+        this.userStatisticsRepository = userStatisticsRepository;
     }
 
     public UserDetailsServiceImpl() {
@@ -56,10 +58,13 @@ public class UserDetailsServiceImpl implements UserDetailsService, UserService {
     }
 
 
+
     @Override
-    public List<Track> getTopUploader() {
-        // TODO
-        return null;
+    public void updateUserStatistics(User user) {
+        UserStatistics userStatistics = userStatisticsRepository.findById(user.getId()).orElse(null);
+        userStatistics.setMonthUpload(userStatistics.getMonthUpload() + 1);
+        userStatistics.setWeekUpload(userStatistics.getWeekUpload() + 1);
+        userStatistics.setTotalUpload(userStatistics.getTotalUpload() + 1);
     }
 
 

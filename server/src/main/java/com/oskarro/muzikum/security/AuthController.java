@@ -53,6 +53,9 @@ public class AuthController {
     RoleRepository roleRepository;
 
     @Autowired
+    UserStatisticsRepository userStatisticsRepository;
+
+    @Autowired
     PasswordEncoder encoder;
 
     @Autowired
@@ -185,12 +188,24 @@ public class AuthController {
             user.setActivated(true);
             System.out.printf("USER %s ENABLED%n", user.getUsername());
             userRepository.save(user);
+            initUserStatistics(user);
             sendEmail("Success confirmation", "info.oskarro@gmail.com",
                     "Your email has been confirmed!", user.getEmail());
             return ResponseEntity.ok(new ApiResponse(true, "Token confirmed successfully!"));
         } else {
             throw new AppException("The link is invalid or broken!");
         }
+    }
+
+    private void initUserStatistics(User user) {
+        UserStatistics userStatistics = UserStatistics
+                .builder()
+                .user(user)
+                .weekUpload(0)
+                .monthUpload(0)
+                .totalUpload(0)
+                .build();
+        userStatisticsRepository.save(userStatistics);
     }
 
 }

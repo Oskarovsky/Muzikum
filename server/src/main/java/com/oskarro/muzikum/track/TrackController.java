@@ -2,6 +2,7 @@ package com.oskarro.muzikum.track;
 
 import com.oskarro.muzikum.track.model.Track;
 import com.oskarro.muzikum.track.model.TrackPageResponse;
+import com.oskarro.muzikum.user.UserService;
 import com.oskarro.muzikum.user.favorite.FavoriteService;
 import com.oskarro.muzikum.user.favorite.FavoriteTrackRepository;
 import lombok.AllArgsConstructor;
@@ -28,6 +29,7 @@ public class TrackController {
     private final FavoriteTrackRepository favoriteTrackRepository;
     private final FavoriteService favoriteService;
     private final TrackDao trackDao;
+    private final UserService userService;
 
     @GetMapping(value = "/findAll")
     @CrossOrigin(origins = "*", allowedHeaders = "*")
@@ -46,6 +48,9 @@ public class TrackController {
     public void addTrack(@RequestBody Track track, BindingResult bindingResult) throws ValidationException {
         if (bindingResult.hasErrors()) {
             throw new ValidationException("There are a problem with binding");
+        }
+        if (track.getUser() != null) {
+            userService.updateUserStatistics(track.getUser());
         }
         trackService.saveTrack(track);
     }

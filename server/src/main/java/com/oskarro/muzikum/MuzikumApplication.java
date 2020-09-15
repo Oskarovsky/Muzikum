@@ -153,6 +153,7 @@ public class MuzikumApplication implements CommandLineRunner {
         VotingRepository votingRepository = applicationContext.getBean(VotingRepository.class);
         FavoriteTrackRepository favoriteTrackRepository = applicationContext.getBean(FavoriteTrackRepository.class);
         UserService userService = applicationContext.getBean(UserService.class);
+        UserStatisticsRepository userStatisticsRepository = applicationContext.getBean(UserStatisticsRepository.class);
 
         // USER ROLES CREATOR
         Role roleAdmin = new Role();
@@ -169,6 +170,13 @@ public class MuzikumApplication implements CommandLineRunner {
         User userJacek = User.builder().id(2).username("Jacek").email("jacek@pw.pl")
                 .password(encoder.encode("123456")).roles(new HashSet<>(Collections.singletonList(roleUser))).build();
         userRepository.saveAll(Arrays.asList(userAdmin, userJacek));
+
+        // Init user stats
+        UserStatistics userStatisticsAdmin = UserStatistics.builder().id(1).user(userAdmin)
+                .weekUpload(0).monthUpload(0).totalUpload(0).build();
+        UserStatistics userStatisticsJacek = UserStatistics.builder().id(2).user(userJacek)
+                .weekUpload(0).monthUpload(0).totalUpload(0).build();
+        userStatisticsRepository.saveAll(Arrays.asList(userStatisticsAdmin, userStatisticsJacek));
 
         // GENRE COLLECTIONS FOR PROVIDERS
         List<Genre> nuteczkiGenres = Stream.of(Genre.CLUB, Genre.DANCE).collect(Collectors.toList());
