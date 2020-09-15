@@ -79,7 +79,7 @@ public class PostController {
     @GetMapping(value = "/lastAdded/{quantity}")
     @CrossOrigin(origins = "*", allowedHeaders = "*")
     @Transactional
-    public List<Post> getLastAddedUsers(@PathVariable Integer quantity) {
+    public List<Post> getLastAddedPosts(@PathVariable Integer quantity) {
         return postService.getLastAddedPosts(quantity);
     }
 }

@@ -2,6 +2,7 @@ package com.oskarro.muzikum.user;
 
 import com.oskarro.muzikum.track.TrackRepository;
 import com.oskarro.muzikum.track.model.Track;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -15,16 +16,17 @@ import java.util.stream.Collectors;
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService, UserService {
 
+    @Autowired
     private UserRepository userRepository;
-    private TrackRepository trackRepository;
-    private UserStatisticsRepository userStatisticsRepository;
 
-    public UserDetailsServiceImpl(UserRepository userRepository, TrackRepository trackRepository,
-                                  UserStatisticsRepository userStatisticsRepository) {
-        this.userRepository = userRepository;
-        this.trackRepository = trackRepository;
-        this.userStatisticsRepository = userStatisticsRepository;
-    }
+    @Autowired
+    private UserDaoImpl dao;
+
+    @Autowired
+    private TrackRepository trackRepository;
+
+    @Autowired
+    private UserStatisticsRepository userStatisticsRepository;
 
     public UserDetailsServiceImpl() {
         super();
@@ -61,7 +63,7 @@ public class UserDetailsServiceImpl implements UserDetailsService, UserService {
 
     @Override
     public void updateUserStatistics(User user) {
-        UserStatistics userStatistics = userStatisticsRepository.findById(user.getId()).orElse(null);
+        UserStatistics userStatistics = userStatisticsRepository.findByUserId(user.getId()).orElse(null);
         userStatistics.setMonthUpload(userStatistics.getMonthUpload() + 1);
         userStatistics.setWeekUpload(userStatistics.getWeekUpload() + 1);
         userStatistics.setTotalUpload(userStatistics.getTotalUpload() + 1);

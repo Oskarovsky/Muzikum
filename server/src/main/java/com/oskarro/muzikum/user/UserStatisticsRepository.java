@@ -11,4 +11,6 @@ public interface UserStatisticsRepository extends JpaRepository<UserStatistics, 
     UserStatistics save(UserStatistics userStatistics);
 
     Optional<UserStatistics> findById(Integer id);
+
+    Optional<UserStatistics> findByUserId(Integer userId);
 }
