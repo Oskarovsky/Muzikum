@@ -83,7 +83,19 @@
 
   <div class="panel panel-default" style="background-color: #181818">
     <div class="panel-heading" style="background-color: #610061; margin-bottom: 5px">
-      <h3 class="panel-title" style="color: white">Najnowsze składanki</h3>
+      <h3 class="panel-title" style="color: white">Najlepsi uploaderzy</h3>
+    </div>
+    <!-- TODO -->
+    <div *ngFor="let playlist of playlists" class="text-center" style="color: #d4d4d4; background-color: #181818">
+      <p class="panel-playlists" routerLink="playlist/{{playlist.id}}/details" style="color: white;">
+        {{ playlist.user.username }} - {{ playlist.name }}
+      </p>
+    </div>
+  </div>
+
+  <div class="panel panel-default" style="background-color: #181818">
+    <div class="panel-heading" style="background-color: #610061; margin-bottom: 5px">
+        <h3 class="panel-title" style="color: white">Najnowsze składanki</h3>
     </div>
     <div *ngFor="let playlist of playlists" class="text-center" style="color: #d4d4d4; background-color: #181818">
       <p class="panel-playlists" routerLink="playlist/{{playlist.id}}/details" style="color: white;">

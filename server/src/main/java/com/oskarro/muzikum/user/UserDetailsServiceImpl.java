@@ -1,7 +1,7 @@
 package com.oskarro.muzikum.user;
 
-import com.oskarro.muzikum.model.GenericDao;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.oskarro.muzikum.track.TrackRepository;
+import com.oskarro.muzikum.track.model.Track;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -15,11 +15,14 @@ import java.util.stream.Collectors;
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService, UserService {
 
-    @Autowired
-    private UserDaoImpl dao;
-
-    @Autowired
     private UserRepository userRepository;
+
+    private TrackRepository trackRepository;
+
+    public UserDetailsServiceImpl(UserRepository userRepository, TrackRepository trackRepository) {
+        this.userRepository = userRepository;
+        this.trackRepository = trackRepository;
+    }
 
     public UserDetailsServiceImpl() {
         super();
@@ -53,6 +56,11 @@ public class UserDetailsServiceImpl implements UserDetailsService, UserService {
     }
 
 
+    @Override
+    public List<Track> getTopUploader() {
+        // TODO
+        return null;
+    }
 
 
 }

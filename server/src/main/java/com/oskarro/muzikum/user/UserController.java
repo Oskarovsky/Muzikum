@@ -1,5 +1,6 @@
 package com.oskarro.muzikum.user;
 
+import com.oskarro.muzikum.track.model.Track;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -27,6 +28,13 @@ public class UserController {
     @CrossOrigin(origins = "*", allowedHeaders = "*")
     public List<User> getAllUsers() {
         return userDao.findAll();
+    }
+
+    @GetMapping(value = "/top")
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
+    public List<Track> getTopUploader() {
+        // TODO
+        return null;
     }
 
 

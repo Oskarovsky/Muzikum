@@ -152,6 +152,7 @@ public class MuzikumApplication implements CommandLineRunner {
         VotingService votingService = applicationContext.getBean(VotingService.class);
         VotingRepository votingRepository = applicationContext.getBean(VotingRepository.class);
         FavoriteTrackRepository favoriteTrackRepository = applicationContext.getBean(FavoriteTrackRepository.class);
+        UserService userService = applicationContext.getBean(UserService.class);
 
         // USER ROLES CREATOR
         Role roleAdmin = new Role();
