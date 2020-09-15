@@ -64,9 +64,21 @@ public class UserDetailsServiceImpl implements UserDetailsService, UserService {
     @Override
     public void updateUserStatistics(User user) {
         UserStatistics userStatistics = userStatisticsRepository.findByUserId(user.getId()).orElse(null);
-        userStatistics.setMonthUpload(userStatistics.getMonthUpload() + 1);
-        userStatistics.setWeekUpload(userStatistics.getWeekUpload() + 1);
-        userStatistics.setTotalUpload(userStatistics.getTotalUpload() + 1);
+        if (userStatistics.getMonthUpload() == null) {
+            userStatistics.setMonthUpload(1);
+        } else {
+            userStatistics.setMonthUpload(userStatistics.getMonthUpload() + 1);
+        }
+        if (userStatistics.getWeekUpload() == null) {
+            userStatistics.setWeekUpload(1);
+        } else {
+            userStatistics.setWeekUpload(userStatistics.getWeekUpload() + 1);
+        }
+        if (userStatistics.getTotalUpload() == null) {
+            userStatistics.setTotalUpload(1);
+        } else {
+            userStatistics.setTotalUpload(userStatistics.getTotalUpload() + 1);
+        }
     }
 
 
