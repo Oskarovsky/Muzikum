@@ -60,10 +60,9 @@ public class UserDetailsServiceImpl implements UserDetailsService, UserService {
     }
 
 
-
     @Override
     public void updateUserStatistics(User user) {
-        UserStatistics userStatistics = userStatisticsRepository.findByUserId(user.getId()).orElse(null);
+        UserStatistics userStatistics = userStatisticsRepository.findByUserId(user.getId()).orElseThrow(null);
         if (userStatistics.getMonthUpload() == null) {
             userStatistics.setMonthUpload(1);
         } else {
@@ -78,6 +77,26 @@ public class UserDetailsServiceImpl implements UserDetailsService, UserService {
             userStatistics.setTotalUpload(1);
         } else {
             userStatistics.setTotalUpload(userStatistics.getTotalUpload() + 1);
+        }
+    }
+
+
+    @Override
+    public void resetMonthlyStatsForUploading() {
+        List<UserStatistics> userStatistics = userStatisticsRepository.findAll();
+        for (UserStatistics stats : userStatistics) {
+            stats.setMonthUpload(0);
+            userStatisticsRepository.save(stats);
+        }
+    }
+
+
+    @Override
+    public void resetWeeklyStatsForUploading() {
+        List<UserStatistics> userStatistics = userStatisticsRepository.findAll();
+        for (UserStatistics stats : userStatistics) {
+            stats.setWeekUpload(0);
+            userStatisticsRepository.save(stats);
         }
     }
 

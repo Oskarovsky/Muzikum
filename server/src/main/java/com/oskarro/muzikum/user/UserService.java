@@ -8,4 +8,8 @@ public interface UserService {
 
     void updateUserStatistics(User user);
 
+    void resetMonthlyStatsForUploading();
+
+    void resetWeeklyStatsForUploading();
+
 }

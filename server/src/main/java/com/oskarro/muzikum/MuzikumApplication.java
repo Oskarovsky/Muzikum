@@ -46,6 +46,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.core.env.Environment;
 import org.springframework.data.jpa.convert.threeten.Jsr310JpaConverters;
 import org.springframework.scheduling.annotation.EnableAsync;
+import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.apache.commons.lang3.StringUtils;
@@ -64,6 +65,7 @@ import java.util.stream.Stream;
         Jsr310JpaConverters.class
 })
 @EnableAsync
+@EnableScheduling
 public class MuzikumApplication implements CommandLineRunner {
 
     private static final Logger log = LoggerFactory.getLogger(MuzikumApplication.class);
