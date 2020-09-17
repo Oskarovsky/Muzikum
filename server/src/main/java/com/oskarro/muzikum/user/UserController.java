@@ -30,10 +30,16 @@ public class UserController {
         return userDao.findAll();
     }
 
-    @GetMapping(value = "/top")
+    @GetMapping(value = "/top/uploader/{periodOfTime}")
     @CrossOrigin(origins = "*", allowedHeaders = "*")
-    public List<User> getTopUploaders() {
-        return userService.getTopUploaders("XXX", 1);
+    public User getTopUploader(@PathVariable String periodOfTime) {
+        return userService.getTopUploader(periodOfTime);
+    }
+
+    @GetMapping(value = "/top/uploader/{periodOfTime}/{numberOfUser}")
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
+    public List<User> getTopUploaders(@PathVariable String periodOfTime, @PathVariable int numberOfUser) {
+        return userService.getTopUploaders(periodOfTime, numberOfUser);
     }
 
 

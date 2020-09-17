@@ -20,17 +20,38 @@ public interface UserStatisticsRepository extends JpaRepository<UserStatistics, 
             "FROM UserStatistics us " +
             "JOIN us.user u " +
             "WHERE u.id = us.user.id AND us.totalUpload = (SELECT MAX(uss.totalUpload) FROM UserStatistics uss)")
-    List<User> findTotalTopUploaderTotal();
+    List<User> findTotalTopUploader();
 
     @Query("SELECT u " +
             "FROM UserStatistics us " +
             "JOIN us.user u " +
             "WHERE u.id = us.user.id AND us.monthUpload = (SELECT MAX(uss.monthUpload) FROM UserStatistics uss)")
-    List<User> findMonthlyTopUploaderTotal();
+    List<User> findMonthlyTopUploader();
 
     @Query("SELECT u " +
             "FROM UserStatistics us " +
             "JOIN us.user u " +
             "WHERE u.id = us.user.id AND us.weekUpload = (SELECT MAX(uss.weekUpload) FROM UserStatistics uss)")
-    List<User> findWeeklyTopUploaderTotal();
+    List<User> findWeeklyTopUploader();
+
+    @Query("SELECT u " +
+            "FROM UserStatistics us " +
+            "JOIN us.user u " +
+            "WHERE u.id = us.user.id " +
+            "ORDER BY us.totalUpload DESC")
+    List<User> findTotalTopUploaders();
+
+    @Query("SELECT u " +
+            "FROM UserStatistics us " +
+            "JOIN us.user u " +
+            "WHERE u.id = us.user.id " +
+            "ORDER BY us.monthUpload DESC")
+    List<User> findMonthlyTopUploaders();
+
+    @Query("SELECT u " +
+            "FROM UserStatistics us " +
+            "JOIN us.user u " +
+            "WHERE u.id = us.user.id " +
+            "ORDER BY us.weekUpload DESC")
+    List<User> findWeeklyTopUploaders();
 }

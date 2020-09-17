@@ -12,6 +12,8 @@ public interface UserService {
 
     void resetWeeklyStatsForUploading();
 
+    User getTopUploader(String periodOfTime);
+
     List<User> getTopUploaders(String periodOfTime, int numberOfUser);
 
 }

@@ -104,20 +104,40 @@ public class UserDetailsServiceImpl implements UserDetailsService, UserService {
         }
     }
 
+    @Override
+    public User getTopUploader(String periodOfTime) {
+        switch (periodOfTime) {
+            case TOTAL_PERIOD: {
+                List<User> userList = userStatisticsRepository.findTotalTopUploader();
+                return userList.stream().findFirst().orElse(null);
+            }
+            case MONTHLY_PERIOD: {
+                List<User> userList = userStatisticsRepository.findMonthlyTopUploader();
+                return userList.stream().findFirst().orElse(null);
+            }
+            case WEEKLY_PERIOD: {
+                List<User> userList = userStatisticsRepository.findWeeklyTopUploader();
+                return userList.stream().findFirst().orElse(null);
+            }
+            default:
+                throw new RuntimeException("Period of time hasn't been declared");
+        }
+    }
+
 
     @Override
     public List<User> getTopUploaders(String periodOfTime, int numberOfUser) {
         switch (periodOfTime) {
             case TOTAL_PERIOD: {
-                List<User> userList = userStatisticsRepository.findTotalTopUploaderTotal();
+                List<User> userList = userStatisticsRepository.findTotalTopUploaders();
                 return userList.stream().limit(numberOfUser).collect(Collectors.toList());
             }
             case MONTHLY_PERIOD: {
-                List<User> userList = userStatisticsRepository.findMonthlyTopUploaderTotal();
+                List<User> userList = userStatisticsRepository.findMonthlyTopUploaders();
                 return userList.stream().limit(numberOfUser).collect(Collectors.toList());
             }
             case WEEKLY_PERIOD: {
-                List<User> userList = userStatisticsRepository.findWeeklyTopUploaderTotal();
+                List<User> userList = userStatisticsRepository.findWeeklyTopUploaders();
                 return userList.stream().limit(numberOfUser).collect(Collectors.toList());
             }
             default:
