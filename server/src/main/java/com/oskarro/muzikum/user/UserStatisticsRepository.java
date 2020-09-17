@@ -2,6 +2,7 @@ package com.oskarro.muzikum.user;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -54,4 +55,10 @@ public interface UserStatisticsRepository extends JpaRepository<UserStatistics, 
             "WHERE u.id = us.user.id " +
             "ORDER BY us.weekUpload DESC")
     List<User> findWeeklyTopUploaders();
+
+    @Query("SELECT COUNT(t) FROM Track t WHERE t.user.username = :username")
+    Integer getNumberOfTracksAddedByUsername(@Param("username") String username);
+
+    @Query("SELECT COUNT(t) FROM Track t WHERE t.user.id = :userId")
+    Integer getNumberOfTracksAddedByUserId(@Param("userId") Integer userId);
 }
