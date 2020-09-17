@@ -32,9 +32,8 @@ public class UserController {
 
     @GetMapping(value = "/top")
     @CrossOrigin(origins = "*", allowedHeaders = "*")
-    public List<Track> getTopUploader() {
-        // TODO
-        return null;
+    public List<User> getTopUploaders() {
+        return userService.getTopUploaders("XXX", 1);
     }
 
 

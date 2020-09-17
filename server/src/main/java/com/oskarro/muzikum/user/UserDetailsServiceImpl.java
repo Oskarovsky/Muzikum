@@ -16,6 +16,10 @@ import java.util.stream.Collectors;
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService, UserService {
 
+    private final static String WEEKLY_PERIOD = "week";
+    private final static String MONTHLY_PERIOD = "month";
+    private final static String TOTAL_PERIOD = "total";
+
     @Autowired
     private UserRepository userRepository;
 
@@ -97,6 +101,27 @@ public class UserDetailsServiceImpl implements UserDetailsService, UserService {
         for (UserStatistics stats : userStatistics) {
             stats.setWeekUpload(0);
             userStatisticsRepository.save(stats);
+        }
+    }
+
+
+    @Override
+    public List<User> getTopUploaders(String periodOfTime, int numberOfUser) {
+        switch (periodOfTime) {
+            case TOTAL_PERIOD: {
+                List<User> userList = userStatisticsRepository.findTotalTopUploaderTotal();
+                return userList.stream().limit(numberOfUser).collect(Collectors.toList());
+            }
+            case MONTHLY_PERIOD: {
+                List<User> userList = userStatisticsRepository.findMonthlyTopUploaderTotal();
+                return userList.stream().limit(numberOfUser).collect(Collectors.toList());
+            }
+            case WEEKLY_PERIOD: {
+                List<User> userList = userStatisticsRepository.findWeeklyTopUploaderTotal();
+                return userList.stream().limit(numberOfUser).collect(Collectors.toList());
+            }
+            default:
+                throw new RuntimeException("Period of time hasn't been declared");
         }
     }
 
