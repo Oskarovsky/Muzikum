@@ -97,21 +97,21 @@
       <div id="week" class="tab-pane fade in active">
         <div *ngFor="let topUploader of topUploadersWeek" style="color: #d4d4d4; background-color: #181818">
           <p class="panel-playlists" routerLink="user/{{topUploader.id}}/details" style="color: white;">
-            {{ topUploader.username }}
+            {{ topUploader.username }} - {{ uploaderWeekMap.get(topUploader.username + 'week') }}
           </p>
         </div>
       </div>
       <div id="month" class="tab-pane fade">
         <div *ngFor="let topUploader of topUploadersMonth" style="color: #d4d4d4; background-color: #181818">
           <p class="panel-playlists" routerLink="user/{{topUploader.id}}/details" style="color: white;">
-            {{ topUploader.username }}
+            {{ topUploader.username }} - {{ uploaderMonthMap.get(topUploader.username + 'month') }}
           </p>
         </div>
       </div>
       <div id="total" class="tab-pane fade">
         <div *ngFor="let topUploader of topUploadersTotal" style="color: #d4d4d4; background-color: #181818">
           <p class="panel-playlists" routerLink="user/{{topUploader.id}}/details" style="color: white;">
-            {{ topUploader.username }}
+            {{ topUploader.username }} - {{ uploaderTotalMap.get(topUploader.username + 'total') }}
           </p>
         </div>
       </div>

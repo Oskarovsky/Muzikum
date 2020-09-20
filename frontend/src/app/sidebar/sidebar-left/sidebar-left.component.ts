@@ -136,6 +136,9 @@ export class SidebarLeftComponent implements OnInit {
         } else if (periodOfTime === 'total') {
           this.topUploadersTotal = response;
         }
+        for (const uploader of response.values()) {
+          this.getNumberOfTracksAddedInGivenPeriodByUsername(uploader.username, periodOfTime);
+        }
       }
     );
   }
@@ -144,11 +147,11 @@ export class SidebarLeftComponent implements OnInit {
     this.userService.getNumberOfTracksAddedInGivenPeriodByUsername(username, periodOfTime).subscribe(
       response => {
         if (periodOfTime === 'week') {
-          this.uploaderWeekMap.set(username, response);
+          this.uploaderWeekMap.set(username + periodOfTime, response);
         } else if (periodOfTime === 'month') {
-          this.uploaderMonthMap.set(username, response);
+          this.uploaderMonthMap.set(username + periodOfTime, response);
         } else if (periodOfTime === 'total') {
-          this.uploaderTotalMap.set(username, response);
+          this.uploaderTotalMap.set(username + periodOfTime, response);
         }
       }
     );
