@@ -57,4 +57,8 @@ export class UserService {
   getNumberOfTracksAddedByUsername(username: string): Observable<number> {
     return this.httpClient.get<number>(USER_API + '/' + username + '/tracks/amount');
   }
+
+  getNumberOfTracksAddedInGivenPeriodByUsername(username: string, periodOfTime: string): Observable<number> {
+    return this.httpClient.get<number>(USER_API + '/' + username + '/tracks/' + periodOfTime + '/amount');
+  }
 }

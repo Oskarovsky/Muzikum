@@ -32,6 +32,10 @@ export class SidebarLeftComponent implements OnInit {
   isLoggedIn = false;
   username: string;
 
+  uploaderWeekMap = new Map();
+  uploaderMonthMap = new Map();
+  uploaderTotalMap = new Map();
+
   constructor(private playlistService: PlaylistService,
               private trackService: TrackService,
               private userService: UserService,
@@ -131,6 +135,20 @@ export class SidebarLeftComponent implements OnInit {
           this.topUploadersMonth = response;
         } else if (periodOfTime === 'total') {
           this.topUploadersTotal = response;
+        }
+      }
+    );
+  }
+
+  public getNumberOfTracksAddedInGivenPeriodByUsername(username: string, periodOfTime: string) {
+    this.userService.getNumberOfTracksAddedInGivenPeriodByUsername(username, periodOfTime).subscribe(
+      response => {
+        if (periodOfTime === 'week') {
+          this.uploaderWeekMap.set(username, response);
+        } else if (periodOfTime === 'month') {
+          this.uploaderMonthMap.set(username, response);
+        } else if (periodOfTime === 'total') {
+          this.uploaderTotalMap.set(username, response);
         }
       }
     );

@@ -53,4 +53,11 @@ public class UserController {
     public Integer getNumberOfTracksAddedByUsername(@PathVariable String username) {
         return userService.getNumberOfTracksAddedByUsername(username);
     }
+
+    @GetMapping(value = "/{username}/tracks/{periodOfTime}/amount")
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
+    public Integer getNumberOfTracksAddedInGivenPeriodByUsername(@PathVariable String username,
+                                                                 @PathVariable String periodOfTime) {
+        return userService.getNumberOfTracksAddedInGivenPeriodByUsername(username, periodOfTime);
+    }
 }
