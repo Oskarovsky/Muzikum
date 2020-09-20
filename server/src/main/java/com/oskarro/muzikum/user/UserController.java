@@ -42,5 +42,15 @@ public class UserController {
         return userService.getTopUploaders(periodOfTime, numberOfUser);
     }
 
+    @GetMapping(value = "/{userId}/tracks/amount")
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
+    public Integer getNumberOfTracksAddedByUserId(@PathVariable Integer userId) {
+        return userService.getNumberOfTracksAddedByUserId(userId);
+    }
 
+    @GetMapping(value = "/{username}/tracks/amount")
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
+    public Integer getNumberOfTracksAddedByUsername(@PathVariable String username) {
+        return userService.getNumberOfTracksAddedByUsername(username);
+    }
 }

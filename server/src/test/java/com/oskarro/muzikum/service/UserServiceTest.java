@@ -25,7 +25,7 @@ public class UserServiceTest {
     @Test
     public void test_getTopUploaders() {
         System.out.println("START");
-        for (User user : userStatisticsRepository.findTotalTopUploaderTotal()) {
+        for (User user : userStatisticsRepository.findMonthlyTopUploader()) {
             System.out.println(user.getId() + "/" + user.getUsername() + "  points:");
         }
         System.out.println("STOP");

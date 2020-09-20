@@ -25,6 +25,9 @@ export class SidebarLeftComponent implements OnInit {
   popularTrackDance: Track;
   popularTrackHouse: Track;
   popularTrackTechno: Track;
+  topUploadersWeek: User[] = [];
+  topUploadersMonth: User[] = [];
+  topUploadersTotal: User[] = [];
   usersTrack: Track[] = [];
   isLoggedIn = false;
   username: string;
@@ -44,6 +47,9 @@ export class SidebarLeftComponent implements OnInit {
     this.getMostPopularTrackByGenre('DANCE', 'DANCE');
     this.getMostPopularTrackByGenre('HOUSE', 'HOUSE');
     this.getMostPopularTrackByGenre('TECHNO', 'TECHNO');
+    this.getTopUploaders('week', 5);
+    this.getTopUploaders('month', 5);
+    this.getTopUploaders('total', 5);
     if (this.tokenStorage.getToken()) {
       this.isLoggedIn = true;
       this.username = this.tokenStorage.getUser().username;
@@ -112,6 +118,20 @@ export class SidebarLeftComponent implements OnInit {
       },
       error => {
         alert('An error with fetching the most popular track by genre: ' + genre);
+      }
+    );
+  }
+
+  public getTopUploaders(periodOfTime: string, numberOfUsers: number) {
+    this.userService.getTopUploaders(periodOfTime, numberOfUsers).subscribe(
+      response => {
+        if (periodOfTime === 'week') {
+          this.topUploadersWeek = response;
+        } else if (periodOfTime === 'month') {
+          this.topUploadersMonth = response;
+        } else if (periodOfTime === 'total') {
+          this.topUploadersTotal = response;
+        }
       }
     );
   }

@@ -20,4 +20,8 @@ public interface UserService {
 
     Integer getNumberOfTracksAddedByUsername(String username);
 
+    Integer getNumberOfTracksAddedInGivenPeriodByUserId(Integer userId, String periodOfTime);
+
+    Integer getNumberOfTracksAddedInGivenPeriodByUsername(String username, String periodOfTime);
+
 }

@@ -17,6 +17,8 @@ public interface UserStatisticsRepository extends JpaRepository<UserStatistics, 
 
     Optional<UserStatistics> findByUserId(Integer userId);
 
+    Optional<UserStatistics> findByUserUsername(String username);
+
     @Query("SELECT u " +
             "FROM UserStatistics us " +
             "JOIN us.user u " +
@@ -61,4 +63,6 @@ public interface UserStatisticsRepository extends JpaRepository<UserStatistics, 
 
     @Query("SELECT COUNT(t) FROM Track t WHERE t.user.id = :userId")
     Integer getNumberOfTracksAddedByUserId(@Param("userId") Integer userId);
+
+
 }

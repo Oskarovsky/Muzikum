@@ -1,5 +1,6 @@
 package com.oskarro.muzikum.user;
 
+import com.oskarro.muzikum.exception.ResourceNotFoundException;
 import com.oskarro.muzikum.track.TrackRepository;
 import com.oskarro.muzikum.track.model.Track;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -145,17 +146,59 @@ public class UserDetailsServiceImpl implements UserDetailsService, UserService {
         }
     }
 
-
     @Override
     public Integer getNumberOfTracksAddedByUserId(Integer userId) {
         return userStatisticsRepository.getNumberOfTracksAddedByUserId(userId);
     }
-
 
     @Override
     public Integer getNumberOfTracksAddedByUsername(String username) {
         return userStatisticsRepository.getNumberOfTracksAddedByUsername(username);
     }
 
+    @Override
+    public Integer getNumberOfTracksAddedInGivenPeriodByUserId(Integer userId, String periodOfTime) {
+        switch (periodOfTime) {
+            case TOTAL_PERIOD: {
+                return userStatisticsRepository.findByUserId(userId)
+                        .orElseThrow(() -> new ResourceNotFoundException("User stats", "userId", userId))
+                        .getTotalUpload();
+            }
+            case MONTHLY_PERIOD: {
+                return userStatisticsRepository.findByUserId(userId)
+                        .orElseThrow(() -> new ResourceNotFoundException("User stats", "userId", userId))
+                        .getMonthUpload();
+            }
+            case WEEKLY_PERIOD: {
+                return userStatisticsRepository.findByUserId(userId)
+                        .orElseThrow(() -> new ResourceNotFoundException("User stats", "userId", userId))
+                        .getWeekUpload();
+            }
+            default:
+                throw new RuntimeException("User stats for user with id " + userId + " not found");
+        }
+    }
 
+    @Override
+    public Integer getNumberOfTracksAddedInGivenPeriodByUsername(String username, String periodOfTime) {
+        switch (periodOfTime) {
+            case TOTAL_PERIOD: {
+                return userStatisticsRepository.findByUserUsername(username)
+                        .orElseThrow(() -> new ResourceNotFoundException("User stats", "userId", username))
+                        .getTotalUpload();
+            }
+            case MONTHLY_PERIOD: {
+                return userStatisticsRepository.findByUserUsername(username)
+                        .orElseThrow(() -> new ResourceNotFoundException("User stats", "userId", username))
+                        .getMonthUpload();
+            }
+            case WEEKLY_PERIOD: {
+                return userStatisticsRepository.findByUserUsername(username)
+                        .orElseThrow(() -> new ResourceNotFoundException("User stats", "userId", username))
+                        .getWeekUpload();
+            }
+            default:
+                throw new RuntimeException("User stats for user with username " + username + " not found");
+        }
+    }
 }
