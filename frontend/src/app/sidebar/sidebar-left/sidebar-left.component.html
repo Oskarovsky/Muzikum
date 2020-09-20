@@ -85,37 +85,37 @@
     <div class="panel-heading" style="background-color: #610061; margin-bottom: 5px">
       <h3 class="panel-title" style="color: white">Najlepsi uploaderzy</h3>
     </div>
-    <div class="tab">
-      <button class="tablinks" onclick="openUploader(event, 'week')">Tydzień</button>
-      <button class="tablinks" onclick="openUploader(event, 'month')">Miesiąc</button>
-      <button class="tablinks" onclick="openUploader(event, 'total')">Total</button>
-    </div>
 
-    <!-- Tab content -->
-    <div id="week" class="tabcontent">
-      <div *ngFor="let topUploader of topUploadersWeek" style="color: #d4d4d4; background-color: #181818">
-        <p class="panel-playlists" routerLink="user/{{topUploader.id}}/details" style="color: white;">
-          {{ topUploader.username }}
-        </p>
+    <ul class="nav nav-tabs">
+      <li class="active"><a data-toggle="tab" href="#week">Tydzień</a></li>
+      <li><a data-toggle="tab" href="#month">Miesiąc</a></li>
+      <li><a data-toggle="tab" href="#total">Total</a></li>
+    </ul>
+
+
+    <div class="tab-content">
+      <div id="week" class="tab-pane fade in active">
+        <div *ngFor="let topUploader of topUploadersWeek" style="color: #d4d4d4; background-color: #181818">
+          <p class="panel-playlists" routerLink="user/{{topUploader.id}}/details" style="color: white;">
+            {{ topUploader.username }}
+          </p>
+        </div>
+      </div>
+      <div id="month" class="tab-pane fade">
+        <div *ngFor="let topUploader of topUploadersMonth" style="color: #d4d4d4; background-color: #181818">
+          <p class="panel-playlists" routerLink="user/{{topUploader.id}}/details" style="color: white;">
+            {{ topUploader.username }}
+          </p>
+        </div>
+      </div>
+      <div id="total" class="tab-pane fade">
+        <div *ngFor="let topUploader of topUploadersTotal" style="color: #d4d4d4; background-color: #181818">
+          <p class="panel-playlists" routerLink="user/{{topUploader.id}}/details" style="color: white;">
+            {{ topUploader.username }}
+          </p>
+        </div>
       </div>
     </div>
-
-    <div id="month" class="tabcontent">
-      <div *ngFor="let topUploader of topUploadersMonth" style="color: #d4d4d4; background-color: #181818">
-        <p class="panel-playlists" routerLink="user/{{topUploader.id}}/details" style="color: white;">
-          {{ topUploader.username }}
-        </p>
-      </div>
-    </div>
-
-    <div id="total" class="tabcontent">
-      <div *ngFor="let topUploader of topUploadersTotal" style="color: #d4d4d4; background-color: #181818">
-        <p class="panel-playlists" routerLink="user/{{topUploader.id}}/details" style="color: white;">
-          {{ topUploader.username }}
-        </p>
-      </div>
-    </div>
-
   </div>
 
   <div class="panel panel-default" style="background-color: #181818">
@@ -139,4 +139,5 @@
   </div>
 
 </div>
+
 

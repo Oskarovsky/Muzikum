@@ -143,7 +143,6 @@ $(document).ready(function() {
   });
 });
 
-
 function openUploader(evt, cityName) {
   // Declare all variables
   var i, tabcontent, tablinks;
@@ -164,5 +163,6 @@ function openUploader(evt, cityName) {
   document.getElementById(cityName).style.display = "block";
   evt.currentTarget.className += " active";
 }
+
 
 
