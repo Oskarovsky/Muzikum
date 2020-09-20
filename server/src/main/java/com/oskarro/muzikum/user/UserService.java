@@ -16,4 +16,8 @@ public interface UserService {
 
     List<User> getTopUploaders(String periodOfTime, int numberOfUser);
 
+    Integer getNumberOfTracksAddedByUserId(Integer userId);
+
+    Integer getNumberOfTracksAddedByUsername(String username);
+
 }

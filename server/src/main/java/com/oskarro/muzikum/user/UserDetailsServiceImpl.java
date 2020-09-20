@@ -146,4 +146,16 @@ public class UserDetailsServiceImpl implements UserDetailsService, UserService {
     }
 
 
+    @Override
+    public Integer getNumberOfTracksAddedByUserId(Integer userId) {
+        return userStatisticsRepository.getNumberOfTracksAddedByUserId(userId);
+    }
+
+
+    @Override
+    public Integer getNumberOfTracksAddedByUsername(String username) {
+        return userStatisticsRepository.getNumberOfTracksAddedByUsername(username);
+    }
+
+
 }
