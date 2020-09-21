@@ -77,7 +77,7 @@ export class ProfileComponent implements OnInit {
     this.selectedFile = undefined;
   }
 
-  getLastAddedTracksByUsername(username: string, numberOfTracks: number) {
+  public getLastAddedTracksByUsername(username: string, numberOfTracks: number) {
     this.trackService.getLastAddedTracksByUsername(username, numberOfTracks).subscribe(
       response => {
         this.tracks = response;
@@ -87,6 +87,7 @@ export class ProfileComponent implements OnInit {
       }
     );
   }
+
 
 
 
