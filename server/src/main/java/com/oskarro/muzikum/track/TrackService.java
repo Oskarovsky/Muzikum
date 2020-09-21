@@ -47,4 +47,6 @@ public interface TrackService {
     List<Track> getAddedTracksByGenreFromPage(String genre, int page);
 
     TrackPageResponse getTrackPageByGenre(String genre, int page);
+
+    TrackPageResponse getTrackPageByUserUsername(String username, int page);
 }

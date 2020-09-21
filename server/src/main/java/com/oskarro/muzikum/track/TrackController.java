@@ -161,4 +161,10 @@ public class TrackController {
     public TrackPageResponse getTrackPageByGenre(@PathVariable String genre, @PathVariable int idPage) {
         return trackService.getTrackPageByGenre(genre, idPage);
     }
+
+    @GetMapping(value = "/user/{username}/pages/{idPage}")
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
+    public TrackPageResponse getTrackPageByUserUsername(@PathVariable String username, @PathVariable int idPage) {
+        return trackService.getTrackPageByUserUsername(username, idPage);
+    }
 }

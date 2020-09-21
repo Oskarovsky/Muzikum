@@ -99,4 +99,8 @@ export class TrackService {
     return this.http.get<TrackResponse>(TRACK_API + '/genre/' + genre + '/pages/' + page);
   }
 
+  getTrackPageByUserUsername(username: string, page: number): Observable<TrackResponse> {
+    return this.http.get<TrackResponse>(TRACK_API + '/user/' + username + '/pages/' + page);
+  }
+
 }

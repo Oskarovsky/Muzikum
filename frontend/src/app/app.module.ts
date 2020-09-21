@@ -72,6 +72,7 @@ import { TrackTileComponent } from './tracks/track-tile/track-tile.component';
 import { TrackVoteButtonComponent } from './tracks/track-vote-button/track-vote-button.component';
 import { TracksPartComponent } from './tracks/tracks-part/tracks-part.component';
 import {NgxPaginationModule} from 'ngx-pagination';
+import { UserTracksComponent } from './profile/user-tracks/user-tracks.component';
 
 
 @NgModule({
@@ -124,6 +125,7 @@ import {NgxPaginationModule} from 'ngx-pagination';
     TrackTileComponent,
     TrackVoteButtonComponent,
     TracksPartComponent,
+    UserTracksComponent,
   ],
     imports: [
         AppRoutingModule,

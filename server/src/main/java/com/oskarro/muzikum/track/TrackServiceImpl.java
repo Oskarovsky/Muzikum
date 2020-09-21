@@ -237,6 +237,21 @@ public class TrackServiceImpl implements TrackService {
                 .build();
     }
 
+    @Override
+    public TrackPageResponse getTrackPageByUserUsername(String username, int page) {
+        Pageable pageable = PageRequest.of(page, 20);
+        Page<Track> fetchedTracks = trackRepository.findByUserUsernameOrderByCreatedAtDesc(username, pageable);
+        List<Track> trackList = fetchedTracks
+                                    .stream()
+                                    .filter(Objects::nonNull)
+                                    .collect(Collectors.toList());
+        return TrackPageResponse.builder()
+                .trackList(trackList)
+                .totalPages(fetchedTracks.getTotalPages())
+                .totalElements(fetchedTracks.getTotalElements())
+                .numberPage(fetchedTracks.getNumber())
+                .build();
+    }
 
 
 

@@ -3,6 +3,8 @@ import { TokenStorageService } from '../services/auth/token-storage.service';
 import { Observable } from 'rxjs';
 import {UploadFileService} from '../services/storage/upload-file.service';
 import { HttpEventType, HttpResponse, HttpClient } from '@angular/common/http';
+import {Track} from '../tracks/track/model/track';
+import {TrackService} from '../services/track/track.service';
 
 @Component({
   selector: 'app-profile',
@@ -18,16 +20,19 @@ export class ProfileComponent implements OnInit {
   userAvatar: any;
   imageToShow: any;
   isImageLoading: any;
+  tracks: Track[];
 
   fileInfos: Observable<any>;
 
   constructor(private token: TokenStorageService,
-              private uploadService: UploadFileService) { }
+              private uploadService: UploadFileService,
+              private trackService: TrackService) { }
 
   ngOnInit() {
     this.currentUser = this.token.getUser();
     this.fileInfos = this.uploadService.getFile(this.currentUser.username);
     this.getImageFromService();
+    this.getLastAddedTracksByUsername(this.currentUser.username, 5);
   }
 
   selectFile(event) {
@@ -72,6 +77,16 @@ export class ProfileComponent implements OnInit {
     this.selectedFile = undefined;
   }
 
+  getLastAddedTracksByUsername(username: string, numberOfTracks: number) {
+    this.trackService.getLastAddedTracksByUsername(username, numberOfTracks).subscribe(
+      response => {
+        this.tracks = response;
+      },
+      error => {
+        alert('An error has occurred while fetching tracks');
+      }
+    );
+  }
 
 
 
