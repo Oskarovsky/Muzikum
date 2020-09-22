@@ -20,7 +20,7 @@ export class ProfileComponent implements OnInit {
   userAvatar: any;
   imageToShow: any;
   isImageLoading: any;
-  tracks: Track[];
+  tracks: Array<any>;
 
   fileInfos: Observable<any>;
 
