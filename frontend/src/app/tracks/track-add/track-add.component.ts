@@ -69,7 +69,7 @@ export class TrackAddComponent implements OnInit {
       id: null,
       title,
       artist,
-      points: null,
+      points: 0,
       genre,
       version,
       url,

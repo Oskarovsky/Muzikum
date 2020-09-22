@@ -1,4 +1,5 @@
-<div class="card bg-light" *ngIf="currentUser; else loggedOut">
+<div *ngIf="currentUser; else loggedOut"
+     class="card" style="background-color: rgba(27,27,27,0.8);">
 <!--
     <st rong>Token:</strong>
     {{ currentUser.accessToken.substring(0, 20) }} ...
@@ -8,8 +9,8 @@
   <div class="container">
     <div class="row">
       <div class="col-12">
-        <div class="card">
-          <div class="card-body">
+        <div class="card bg-transparent">
+          <div class="card-body bg-transparent">
             <div class="card-title mb-4">
               <div class="d-flex justify-content-start">
                 <div class="image-container">
@@ -28,8 +29,8 @@
                 </div>
                 <div class="userData ml-3">
                   <h2 class="d-block" style="font-size: 1.5rem; font-weight: bold"><a href="javascript:void(0);">{{currentUser.username}}</a></h2>
-                  <h6 class="d-block"><a href="javascript:void(0)">1,500</a> Playlist</h6>
-                  <h6 class="d-block"><a href="javascript:void(0)">300</a> Polubień</h6>
+                  <h6 class="d-block" style="color: white"><a href="javascript:void(0)">1,500</a> Playlist</h6>
+                  <h6 class="d-block" style="color: white"><a href="javascript:void(0)">300</a> Utworów</h6>
                   <button mat-stroked-button color="primary" value="Zmień zdjęcie" onclick="showAvatarForm()">Zmień zdjęcie profilowe</button>
                   <p id="avatarForm" style="display:none;" class="answer_list">
                     <input type="file" class="mat-line" (change)="selectFile($event)" />
@@ -59,7 +60,7 @@
                   <div class="tab-pane fade show active" id="basicInfo" role="tabpanel" aria-labelledby="basicInfo-tab">
 
 
-                    <div class="row">
+                    <div class="row" style="color: white">
                       <div class="col-sm-3 col-md-2 col-5">
                         <label style="font-weight:bold;">Nazwa użytkownika</label>
                       </div>
@@ -69,7 +70,7 @@
                     </div>
                     <hr />
 
-                    <div class="row">
+                    <div class="row" style="color: white">
                       <div class="col-sm-3 col-md-2 col-5">
                         <label style="font-weight:bold;">Email</label>
                       </div>
@@ -85,11 +86,16 @@
                     <ul class="list-group">
                       <li *ngFor="let track of tracks" class="list-group-item d-flex justify-content-between align-items-center">
                         <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
-                          {{ track.artist }} - {{ track.title }}
-                          <span class="badge badge-primary badge-pill">Punkty: 14</span>
+                          {{ track.artist }} - {{ track.title }} ({{track.version}})
+                          <span class="badge badge-primary badge-pill">Punkty: {{track.points}}</span>
                         </a>
                       </li>
                     </ul>
+                    <div>
+                      <a href="#" class="btn btn-secondary btn-sm active" role="button" aria-pressed="true">
+                        Pokaż wszystkie utwory
+                      </a>
+                    </div>
                   </div>
                 </div>
               </div>
