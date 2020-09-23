@@ -78,9 +78,11 @@ const routes: Routes = [
   { path: 'profile/tracks', component: UserTracksPartComponent },
   { path: 'user', component: BoardUserComponent },
   { path: 'mod', component: BoardModeratorComponent },
+  { path: 'confirm-account/:token', component: TokenConfirmationComponent },
+
+  /* ADMIN */
   { path: 'admin', component: BoardAdminComponent },
   { path: 'admin/panel', component: AdminPanelComponent },
-  { path: 'confirm-account/:token', component: TokenConfirmationComponent },
 
   /* GLOBAL */
   { path: '', component: HomeComponent },
