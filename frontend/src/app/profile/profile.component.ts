@@ -5,6 +5,7 @@ import {UploadFileService} from '../services/storage/upload-file.service';
 import { HttpEventType, HttpResponse, HttpClient } from '@angular/common/http';
 import {Track} from '../tracks/track/model/track';
 import {TrackService} from '../services/track/track.service';
+import {FavoriteService} from '../services/favorite/favorite.service';
 
 @Component({
   selector: 'app-profile',
@@ -21,11 +22,13 @@ export class ProfileComponent implements OnInit {
   imageToShow: any;
   isImageLoading: any;
   tracks: Array<any>;
+  favoriteTracksByUser: Track[] = [];
 
   fileInfos: Observable<any>;
 
   constructor(private token: TokenStorageService,
               private uploadService: UploadFileService,
+              private favoriteService: FavoriteService,
               private trackService: TrackService) { }
 
   ngOnInit() {
@@ -33,6 +36,7 @@ export class ProfileComponent implements OnInit {
     this.fileInfos = this.uploadService.getFile(this.currentUser.username);
     this.getImageFromService();
     this.getLastAddedTracksByUsername(this.currentUser.username, 5);
+    this.getAllFavoritesTracksByUser(this.currentUser.username);
   }
 
   selectFile(event) {
@@ -86,6 +90,12 @@ export class ProfileComponent implements OnInit {
         alert('An error has occurred while fetching tracks');
       }
     );
+  }
+
+  getAllFavoritesTracksByUser(username: string) {
+    this.favoriteService.getAllFavoritesTracksByUsername(username).subscribe((track: any) => {
+      this.favoriteTracksByUser = track;
+    });
   }
 
 

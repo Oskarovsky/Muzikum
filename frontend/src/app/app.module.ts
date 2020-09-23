@@ -71,7 +71,7 @@ import { ContactComponent } from './info/contact/contact.component';
 import { TrackTileComponent } from './tracks/track-tile/track-tile.component';
 import { TrackVoteButtonComponent } from './tracks/track-vote-button/track-vote-button.component';
 import { TracksPartComponent } from './tracks/tracks-part/tracks-part.component';
-import {NgxPaginationModule} from 'ngx-pagination';
+import { NgxPaginationModule } from 'ngx-pagination';
 import { UserTracksComponent } from './profile/user-tracks/user-tracks.component';
 import { UserTracksPartComponent } from './profile/user-tracks-part/user-tracks-part.component';
 import { UserTrackTileComponent } from './profile/user-track-tile/user-track-tile.component';

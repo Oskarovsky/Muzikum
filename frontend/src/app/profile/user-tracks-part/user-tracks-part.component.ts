@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {TrackService} from '../../services/track/track.service';
 import {ActivatedRoute} from '@angular/router';
-import {DomSanitizer} from '@angular/platform-browser';
 import {Subscription} from 'rxjs';
 import {Track} from '../../tracks/track/model/track';
 import {TokenStorageService} from '../../services/auth/token-storage.service';
@@ -9,7 +8,7 @@ import {TokenStorageService} from '../../services/auth/token-storage.service';
 @Component({
   selector: 'app-user-tracks-part',
   templateUrl: './user-tracks-part.component.html',
-  styleUrls: ['./user-tracks-part.component.scss']
+  styleUrls: ['./user-tracks-part.component.css']
 })
 export class UserTracksPartComponent implements OnInit {
 
@@ -26,18 +25,9 @@ export class UserTracksPartComponent implements OnInit {
 
   constructor(private trackService: TrackService,
               private route: ActivatedRoute,
-              private tokenStorage: TokenStorageService,
-              private sanitizer: DomSanitizer) {
+              private tokenStorage: TokenStorageService) {
     this.sub = this.route.params.subscribe(params => {
       this.currentPage = params.page || 1;
-    });
-
-    this.trackService.getTrackPageByUserUsername(this.currentUser.username, +this.currentPage - 1).subscribe(trackResponse => {
-      this.totalNumberOfTracks = trackResponse.totalElements;
-      this.numberOfPage = trackResponse.numberPage;
-      this.totalNumberOfPages = trackResponse.totalPages;
-      this.tracks = trackResponse.trackList;
-      this.secureAllUrl(this.tracks);
     });
   }
 
@@ -45,13 +35,17 @@ export class UserTracksPartComponent implements OnInit {
     if (this.tokenStorage.getToken()) {
       this.isLoggedIn = true;
       this.currentUser = this.tokenStorage.getUser();
+      this.getTrackPage();
     }
   }
 
-  secureAllUrl(allTracks: Track[]) {
-    for (const track of allTracks) {
-      track.safeUrl = this.sanitizer.bypassSecurityTrustResourceUrl(`${track.urlPlugin}`);
-    }
+  getTrackPage() {
+    this.trackService.getTrackPageByUserUsername(this.currentUser.username, +this.currentPage - 1).subscribe(trackResponse => {
+      this.totalNumberOfTracks = trackResponse.totalElements;
+      this.numberOfPage = trackResponse.numberPage;
+      this.totalNumberOfPages = trackResponse.totalPages;
+      this.tracks = trackResponse.trackList;
+    });
   }
 
   // tslint:disable-next-line:variable-name

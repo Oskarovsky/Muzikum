@@ -33,6 +33,7 @@ import {ContactComponent} from './info/contact/contact.component';
 import {AboutComponent} from './info/about/about.component';
 import {TracksPartComponent} from './tracks/tracks-part/tracks-part.component';
 import {UserTracksComponent} from './profile/user-tracks/user-tracks.component';
+import {UserTracksPartComponent} from './profile/user-tracks-part/user-tracks-part.component';
 
 
 const routes: Routes = [
@@ -73,7 +74,8 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'profile', component: ProfileComponent },
-  { path: 'profile/tracks/:page', component: UserTracksComponent },
+  { path: 'profile/tracks/:page', component: UserTracksPartComponent },
+  { path: 'profile/tracks', component: UserTracksPartComponent },
   { path: 'user', component: BoardUserComponent },
   { path: 'mod', component: BoardModeratorComponent },
   { path: 'admin', component: BoardAdminComponent },
