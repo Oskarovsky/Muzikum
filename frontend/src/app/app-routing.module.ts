@@ -32,6 +32,7 @@ import {TokenConfirmationComponent} from './auth/token-confirmation/token-confir
 import {ContactComponent} from './info/contact/contact.component';
 import {AboutComponent} from './info/about/about.component';
 import {TracksPartComponent} from './tracks/tracks-part/tracks-part.component';
+import {UserTracksComponent} from './profile/user-tracks/user-tracks.component';
 
 
 const routes: Routes = [
@@ -72,6 +73,7 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'profile', component: ProfileComponent },
+  { path: 'profile/tracks', component: UserTracksComponent },
   { path: 'user', component: BoardUserComponent },
   { path: 'mod', component: BoardModeratorComponent },
   { path: 'admin', component: BoardAdminComponent },
