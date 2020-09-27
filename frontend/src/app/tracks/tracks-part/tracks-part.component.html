@@ -14,11 +14,6 @@
       <span class="pagination">
         <a *ngIf="currentPage > 1" type='button' href="app/tracks/{{genre}}/{{previousPage(currentPage)}}">&laquo;</a>
       </span>
-<!--      <div class="pagination" *ngFor="let item of createRange(totalNumberOfPages)">-->
-<!--        <a *ngIf="currentPage != item && item < currentPage" type='button' href="app/tracks/{{genre}}/{{item}}">{{item}}</a>-->
-<!--        <a class="active" *ngIf="currentPage == item" type='button' href="app/tracks/{{genre}}/{{item}}">{{item}}</a>-->
-<!--        <a *ngIf="currentPage != item && item > currentPage" type='button' href="app/tracks/{{genre}}/{{item}}">{{item}}</a>-->
-<!--      </div>-->
       <span class="pagination">
         <a class="active" type='button' href="app/tracks/{{genre}}/{{currentPage}}">{{currentPage}} / {{totalNumberOfPages}}</a>
       </span>

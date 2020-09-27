@@ -39,7 +39,10 @@ export class TrackComponent implements OnInit {
     this.trackService.getTrackById(this.trackId).subscribe((track: Track) => {
       this.track = track;
       this.secureUrl(track);
-    });
+    },
+      error => {
+        alert('An error has occurred while fetching track');
+      });
   }
 
   ngOnInit() {

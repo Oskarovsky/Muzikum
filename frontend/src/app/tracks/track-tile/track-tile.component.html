@@ -9,10 +9,10 @@
         </span>
     <hr />
     <div *ngIf="track.version !== null" class="post-title">
-      <a class="postname" href="/tracks/{{track.id}}">{{track.artist}} - {{track.title}} ({{track.version}})</a>
+      <a class="postname" href="/track/{{track.id}}">{{track.artist}} - {{track.title}} ({{track.version}})</a>
     </div>
     <div *ngIf="track.version === null" class="post-title">
-      <a class="postname" href="/tracks/{{track.id}}">{{track.artist}} - {{track.title}}</a>
+      <a class="postname" href="/track/{{track.id}}">{{track.artist}} - {{track.title}}</a>
     </div>
     <div *ngIf="track.urlSource !== null" class="post-title">
     </div>
@@ -29,10 +29,11 @@
       </iframe>
     </div>
     <span>
-      <a class="btnCommments" role="button">
+      <a class="btnCommments" href="app/track/{{track.id}}" role="button">
        <button class="btn-info">Download</button>
       </a>
     </span>
     <hr />
   </div>
 </div>
+
