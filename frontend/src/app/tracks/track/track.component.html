@@ -43,10 +43,24 @@
 <!--    <div>Ilość pobrań: {{track.genre}}</div>-->
   </div>
 
-  <div class="col-8">
-    <h3>Komentarze</h3>
-    <div *ngFor="let comment of trackComments">
-      {{comment.text}}
+  <div class="container">
+    <div class="row">
+      <div class="col-md-8">
+        <div class="page-header">
+          <h3><small class="pull-right">{{trackComments.length}} komentarzy</small> Komentarze </h3>
+        </div>
+        <div class="comments-list">
+          <div *ngFor="let comment of trackComments" class="media">
+            <a class="media-left" href="#">
+              <img src="http://lorempixel.com/40/40/people/1/" alt="{{comment.user.username}} image">
+            </a>
+            <div class="media-body">
+              <h4 class="media-heading user_name">{{comment.user.username}}</h4>
+              {{comment.text}}
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 
