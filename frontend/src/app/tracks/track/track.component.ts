@@ -2,10 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 
-import {TrackService} from "../../services/track/track.service";
-import {HttpClient} from "@angular/common/http";
-import {Track} from "./model/track";
+import {TrackService} from '../../services/track/track.service';
+import {HttpClient} from '@angular/common/http';
+import {Track} from './model/track';
 import {environment} from '../../../environments/environment';
+import {DomSanitizer} from '@angular/platform-browser';
 
 const API: string = environment.serverUrl;
 const VIDEO_API = API + '/video';
@@ -19,41 +20,44 @@ const PROVIDER_API = API + '/providers';
 })
 export class TrackComponent implements OnInit {
 
-  track: any = {};
+  track: Track;
   tracks: Track[] = [];
 
   sub: Subscription;
+  trackId: number;
 
   constructor(private trackService: TrackService,
               private route: ActivatedRoute,
               private router: Router,
-              private http: HttpClient) { }
+              private sanitizer: DomSanitizer,
+              private http: HttpClient) {
 
-  ngOnInit() {
     this.sub = this.route.params.subscribe(params => {
-      const id = params.id;
-      if (id) {
-        this.trackService.getTrackById(id).subscribe((track: any) => {
-          this.track = track;
-        });
-      }
+      this.trackId = params.id;
+    });
+
+    this.trackService.getTrackById(this.trackId).subscribe((track: Track) => {
+      this.track = track;
+      this.secureUrl(track);
     });
   }
 
-  public getAllTracks() {
-    this.trackService.getAllTracks().subscribe(
-      result => {
-        this.tracks = result;
-      },
+  ngOnInit() {
+  }
+
+  public getTrackById(id: number) {
+    this.trackService.getTrackById(id).subscribe(
+      (track: Track) => {
+      this.track = track;
+    },
       error => {
-        alert('An error has occurred while downloading tracks')
+        alert('An error has occurred while fetching track');
       }
     );
   }
 
-  public getTrackById(id: string) {
-    this.trackService.getTrackById(id).subscribe(
-    );
+  secureUrl(track: Track) {
+    track.safeUrl = this.sanitizer.bypassSecurityTrustResourceUrl(`${track.urlPlugin}`);
   }
 
 }

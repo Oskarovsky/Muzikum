@@ -56,7 +56,7 @@ export class TrackVoteButtonComponent implements OnInit {
   }
 
   private updateVoteDetails() {
-    this.trackService.getTrackById(String(this.track.id)).subscribe((track: any) => {
+    this.trackService.getTrackById(this.track.id).subscribe((track: any) => {
       this.track = track;
     });
   }

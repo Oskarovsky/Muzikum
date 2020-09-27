@@ -1,10 +1,46 @@
-<div class="example-container">
-<mat-card>
-  <mat-card-title>Muzikum</mat-card-title>
-  <mat-card-content>
-    <h3 mat-line>{{track.title}}</h3>
-    <h2 mat-line>{{track.version}}</h2>
-    <h2 mat-line>{{track.artist}}</h2>
-  </mat-card-content>
-</mat-card>
+<div class="row post">
+  <div class="col-md-1">
+    <app-track-vote-button [track]="track"></app-track-vote-button>
+  </div>
+  <div class="col-md-11">
+        <span class="subreddit-info">
+            <span class="subreddit-text"><a class="posturl" routerLink="">Dodano {{track.createdAt}}</a></span>
+            <span> Autor <a class="username" routerLink="/user/">{{track.user}}</a></span>
+        </span>
+    <hr />
+    <div *ngIf="track.version !== null" class="post-title">
+      <a class="postname" href="/tracks/{{track.id}}">{{track.artist}} - {{track.title}} ({{track.version}})</a>
+    </div>
+    <div *ngIf="track.version === null" class="post-title">
+      <a class="postname" href="/tracks/{{track.id}}">{{track.artist}} - {{track.title}}</a>
+    </div>
+    <div *ngIf="track.urlSource !== null" class="post-title">
+    </div>
+    <div *ngIf="track.urlSource === 'ZIPPYSHARE'" class="post-title">
+      <iframe [src]="track.safeUrl" width="450" height="100" frameborder="0"></iframe>
+    </div>
+    <div *ngIf="track.urlSource === 'KRAKENFILES'" class="post-title">
+      <iframe [src]="track.safeUrl" width="450" height="100" frameborder="0"></iframe>
+    </div>
+    <div *ngIf="track.urlSource === 'SOUNDCLOUD'" class="post-title">
+      <div style="font-size: 10px; color: #cccccc;line-break: anywhere;word-break: normal;overflow: hidden;white-space: nowrap;text-overflow: ellipsis; font-family: Interstate,Lucida Grande,Lucida Sans Unicode,Lucida Sans,Garuda,Verdana,Tahoma,sans-serif;font-weight: 100;"><a href="https://soundcloud.com/oskarro" title="Oskarro" target="_blank" style="color: #cccccc; text-decoration: none;">Oskarro</a> · <a href="https://soundcloud.com/oskarro/oskarro-retro" title="Oskarro - RETRO" target="_blank" style="color: #cccccc; text-decoration: none;">Oskarro - RETRO</a></div>
+      <iframe width="100%" height="80px" scrolling="no" frameborder="no" allow="autoplay"
+              src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/603208284&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true">
+      </iframe>
+    </div>
+    <div>
+      <a href="{{track.url}}" target="_blank" rel="noopener noreferrer">Pobierz utwór</a>
+    </div>
+    <hr />
+  </div>
+
+  <div class="col-md-11">
+    <h3>Informacje o utworze</h3>
+    <div>Gatunek: {{track.genre}}</div>
+<!--    <div>Długość: {{track.genre}}</div>-->
+<!--    <div>Jakość: {{track.genre}}</div>-->
+<!--    <div>Ilość wyświetleń: {{track.genre}}</div>-->
+<!--    <div>Ilość pobrań: {{track.genre}}</div>-->
+  </div>
+
 </div>

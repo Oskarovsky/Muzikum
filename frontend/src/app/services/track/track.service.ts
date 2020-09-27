@@ -19,8 +19,8 @@ export class TrackService {
     return this.http.get<Track[]>(TRACK_API + '/findAll');
   }
 
-  getTrackById(id: string) {
-    return this.http.get(TRACK_API + '/' + id);
+  getTrackById(id: number) {
+    return this.http.get(TRACK_API + '/id/' + id);
   }
 
   getTracksFromProviderByGenre(id: string, genre: string) {
