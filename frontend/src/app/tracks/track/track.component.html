@@ -43,4 +43,11 @@
 <!--    <div>Ilość pobrań: {{track.genre}}</div>-->
   </div>
 
+  <div class="col-8">
+    <h3>Komentarze</h3>
+    <div *ngFor="let comment of trackComments">
+      {{comment.text}}
+    </div>
+  </div>
+
 </div>
