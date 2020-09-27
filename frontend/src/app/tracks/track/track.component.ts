@@ -7,6 +7,7 @@ import {HttpClient} from '@angular/common/http';
 import {Track} from './model/track';
 import {environment} from '../../../environments/environment';
 import {DomSanitizer} from '@angular/platform-browser';
+import {TrackComment} from './model/track-comment';
 
 const API: string = environment.serverUrl;
 const VIDEO_API = API + '/video';
@@ -21,6 +22,7 @@ const PROVIDER_API = API + '/providers';
 export class TrackComponent implements OnInit {
 
   track: Track;
+  trackComments: TrackComment[] = [];
   tracks: Track[] = [];
 
   sub: Subscription;
@@ -46,15 +48,16 @@ export class TrackComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.getAllTrackComments(this.trackId);
   }
 
-  public getTrackById(id: number) {
-    this.trackService.getTrackById(id).subscribe(
-      (track: Track) => {
-      this.track = track;
-    },
+  public getAllTrackComments(trackId: number) {
+    this.trackService.getAllTrackCommentsByTrackId(trackId).subscribe(
+      (comments: any) => {
+        this.trackComments = comments;
+      },
       error => {
-        alert('An error has occurred while fetching track');
+        alert('An error has occurred while fetching track comments');
       }
     );
   }

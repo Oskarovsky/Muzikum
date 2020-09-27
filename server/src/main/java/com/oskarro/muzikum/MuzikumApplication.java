@@ -11,10 +11,12 @@ import com.oskarro.muzikum.provider.Provider;
 import com.oskarro.muzikum.provider.ProviderRepository;
 import com.oskarro.muzikum.provider.contractor.*;
 import com.oskarro.muzikum.storage.FilesStorageService;
+import com.oskarro.muzikum.track.TrackCommentRepository;
 import com.oskarro.muzikum.track.model.Genre;
 import com.oskarro.muzikum.track.model.Track;
 import com.oskarro.muzikum.track.TrackRepository;
 import com.oskarro.muzikum.track.TrackService;
+import com.oskarro.muzikum.track.model.TrackComment;
 import com.oskarro.muzikum.user.*;
 import com.oskarro.muzikum.user.favorite.FavoriteTrack;
 import com.oskarro.muzikum.user.favorite.FavoriteTrackRepository;
@@ -156,6 +158,7 @@ public class MuzikumApplication implements CommandLineRunner {
         FavoriteTrackRepository favoriteTrackRepository = applicationContext.getBean(FavoriteTrackRepository.class);
         UserService userService = applicationContext.getBean(UserService.class);
         UserStatisticsRepository userStatisticsRepository = applicationContext.getBean(UserStatisticsRepository.class);
+        TrackCommentRepository trackCommentRepository = applicationContext.getBean(TrackCommentRepository.class);
 
         // USER ROLES CREATOR
         Role roleAdmin = new Role();
@@ -334,6 +337,12 @@ public class MuzikumApplication implements CommandLineRunner {
                         .genre(Genre.DANCE.toString()).points(1).user(userAdmin).build();
 
         trackRepository.saveAll(Arrays.asList(userTrack1, userTrack2, userTrack3));
+
+        TrackComment trackComment1 =
+                TrackComment.builder().track(popularTrackClub).text("Super hit").user(userAdmin).build();
+        TrackComment trackComment2 =
+                TrackComment.builder().track(popularTrackClub).text("Jest fajnie").user(userJacek).build();
+        trackCommentRepository.saveAll(Arrays.asList(trackComment1, trackComment2));
 
     }
 

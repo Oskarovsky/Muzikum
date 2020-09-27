@@ -6,4 +6,5 @@ export class TrackComment {
   text: string;
   track: Track;
   user: User;
+  createdAt: string;
 }

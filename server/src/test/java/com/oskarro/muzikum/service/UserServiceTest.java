@@ -1,6 +1,9 @@
 package com.oskarro.muzikum.service;
 
-import com.oskarro.muzikum.user.*;
+import com.oskarro.muzikum.user.User;
+import com.oskarro.muzikum.user.UserRepository;
+import com.oskarro.muzikum.user.UserService;
+import com.oskarro.muzikum.user.UserStatisticsRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
