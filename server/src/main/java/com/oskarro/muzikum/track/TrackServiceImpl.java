@@ -4,6 +4,7 @@ import com.oskarro.muzikum.exception.ResourceNotFoundException;
 import com.oskarro.muzikum.plugin.PluginKrakenResponse;
 import com.oskarro.muzikum.plugin.PluginService;
 import com.oskarro.muzikum.track.model.Track;
+import com.oskarro.muzikum.track.model.TrackComment;
 import com.oskarro.muzikum.track.model.TrackPageResponse;
 import com.oskarro.muzikum.track.model.UrlSource;
 import com.oskarro.muzikum.user.User;
@@ -30,13 +31,15 @@ public class TrackServiceImpl implements TrackService {
 
     private final TrackRepository trackRepository;
     private final UserRepository userRepository;
+    private final TrackCommentRepository trackCommentRepository;
     private final PluginService pluginService;
 
     public TrackServiceImpl(TrackRepository trackRepository, UserRepository userRepository,
-                            PluginService pluginService) {
+                            PluginService pluginService, TrackCommentRepository trackCommentRepository) {
         super();
         this.trackRepository = trackRepository;
         this.userRepository = userRepository;
+        this.trackCommentRepository = trackCommentRepository;
         this.pluginService = pluginService;
     }
 
@@ -251,6 +254,11 @@ public class TrackServiceImpl implements TrackService {
                 .totalElements(fetchedTracks.getTotalElements())
                 .numberPage(fetchedTracks.getNumber())
                 .build();
+    }
+
+    @Override
+    public List<TrackComment> getAllTrackCommentsByTrackId(Integer trackId) {
+        return trackCommentRepository.findTrackCommentsByTrackIdOrderByCreatedAtDesc(trackId);
     }
 
 

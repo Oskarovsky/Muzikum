@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { Track } from 'src/app/tracks/track/model/track';
 import {environment} from '../../../environments/environment';
 import {TrackResponse} from '../../tracks/track/model/track-response';
+import {TrackComment} from '../../tracks/track/model/track-comment';
 
 const API: string = environment.serverUrl;
 const TRACK_API = API + '/tracks';
@@ -101,6 +102,10 @@ export class TrackService {
 
   getTrackPageByUserUsername(username: string, page: number): Observable<TrackResponse> {
     return this.http.get<TrackResponse>(TRACK_API + '/user/' + username + '/pages/' + page);
+  }
+
+  getAllTrackCommentsByTrackId(trackId: number): Observable<TrackComment[]> {
+    return this.http.get<TrackComment[]>(TRACK_API + '/id/' + trackId + '/comments');
   }
 
 }

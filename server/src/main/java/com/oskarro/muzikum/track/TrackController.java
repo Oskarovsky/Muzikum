@@ -1,6 +1,7 @@
 package com.oskarro.muzikum.track;
 
 import com.oskarro.muzikum.track.model.Track;
+import com.oskarro.muzikum.track.model.TrackComment;
 import com.oskarro.muzikum.track.model.TrackPageResponse;
 import com.oskarro.muzikum.user.UserService;
 import com.oskarro.muzikum.user.favorite.FavoriteService;
@@ -166,5 +167,11 @@ public class TrackController {
     @CrossOrigin(origins = "*", allowedHeaders = "*")
     public TrackPageResponse getTrackPageByUserUsername(@PathVariable String username, @PathVariable int idPage) {
         return trackService.getTrackPageByUserUsername(username, idPage);
+    }
+
+    @GetMapping(value = "/id/{trackId}/comments")
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
+    public List<TrackComment> getTrackCommentsByTrackId(@PathVariable Integer trackId) {
+        return trackService.getAllTrackCommentsByTrackId(trackId);
     }
 }
