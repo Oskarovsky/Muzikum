@@ -174,4 +174,14 @@ public class TrackController {
     public List<TrackComment> getTrackCommentsByTrackId(@PathVariable Integer trackId) {
         return trackService.getAllTrackCommentsByTrackId(trackId);
     }
+
+    @PostMapping(value = "/comment/add")
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
+    public void addTrackComment(@RequestBody TrackComment trackComment, BindingResult bindingResult)
+            throws ValidationException {
+        if (bindingResult.hasErrors()) {
+            throw new ValidationException("There are a problem with binding");
+        }
+        trackService.saveTrackComment(trackComment);
+    }
 }

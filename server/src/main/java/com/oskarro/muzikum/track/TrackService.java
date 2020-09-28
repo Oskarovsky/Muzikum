@@ -52,4 +52,6 @@ public interface TrackService {
     TrackPageResponse getTrackPageByUserUsername(String username, int page);
 
     List<TrackComment> getAllTrackCommentsByTrackId(Integer id);
+
+    TrackComment saveTrackComment(TrackComment trackComment);
 }

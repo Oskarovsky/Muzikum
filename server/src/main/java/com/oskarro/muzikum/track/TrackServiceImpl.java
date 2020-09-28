@@ -17,6 +17,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 import java.io.IOException;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -25,6 +28,9 @@ import java.util.stream.Stream;
 @Service
 @Transactional
 public class TrackServiceImpl implements TrackService {
+
+    @PersistenceContext
+    EntityManager entityManager;
 
     @Autowired
     private TrackDaoImpl dao;
@@ -261,6 +267,10 @@ public class TrackServiceImpl implements TrackService {
         return trackCommentRepository.findTrackCommentsByTrackIdOrderByCreatedAtDesc(trackId);
     }
 
+    @Override
+    public TrackComment saveTrackComment(TrackComment trackComment) {
+        return trackCommentRepository.save(trackComment);
+    }
 
 
 }
