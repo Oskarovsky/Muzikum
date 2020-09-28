@@ -108,4 +108,8 @@ export class TrackService {
     return this.http.get<TrackComment[]>(TRACK_API + '/id/' + trackId + '/comments');
   }
 
+  addTrackComment(trackComment: TrackComment): Observable<TrackComment> {
+    return this.http.post<TrackComment>(TRACK_API + '/comment/add', trackComment);
+  }
+
 }

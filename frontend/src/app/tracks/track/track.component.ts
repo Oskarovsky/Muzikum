@@ -8,6 +8,8 @@ import {Track} from './model/track';
 import {environment} from '../../../environments/environment';
 import {DomSanitizer} from '@angular/platform-browser';
 import {TrackComment} from './model/track-comment';
+import {User} from '../../services/user/user';
+import {TokenStorageService} from '../../services/auth/token-storage.service';
 
 const API: string = environment.serverUrl;
 const VIDEO_API = API + '/video';
@@ -22,13 +24,33 @@ const PROVIDER_API = API + '/providers';
 export class TrackComponent implements OnInit {
 
   track: Track;
+  newTrackComment: TrackComment;
   trackComments: TrackComment[] = [];
   tracks: Track[] = [];
+  isLoggedIn = false;
 
   sub: Subscription;
   trackId: number;
 
+  modelTrackComment: TrackComment = {
+    id: null,
+    text: '',
+    track: null,
+    user: null,
+    createdAt: ''
+  };
+
+  modelUser: User = {
+    id: null,
+    username: '',
+    email: '',
+    password: '',
+    createdAt: '',
+    favoriteTracks: null
+  };
+
   constructor(private trackService: TrackService,
+              private tokenStorage: TokenStorageService,
               private route: ActivatedRoute,
               private router: Router,
               private sanitizer: DomSanitizer,
@@ -49,6 +71,13 @@ export class TrackComponent implements OnInit {
 
   ngOnInit() {
     this.getAllTrackComments(this.trackId);
+    if (this.tokenStorage.getToken()) {
+      this.isLoggedIn = true;
+      this.modelUser.username = this.tokenStorage.getUser().username;
+      this.modelUser.id = this.tokenStorage.getUser().id;
+      this.modelUser.email = this.tokenStorage.getUser().email;
+      this.modelUser.password = this.tokenStorage.getUser().password;
+    }
   }
 
   public getAllTrackComments(trackId: number) {
@@ -58,6 +87,22 @@ export class TrackComponent implements OnInit {
       },
       error => {
         alert('An error has occurred while fetching track comments');
+      }
+    );
+  }
+
+  public addNewTrackComment(text: string) {
+    const newTrackComment: TrackComment = {
+      id: null,
+      text,
+      track: this.track,
+      user: this.modelUser,
+      createdAt: ''
+    };
+    this.trackService.addTrackComment(newTrackComment).subscribe(
+      response => {
+        newTrackComment.text = text;
+        this.newTrackComment = response;
       }
     );
   }

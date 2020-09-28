@@ -60,6 +60,23 @@
             </div>
           </div>
         </div>
+<!--        <div class="card my-5" style="background-color: #000000">
+          <form #userForm="ngForm">
+            <div class="form-group">
+              <label for="title" style="color: white">Tytuł</label>
+              <input #trackCommentText type="text" matInput [(ngModel)]="newTrackComment.text"
+                     class="form-control"
+                     style="background-color: #e5e1e1"
+                     id="title"
+                     name="title"
+                     placeholder="Treść komentarza">
+            </div>
+            <button type="submit" [disabled]="!userForm.form.valid"
+                    (click)="addNewTrackComment(trackCommentText.value)"
+                    class="btn btn-info">Submit</button>
+          </form>
+        </div>-->
+
       </div>
     </div>
   </div>
