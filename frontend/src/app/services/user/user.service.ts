@@ -33,6 +33,11 @@ export class UserService {
     return this.httpClient.get(AUTH_API + '/admin', {responseType: 'text'});
   }
 
+  /** GET one user by username */
+  getUserByUsername(username: string): Observable<User> {
+    return this.httpClient.get<User>(USER_API + '/' + username);
+  }
+
   /** GET last added users */
   getLastAddedUsers(numberOfUsers: string): Observable<User[]> {
     return this.httpClient.get<User[]>(USER_API + '/lastAdded/' + numberOfUsers);

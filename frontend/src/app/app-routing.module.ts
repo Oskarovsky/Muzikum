@@ -34,6 +34,7 @@ import {AboutComponent} from './info/about/about.component';
 import {TracksPartComponent} from './tracks/tracks-part/tracks-part.component';
 import {UserTracksComponent} from './profile/user-tracks/user-tracks.component';
 import {UserTracksPartComponent} from './profile/user-tracks-part/user-tracks-part.component';
+import {UserProfileComponent} from './user/user-profile/user-profile.component';
 
 
 const routes: Routes = [
@@ -77,6 +78,7 @@ const routes: Routes = [
   { path: 'profile/tracks/:page', component: UserTracksPartComponent },
   { path: 'profile/tracks', component: UserTracksPartComponent },
   { path: 'user', component: BoardUserComponent },
+  { path: 'profile/:username', component: UserProfileComponent },
   { path: 'mod', component: BoardModeratorComponent },
   { path: 'confirm-account/:token', component: TokenConfirmationComponent },
 

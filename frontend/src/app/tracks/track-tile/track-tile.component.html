@@ -6,18 +6,16 @@
         <span class="subreddit-info">
             <span class="subreddit-text"><a class="posturl" routerLink="">Dodano {{track.createdAt | dateAgo}}</a></span>
             <span *ngIf="track.user!==null">
-              Autor <a class="username" routerLink="/user/{{track.user.username}}">{{track.user.username}}</a>
+              Autor <a class="username" routerLink="/profile/{{track.user.username}}">{{track.user.username}}</a>
             </span>
             <span *ngIf="track.user==null">
-              Autor nieznany
+              Autor <a class="username" routerLink="/user/oskarro">Oskarro</a>
             </span>
         </span>
     <hr />
-    <div *ngIf="track.version !== null" class="post-title">
-      <a class="postname" href="/track/{{track.id}}">{{track.artist}} - {{track.title}} ({{track.version}})</a>
-    </div>
-    <div *ngIf="track.version === null" class="post-title">
-      <a class="postname" href="/track/{{track.id}}">{{track.artist}} - {{track.title}}</a>
+    <div class="post-title">
+      <a *ngIf="track.version !== null" class="postname" href="/track/{{track.id}}">{{track.artist}} - {{track.title}} ({{track.version}})</a>
+      <a *ngIf="track.version === null" class="postname" href="/track/{{track.id}}">{{track.artist}} - {{track.title}}</a>
     </div>
     <div *ngIf="track.urlSource !== null" class="post-title">
     </div>

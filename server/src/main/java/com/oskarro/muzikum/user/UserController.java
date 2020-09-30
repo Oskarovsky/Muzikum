@@ -1,5 +1,6 @@
 package com.oskarro.muzikum.user;
 
+import com.oskarro.muzikum.exception.ResourceNotFoundException;
 import com.oskarro.muzikum.track.model.Track;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,6 +18,23 @@ public class UserController {
 
     @Autowired
     UserDao userDao;
+
+    @Autowired
+    UserRepository userRepository;
+
+    @GetMapping(value = "/id/{userId}")
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
+    public User getUserByUserId(@PathVariable Integer userId) {
+        return userRepository.findById(userId)
+                .orElseThrow(() -> new ResourceNotFoundException("User", "id", userId));
+    }
+
+    @GetMapping(value = "/{username}")
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
+    public User getUserByUsername(@PathVariable String username) {
+        return userRepository.findByUsername(username)
+                .orElseThrow(() -> new ResourceNotFoundException("User", "username", username));
+    }
 
     @GetMapping(value = "/lastAdded/{quantity}")
     @CrossOrigin(origins = "*", allowedHeaders = "*")
