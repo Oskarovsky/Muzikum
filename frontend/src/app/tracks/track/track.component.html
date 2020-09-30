@@ -4,8 +4,13 @@
   </div>
   <div class="col-md-11">
         <span class="subreddit-info">
-            <span class="subreddit-text"><a class="posturl" routerLink="">Dodano {{track.createdAt}}</a></span>
-            <span> Autor <a class="username" routerLink="/user/">{{track.user}}</a></span>
+            <span class="subreddit-text"><a class="posturl" routerLink="">Dodano {{track.createdAt | dateAgo}}</a></span>
+            <span *ngIf="track.user!==null">
+              Autor <a class="username" routerLink="/user/{{track.user.username}}">{{track.user.username}}</a>
+            </span>
+            <span *ngIf="track.user==null">
+              Autor nieznany
+            </span>
         </span>
     <hr />
     <div *ngIf="track.version !== null" class="post-title">
@@ -60,22 +65,23 @@
             </div>
           </div>
         </div>
-<!--        <div class="card my-5" style="background-color: #000000">
-          <form #userForm="ngForm">
+        <div class="card my-5" style="background-color: #000000">
+          <form #commentForm="ngForm">
             <div class="form-group">
-              <label for="title" style="color: white">Tytuł</label>
-              <input #trackCommentText type="text" matInput [(ngModel)]="newTrackComment.text"
+              <label for="comment" style="color: white">Treść komentarza</label>
+              <input #trackCommentText type="text"
                      class="form-control"
                      style="background-color: #e5e1e1"
-                     id="title"
-                     name="title"
+                     id="comment"
+                     name="comment"
                      placeholder="Treść komentarza">
             </div>
-            <button type="submit" [disabled]="!userForm.form.valid"
+            <button type="submit" [disabled]="!commentForm.form.valid"
                     (click)="addNewTrackComment(trackCommentText.value)"
-                    class="btn btn-info">Submit</button>
+                    class="btn btn-info">Submit
+            </button>
           </form>
-        </div>-->
+        </div>
 
       </div>
     </div>

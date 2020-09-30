@@ -76,6 +76,7 @@ import { UserTracksComponent } from './profile/user-tracks/user-tracks.component
 import { UserTracksPartComponent } from './profile/user-tracks-part/user-tracks-part.component';
 import { UserTrackTileComponent } from './profile/user-track-tile/user-track-tile.component';
 import { TrackCommentAddComponent } from './tracks/track-comment-add/track-comment-add.component';
+import { DateAgoPipe } from './pipes/date-ago.pipe';
 
 
 @NgModule({
@@ -132,6 +133,7 @@ import { TrackCommentAddComponent } from './tracks/track-comment-add/track-comme
     UserTracksPartComponent,
     UserTrackTileComponent,
     TrackCommentAddComponent,
+    DateAgoPipe,
   ],
     imports: [
         AppRoutingModule,
