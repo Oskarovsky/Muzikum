@@ -39,17 +39,17 @@
       <a href="{{track.url}}" target="_blank" rel="noopener noreferrer">Pobierz utwór</a>
     </div>
     <hr />
-  </div>
 
+    <!-- DETAILS TRACK INFORMATION -->
+    <div *ngIf="track.urlSource === 'KRAKENFILES'">
+      <h3>Informacje o utworze</h3>
+      <div>Gatunek: {{track.genre}}</div>
+      <div>Długość: </div>
+      <div>Jakość: {{track.genre}}</div>
+      <div>Ilość wyświetleń: {{track.genre}}</div>
+      <div>Ilość pobrań: {{track.genre}}</div>
+    </div>
 
-<!-- DETAILS TRACK INFORMATION -->
-  <div class="col-md-11">
-    <h3>Informacje o utworze</h3>
-    <div>Gatunek: {{track.genre}}</div>
-<!--    <div>Długość: {{track.genre}}</div>-->
-<!--    <div>Jakość: {{track.genre}}</div>-->
-<!--    <div>Ilość wyświetleń: {{track.genre}}</div>-->
-<!--    <div>Ilość pobrań: {{track.genre}}</div>-->
   </div>
 
 

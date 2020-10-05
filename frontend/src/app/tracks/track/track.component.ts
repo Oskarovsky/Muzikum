@@ -83,6 +83,7 @@ export class TrackComponent implements OnInit {
       this.modelUser.email = this.tokenStorage.getUser().email;
       this.modelUser.password = this.tokenStorage.getUser().password;
     }
+    this.getUserImage(this.modelUser.username);
   }
 
   public getAllTrackComments(trackId: number) {
