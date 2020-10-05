@@ -53,6 +53,7 @@ public class TrackController {
         if (track.getUser() != null) {
             userService.updateUserStatistics(track.getUser());
         }
+        track.setPoints(0);
         trackService.saveTrack(track);
     }
 
