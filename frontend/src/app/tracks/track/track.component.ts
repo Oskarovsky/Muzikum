@@ -29,6 +29,7 @@ export class TrackComponent implements OnInit {
   trackComments: TrackComment[] = [];
   tracks: Track[] = [];
   isLoggedIn = false;
+  currentUser: any;
 
   sub: Subscription;
   trackId: number;

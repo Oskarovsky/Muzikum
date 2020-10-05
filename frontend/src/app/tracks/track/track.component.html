@@ -1,4 +1,6 @@
 <div class="row post">
+
+<!-- BASIC TRACK INFORMATION -->
   <div class="col-md-1">
     <app-track-vote-button [track]="track"></app-track-vote-button>
   </div>
@@ -39,6 +41,8 @@
     <hr />
   </div>
 
+
+<!-- DETAILS TRACK INFORMATION -->
   <div class="col-md-11">
     <h3>Informacje o utworze</h3>
     <div>Gatunek: {{track.genre}}</div>
@@ -48,49 +52,71 @@
 <!--    <div>Ilość pobrań: {{track.genre}}</div>-->
   </div>
 
-  <div class="container">
+
+<!-- COMMENTS LIST -->
+  <div class="container" >
     <div class="row">
       <div class="col-md-8">
         <div class="page-header">
           <h3><small class="pull-right">{{trackComments.length}} komentarzy</small> Komentarze </h3>
         </div>
-        <div class="comments-list">
-          <div *ngFor="let comment of trackComments" class="media">
+        <div class="comment-widgets">
+          <div *ngFor="let comment of trackComments" class="d-flex flex-row comment-row m-t-0">
             <a class="media-left" href="#">
               <img [src]="imagesToShow.get(comment.user.username)" width="50" height="50"
-                   alt="Place image title"
+                   alt="Place image title" class="rounded-circle"
                    *ngIf="imagesToShow.get(comment.user.username); else noImageFound">
               <ng-template #noImageFound>
                 <img id="profile-imgs" width="50" height="50"
                      src="//ssl.gstatic.com/accounts/ui/avatar_2x.png"
                      alt="image to show"
-                     class="profile-img-card"/>
+                     class="profile-img-card rounded-circle"/>
               </ng-template>
             </a>
             <div class="media-body">
               <h4 class="media-heading user_name">{{comment.user.username}}</h4>
               {{comment.text}}
             </div>
+            <div class="comment-footer">
+              <span class="text-muted float-right">August 1, 2019</span>
+              <button type="button" class="btn btn-cyan btn-sm">Edytuj</button>
+              <button type="button" class="btn btn-danger btn-sm">Usuń</button>
+            </div>
           </div>
         </div>
-        <div class="card my-5" style="background-color: #000000">
+
+        <!-- COMMENTS FORM -->
+        <div class="card my-5" style="background-color: transparent">
           <form #commentForm="ngForm">
-            <div class="form-group">
-              <label for="comment" style="color: white">Treść komentarza</label>
-              <input #trackCommentText type="text"
-                     class="form-control"
-                     style="background-color: #e5e1e1"
-                     id="comment"
-                     name="comment"
-                     placeholder="Treść komentarza">
-            </div>
-            <button type="submit" [disabled]="!commentForm.form.valid"
-                    (click)="addNewTrackComment(trackCommentText.value)"
-                    class="btn btn-info">Submit
-            </button>
+            <div><h4>Dodaj nowy komentarz</h4></div>
+            <fieldset>
+              <div class="row">
+                <div class="col-sm-3 col-lg-2 hidden-xs">
+                  <img [src]="imagesToShow.get(this.modelUser.username)" width="100%" height="100%"
+                       alt="Place image title" class="img-responsive rounded-circle"
+                       *ngIf="imagesToShow.get(this.modelUser.username); else noImageFound">
+                  <ng-template #noImageFound>
+                    <img id="profile-img" width="50" height="50"
+                         src="//ssl.gstatic.com/accounts/ui/avatar_2x.png"
+                         alt="image to show"
+                         class="profile-img-card rounded-circle"/>
+                  </ng-template>
+                </div>
+                <div class="form-group col-xs-12 col-sm-9 col-lg-10">
+                  <label for="comment" style="color: white">Treść komentarza</label>
+                  <textarea #trackCommentText class="form-control" rows="2"
+                            id="comment" placeholder="Treść komentarza" required="">
+
+                  </textarea>
+                </div>
+              </div>
+              <button type="submit" [disabled]="!commentForm.form.valid"
+                      (click)="addNewTrackComment(trackCommentText.value)"
+                      class="btn btn-info pull-right">Submit
+              </button>
+            </fieldset>
           </form>
         </div>
-
       </div>
     </div>
   </div>
