@@ -5,6 +5,7 @@ import { Track } from 'src/app/tracks/track/model/track';
 import {environment} from '../../../environments/environment';
 import {TrackResponse} from '../../tracks/track/model/track-response';
 import {TrackComment} from '../../tracks/track/model/track-comment';
+import {TrackKrakenfiles} from '../../tracks/track/model/track-krakenfiles';
 
 const API: string = environment.serverUrl;
 const TRACK_API = API + '/tracks';
@@ -110,6 +111,10 @@ export class TrackService {
 
   addTrackComment(trackComment: TrackComment): Observable<TrackComment> {
     return this.http.post<TrackComment>(TRACK_API + '/comment/add', trackComment);
+  }
+
+  getTrackInfoFromKrakenfiles(id: string): Observable<TrackKrakenfiles> {
+    return this.http.get<TrackKrakenfiles>('https://krakenfiles.com/json/' + id);
   }
 
 }

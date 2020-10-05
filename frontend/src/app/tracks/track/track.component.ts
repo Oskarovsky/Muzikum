@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Subscription } from 'rxjs';
+import {Observable, Subscription} from 'rxjs';
 
 import {TrackService} from '../../services/track/track.service';
 import {HttpClient} from '@angular/common/http';
@@ -11,6 +11,7 @@ import {TrackComment} from './model/track-comment';
 import {User} from '../../services/user/user';
 import {TokenStorageService} from '../../services/auth/token-storage.service';
 import {UploadFileService} from '../../services/storage/upload-file.service';
+import {TrackKrakenfiles} from './model/track-krakenfiles';
 
 const API: string = environment.serverUrl;
 const VIDEO_API = API + '/video';
@@ -29,7 +30,7 @@ export class TrackComponent implements OnInit {
   trackComments: TrackComment[] = [];
   tracks: Track[] = [];
   isLoggedIn = false;
-  currentUser: any;
+  trackDataFromAPI: TrackKrakenfiles;
 
   sub: Subscription;
   trackId: number;
@@ -68,7 +69,7 @@ export class TrackComponent implements OnInit {
     this.trackService.getTrackById(this.trackId).subscribe((track: Track) => {
       this.track = track;
       this.secureUrl(track);
-    },
+      },
       error => {
         alert('An error has occurred while fetching track');
       });
@@ -99,6 +100,27 @@ export class TrackComponent implements OnInit {
       }
     );
   }
+
+  // TODO
+/*  getDataTrackFromKrakenfiles(url: string) {
+    const mySubString = 'https://krakenfiles.com/json/' + url.substring(
+      url.lastIndexOf('view/') + 5,
+      url.lastIndexOf('/file')
+    );
+    const mySubString1 = url.substring(
+      url.lastIndexOf('view/') + 5,
+      url.lastIndexOf('/file')
+    );
+    this.trackService.getTrackInfoFromKrakenfiles(mySubString1).subscribe(
+      response => {
+        console.log('BBB ' + response);
+        this.trackDataFromAPI = response;
+      },
+      error => {
+        alert('An error has occurred while fetching track info from Krakenfiles API');
+      }
+    );
+  }*/
 
   public addNewTrackComment(text: string) {
     const newTrackComment: TrackComment = {
