@@ -57,7 +57,15 @@
         <div class="comments-list">
           <div *ngFor="let comment of trackComments" class="media">
             <a class="media-left" href="#">
-              <img src="http://lorempixel.com/40/40/people/1/" alt="{{comment.user.username}} image">
+              <img [src]="imagesToShow.get(comment.user.username)" width="50" height="50"
+                   alt="Place image title"
+                   *ngIf="imagesToShow.get(comment.user.username); else noImageFound">
+              <ng-template #noImageFound>
+                <img id="profile-imgs" width="50" height="50"
+                     src="//ssl.gstatic.com/accounts/ui/avatar_2x.png"
+                     alt="image to show"
+                     class="profile-img-card"/>
+              </ng-template>
             </a>
             <div class="media-body">
               <h4 class="media-heading user_name">{{comment.user.username}}</h4>

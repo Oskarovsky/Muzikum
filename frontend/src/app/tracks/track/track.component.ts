@@ -10,6 +10,7 @@ import {DomSanitizer} from '@angular/platform-browser';
 import {TrackComment} from './model/track-comment';
 import {User} from '../../services/user/user';
 import {TokenStorageService} from '../../services/auth/token-storage.service';
+import {UploadFileService} from '../../services/storage/upload-file.service';
 
 const API: string = environment.serverUrl;
 const VIDEO_API = API + '/video';
@@ -31,6 +32,8 @@ export class TrackComponent implements OnInit {
 
   sub: Subscription;
   trackId: number;
+  imagesToShow: Map<string, any> = new Map<string, any>();
+
 
   modelTrackComment: TrackComment = {
     id: null,
@@ -54,7 +57,8 @@ export class TrackComponent implements OnInit {
               private route: ActivatedRoute,
               private router: Router,
               private sanitizer: DomSanitizer,
-              private http: HttpClient) {
+              private http: HttpClient,
+              private uploadFileService: UploadFileService) {
 
     this.sub = this.route.params.subscribe(params => {
       this.trackId = params.id;
@@ -84,6 +88,9 @@ export class TrackComponent implements OnInit {
     this.trackService.getAllTrackCommentsByTrackId(trackId).subscribe(
       (comments: any) => {
         this.trackComments = comments;
+        for (const comment of comments) {
+          this.getUserImage(comment.user.username);
+        }
       },
       error => {
         alert('An error has occurred while fetching track comments');
@@ -103,8 +110,31 @@ export class TrackComponent implements OnInit {
       response => {
         newTrackComment.text = text;
         this.newTrackComment = response;
+        window.location.reload();
+      },
+      error => {
+        alert('An error has occurred while adding comment to track');
       }
     );
+  }
+
+  getUserImage(username: string) {
+    this.uploadFileService.getFile(username).subscribe(data => {
+      this.createImageFromBlob(username, data);
+    }, error => {
+      console.log(error);
+    });
+  }
+
+  createImageFromBlob(username: string, image: Blob) {
+    const reader = new FileReader();
+    reader.addEventListener('load', () => {
+      this.imagesToShow.set(username, reader.result);
+    }, false);
+
+    if (image) {
+      reader.readAsDataURL(image);
+    }
   }
 
   secureUrl(track: Track) {

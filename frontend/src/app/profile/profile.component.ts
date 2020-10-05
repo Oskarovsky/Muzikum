@@ -18,9 +18,7 @@ export class ProfileComponent implements OnInit {
   selectedFile;
   currentFile: File;
   message = '';
-  userAvatar: any;
   imageToShow: any;
-  isImageLoading: any;
   tracks: Array<any>;
   favoriteTracksByUser: Track[] = [];
 
@@ -55,11 +53,9 @@ export class ProfileComponent implements OnInit {
   }
 
   getImageFromService() {
-    this.isImageLoading = true;
     this.uploadService.getFile(this.currentUser.username).subscribe(data => {
       this.createImageFromBlob(data);
     }, error => {
-      this.isImageLoading = false;
       console.log(error);
     });
   }
