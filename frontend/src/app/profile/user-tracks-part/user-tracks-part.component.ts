@@ -19,6 +19,7 @@ export class UserTracksPartComponent implements OnInit {
   totalNumberOfPages;
   numberOfPage: number;
   currentPage: number;
+
   currentUser: any;
   isLoggedIn = false;
 
@@ -29,13 +30,20 @@ export class UserTracksPartComponent implements OnInit {
     this.sub = this.route.params.subscribe(params => {
       this.currentPage = params.page || 1;
     });
+
+    this.trackService.getTrackPageByUserUsername(this.tokenStorage.getUser().username, +this.currentPage - 1).subscribe(trackResponse => {
+      this.totalNumberOfTracks = trackResponse.totalElements;
+      this.numberOfPage = trackResponse.numberPage;
+      this.totalNumberOfPages = trackResponse.totalPages;
+      this.tracks = trackResponse.trackList;
+    });
   }
 
   ngOnInit() {
     if (this.tokenStorage.getToken()) {
       this.isLoggedIn = true;
       this.currentUser = this.tokenStorage.getUser();
-      this.getTrackPage();
+      // this.getTrackPage();
     }
   }
 
