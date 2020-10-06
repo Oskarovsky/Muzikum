@@ -41,7 +41,7 @@
     <hr />
 
     <!-- DETAILS TRACK INFORMATION -->
-    <div *ngIf="track.urlSource === 'KRAKENFILES'">
+    <div *ngIf="track.urlSource === 'KRAKENFILES'" style="color: black">
       <h3>Informacje o utworze</h3>
       <div>Gatunek: {{track.genre}}</div>
       <div>Długość: {{track.title}}</div>
@@ -54,11 +54,11 @@
 
 
 <!-- COMMENTS LIST -->
-  <div class="container" >
+  <div class="container" style="color: black">
     <div class="row">
       <div class="col-md-8">
-        <div class="page-header">
-          <h3><small class="pull-right">{{trackComments.length}} komentarzy</small> Komentarze </h3>
+        <div class="page-header" style="color: black">
+          <h3><small class="pull-right" style="color: black">{{trackComments.length}} komentarzy</small> Komentarze </h3>
         </div>
         <div class="comment-widgets">
           <div *ngFor="let comment of trackComments" class="d-flex flex-row comment-row m-t-0">
@@ -78,15 +78,18 @@
               {{comment.text}}
             </div>
             <div class="comment-footer">
-              <span class="text-muted float-right">August 1, 2019</span>
-              <button type="button" class="btn btn-cyan btn-sm">Edytuj</button>
-              <button type="button" class="btn btn-danger btn-sm">Usuń</button>
+              <span class="text-muted float-right">
+                {{comment.createdAt | dateAgo}} <br/>
+                <button *ngIf="this.modelUser.username==comment.user.username"
+                        (click)="deleteTrackCommentById(comment.id)"
+                        type="button" class="float-right btn btn-danger btn-md">Usuń</button>
+              </span>
             </div>
           </div>
         </div>
 
         <!-- COMMENTS FORM -->
-        <div class="card my-5" style="background-color: transparent">
+        <div *ngIf="isLoggedIn" class="card my-5" style="background-color: transparent">
           <form #commentForm="ngForm">
             <div><h4>Dodaj nowy komentarz</h4></div>
             <fieldset>
@@ -105,7 +108,7 @@
                 <div class="form-group col-xs-12 col-sm-9 col-lg-10">
                   <label for="comment" style="color: white">Treść komentarza</label>
                   <textarea #trackCommentText class="form-control" rows="2"
-                            id="comment" placeholder="Treść komentarza" required="">
+                            id="comment">
 
                   </textarea>
                 </div>

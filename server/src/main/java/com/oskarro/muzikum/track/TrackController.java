@@ -185,4 +185,10 @@ public class TrackController {
         }
         trackService.saveTrackComment(trackComment);
     }
+
+    @DeleteMapping(value = "/comment/{commentId}/remove")
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
+    public void deleteTrackCommentById(@PathVariable Integer commentId) {
+        trackService.deleteTrackCommentById(commentId);
+    }
 }

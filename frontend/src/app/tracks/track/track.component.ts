@@ -102,6 +102,16 @@ export class TrackComponent implements OnInit {
     );
   }
 
+  public deleteTrackCommentById(commentId: number) {
+    this.trackService.deleteTrackCommentById(commentId).subscribe(
+      response => {
+        window.location.reload();
+      }, error => {
+        alert('An error has occurred while deleting track comment');
+      }
+    );
+  }
+
   // TODO
 /*  getDataTrackFromKrakenfiles(url: string) {
     const mySubString = 'https://krakenfiles.com/json/' + url.substring(

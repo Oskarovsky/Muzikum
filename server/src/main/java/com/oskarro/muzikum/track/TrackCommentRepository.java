@@ -13,4 +13,6 @@ public interface TrackCommentRepository extends JpaRepository<TrackComment, Inte
 
     List<TrackComment> findTrackCommentsByTrackIdOrderByCreatedAtDesc(Integer trackId);
 
+    void deleteTrackCommentById(Integer commentId);
+
 }

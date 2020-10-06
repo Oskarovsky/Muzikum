@@ -54,4 +54,6 @@ public interface TrackService {
     List<TrackComment> getAllTrackCommentsByTrackId(Integer id);
 
     TrackComment saveTrackComment(TrackComment trackComment);
+
+    void deleteTrackCommentById(Integer commentId);
 }

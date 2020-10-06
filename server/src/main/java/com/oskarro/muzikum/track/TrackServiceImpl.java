@@ -275,5 +275,10 @@ public class TrackServiceImpl implements TrackService {
         return trackCommentRepository.save(trackComment);
     }
 
+    @Override
+    public void deleteTrackCommentById(Integer commentId) {
+        trackCommentRepository.deleteTrackCommentById(commentId);
+    }
+
 
 }

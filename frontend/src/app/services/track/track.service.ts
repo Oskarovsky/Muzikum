@@ -117,4 +117,8 @@ export class TrackService {
     return this.http.get<TrackKrakenfiles>('https://krakenfiles.com/json/' + id);
   }
 
+  deleteTrackCommentById(commentId: number) {
+    return this.http.delete(TRACK_API + '/comment/' + commentId + '/remove');
+  }
+
 }
