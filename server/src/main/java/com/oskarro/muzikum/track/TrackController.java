@@ -136,7 +136,7 @@ public class TrackController {
             List<Track> tracks;
             Pageable paging = PageRequest.of(page, size);
             Page<Track> pageTracks;
-            pageTracks = trackRepository.findByGenreOrderByCreatedAtDesc(genre.toUpperCase(), paging);
+            pageTracks = trackRepository.findByGenreAndUrlSourceIsNotNullOrderByCreatedAtDesc(genre.toUpperCase(), paging);
             tracks = pageTracks.getContent();
             if (tracks.isEmpty()) {
                 return new ResponseEntity<>(HttpStatus.NO_CONTENT);

@@ -223,7 +223,8 @@ public class TrackServiceImpl implements TrackService {
     @Override
     public List<Track> getAddedTracksByGenreFromPage(String genre, int page) {
         Pageable pageable = PageRequest.of(page, 10);
-        Page<Track> fetchedTracks = trackRepository.findByGenreOrderByCreatedAtDesc(genre.toUpperCase(), pageable);
+        Page<Track> fetchedTracks =
+                trackRepository.findByGenreAndUrlSourceIsNotNullOrderByCreatedAtDesc(genre.toUpperCase(), pageable);
         return fetchedTracks
                 .stream()
                 .filter(Objects::nonNull)
@@ -233,10 +234,12 @@ public class TrackServiceImpl implements TrackService {
     @Override
     public TrackPageResponse getTrackPageByGenre(String genre, int page) {
         Pageable pageable = PageRequest.of(page, 10);
-        Page<Track> fetchedTracks = trackRepository.findByGenreOrderByCreatedAtDesc(genre.toUpperCase(), pageable);
+        Page<Track> fetchedTracks =
+                trackRepository.findByGenreAndUrlSourceIsNotNullOrderByCreatedAtDesc(genre.toUpperCase(), pageable);
         List<Track> trackList = fetchedTracks
                                     .stream()
                                     .filter(Objects::nonNull)
+                                    .filter(t -> t.getUrl() != null)
                                     .collect(Collectors.toList());
         return TrackPageResponse.builder()
                 .trackList(trackList)

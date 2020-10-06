@@ -46,7 +46,7 @@ public interface TrackRepository extends JpaRepository<Track, Integer> {
 
     List<Track> findByUserUsernameOrderByCreatedAtDesc(String username);
 
-    Page<Track> findByGenreOrderByCreatedAtDesc(String genre, Pageable pageable);
+    Page<Track> findByGenreAndUrlSourceIsNotNullOrderByCreatedAtDesc(String genre, Pageable pageable);
 
     Page<Track> findByUserUsernameOrderByCreatedAtDesc(String username, Pageable pageable);
 

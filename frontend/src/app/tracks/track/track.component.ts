@@ -31,6 +31,7 @@ export class TrackComponent implements OnInit {
   tracks: Track[] = [];
   isLoggedIn = false;
   trackDataFromAPI: TrackKrakenfiles;
+  trackData: any;
 
   sub: Subscription;
   trackId: number;
