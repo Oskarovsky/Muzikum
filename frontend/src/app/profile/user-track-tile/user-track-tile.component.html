@@ -10,7 +10,7 @@
   </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let track of tracks">
+    <tr *ngFor="let track of tracks" [routerLink]="['/track', track.id]">
       <td>{{track.title}}</td>
       <td>{{track.artist}}</td>
       <td>{{track.version}}</td>
