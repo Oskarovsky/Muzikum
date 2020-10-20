@@ -62,28 +62,19 @@ export class TrackListComponent implements OnInit {
       this.getAllVotedTracksIdsByUser(user.username);
       this.numberOfTracks = 10;
     }
+
     this.sub = this.route.params.subscribe(params => {
       const genre = params.genre;
       if (genre) {
-        this.trackService.getLastAddedTracksByGenre(genre, 10).subscribe((track: any) => {
-          this.tracks = track;
-        });
-/*      } else if (id && !genre) {
-        this.trackService.getTracksByProviderId(id).subscribe((track: any) => {
-          this.tracks = track;
-        });
-      } else if (id && genre) {
-        this.trackService.getTracksFromProviderByGenre(id, genre).subscribe((track: any) => {
-          this.tracks = track;
-        });
-      } else if (!id && genre) {
-        this.trackService.getTracksByGenre(genre).subscribe((track: any) => {
-          this.tracks = track;
-        });
-      } else if (providerName && !id && !genre) {
-        this.trackService.getTracksByProviderName(providerName).subscribe((track: any) => {
-          this.tracks = track;
-        });*/
+        if (this.isLoggedIn === true) {
+          this.trackService.getTopListByGenre(genre, 20).subscribe((track: any) => {
+            this.tracks = track;
+          });
+        } else {
+          this.trackService.getTopListByGenre(genre, 10).subscribe((track: any) => {
+            this.tracks = track;
+          });
+        }
       }
     });
   }

@@ -31,7 +31,7 @@
       <button mat-menu-item routerLink="/tracks/disco">Disco</button>
     </mat-menu>
 
-    <button mat-button [matMenuTriggerFor]="genreMenu" style="color: white">Gatunki</button>
+    <button mat-button [matMenuTriggerFor]="genreMenu" style="color: white">Top ranking</button>
       <mat-menu #genreMenu="matMenu" yPosition="below">
         <button mat-menu-item routerLink="/tracklist/club">Club</button>
         <button mat-menu-item routerLink="/tracklist/dance">Dance</button>
@@ -39,22 +39,22 @@
         <button mat-menu-item routerLink="/tracklist/retro">Retro</button>
       </mat-menu>
 
-    <button mat-button [matMenuTriggerFor]="providerMenu" style="color: white">Serwisy</button>
-      <mat-menu #providerMenu="matMenu" xPosition="after">
-        <button mat-menu-item routerLink="/provider/1/details">Nuteczki</button>
-        <button mat-menu-item routerLink="/provider/2/details">Radioparty</button>
-        <button mat-menu-item routerLink="/provider/4/details">Billboard</button>
-        <button mat-menu-item routerLink="/provider/8/details">Apple</button>
-      </mat-menu>
+<!--    <button mat-button [matMenuTriggerFor]="providerMenu" style="color: white">Serwisy</button>-->
+<!--      <mat-menu #providerMenu="matMenu" xPosition="after">-->
+<!--        <button mat-menu-item routerLink="/provider/1/details">Nuteczki</button>-->
+<!--        <button mat-menu-item routerLink="/provider/2/details">Radioparty</button>-->
+<!--        <button mat-menu-item routerLink="/provider/4/details">Billboard</button>-->
+<!--        <button mat-menu-item routerLink="/provider/8/details">Apple</button>-->
+<!--      </mat-menu>-->
 
-    <button mat-button [matMenuTriggerFor]="topMenu" style="color: white">Top ranking</button>
-      <mat-menu #topMenu="matMenu" xPosition="after">
-        <button mat-menu-item routerLink="/toplist/retro">Retro</button>
-        <button mat-menu-item routerLink="/toplist/club">Club</button>
-        <button mat-menu-item routerLink="/toplist/dance">Dance</button>
-        <button mat-menu-item routerLink="/toplist/house">House</button>
-        <button mat-menu-item routerLink="/toplist/techno">Techno</button>
-      </mat-menu>
+<!--    <button mat-button [matMenuTriggerFor]="topMenu" style="color: white">Top ranking</button>-->
+<!--      <mat-menu #topMenu="matMenu" xPosition="after">-->
+<!--        <button mat-menu-item routerLink="/toplist/retro">Retro</button>-->
+<!--        <button mat-menu-item routerLink="/toplist/club">Club</button>-->
+<!--        <button mat-menu-item routerLink="/toplist/dance">Dance</button>-->
+<!--        <button mat-menu-item routerLink="/toplist/house">House</button>-->
+<!--        <button mat-menu-item routerLink="/toplist/techno">Techno</button>-->
+<!--      </mat-menu>-->
 
     <button mat-button [matMenuTriggerFor]="videoMenu" style="color: white">Video</button>
       <mat-menu #videoMenu="matMenu" xPosition="after">
