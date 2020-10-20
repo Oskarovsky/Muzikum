@@ -1,7 +1,7 @@
 <div class="example-container">
 
   <div style="color:white; background-color: purple; border: 1px solid #ddd;">
-    <h2>Muzyka {{tracks[0].genre}} na dziś!</h2>
+    <h2>TOPLISTA - {{tracks[0].genre}}</h2>
   </div>
 
   <table id="tracks">
@@ -16,6 +16,7 @@
       <td>{{ track.title }}</td>
       <td>{{ track.artist }}</td>
       <td>{{ track.version }}</td>
+      <td style="text-align: center">{{ track.points }}</td>
       <td *ngIf="isLoggedIn" style="text-align: center">
         <button mat-raised-button *ngIf="!favoriteTracksIds.toString().includes(track.id.toString())"
                 (click)="addTrackToFavorites(track.id, username); clicked[i] = true;"
