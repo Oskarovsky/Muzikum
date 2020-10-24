@@ -4,6 +4,14 @@ plugins {
     id 'java'
 }
 
+allprojects {
+    gradle.projectsEvaluated {
+        tasks.withType(JavaCompile) {
+            options.compilerArgs << "-Xmaxerrs" << "1000"
+        }
+    }
+}
+
 group = 'com.oskarro'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '8'
