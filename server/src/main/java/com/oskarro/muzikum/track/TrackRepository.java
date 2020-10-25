@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RepositoryRestResource
-@CrossOrigin(origins = "https://localhost:4200")
+@CrossOrigin(origins = "*")
 public interface TrackRepository extends JpaRepository<Track, Integer> {
 
     List<Track> findAll();

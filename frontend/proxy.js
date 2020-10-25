@@ -1,7 +1,7 @@
 var HttpsProxyAgent = require('https-proxy-agent');
 var proxyConfig = [{
   context: '/api',
-  target: 'https://91.205.75.145:8443',
+  target: '//oskarro.com:8443',
   secure: false
 }];
 

@@ -1,6 +1,6 @@
 {
   "/api": {
-    "target": "https://91.205.75.145:8080",
+    "target": "https://oskarro.com:8443",
     "secure": false,
     "logLevel": "debug",
     "pathRewrite": {
