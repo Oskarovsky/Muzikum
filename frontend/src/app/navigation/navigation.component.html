@@ -22,13 +22,13 @@
 
     <button mat-button [matMenuTriggerFor]="tracksMenu" style="color: white">Utwory</button>
     <mat-menu #tracksMenu="matMenu" yPosition="below">
-      <button mat-menu-item routerLink="/tracks/vixa">Vixa</button>
-      <button mat-menu-item routerLink="/tracks/club">Club</button>
-      <button mat-menu-item routerLink="/tracks/dance">Dance</button>
-      <button mat-menu-item routerLink="/tracks/retro">Retro</button>
-      <button mat-menu-item routerLink="/tracks/techno">Techno</button>
-      <button mat-menu-item routerLink="/tracks/house">House</button>
-      <button mat-menu-item routerLink="/tracks/disco">Disco</button>
+      <button onClick="location.href='/app/tracks/vixa'" mat-menu-item>Vixa</button>
+      <button onClick="location.href='/app/tracks/club'" mat-menu-item>Club</button>
+      <button onClick="location.href='/app/tracks/dance'" mat-menu-item>Dance</button>
+      <button onClick="location.href='/app/tracks/retro'" mat-menu-item>Retro</button>
+      <button onClick="location.href='/app/tracks/techno'" mat-menu-item>Techno</button>
+      <button onClick="location.href='/app/tracks/disco'" mat-menu-item>Disco</button>
+      <button onClick="location.href='/app/tracks/house'" mat-menu-item>House</button>
     </mat-menu>
 
     <button mat-button [matMenuTriggerFor]="genreMenu" style="color: white">Top ranking</button>

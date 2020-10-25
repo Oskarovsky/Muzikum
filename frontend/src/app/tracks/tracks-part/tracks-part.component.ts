@@ -40,7 +40,9 @@ export class TracksPartComponent implements OnInit {
     });
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+
+  }
 
   secureAllUrl(allTracks: Track[]) {
     for (const track of allTracks) {
