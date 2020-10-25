@@ -50,4 +50,7 @@ public interface TrackRepository extends JpaRepository<Track, Integer> {
 
     Page<Track> findByUserUsernameOrderByCreatedAtDesc(String username, Pageable pageable);
 
+    @Query("SELECT COUNT(t) FROM Track t WHERE t.user.username=?1")
+    long countTracksByUserUsername(String username);
+
 }

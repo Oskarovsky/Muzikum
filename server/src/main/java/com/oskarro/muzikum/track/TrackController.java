@@ -191,4 +191,10 @@ public class TrackController {
     public void deleteTrackCommentById(@PathVariable Integer commentId) {
         trackService.deleteTrackCommentById(commentId);
     }
+
+    @GetMapping(value = "/user/{username}/count")
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
+    public long getNumberOfTracksAddedByTheUser(@PathVariable String username) {
+        return trackService.getNumberOfTracksAddedByTheUser(username);
+    }
 }

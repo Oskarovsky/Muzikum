@@ -280,5 +280,9 @@ public class TrackServiceImpl implements TrackService {
         trackCommentRepository.deleteTrackCommentById(commentId);
     }
 
+    @Override
+    public long getNumberOfTracksAddedByTheUser(String username) {
+        return trackRepository.countTracksByUserUsername(username);
+    }
 
 }

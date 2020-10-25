@@ -1,12 +1,12 @@
 <div class="example-container">
 
-  <div style="color:white; background-color: purple; border: 1px solid #ddd;">
-    <h2>TOPLISTA - {{tracks[0].genre}}</h2>
+  <div style="color:white; background-color: #610061; border: 1px solid #ddd; vertical-align: middle;">
+    <h2 style="text-align: center;">TOPLISTA - {{tracks[0].genre}}</h2>
   </div>
 
   <table id="tracks">
     <tr>
-      <th *ngFor="let column of displayedColumns">
+      <th *ngFor="let column of displayedColumns" style="background-color: #610061">
         {{ column }}
       </th>
     </tr>

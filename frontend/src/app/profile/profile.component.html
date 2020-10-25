@@ -24,8 +24,8 @@
                 </div>
                 <div class="userData ml-3">
                   <h2 class="d-block" style="font-size: 1.5rem; font-weight: bold"><a href="javascript:void(0);">{{currentUser.username}}</a></h2>
-                  <h6 class="d-block" style="color: white"><a href="javascript:void(0)">1,500</a> Playlist</h6>
-                  <h6 class="d-block" style="color: white"><a href="javascript:void(0)">300</a> Utworów</h6>
+<!--                  <h6 class="d-block" style="color: white"><a href="javascript:void(0)">1,500</a> Playlist</h6>-->
+                  <h6 class="d-block" style="color: white"><a href="javascript:void(0)">{{numberOfTracks}}</a> Utworów</h6>
                   <button mat-stroked-button color="primary" value="Zmień zdjęcie" onclick="showAvatarForm()">Zmień zdjęcie profilowe</button>
                   <p id="avatarForm" style="display:none;" class="answer_list">
                     <input type="file" class="mat-line" (change)="selectFile($event)" />

@@ -121,4 +121,8 @@ export class TrackService {
     return this.http.delete(TRACK_API + '/comment/' + commentId + '/remove');
   }
 
+  // getNumberOfTracksAddedByTheUser(username: string) {
+  //   return this.http.get<any>(TRACK_API + '/user/' + username + '/count');
+  // }
+
 }

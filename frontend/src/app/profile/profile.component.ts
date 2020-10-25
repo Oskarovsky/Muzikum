@@ -21,6 +21,7 @@ export class ProfileComponent implements OnInit {
   imageToShow: any;
   tracks: Array<any>;
   favoriteTracksByUser: Track[] = [];
+  numberOfTracks: any;
 
   fileInfos: Observable<any>;
 
@@ -32,6 +33,7 @@ export class ProfileComponent implements OnInit {
   ngOnInit() {
     this.currentUser = this.token.getUser();
     this.fileInfos = this.uploadService.getFile(this.currentUser.username);
+    this.getNumberOfTracksAddedByTheUser(this.currentUser.username);
     this.getImageFromService();
     this.getLastAddedTracksByUsername(this.currentUser.username, 5);
     this.getAllFavoritesTracksByUser(this.currentUser.username);
@@ -93,6 +95,17 @@ export class ProfileComponent implements OnInit {
       this.favoriteTracksByUser = track;
     });
   }
+
+  // public getNumberOfTracksAddedByTheUser(username: string) {
+  //   this.trackService.getNumberOfTracksAddedByTheUser(username).subscribe(
+  //     response => {
+  //       this.numberOfTracks = response;
+  //     },
+  //     error => {
+  //       alert('An error has occurred while fetching tracks');
+  //     }
+  //   );
+  // }
 
 
 

@@ -56,4 +56,6 @@ public interface TrackService {
     TrackComment saveTrackComment(TrackComment trackComment);
 
     void deleteTrackCommentById(Integer commentId);
+
+    long getNumberOfTracksAddedByTheUser(String username);
 }
