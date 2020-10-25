@@ -4,6 +4,7 @@ import {TrackService} from '../../services/track/track.service';
 import {Subscription} from 'rxjs';
 import {ActivatedRoute} from '@angular/router';
 import {DomSanitizer} from '@angular/platform-browser';
+import {TokenStorageService} from '../../services/auth/token-storage.service';
 
 @Component({
   selector: 'app-tracks-part',
@@ -18,12 +19,14 @@ export class TracksPartComponent implements OnInit {
   totalNumberOfTracks: number;
   totalNumberOfPages;
   numberOfPage: number;
+  isLoggedIn = false;
 
   genre: string;
   currentPage: number;
 
 
   constructor(private trackService: TrackService,
+              private tokenStorage: TokenStorageService,
               private route: ActivatedRoute,
               private sanitizer: DomSanitizer) {
     this.sub = this.route.params.subscribe(params => {
@@ -41,7 +44,9 @@ export class TracksPartComponent implements OnInit {
   }
 
   ngOnInit() {
-
+    if (this.tokenStorage.getToken()) {
+      this.isLoggedIn = true;
+    }
   }
 
   secureAllUrl(allTracks: Track[]) {

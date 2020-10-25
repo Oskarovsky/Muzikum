@@ -12,6 +12,7 @@ export class TrackTileComponent implements OnInit {
   @Input() totalNumberOfTracks: number;
   @Input() totalNumberOfPages: number;
   @Input() currentPage: number;
+  @Input() isLoggedIn: boolean;
 
   constructor() {}
 

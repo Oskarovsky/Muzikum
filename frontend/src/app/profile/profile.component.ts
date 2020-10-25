@@ -33,7 +33,7 @@ export class ProfileComponent implements OnInit {
   ngOnInit() {
     this.currentUser = this.token.getUser();
     this.fileInfos = this.uploadService.getFile(this.currentUser.username);
-    this.getNumberOfTracksAddedByTheUser(this.currentUser.username);
+    // this.getNumberOfTracksAddedByTheUser(this.currentUser.username);
     this.getImageFromService();
     this.getLastAddedTracksByUsername(this.currentUser.username, 5);
     this.getAllFavoritesTracksByUser(this.currentUser.username);

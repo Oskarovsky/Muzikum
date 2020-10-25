@@ -32,8 +32,11 @@
       </iframe>
     </div>
     <span>
-      <a class="btnCommments" href="app/track/{{track.id}}" role="button">
+      <a *ngIf="isLoggedIn" class="btnCommments" href="app/track/{{track.id}}" role="button">
        <button class="btn-info">Download</button>
+      </a>
+      <a *ngIf="!isLoggedIn" class="btnCommments" [routerLink]="['/login']" role="button">
+       <button class="btn-info">Zaloguj się, aby pobrać utwór</button>
       </a>
     </span>
     <hr />
