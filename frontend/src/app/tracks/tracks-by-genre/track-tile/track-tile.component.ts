@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {Track} from '../track/model/track';
+import {Track} from '../../track/model/track';
 
 @Component({
   selector: 'app-track-tile',

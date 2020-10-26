@@ -68,9 +68,9 @@ import { TokenConfirmationComponent } from './auth/token-confirmation/token-conf
 import { TrackPartComponent } from './admin/components/track-part/track-part.component';
 import { AboutComponent } from './info/about/about.component';
 import { ContactComponent } from './info/contact/contact.component';
-import { TrackTileComponent } from './tracks/track-tile/track-tile.component';
+import { TrackTileComponent } from './tracks/tracks-by-genre/track-tile/track-tile.component';
 import { TrackVoteButtonComponent } from './tracks/track-vote-button/track-vote-button.component';
-import { TracksPartComponent } from './tracks/tracks-part/tracks-part.component';
+import { TracksPartComponent } from './tracks/tracks-by-genre/tracks-part/tracks-part.component';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { UserTracksComponent } from './profile/user-tracks/user-tracks.component';
 import { UserTracksPartComponent } from './profile/user-tracks-part/user-tracks-part.component';
@@ -78,6 +78,12 @@ import { UserTrackTileComponent } from './profile/user-track-tile/user-track-til
 import { TrackCommentAddComponent } from './tracks/track-comment-add/track-comment-add.component';
 import { DateAgoPipe } from './pipes/date-ago.pipe';
 import { UserProfileComponent } from './user/user-profile/user-profile.component';
+import { TracksVixaComponent } from './tracks/tracks-by-genre/genre/tracks-vixa/tracks-vixa.component';
+import { TracksClubComponent } from './tracks/tracks-by-genre/genre/tracks-club/tracks-club.component';
+import { TracksDanceComponent } from './tracks/tracks-by-genre/genre/tracks-dance/tracks-dance.component';
+import { TracksRetroComponent } from './tracks/tracks-by-genre/genre/tracks-retro/tracks-retro.component';
+import { TracksDiscoComponent } from './tracks/tracks-by-genre/genre/tracks-disco/tracks-disco.component';
+import { TracksTechnoComponent } from './tracks/tracks-by-genre/genre/tracks-techno/tracks-techno.component';
 
 
 @NgModule({
@@ -136,6 +142,12 @@ import { UserProfileComponent } from './user/user-profile/user-profile.component
     TrackCommentAddComponent,
     DateAgoPipe,
     UserProfileComponent,
+    TracksVixaComponent,
+    TracksClubComponent,
+    TracksDanceComponent,
+    TracksRetroComponent,
+    TracksDiscoComponent,
+    TracksTechnoComponent,
   ],
     imports: [
         AppRoutingModule,

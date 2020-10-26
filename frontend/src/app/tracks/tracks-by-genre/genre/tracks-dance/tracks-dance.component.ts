@@ -1,17 +1,17 @@
-import {Component, OnInit} from '@angular/core';
-import {Track} from '../track/model/track';
-import {TrackService} from '../../services/track/track.service';
+import { Component, OnInit } from '@angular/core';
 import {Subscription} from 'rxjs';
+import {Track} from '../../../track/model/track';
+import {TrackService} from '../../../../services/track/track.service';
+import {TokenStorageService} from '../../../../services/auth/token-storage.service';
 import {ActivatedRoute} from '@angular/router';
 import {DomSanitizer} from '@angular/platform-browser';
-import {TokenStorageService} from '../../services/auth/token-storage.service';
 
 @Component({
-  selector: 'app-tracks-part',
-  templateUrl: './tracks-part.component.html',
-  styleUrls: ['./tracks-part.component.css']
+  selector: 'app-tracks-dance',
+  templateUrl: './tracks-dance.component.html',
+  styleUrls: ['./tracks-dance.component.scss']
 })
-export class TracksPartComponent implements OnInit {
+export class TracksDanceComponent implements OnInit {
 
   sub: Subscription;
 
@@ -21,16 +21,14 @@ export class TracksPartComponent implements OnInit {
   numberOfPage: number;
   isLoggedIn = false;
 
-  genre: string;
+  genre = 'dance';
   currentPage: number;
-
 
   constructor(private trackService: TrackService,
               private tokenStorage: TokenStorageService,
               private route: ActivatedRoute,
               private sanitizer: DomSanitizer) {
     this.sub = this.route.params.subscribe(params => {
-      this.genre = params.genre;
       this.currentPage = params.page || 1;
     });
 

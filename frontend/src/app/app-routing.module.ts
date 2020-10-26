@@ -31,10 +31,16 @@ import {TrackAddComponent} from './tracks/track-add/track-add.component';
 import {TokenConfirmationComponent} from './auth/token-confirmation/token-confirmation.component';
 import {ContactComponent} from './info/contact/contact.component';
 import {AboutComponent} from './info/about/about.component';
-import {TracksPartComponent} from './tracks/tracks-part/tracks-part.component';
+import {TracksPartComponent} from './tracks/tracks-by-genre/tracks-part/tracks-part.component';
 import {UserTracksComponent} from './profile/user-tracks/user-tracks.component';
 import {UserTracksPartComponent} from './profile/user-tracks-part/user-tracks-part.component';
 import {UserProfileComponent} from './user/user-profile/user-profile.component';
+import {TracksVixaComponent} from './tracks/tracks-by-genre/genre/tracks-vixa/tracks-vixa.component';
+import {TracksClubComponent} from './tracks/tracks-by-genre/genre/tracks-club/tracks-club.component';
+import {TracksDiscoComponent} from './tracks/tracks-by-genre/genre/tracks-disco/tracks-disco.component';
+import {TracksTechnoComponent} from './tracks/tracks-by-genre/genre/tracks-techno/tracks-techno.component';
+import {TracksRetroComponent} from './tracks/tracks-by-genre/genre/tracks-retro/tracks-retro.component';
+import {TracksDanceComponent} from './tracks/tracks-by-genre/genre/tracks-dance/tracks-dance.component';
 
 
 const routes: Routes = [
@@ -44,8 +50,22 @@ const routes: Routes = [
   /* TRACKS */
   { path: 'tracklist', component: TrackListComponent },
   { path: 'tracklist/:genre', component: TrackListComponent },
-  { path: 'tracks/:genre', component: TracksPartComponent },
-  { path: 'tracks/:genre/:page', component: TracksPartComponent },
+  // { path: 'tracks/:genre', component: TracksPartComponent },
+  // { path: 'tracks/"genre"/:page', component: TracksClubComponent },
+
+  { path: 'tracks/vixa', component: TracksVixaComponent },
+  { path: 'tracks/club', component: TracksClubComponent },
+  { path: 'tracks/dance', component: TracksDanceComponent },
+  { path: 'tracks/retro', component: TracksRetroComponent },
+  { path: 'tracks/techno', component: TracksTechnoComponent },
+  { path: 'tracks/disco', component: TracksDiscoComponent },
+
+  { path: 'tracks/vixa/:page', component: TracksVixaComponent },
+  { path: 'tracks/club/:page', component: TracksClubComponent },
+  { path: 'tracks/dance/:page', component: TracksDanceComponent },
+  { path: 'tracks/retro/:page', component: TracksRetroComponent },
+  { path: 'tracks/techno/:page', component: TracksTechnoComponent },
+  { path: 'tracks/disco/:page', component: TracksDiscoComponent },
 
   { path: 'provider/:id/tracks', component: TrackListComponent },
   { path: 'provider', component: ProviderListComponent },
