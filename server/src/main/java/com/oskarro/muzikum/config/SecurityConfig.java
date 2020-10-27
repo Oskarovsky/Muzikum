@@ -24,24 +24,54 @@ import org.springframework.web.filter.CorsFilter;
 /**
  * It provides default security configurations and allows other classes to extend it and
  * customize the security configurations by overriding its methods.
+ *
+ * The following class is the crux of security implementation
+ *
+ * This class implements Spring Security’s WebSecurityConfigurer interface.
+ * It provides default security configurations and allows other classes to extend it
+ * and customize the security configurations by overriding its methods.
+ *
  */
 
 @Configuration
 @EnableWebSecurity
-@EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true)
+@EnableGlobalMethodSecurity(
+        prePostEnabled = true,
+        securedEnabled = true,
+        jsr250Enabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
+    /**
+     * To authenticate a User or perform various role-based checks, Spring security needs to load users details somehow.
+     * For this purpose, It consists of an interface called UserDetailsService
+     * which has a single method that loads a user based on username
+     * */
     @Autowired
     UserDetailsServiceImpl userDetailsService;
 
+
+    /**
+     * This class is used to return a 401 unauthorized error to clients
+     * that try to access a protected resource without proper authentication.
+     * It implements Spring Security’s AuthenticationEntryPoint interface
+     * */
     @Autowired
     private JwtAuthenticationEntryPoint unauthorizedHandler;
 
+
+    /**
+     * Filter used for validating the access_token sent by the user
+     * */
     @Bean
     public JwtAuthenticationFilter authenticationJwtTokenFilter() {
         return new JwtAuthenticationFilter();
     }
 
+
+    /**
+     * AuthenticationManagerBuilder is used to create an AuthenticationManager instance
+     * which is the main Spring Security interface for authenticating a user.
+     * */
     @Override
     public void configure(AuthenticationManagerBuilder authenticationManagerBuilder) throws Exception {
         authenticationManagerBuilder
@@ -49,6 +79,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .passwordEncoder(passwordEncoder());
     }
 
+
+    /**
+     * Application uses the configured AuthenticationManager to authenticate a user in the login API.
+     * */
     @Bean
     @Override
     public AuthenticationManager authenticationManagerBean() throws Exception {
@@ -61,6 +95,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
 
+    /**
+     * The HttpSecurity configurations are used to configure security functionalities
+     * and add rules to protect resources based on various conditions.
+     * */
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
         httpSecurity
@@ -77,7 +115,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                     .antMatchers("/",
                             "/favicon.ico",
-                            "/**/*.png",
+                            "/**.png",
                             "/**/*.gif",
                             "/**/*.svg",
                             "/**/*.jpg",
