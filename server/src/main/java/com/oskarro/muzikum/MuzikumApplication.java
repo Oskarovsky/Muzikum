@@ -3,6 +3,7 @@ package com.oskarro.muzikum;
 import com.oskarro.muzikum.article.post.Post;
 import com.oskarro.muzikum.article.post.PostRepository;
 import com.oskarro.muzikum.article.post.PostService;
+import com.oskarro.muzikum.config.AppProperties;
 import com.oskarro.muzikum.crawler.CrawlerService;
 import com.oskarro.muzikum.playlist.Playlist;
 import com.oskarro.muzikum.playlist.PlaylistRepository;
@@ -41,6 +42,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory;
 import org.springframework.boot.web.servlet.server.ServletWebServerFactory;
 import org.springframework.context.ApplicationContext;
@@ -68,6 +70,7 @@ import java.util.stream.Stream;
 })
 @EnableAsync
 @EnableScheduling
+@EnableConfigurationProperties(AppProperties.class)
 public class MuzikumApplication implements CommandLineRunner {
 
     private static final Logger log = LoggerFactory.getLogger(MuzikumApplication.class);

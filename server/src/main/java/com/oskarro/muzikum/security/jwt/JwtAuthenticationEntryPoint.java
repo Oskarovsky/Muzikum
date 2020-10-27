@@ -13,6 +13,9 @@ import java.io.IOException;
 /**
  * This class is used to return a 401 unauthorized error to clients
  * that try to access a protected resource without proper authentication.
+ *
+ * This method is called whenever an exception is thrown due to
+ * an unauthenticated user trying to access a resource that requires authentication.
  */
 
 @Slf4j

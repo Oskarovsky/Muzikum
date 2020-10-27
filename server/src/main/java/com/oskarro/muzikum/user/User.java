@@ -91,5 +91,9 @@ public class User extends DateAudit {
     @JoinColumn(name = "favorite_track")
     private Track favoriteTrack;
 
+    @NotNull
+    @Enumerated(EnumType.STRING)
+    private AuthProvider provider;
+
 
 }

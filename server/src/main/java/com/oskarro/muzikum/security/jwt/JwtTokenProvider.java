@@ -14,6 +14,11 @@ import java.util.function.Function;
 /**
  * This class service is used for generating the token,
  * extract the user info from token and validating the token and expiration as well
+ *
+ * The following utility class will be used for generating a JWT after a user logs in successfully,
+ * and validating the JWT sent in the Authorization header of the requests
+ *
+ * The utility class reads the JWT secret and expiration time from application.properties.
  */
 
 
@@ -44,13 +49,13 @@ public class JwtTokenProvider {
             Jwts.parser().setSigningKey(JWT_SECRET).parseClaimsJws(authToken);
             return true;
         } catch (MalformedJwtException e) {
-            log.error("Invalid JWT token -> Message: {}", e);
+            log.error("Invalid JWT token -> Message: {}", e.getMessage(), e);
         } catch (ExpiredJwtException e) {
-            log.error("Expired JWT token -> Message: {}", e);
+            log.error("Expired JWT token -> Message: {}", e.getMessage(), e);
         } catch (UnsupportedJwtException e) {
-            log.error("Unsupported JWT token -> Message: {}", e);
+            log.error("Unsupported JWT token -> Message: {}", e.getMessage(), e);
         } catch (IllegalArgumentException e) {
-            log.error("JWT claims string is empty -> Message: {}", e);
+            log.error("JWT claims string is empty -> Message: {}", e.getMessage(), e);
         }
         return false;
     }

@@ -1,4 +1,4 @@
-package com.oskarro.muzikum.security.jwt;
+package com.oskarro.muzikum.security.payload;
 
 import java.util.List;
 
@@ -7,7 +7,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class JwtResponse {
+public class JwtAuthenticationResponse {
     private Integer id;
     private String token;
     private String type = "Bearer";
@@ -15,8 +15,8 @@ public class JwtResponse {
     private String email;
     private List<String> roles;
 
-    public JwtResponse(String accessToken, Integer id, String username, String email,
-                       List<String> roles) {
+    public JwtAuthenticationResponse(String accessToken, Integer id, String username, String email,
+                                     List<String> roles) {
         this.token = accessToken;
         this.username = username;
         this.roles = roles;

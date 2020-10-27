@@ -13,6 +13,11 @@ import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * This is the class whose instances will be returned from custom UserDetailsService (UserDetailsServiceImpl.class).
+ * Spring Security will use the information stored in the UserPrincipal object to perform authentication and authorization.
+ * */
+
 @Getter
 @Builder
 @EqualsAndHashCode

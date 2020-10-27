@@ -2,7 +2,7 @@ package com.oskarro.muzikum.security;
 
 import com.oskarro.muzikum.exception.AppException;
 import com.oskarro.muzikum.security.jwt.JwtTokenProvider;
-import com.oskarro.muzikum.security.jwt.JwtResponse;
+import com.oskarro.muzikum.security.payload.JwtAuthenticationResponse;
 import com.oskarro.muzikum.security.payload.ApiResponse;
 import com.oskarro.muzikum.security.payload.LoginRequest;
 import com.oskarro.muzikum.security.payload.RegisterRequest;
@@ -87,7 +87,7 @@ public class AuthController {
                 .map(GrantedAuthority::getAuthority)
                 .collect(Collectors.toList());
 
-        return ResponseEntity.ok(new JwtResponse(jwt,
+        return ResponseEntity.ok(new JwtAuthenticationResponse(jwt,
                                         userDetails.getId(),
                                         userDetails.getUsername(),
                                         userDetails.getEmail(),

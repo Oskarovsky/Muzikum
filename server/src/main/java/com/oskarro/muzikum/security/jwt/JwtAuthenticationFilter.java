@@ -22,6 +22,16 @@ import org.springframework.web.filter.OncePerRequestFilter;
 
 /**
  * Filter used for validating the access_token sent by the user
+ *
+ * This filter:
+ * 1) reads JWT authentication token from the Authorization header of all the requests
+ * 2) validates the token
+ * 3) loads the user details associated with that token
+ * 4) sets the user details in Spring Security’s SecurityContext
+ *
+ * This filter is first parsing the JWT retrieved from the Authorization header of the request and obtaining the user’s Id.
+ * After that, We’re loading the user’s details from the database and setting the authentication inside spring security’s context.
+ *
  */
 
 @Component
