@@ -95,5 +95,6 @@ public class User extends DateAudit {
     @Enumerated(EnumType.STRING)
     private AuthProvider provider;
 
+    private String providerId;
 
 }
