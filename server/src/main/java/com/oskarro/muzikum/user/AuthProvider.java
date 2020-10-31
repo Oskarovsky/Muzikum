@@ -1,6 +1,6 @@
 package com.oskarro.muzikum.user;
 
-public enum  AuthProvider {
+public enum AuthProvider {
     local,
     facebook,
     google,

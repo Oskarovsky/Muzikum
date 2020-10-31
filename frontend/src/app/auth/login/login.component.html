@@ -6,7 +6,7 @@
 
     <form *ngIf="!isLoggedIn" name="form" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>
       <p>
-        <a href="" class="btn btn-block btn-facebook">
+        <a href="{{facebookAuthUrl}}" class="btn btn-block btn-facebook">
           <i class="fa fa-facebook"></i> Zaloguj się za pomocą Facebook
         </a>
       </p>

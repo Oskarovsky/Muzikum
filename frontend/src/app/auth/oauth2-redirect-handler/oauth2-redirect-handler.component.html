@@ -1,1 +1,7 @@
-<h3>{{result}}</h3>
+<!-- INFORMATION ABOUT THE RESULTS OF THE LOGIN PROCESS -->
+<div class="alert alert-warning" *ngIf="isLoginFailed">
+  {{result}}
+</div>
+<div class="alert alert-success" *ngIf="isLoggedIn">
+  {{result}}
+</div>

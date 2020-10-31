@@ -1,5 +1,6 @@
 package com.oskarro.muzikum.security.jwt;
 
+import com.oskarro.muzikum.config.AppProperties;
 import com.oskarro.muzikum.user.UserPrincipal;
 import io.jsonwebtoken.*;
 import lombok.extern.slf4j.Slf4j;
@@ -32,6 +33,12 @@ public class JwtTokenProvider {
     @Value("${oskarro.app.jwtExpiration}")
     private int JWT_EXPIRATION;
 
+    private AppProperties appProperties;
+
+    public JwtTokenProvider(AppProperties appProperties) {
+        this.appProperties = appProperties;
+    }
+
     /* BUILDING JWT TOKEN */
     public String generateJwtToken(Authentication authentication) {
         UserPrincipal userPrincipal = (UserPrincipal) authentication.getPrincipal();
@@ -46,8 +53,10 @@ public class JwtTokenProvider {
     /* JWT TOKEN VALIDATION */
     public boolean validateJwtToken(String authToken) {
         try {
-            Jwts.parser().setSigningKey(JWT_SECRET).parseClaimsJws(authToken);
+            Jwts.parser().setSigningKey(appProperties.getAuth().getTokenSecret()).parseClaimsJws(authToken);
             return true;
+        } catch (SignatureException ex) {
+            log.error("Invalid JWT signature");
         } catch (MalformedJwtException e) {
             log.error("Invalid JWT token -> Message: {}", e.getMessage(), e);
         } catch (ExpiredJwtException e) {
@@ -58,6 +67,15 @@ public class JwtTokenProvider {
             log.error("JWT claims string is empty -> Message: {}", e.getMessage(), e);
         }
         return false;
+    }
+
+    public Integer getUserIdFromToken(String token) {
+        Claims claims = Jwts.parser()
+                .setSigningKey(appProperties.getAuth().getTokenSecret())
+                .parseClaimsJws(token)
+                .getBody();
+
+        return Integer.valueOf(claims.getSubject());
     }
 
     public String getUsernameFromJwtToken(String token) {
@@ -77,7 +95,7 @@ public class JwtTokenProvider {
     }
 
     // retrieve username from jwt token
-    public String getUsernameFromToken(String token) {
+    public String getEmailFromToken(String token) {
         return getClaimFromToken(token, Claims::getSubject);
     }
 

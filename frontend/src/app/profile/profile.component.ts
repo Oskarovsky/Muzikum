@@ -25,13 +25,13 @@ export class ProfileComponent implements OnInit {
 
   fileInfos: Observable<any>;
 
-  constructor(private token: TokenStorageService,
+  constructor(private tokenStorage: TokenStorageService,
               private uploadService: UploadFileService,
               private favoriteService: FavoriteService,
               private trackService: TrackService) { }
 
   ngOnInit() {
-    this.currentUser = this.token.getUser();
+    this.currentUser = this.tokenStorage.getUser();
     this.fileInfos = this.uploadService.getFile(this.currentUser.username);
     // this.getNumberOfTracksAddedByTheUser(this.currentUser.username);
     this.getImageFromService();

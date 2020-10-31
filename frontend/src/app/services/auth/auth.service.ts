@@ -34,4 +34,8 @@ export class AuthService {
     }, httpOptions);
   }
 
+  getUserByToken(token: string): Observable<any> {
+    return this.httpClient.get<string>(AUTH_API + '/token/' + token);
+  }
+
 }

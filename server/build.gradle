@@ -86,7 +86,8 @@ dependencies {
     compile group: 'org.springframework.security', name: 'spring-security-core', version: '5.3.1.RELEASE'
     compile group: 'org.springframework.boot', name: 'spring-boot-starter-thymeleaf', version: '2.3.2.RELEASE'
     compile group: 'org.springframework.security', name: 'spring-security-oauth2-client', version: '5.3.1.RELEASE'
-//    compile group: 'org.springframework.security.oauth.boot', name: 'spring-security-oauth2-autoconfigure', version: '2.2.6.RELEASE'
+    compile group: 'org.springframework.security.oauth', name: 'spring-security-oauth2', version: '2.5.0.RELEASE'
+    compile group: 'org.springframework.security.oauth.boot', name: 'spring-security-oauth2-autoconfigure', version: '2.3.4.RELEASE'
 
     // Libraries for minimizing users avatar
     compile group: 'org.imgscalr', name: 'imgscalr-lib', version: '4.2'

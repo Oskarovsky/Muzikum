@@ -8,10 +8,7 @@ import com.oskarro.muzikum.security.payload.LoginRequest;
 import com.oskarro.muzikum.security.payload.RegisterRequest;
 import com.oskarro.muzikum.user.*;
 
-import java.util.Date;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import javax.validation.Valid;
@@ -21,6 +18,7 @@ import com.oskarro.muzikum.user.role.Role;
 import com.oskarro.muzikum.user.role.RoleName;
 import com.oskarro.muzikum.user.role.RoleRepository;
 import lombok.extern.slf4j.Slf4j;
+import org.hibernate.mapping.Collection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
@@ -66,6 +64,9 @@ public class AuthController {
 
     @Autowired
     private EmailService emailService;
+
+    @Autowired
+    UserDetailsServiceImpl userDetailsService;
 
     @Value("${spring.profiles.active}")
     private String activeProfile;
@@ -195,6 +196,20 @@ public class AuthController {
         } else {
             throw new AppException("The link is invalid or broken!");
         }
+    }
+
+    @RequestMapping(value = "/token/{token}", method = RequestMethod.GET)
+    public ResponseEntity<?> getUserByToken(@PathVariable String token) {
+        User user = userDetailsService.getUserFromToken(token);
+        Role roleUser = new Role();
+        roleUser.setName(RoleName.ROLE_USER);
+        List<String> roles = new ArrayList<>();
+        roles.add(roleUser.toString());
+        return ResponseEntity.ok(new JwtAuthenticationResponse(token,
+                user.getId(),
+                user.getUsername(),
+                user.getEmail(),
+                roles));
     }
 
     private void initUserStatistics(User user) {

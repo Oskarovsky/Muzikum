@@ -1,8 +1,8 @@
 package com.oskarro.muzikum.user;
 
 import com.oskarro.muzikum.exception.ResourceNotFoundException;
+import com.oskarro.muzikum.security.jwt.JwtTokenProvider;
 import com.oskarro.muzikum.track.TrackRepository;
-import com.oskarro.muzikum.track.model.Track;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -32,6 +32,9 @@ public class UserDetailsServiceImpl implements UserDetailsService, UserService {
 
     @Autowired
     private UserStatisticsRepository userStatisticsRepository;
+
+    @Autowired
+    private JwtTokenProvider tokenProvider;
 
     public UserDetailsServiceImpl() {
         super();
@@ -200,5 +203,12 @@ public class UserDetailsServiceImpl implements UserDetailsService, UserService {
             default:
                 throw new RuntimeException("User stats for user with username " + username + " not found");
         }
+    }
+
+    @Override
+    public User getUserFromToken(String token) {
+        String email = tokenProvider.getEmailFromToken(token);
+        return userRepository.findByEmail(email)
+                .orElseThrow(() -> new ResourceNotFoundException("User", "email", email));
     }
 }

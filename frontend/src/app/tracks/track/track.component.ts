@@ -52,7 +52,9 @@ export class TrackComponent implements OnInit {
     email: '',
     password: '',
     createdAt: '',
-    favoriteTracks: null
+    favoriteTracks: null,
+    provider: '',
+    providerId: null
   };
 
   constructor(private trackService: TrackService,

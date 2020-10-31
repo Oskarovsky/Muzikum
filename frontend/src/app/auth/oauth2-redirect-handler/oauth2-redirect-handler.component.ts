@@ -1,5 +1,18 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { ACCESS_TOKEN } from 'src/assets/constants/app.const';
+import {TokenStorageService} from '../../services/auth/token-storage.service';
+import {AuthService} from '../../services/auth/auth.service';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {Observable} from 'rxjs';
+import {environment} from '../../../environments/environment';
+
+const httpOptions = {
+  headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+};
+
+const API: string = environment.serverUrl;
+const AUTH_API = API + '/auth';
 
 @Component({
   selector: 'app-oauth2-redirect-handler',
@@ -10,19 +23,66 @@ export class Oauth2RedirectHandlerComponent implements OnInit {
 
   result: string;
 
-  constructor(private activatedRoute: ActivatedRoute) {
+  form: any = {};
+  isLoggedIn = false;
+  isLoginFailed = false;
+  errorMessage = '';
+  roles: string[] = [];
+  errorParam: string;
+  tokenParam: string;
+
+  constructor(private activatedRoute: ActivatedRoute, private router: Router,
+              private tokenStorage: TokenStorageService, private authService: AuthService,
+              private httpClient: HttpClient) {
     this.activatedRoute.queryParams.subscribe(params => {
-      const errorParam = params.error;
-      const tokenParam = params.token;
-      if (tokenParam) {
-        this.result = 'SUCCESS';
-      } else {
-        this.result = 'ERROR';
-      }
+      this.tokenParam = params.token;
+      this.errorParam = params.error;
     });
+
+    if (this.tokenParam) {
+      this.authService.getUserByToken(this.tokenParam).subscribe(
+        data => {
+          this.tokenStorage.saveToken(this.tokenParam);
+          this.tokenStorage.saveUser(data);
+          this.isLoginFailed = false;
+          this.isLoggedIn = true;
+          this.roles = this.tokenStorage.getUser().roles;
+        }, error => {
+          console.log(error);
+        });
+      this.result = 'Zalogowałeś się w portalu oskarro.com ! Odśwież stronę.';
+      // window.location.reload();
+      // window.location.replace('/profile');
+      // this.loginUser();
+    } else {
+      this.result = 'Wystąpił błąd podczas rejestracji!';
+      this.router.navigateByUrl('/login');
+    }
   }
 
   ngOnInit() {
+
+  }
+
+  loginUser() {
+    this.authService.login(this.form).subscribe(
+      data => {
+        this.tokenStorage.saveToken(data.accessToken);
+        this.tokenStorage.saveUser(data);
+        this.isLoginFailed = false;
+        this.isLoggedIn = true;
+        this.roles = this.tokenStorage.getUser().roles;
+        this.reloadPage();
+      },
+      error => {
+        this.errorMessage = error.error.message;
+        this.isLoginFailed = true;
+      }
+    );
+  }
+
+  reloadPage() {
+    window.location.reload();
   }
 
 }

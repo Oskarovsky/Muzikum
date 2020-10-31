@@ -1,8 +1,10 @@
 package com.oskarro.muzikum.user;
 
 import com.oskarro.muzikum.exception.ResourceNotFoundException;
+import com.oskarro.muzikum.security.CurrentUser;
 import com.oskarro.muzikum.track.model.Track;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -77,5 +79,12 @@ public class UserController {
     public Integer getNumberOfTracksAddedInGivenPeriodByUsername(@PathVariable String username,
                                                                  @PathVariable String periodOfTime) {
         return userService.getNumberOfTracksAddedInGivenPeriodByUsername(username, periodOfTime);
+    }
+
+    @GetMapping("/user/test/me")
+    @PreAuthorize("hasRole('USER')")
+    public User getCurrentUser(@CurrentUser UserPrincipal userPrincipal) {
+        return userRepository.findById(userPrincipal.getId())
+                .orElseThrow(() -> new ResourceNotFoundException("User", "id", userPrincipal.getId()));
     }
 }

@@ -7,4 +7,6 @@ export class User {
   password: string;
   createdAt: string;
   favoriteTracks: Track[];
+  provider: string;
+  providerId: number;
 }

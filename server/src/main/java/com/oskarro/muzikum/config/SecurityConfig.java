@@ -2,12 +2,16 @@ package com.oskarro.muzikum.config;
 
 import com.oskarro.muzikum.security.jwt.JwtAuthenticationEntryPoint;
 import com.oskarro.muzikum.security.jwt.JwtAuthenticationFilter;
+import com.oskarro.muzikum.security.oauth2.CustomOAuth2UserService;
+import com.oskarro.muzikum.security.oauth2.HttpCookieOAuth2AuthorizationRequestRepository;
+import com.oskarro.muzikum.security.oauth2.OAuth2AuthenticationFailureHandler;
+import com.oskarro.muzikum.security.oauth2.OAuth2AuthenticationSuccessHandler;
 import com.oskarro.muzikum.user.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.BeanIds;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -17,9 +21,6 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import org.springframework.web.cors.CorsConfiguration;
-import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
-import org.springframework.web.filter.CorsFilter;
 
 /**
  * It provides default security configurations and allows other classes to extend it and
@@ -79,6 +80,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .passwordEncoder(passwordEncoder());
     }
 
+
+    /**
+     * The class is used to handle the user after obtain access token
+     * */
     @Autowired
     private CustomOAuth2UserService customOAuth2UserService;
 
@@ -91,11 +96,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private HttpCookieOAuth2AuthorizationRequestRepository httpCookieOAuth2AuthorizationRequestRepository;
 
-    @Bean
-    public TokenAuthenticationFilter tokenAuthenticationFilter() {
-        return new TokenAuthenticationFilter();
-    }
 
+    /**
+     * By default, Spring OAuth2 uses HttpSessionOAuth2AuthorizationRequestRepository to save
+     * the authorization request. But, since our service is stateless, we can't save it in
+     * the session. We'll save the request in a Base64 encoded cookie instead.
+     *
+     *
+     * The following class provides functionality for storing the authorization request in cookies and retrieving it.
+     * */
     @Bean
     public HttpCookieOAuth2AuthorizationRequestRepository cookieAuthorizationRequestRepository() {
         return new HttpCookieOAuth2AuthorizationRequestRepository();
@@ -135,7 +144,22 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     .antMatchers("/api/playlist/lastAdded/**").permitAll()
                     .antMatchers("/actuator/*").permitAll()
                     .antMatchers("/track/v2/*").permitAll()
-                    .anyRequest().authenticated();
+                    .anyRequest().authenticated()
+                    .and()
+                .oauth2Login()
+                    .authorizationEndpoint()
+                        .baseUri("/api/oauth2/authorize")
+                        .authorizationRequestRepository(cookieAuthorizationRequestRepository())
+                        .and()
+                    .redirectionEndpoint()
+                        .baseUri("/api/oauth2/callback/*")
+                        .and()
+                    .userInfoEndpoint()
+                        .userService(customOAuth2UserService)
+                        .and()
+                    .successHandler(oAuth2AuthenticationSuccessHandler)
+                    .failureHandler(oAuth2AuthenticationFailureHandler);
+
         // Add our custom JWT security filter
         httpSecurity.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
     }
@@ -153,7 +177,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     /**
      * Application uses the configured AuthenticationManager to authenticate a user in the login API.
      * */
-    @Bean
+    @Bean(BeanIds.AUTHENTICATION_MANAGER)
     @Override
     public AuthenticationManager authenticationManagerBean() throws Exception {
         return super.authenticationManagerBean();

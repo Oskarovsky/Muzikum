@@ -41,6 +41,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
+import org.springframework.boot.autoconfigure.security.oauth2.client.EnableOAuth2Sso;
 import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory;
@@ -173,10 +174,22 @@ public class MuzikumApplication implements CommandLineRunner {
         roleRepository.saveAll(Arrays.asList(roleAdmin, rolePm, roleUser));
 
         // Creating new user's account
-        User userAdmin = User.builder().id(1).username("Oskarro").email("oskar.slyk@gmail.com")
-                .password(encoder.encode("123456")).roles(new HashSet<>(Collections.singletonList(roleAdmin))).build();
-        User userJacek = User.builder().id(2).username("Jacek").email("jacek@pw.pl")
-                .password(encoder.encode("123456")).roles(new HashSet<>(Collections.singletonList(roleUser))).build();
+        User userAdmin = User.builder()
+                .id(1)
+                .username("Oskarro")
+                .email("oskar.slyk@gmail.com")
+                .password(encoder.encode("123456"))
+                .roles(new HashSet<>(Collections.singletonList(roleAdmin)))
+                .provider(AuthProvider.local)
+                .build();
+        User userJacek = User.builder()
+                .id(2)
+                .username("Jacek")
+                .email("jacek@pw.pl")
+                .password(encoder.encode("123456"))
+                .roles(new HashSet<>(Collections.singletonList(roleUser)))
+                .provider(AuthProvider.local)
+                .build();
         userRepository.saveAll(Arrays.asList(userAdmin, userJacek));
 
         // Init user stats

@@ -43,7 +43,9 @@ export class TrackAddComponent implements OnInit {
     email: '',
     password: '',
     createdAt: '',
-    favoriteTracks: null
+    favoriteTracks: null,
+    provider: '',
+    providerId: null
   };
 
   genres: string[] = ['CLUB', 'RETRO', 'DANCE', 'HOUSE', 'TECHNO'];

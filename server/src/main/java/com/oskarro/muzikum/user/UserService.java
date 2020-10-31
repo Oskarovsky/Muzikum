@@ -1,5 +1,7 @@
 package com.oskarro.muzikum.user;
 
+import io.jsonwebtoken.Jwts;
+
 import java.util.List;
 
 public interface UserService {
@@ -23,5 +25,7 @@ public interface UserService {
     Integer getNumberOfTracksAddedInGivenPeriodByUserId(Integer userId, String periodOfTime);
 
     Integer getNumberOfTracksAddedInGivenPeriodByUsername(String username, String periodOfTime);
+
+    User getUserFromToken(String token);
 
 }

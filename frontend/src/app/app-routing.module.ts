@@ -41,6 +41,7 @@ import {TracksDiscoComponent} from './tracks/tracks-by-genre/genre/tracks-disco/
 import {TracksTechnoComponent} from './tracks/tracks-by-genre/genre/tracks-techno/tracks-techno.component';
 import {TracksRetroComponent} from './tracks/tracks-by-genre/genre/tracks-retro/tracks-retro.component';
 import {TracksDanceComponent} from './tracks/tracks-by-genre/genre/tracks-dance/tracks-dance.component';
+import {Oauth2RedirectHandlerComponent} from './auth/oauth2-redirect-handler/oauth2-redirect-handler.component';
 
 
 const routes: Routes = [
@@ -101,6 +102,7 @@ const routes: Routes = [
   { path: 'profile/:username', component: UserProfileComponent },
   { path: 'mod', component: BoardModeratorComponent },
   { path: 'confirm-account/:token', component: TokenConfirmationComponent },
+  { path: 'oauth2/redirect', component: Oauth2RedirectHandlerComponent },
 
   /* ADMIN */
   { path: 'admin', component: BoardAdminComponent },

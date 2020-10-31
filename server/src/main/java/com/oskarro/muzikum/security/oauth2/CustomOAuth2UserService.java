@@ -11,6 +11,7 @@ import com.oskarro.muzikum.user.role.RoleRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.InternalAuthenticationServiceException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
 import org.springframework.security.oauth2.core.OAuth2AuthenticationException;
@@ -41,6 +42,9 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
     @Autowired
     private RoleRepository roleRepository;
 
+    @Autowired
+    PasswordEncoder passwordEncoder;
+
     @Override
     public OAuth2User loadUser(OAuth2UserRequest request) throws OAuth2AuthenticationException {
         OAuth2User oAuth2User = super.loadUser(request);
@@ -51,7 +55,6 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
         } catch (Exception ex) {
             // Throwing an instance of AuthenticationException will trigger the OAuth2AuthenticationFailureHandler
             throw new InternalAuthenticationServiceException(ex.getMessage(), ex.getCause());
-
         }
     }
 
@@ -75,19 +78,15 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
     }
 
     private User registerNewUser(OAuth2UserRequest request, OAuth2UserInfo oAuth2UserInfo) {
-
         Role roleUser = roleRepository.findByName(RoleName.ROLE_USER).orElse(null);
-
         User user = User.builder()
                 .username(oAuth2UserInfo.getUsername())
                 .email(oAuth2UserInfo.getEmail())
-                .password("111111")
+                .password(passwordEncoder.encode("123456"))
                 .roles(new HashSet(Collections.singletonList(roleUser)))
                 .provider(AuthProvider.facebook)
                 .imageUrl(oAuth2UserInfo.getImageUrl())
                 .build();
-
-        System.out.println(user);
         return userRepository.save(user);
     }
 

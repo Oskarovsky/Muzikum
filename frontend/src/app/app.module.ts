@@ -84,6 +84,7 @@ import { TracksDanceComponent } from './tracks/tracks-by-genre/genre/tracks-danc
 import { TracksRetroComponent } from './tracks/tracks-by-genre/genre/tracks-retro/tracks-retro.component';
 import { TracksDiscoComponent } from './tracks/tracks-by-genre/genre/tracks-disco/tracks-disco.component';
 import { TracksTechnoComponent } from './tracks/tracks-by-genre/genre/tracks-techno/tracks-techno.component';
+import { Oauth2RedirectHandlerComponent } from './auth/oauth2-redirect-handler/oauth2-redirect-handler.component';
 
 
 @NgModule({
@@ -148,6 +149,7 @@ import { TracksTechnoComponent } from './tracks/tracks-by-genre/genre/tracks-tec
     TracksRetroComponent,
     TracksDiscoComponent,
     TracksTechnoComponent,
+    Oauth2RedirectHandlerComponent,
   ],
     imports: [
         AppRoutingModule,
