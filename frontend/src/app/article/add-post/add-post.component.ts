@@ -45,6 +45,7 @@ export class AddPostComponent implements OnInit {
     password: '',
     createdAt: '',
     favoriteTracks: null,
+    imageUrl: '',
     provider: '',
     providerId: null
   };
@@ -62,6 +63,8 @@ export class AddPostComponent implements OnInit {
       this.modelUser.id = this.tokenStorageService.getUser().id;
       this.modelUser.email = this.tokenStorageService.getUser().email;
       this.modelUser.password = this.tokenStorageService.getUser().password;
+      this.modelUser.provider = this.tokenStorageService.getUser().provider;
+      this.modelUser.imageUrl = this.tokenStorageService.getUser().imageUrl;
     }
     this.getAllPosts();
     this.ckeConfigForDescription = {

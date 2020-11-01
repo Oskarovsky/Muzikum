@@ -11,6 +11,7 @@ import com.oskarro.muzikum.user.UserRepository;
 import com.oskarro.muzikum.user.role.Role;
 import com.oskarro.muzikum.user.role.RoleName;
 import com.oskarro.muzikum.user.role.RoleRepository;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.runner.RunWith;
@@ -28,6 +29,7 @@ import java.util.HashSet;
 @Import(com.oskarro.muzikum.config.TestConfiguration.class)
 @RunWith(SpringRunner.class)
 @SpringBootTest
+@Ignore
 public class TrackServiceTest {
 
     @Autowired

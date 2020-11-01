@@ -28,6 +28,7 @@ export class PlaylistEditComponent implements OnInit {
     password: '',
     createdAt: '',
     favoriteTracks: null,
+    imageUrl: '',
     provider: '',
     providerId: null
   };
@@ -46,6 +47,8 @@ export class PlaylistEditComponent implements OnInit {
       this.modelUser.id = this.tokenStorage.getUser().id;
       this.modelUser.email = this.tokenStorage.getUser().email;
       this.modelUser.password = this.tokenStorage.getUser().password;
+      this.modelUser.provider = this.tokenStorage.getUser().provider;
+      this.modelUser.imageUrl = this.tokenStorage.getUser().imageUrl;
     }
 
     this.getPlaylistById();

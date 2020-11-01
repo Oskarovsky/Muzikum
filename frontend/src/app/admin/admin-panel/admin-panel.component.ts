@@ -23,6 +23,7 @@ export class AdminPanelComponent implements OnInit {
     password: '',
     createdAt: '',
     favoriteTracks: null,
+    imageUrl: '',
     provider: '',
     providerId: null
   };

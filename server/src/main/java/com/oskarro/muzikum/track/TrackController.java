@@ -47,6 +47,7 @@ public class TrackController {
     @PostMapping(value = "/add")
     @CrossOrigin(origins = "*", allowedHeaders = "*")
     public void addTrack(@RequestBody Track track, BindingResult bindingResult) throws ValidationException {
+        System.out.println("PROBA 1");
         if (bindingResult.hasErrors()) {
             throw new ValidationException("There are a problem with binding");
         }

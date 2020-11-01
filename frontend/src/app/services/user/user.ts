@@ -7,6 +7,7 @@ export class User {
   password: string;
   createdAt: string;
   favoriteTracks: Track[];
+  imageUrl: string;
   provider: string;
   providerId: number;
 }

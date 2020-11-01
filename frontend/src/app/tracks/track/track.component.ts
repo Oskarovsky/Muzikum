@@ -53,6 +53,7 @@ export class TrackComponent implements OnInit {
     password: '',
     createdAt: '',
     favoriteTracks: null,
+    imageUrl: '',
     provider: '',
     providerId: null
   };
@@ -86,6 +87,8 @@ export class TrackComponent implements OnInit {
       this.modelUser.id = this.tokenStorage.getUser().id;
       this.modelUser.email = this.tokenStorage.getUser().email;
       this.modelUser.password = this.tokenStorage.getUser().password;
+      this.modelUser.provider = this.tokenStorage.getUser().provider;
+      this.modelUser.providerId = this.tokenStorage.getUser().providerId;
     }
     this.getUserImage(this.modelUser.username);
   }

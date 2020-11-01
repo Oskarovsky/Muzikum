@@ -69,10 +69,4 @@ public class Track extends DateAudit {
     @JoinColumn(name = "user_id")
     private User user;
 
-
-
-//    @ManyToMany(mappedBy = "favoriteTracks")
-//    private Set<User> favoriteUsers = new HashSet<>();
-
-
 }
