@@ -8,7 +8,7 @@ import {
     MatExpansionModule,
     MatInputModule,
     MatListModule,
-    MatPaginatorModule,
+    MatPaginatorModule, MatSidenavModule,
     MatToolbarModule
 } from '@angular/material';
 
@@ -85,6 +85,7 @@ import { TracksRetroComponent } from './tracks/tracks-by-genre/genre/tracks-retr
 import { TracksDiscoComponent } from './tracks/tracks-by-genre/genre/tracks-disco/tracks-disco.component';
 import { TracksTechnoComponent } from './tracks/tracks-by-genre/genre/tracks-techno/tracks-techno.component';
 import { Oauth2RedirectHandlerComponent } from './auth/oauth2-redirect-handler/oauth2-redirect-handler.component';
+import {FlexLayoutModule} from '@angular/flex-layout';
 
 
 @NgModule({
@@ -176,7 +177,9 @@ import { Oauth2RedirectHandlerComponent } from './auth/oauth2-redirect-handler/o
         MatExpansionModule,
         MatPaginatorModule,
         CKEditorModule,
-        NgxPaginationModule
+        NgxPaginationModule,
+        MatSidenavModule,
+        FlexLayoutModule
     ],
   exports: [
     TrackComponent,

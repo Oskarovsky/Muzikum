@@ -1,9 +1,12 @@
 <!-- TOP HEADER PANEL -->
 <mat-toolbar fxLayout="row" color="primary" style="border-bottom:3px solid purple;" >
+  <button mat-icon-button (click)="sidenav.toggle()" fxShow="true" fxHide.gt-sm>
+    <mat-icon>menu</mat-icon>
+  </button>
   <img src="../../assets/img/logo_oskarro.png" height="40" width="40" style="margin-right: 20px">
   <span fxFlex>{{title}}</span>
   <span class="example-spacer"></span>
-  <mat-icon class="example-icon" aria-hidden="false" aria-label="Example user verified icon">headset</mat-icon>
+  <mat-icon class="example-icon" aria-hidden="false" aria-label="Example user verified icon" fxHide.xs>headset</mat-icon>
 
   <button mat-button routerLink="/admin/panel" *ngIf="showAdminBoard" fxHide.xs>Admin</button>
   <button mat-button routerLink="/register" *ngIf="!isLoggedIn" fxHide.xs>Zarejestruj się</button>
@@ -11,43 +14,15 @@
   <button mat-button routerLink="/profile" *ngIf="isLoggedIn" fxHide.xs>{{ username }}</button>
   <button mat-button (click)="logout()" *ngIf="isLoggedIn" fxHide.xs>Wyloguj się</button>
 
-  <button mat-icon-button [matMenuTriggerFor]="dropMenu" fxHide fxShow.xs>
-    <mat-icon>more_vert</mat-icon>
-  </button>
-
-  <mat-menu #dropMenu="matMenu">
-    <ng-container>
-      <button mat-menu-item routerLink="/admin/panel" *ngIf="showAdminBoard">
-        <mat-icon class="mr">slideshow</mat-icon>Admin
-      </button>
-      <mat-divider></mat-divider>
-      <button mat-menu-item routerLink="/register" *ngIf="!isLoggedIn">
-        <mat-icon class="mr">login</mat-icon>Zarejestruj się
-      </button>
-      <mat-divider></mat-divider>
-      <button mat-menu-item routerLink="/login" *ngIf="!isLoggedIn">
-        <mat-icon class="mr">login</mat-icon>Zaloguj się
-      </button>
-      <mat-divider></mat-divider>
-      <button mat-menu-item routerLink="/profile" *ngIf="isLoggedIn">
-        <mat-icon class="mr">user</mat-icon>{{ username }}
-      </button>
-      <mat-divider></mat-divider>
-      <button mat-menu-item (click)="logout()" *ngIf="isLoggedIn">
-        <mat-icon class="mr">user</mat-icon>Wyloguj się
-      </button>
-      <mat-divider></mat-divider>
-    </ng-container>
-  </mat-menu>
 </mat-toolbar>
 <!-- END -->
 
 
 <!-- NAVIGATION PANEL PANEL -->
 <div class="row" style="width: 100%; align-content: center; display: inline-block; text-align: center; margin-bottom: 40px">
-    <button mat-button routerLink="/" style="color: white">Strona główna</button>
+    <button mat-button routerLink="/" style="color: white" fxHide.xs>Strona główna</button>
 
-    <button mat-button [matMenuTriggerFor]="tracksMenu" style="color: white">Utwory</button>
+    <button mat-button [matMenuTriggerFor]="tracksMenu" style="color: white" fxHide.xs>Utwory</button>
     <mat-menu #tracksMenu="matMenu" yPosition="below">
       <button [routerLink]="['/tracks', 'vixa']" mat-menu-item>Vixa</button>
       <button [routerLink]="['/tracks', 'club']" mat-menu-item>Club</button>
@@ -57,7 +32,7 @@
       <button [routerLink]="['/tracks', 'disco']" mat-menu-item>Disco</button>
     </mat-menu>
 
-    <button mat-button [matMenuTriggerFor]="genreMenu" style="color: white">Top ranking</button>
+    <button mat-button [matMenuTriggerFor]="genreMenu" style="color: white" fxHide.xs>Top ranking</button>
       <mat-menu #genreMenu="matMenu" yPosition="below">
         <button mat-menu-item routerLink="/tracklist/vixa">Vixa</button>
         <button mat-menu-item routerLink="/tracklist/club">Club</button>
@@ -83,7 +58,7 @@
 <!--        <button mat-menu-item routerLink="/toplist/techno">Techno</button>-->
 <!--      </mat-menu>-->
 
-    <button mat-button [matMenuTriggerFor]="videoMenu" style="color: white">Video</button>
+    <button mat-button [matMenuTriggerFor]="videoMenu" style="color: white" fxHide.xs>Video</button>
       <mat-menu #videoMenu="matMenu" xPosition="after">
         <button mat-menu-item routerLink="/video/category/MIX">Mixy</button>
         <button mat-menu-item routerLink="/video/category/LUNA_MIX">Luna Mix</button>
@@ -98,3 +73,44 @@
 <!--      </mat-menu>-->
 </div>
 <!-- END -->
+
+<mat-sidenav-container fxFlexFill>
+  <mat-sidenav #sidenav>
+    <mat-nav-list>
+      <a (click)="sidenav.toggle()" mat-list-item>Close</a>
+      <a mat-list-item routerLink="/">
+        <mat-icon class="mr">slideshow</mat-icon>Strona główna
+      </a>
+      <a href="#" mat-list-item routerLink="/admin/panel" *ngIf="showAdminBoard">
+        <mat-icon class="mr">slideshow</mat-icon>Admin
+      </a>
+      <a href="#" mat-list-item routerLink="/register" *ngIf="!isLoggedIn">
+        <mat-icon class="mr">login</mat-icon>Zarejestruj się
+      </a>
+      <a href="#" mat-list-item routerLink="/login" *ngIf="!isLoggedIn">
+        <mat-icon class="mr">login</mat-icon>Zaloguj się
+      </a>
+      <a href="#" mat-list-item routerLink="/profile" *ngIf="isLoggedIn">
+        <mat-icon class="mr">user</mat-icon>{{ username }}
+      </a>
+      <a href="#" mat-list-item (click)="logout()" *ngIf="isLoggedIn">
+        <mat-icon class="mr">user</mat-icon>Wyloguj się
+      </a>
+    </mat-nav-list>
+  </mat-sidenav>
+  <mat-sidenav-content fxFlexFill>
+    <div class="row" style="width: 100%">
+      <div class="col" style="margin-left: 10px">
+        <app-sidebar-left></app-sidebar-left>
+      </div>
+      <div class="col-8">
+        <router-outlet></router-outlet>
+      </div>
+      <div class="col" style="margin-right: 10px">
+        <app-sidebar-right fxHide.xs></app-sidebar-right>
+      </div>
+    </div>
+    <!-- footer -->
+    <app-footer class="mt-auto"></app-footer>
+  </mat-sidenav-content>
+</mat-sidenav-container>

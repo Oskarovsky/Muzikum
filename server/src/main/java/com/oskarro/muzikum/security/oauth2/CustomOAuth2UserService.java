@@ -1,10 +1,7 @@
 package com.oskarro.muzikum.security.oauth2;
 
 import com.oskarro.muzikum.exception.OAuth2AuthenticationProcessingException;
-import com.oskarro.muzikum.user.AuthProvider;
-import com.oskarro.muzikum.user.User;
-import com.oskarro.muzikum.user.UserPrincipal;
-import com.oskarro.muzikum.user.UserRepository;
+import com.oskarro.muzikum.user.*;
 import com.oskarro.muzikum.user.role.Role;
 import com.oskarro.muzikum.user.role.RoleName;
 import com.oskarro.muzikum.user.role.RoleRepository;
@@ -41,6 +38,9 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
 
     @Autowired
     private RoleRepository roleRepository;
+
+    @Autowired
+    private UserStatisticsRepository userStatisticsRepository;
 
     @Autowired
     PasswordEncoder passwordEncoder;
@@ -87,6 +87,7 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
                 .provider(AuthProvider.facebook)
                 .imageUrl(oAuth2UserInfo.getImageUrl())
                 .build();
+        initUserStatistics(user);
         return userRepository.save(user);
     }
 
@@ -94,6 +95,18 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
         existingUser.setUsername(oAuth2UserInfo.getUsername());
         existingUser.setImageUrl(oAuth2UserInfo.getImageUrl());
         return userRepository.save(existingUser);
+    }
+
+
+    private void initUserStatistics(User user) {
+        UserStatistics userStatistics = UserStatistics
+                .builder()
+                .user(user)
+                .weekUpload(0)
+                .monthUpload(0)
+                .totalUpload(0)
+                .build();
+        userStatisticsRepository.save(userStatistics);
     }
 
 }
