@@ -1,17 +1,44 @@
 <!-- TOP HEADER PANEL -->
-<mat-toolbar color="primary" style="border-bottom:3px solid purple;" >
+<mat-toolbar fxLayout="row" color="primary" style="border-bottom:3px solid purple;" >
   <img src="../../assets/img/logo_oskarro.png" height="40" width="40" style="margin-right: 20px">
-  <span>{{title}}</span>
+  <span fxFlex>{{title}}</span>
   <span class="example-spacer"></span>
   <mat-icon class="example-icon" aria-hidden="false" aria-label="Example user verified icon">headset</mat-icon>
 
-  <button mat-button routerLink="/admin/panel" *ngIf="showAdminBoard">Admin</button>
+  <button mat-button routerLink="/admin/panel" *ngIf="showAdminBoard" fxHide.xs>Admin</button>
+  <button mat-button routerLink="/register" *ngIf="!isLoggedIn" fxHide.xs>Zarejestruj się</button>
+  <button mat-button routerLink="/login" *ngIf="!isLoggedIn" fxHide.xs>Zaloguj się</button>
+  <button mat-button routerLink="/profile" *ngIf="isLoggedIn" fxHide.xs>{{ username }}</button>
+  <button mat-button (click)="logout()" *ngIf="isLoggedIn" fxHide.xs>Wyloguj się</button>
 
-  <button mat-button routerLink="/register" *ngIf="!isLoggedIn">Zarejestruj się</button>
-  <button mat-button routerLink="/login" *ngIf="!isLoggedIn">Zaloguj się</button>
+  <button mat-icon-button [matMenuTriggerFor]="dropMenu" fxHide fxShow.xs>
+    <mat-icon>more_vert</mat-icon>
+  </button>
 
-  <button mat-button routerLink="/profile" *ngIf="isLoggedIn">{{ username }}</button>
-  <button mat-button (click)="logout()" *ngIf="isLoggedIn">Wyloguj się</button>
+  <mat-menu #dropMenu="matMenu">
+    <ng-container>
+      <button mat-menu-item routerLink="/admin/panel" *ngIf="showAdminBoard">
+        <mat-icon class="mr">slideshow</mat-icon>Admin
+      </button>
+      <mat-divider></mat-divider>
+      <button mat-menu-item routerLink="/register" *ngIf="!isLoggedIn">
+        <mat-icon class="mr">login</mat-icon>Zarejestruj się
+      </button>
+      <mat-divider></mat-divider>
+      <button mat-menu-item routerLink="/login" *ngIf="!isLoggedIn">
+        <mat-icon class="mr">login</mat-icon>Zaloguj się
+      </button>
+      <mat-divider></mat-divider>
+      <button mat-menu-item routerLink="/profile" *ngIf="isLoggedIn">
+        <mat-icon class="mr">user</mat-icon>{{ username }}
+      </button>
+      <mat-divider></mat-divider>
+      <button mat-menu-item (click)="logout()" *ngIf="isLoggedIn">
+        <mat-icon class="mr">user</mat-icon>Wyloguj się
+      </button>
+      <mat-divider></mat-divider>
+    </ng-container>
+  </mat-menu>
 </mat-toolbar>
 <!-- END -->
 
@@ -71,4 +98,3 @@
 <!--      </mat-menu>-->
 </div>
 <!-- END -->
-

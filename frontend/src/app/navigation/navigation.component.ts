@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { TokenStorageService } from '../services/auth/token-storage.service';
 
@@ -14,6 +14,8 @@ export class NavigationComponent implements OnInit {
   showAdminBoard = false;
   showModeratorBoard = false;
   username: string;
+
+  @Output() public sidenavToggle = new EventEmitter();
 
   constructor(private http: HttpClient,
               private tokenStorageService: TokenStorageService) {}
@@ -37,6 +39,10 @@ export class NavigationComponent implements OnInit {
   logout() {
     this.tokenStorageService.signOut();
     window.location.reload();
+  }
+
+  public onToggleSidenav = () => {
+    this.sidenavToggle.emit();
   }
 
 }
