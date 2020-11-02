@@ -99,18 +99,20 @@
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content fxFlexFill>
-    <div class="row" style="width: 100%">
-      <div class="col" style="margin-left: 10px">
-        <app-sidebar-left></app-sidebar-left>
+      <div class="set-bg" style="background-image: url('/assets/img/bg.jpg');">
+      <div class="row" style="width: 100%">
+        <div class="col" style="margin-left: 10px">
+          <app-sidebar-left></app-sidebar-left>
+        </div>
+        <div class="col-8">
+          <router-outlet></router-outlet>
+        </div>
+        <div class="col" style="margin-right: 10px">
+          <app-sidebar-right fxHide.lt-md></app-sidebar-right>
+        </div>
       </div>
-      <div class="col-8">
-        <router-outlet></router-outlet>
-      </div>
-      <div class="col" style="margin-right: 10px">
-        <app-sidebar-right fxHide.xs></app-sidebar-right>
-      </div>
+      <!-- footer -->
+      <app-footer class="mt-auto"></app-footer>
     </div>
-    <!-- footer -->
-    <app-footer class="mt-auto"></app-footer>
   </mat-sidenav-content>
 </mat-sidenav-container>
