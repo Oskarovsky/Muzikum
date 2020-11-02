@@ -161,6 +161,7 @@ public class AuthController {
         }
         sendEmail("Complete Registration", "info.oskarro@gmail.com", textMessage, user.getEmail());
         log.info("Activation email sent!!");
+        initUserStatistics(user);
 
         return ResponseEntity.ok(
                 new ApiResponse(true, "User registered successfully!"));
@@ -189,7 +190,6 @@ public class AuthController {
             user.setActivated(true);
             System.out.printf("USER %s ENABLED%n", user.getUsername());
             userRepository.save(user);
-            initUserStatistics(user);
             sendEmail("Success confirmation", "info.oskarro@gmail.com",
                     "Your email has been confirmed!", user.getEmail());
             return ResponseEntity.ok(new ApiResponse(true, "Token confirmed successfully!"));
