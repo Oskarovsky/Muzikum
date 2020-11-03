@@ -15,10 +15,14 @@ export class NavigationComponent implements OnInit {
   showModeratorBoard = false;
   username: string;
 
+  private isMobileResolution: boolean;
+
   @Output() public sidenavToggle = new EventEmitter();
 
   constructor(private http: HttpClient,
-              private tokenStorageService: TokenStorageService) {}
+              private tokenStorageService: TokenStorageService) {
+    this.isMobileResolution = window.innerWidth < 768;
+  }
 
   title = 'Oskarro.com';
 
@@ -43,6 +47,10 @@ export class NavigationComponent implements OnInit {
 
   public onToggleSidenav = () => {
     this.sidenavToggle.emit();
+  }
+
+  public getIsMobileResolution(): boolean {
+    return this.isMobileResolution;
   }
 
 }

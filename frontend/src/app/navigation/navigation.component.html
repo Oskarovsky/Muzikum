@@ -98,9 +98,9 @@
       </a>
     </mat-nav-list>
   </mat-sidenav>
-  <mat-sidenav-content fxFlexFill>
+  <mat-sidenav-content *ngIf="!getIsMobileResolution()">
       <div class="set-bg" style="background-image: url('/assets/img/bg.jpg');">
-      <div class="row" style="width: 100%">
+      <div class="row">
         <div class="col" style="margin-left: 10px">
           <app-sidebar-left></app-sidebar-left>
         </div>
@@ -108,11 +108,30 @@
           <router-outlet></router-outlet>
         </div>
         <div class="col" style="margin-right: 10px">
-          <app-sidebar-right fxHide.lt-md></app-sidebar-right>
+          <app-sidebar-right></app-sidebar-right>
         </div>
       </div>
       <!-- footer -->
       <app-footer class="mt-auto"></app-footer>
     </div>
   </mat-sidenav-content>
+
+  <mat-sidenav-content *ngIf="getIsMobileResolution()" fxFlexFill>
+    <div class="container">
+      <div fxLayout="column" fxLayoutAlign="space-evenly center" fxFlexFill>
+        <div style="margin-left: 10px">
+          <app-sidebar-left></app-sidebar-left>
+        </div>
+        <div style="width: 100%">
+          <router-outlet></router-outlet>
+        </div>
+        <div style="margin-right: 10px">
+          <app-sidebar-right></app-sidebar-right>
+        </div>
+      </div>
+      <!-- footer -->
+      <app-footer class="mt-auto" fxHide.lt-md="true"></app-footer>
+    </div>
+  </mat-sidenav-content>
+
 </mat-sidenav-container>
