@@ -1,6 +1,6 @@
 <!-- TOP HEADER PANEL -->
 <mat-toolbar fxLayout="row" color="primary" style="border-bottom:3px solid purple;" >
-  <button mat-icon-button (click)="sidenav.toggle()" fxShow="true" fxHide.gt-sm>
+  <button mat-icon-button (click)="navigationService.openNav()" fxShow="true" fxHide.gt-sm>
     <mat-icon>menu</mat-icon>
   </button>
   <img src="../../assets/img/logo_oskarro.png" height="40" width="40" style="margin-right: 20px">
@@ -75,27 +75,28 @@
 <!-- END -->
 
 <mat-sidenav-container fxFlexFill>
-  <mat-sidenav #sidenav>
+  <mat-sidenav #appDrawer mode="over" opened="false">
     <mat-nav-list>
-      <a (click)="sidenav.toggle()" mat-list-item>Close</a>
-      <a mat-list-item routerLink="/">
-        <mat-icon class="mr">slideshow</mat-icon>Strona główna
-      </a>
-      <a href="#" mat-list-item routerLink="/admin/panel" *ngIf="showAdminBoard">
-        <mat-icon class="mr">slideshow</mat-icon>Admin
-      </a>
-      <a href="#" mat-list-item routerLink="/register" *ngIf="!isLoggedIn">
-        <mat-icon class="mr">login</mat-icon>Zarejestruj się
-      </a>
-      <a href="#" mat-list-item routerLink="/login" *ngIf="!isLoggedIn">
-        <mat-icon class="mr">login</mat-icon>Zaloguj się
-      </a>
-      <a href="#" mat-list-item routerLink="/profile" *ngIf="isLoggedIn">
-        <mat-icon class="mr">user</mat-icon>{{ username }}
-      </a>
-      <a href="#" mat-list-item (click)="logout()" *ngIf="isLoggedIn">
-        <mat-icon class="mr">user</mat-icon>Wyloguj się
-      </a>
+      <app-menu-list-item *ngFor="let item of navItems" [item]="item"></app-menu-list-item>
+<!--      <a (click)="sidenav.toggle()" mat-list-item>Close</a>-->
+<!--      <a mat-list-item routerLink="/">-->
+<!--        <mat-icon class="mr">slideshow</mat-icon>Strona główna-->
+<!--      </a>-->
+<!--      <a href="#" mat-list-item routerLink="/admin/panel" *ngIf="showAdminBoard">-->
+<!--        <mat-icon class="mr">slideshow</mat-icon>Admin-->
+<!--      </a>-->
+<!--      <a href="#" mat-list-item routerLink="/register" *ngIf="!isLoggedIn">-->
+<!--        <mat-icon class="mr">login</mat-icon>Zarejestruj się-->
+<!--      </a>-->
+<!--      <a href="#" mat-list-item routerLink="/login" *ngIf="!isLoggedIn">-->
+<!--        <mat-icon class="mr">login</mat-icon>Zaloguj się-->
+<!--      </a>-->
+<!--      <a href="#" mat-list-item routerLink="/profile" *ngIf="isLoggedIn">-->
+<!--        <mat-icon class="mr">user</mat-icon>{{ username }}-->
+<!--      </a>-->
+<!--      <a href="#" mat-list-item (click)="logout()" *ngIf="isLoggedIn">-->
+<!--        <mat-icon class="mr">user</mat-icon>Wyloguj się-->
+<!--      </a>-->
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content *ngIf="!getIsMobileResolution()">

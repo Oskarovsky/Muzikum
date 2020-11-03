@@ -86,6 +86,7 @@ import { TracksDiscoComponent } from './tracks/tracks-by-genre/genre/tracks-disc
 import { TracksTechnoComponent } from './tracks/tracks-by-genre/genre/tracks-techno/tracks-techno.component';
 import { Oauth2RedirectHandlerComponent } from './auth/oauth2-redirect-handler/oauth2-redirect-handler.component';
 import {FlexLayoutModule} from '@angular/flex-layout';
+import { MenuListItemComponent } from './navigation/menu-list-item/menu-list-item.component';
 
 
 @NgModule({
@@ -151,6 +152,7 @@ import {FlexLayoutModule} from '@angular/flex-layout';
     TracksDiscoComponent,
     TracksTechnoComponent,
     Oauth2RedirectHandlerComponent,
+    MenuListItemComponent,
   ],
     imports: [
         AppRoutingModule,
