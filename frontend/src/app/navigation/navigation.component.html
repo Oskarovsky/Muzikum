@@ -78,8 +78,17 @@
   <mat-sidenav #appDrawer mode="over" opened="false">
     <mat-nav-list>
       <a (click)="navigationService.closeNav()" mat-list-item>Close</a>
+      <a mat-list-item *ngIf="!isLoggedIn" routerLink="/login">
+        <mat-icon class="routeIcon">slideshow</mat-icon>Zaloguj się
+      </a>
+      <a mat-list-item class="menu-list-item" *ngIf="!isLoggedIn" routerLink="/signup">
+        <mat-icon class="routeIcon">slideshow</mat-icon>Zarejestruj się się
+      </a>
+      <a mat-list-item class="menu-list-item" *ngIf="isLoggedIn" routerLink="/profile">
+        <mat-icon class="routeIcon">slideshow</mat-icon>Panel użytkownika
+      </a>
       <app-menu-list-item *ngFor="let item of navItems" [item]="item"></app-menu-list-item>
-      <a mat-list-item class="menu-list-item" (click)="logout()">
+      <a mat-list-item class="menu-list-item" *ngIf="isLoggedIn" (click)="logout()">
         <mat-icon class="routeIcon">slideshow</mat-icon>Wyloguj się
       </a>
     </mat-nav-list>

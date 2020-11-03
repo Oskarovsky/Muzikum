@@ -1,9 +1,21 @@
-import {Component, EventEmitter, OnInit, Output, ViewChild, ElementRef, ViewEncapsulation, AfterViewInit} from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  OnInit,
+  Output,
+  ViewChild,
+  ElementRef,
+  ViewEncapsulation,
+  AfterViewInit,
+  Input,
+  HostBinding
+} from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { TokenStorageService } from '../services/auth/token-storage.service';
 import { NavItem } from './nav-item';
 import {VERSION} from '@angular/material/core';
 import {NavigationService} from '../services/navigation/navigation.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-navigation',
@@ -24,6 +36,11 @@ export class NavigationComponent implements OnInit, AfterViewInit {
 
   @Output() public sidenavToggle = new EventEmitter();
 
+  expanded: boolean;
+  @HostBinding('attr.aria-expanded') ariaExpanded = this.expanded;
+  @Input() depth: number;
+  @Input() item: NavItem;
+
   // @ts-ignore
   @ViewChild('appDrawer') appDrawer: ElementRef;
   navItems: NavItem[] = [
@@ -31,26 +48,6 @@ export class NavigationComponent implements OnInit, AfterViewInit {
       displayName: 'Strona główna',
       iconName: 'slideshow',
       route: '',
-    },
-    {
-      displayName: 'Panel admin',
-      iconName: 'slideshow',
-      route: '/admin',
-    },
-    {
-      displayName: 'Zarejestruj się',
-      iconName: 'login',
-      route: '/signup',
-    },
-    {
-      displayName: 'Zaloguj się',
-      iconName: 'login',
-      route: '/login',
-    },
-    {
-      displayName: 'Twój profil',
-      iconName: 'user',
-      route: '/profile',
     },
     {
       displayName: 'Utwory',
@@ -155,10 +152,13 @@ export class NavigationComponent implements OnInit, AfterViewInit {
     }
   ];
 
-  constructor(private http: HttpClient,
+  constructor(private http: HttpClient, public router: Router,
               public navigationService: NavigationService,
               private tokenStorageService: TokenStorageService) {
     this.isMobileResolution = window.innerWidth < 768;
+    if (this.depth === undefined) {
+      this.depth = 0;
+    }
   }
 
   title = 'Oskarro.com';
