@@ -71,6 +71,10 @@ dependencies {
     compileOnly 'org.projectlombok:lombok'
     compile 'org.slf4j:slf4j-nop:1.7.25'
 
+    // Libraries for database
+//    compile group: 'org.liquibase', name: 'liquibase-core', version: '4.1.1'
+
+
     // PostgresSQL-specific connector for JPA
     compile group: 'org.postgresql', name: 'postgresql', version: '42.2.12'
     compile group: 'org.springframework.boot', name: 'spring-boot-starter-jdbc', version: '2.2.6.RELEASE'
