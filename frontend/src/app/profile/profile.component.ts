@@ -36,12 +36,13 @@ export class ProfileComponent implements OnInit {
   ngOnInit() {
     this.currentUser = this.tokenStorage.getUser();
     this.fileInfos = this.uploadService.getFile(this.currentUser.username);
-    this.getImageUrl();
-    if (this.imageUrl != null) {
+
+
+/*    if (this.imageUrl != null) {
       this.getBase64ImageFromURL(this.imageUrl).subscribe(base64data => {
         this.base64Image = 'data:image/jpg;base64,' + base64data;
       });
-    }
+    }*/
 
     // this.getNumberOfTracksAddedByTheUser(this.currentUser.username);
     this.getImageFromService();
@@ -53,7 +54,7 @@ export class ProfileComponent implements OnInit {
     this.selectedFile = event.target.files;
   }
 
-  getBase64ImageFromURL(url: string) {
+/*  getBase64ImageFromURL(url: string) {
     return Observable.create((observer: Observer<string>) => {
       const img = new Image();
       img.crossOrigin = 'Anonymous';
@@ -82,7 +83,7 @@ export class ProfileComponent implements OnInit {
     const dataURL = canvas.toDataURL('image/png');
     console.log(dataURL);
     return dataURL.replace(/^data:image\/(png|jpg);base64,/, '');
-  }
+  }*/
 
   createImageFromBlob(image: Blob) {
     const reader = new FileReader();

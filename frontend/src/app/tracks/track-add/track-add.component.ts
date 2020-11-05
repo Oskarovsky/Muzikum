@@ -49,7 +49,7 @@ export class TrackAddComponent implements OnInit {
     providerId: null
   };
 
-  genres: string[] = ['CLUB', 'RETRO', 'DANCE', 'HOUSE', 'TECHNO'];
+  genres: string[] = ['VIXA', 'CLUB', 'RETRO', 'DANCE', 'DISCO', 'TECHNO'];
 
   urlSources: string[] = ['ZIPPYSHARE', 'KRAKENFILES', 'SOUNDCLOUD'];
 
