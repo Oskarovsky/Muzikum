@@ -1,6 +1,9 @@
 package com.oskarro.muzikum.security.oauth2;
 
 import com.oskarro.muzikum.exception.OAuth2AuthenticationProcessingException;
+import com.oskarro.muzikum.exception.ResourceNotFoundException;
+import com.oskarro.muzikum.storage.Image;
+import com.oskarro.muzikum.storage.ImageRepository;
 import com.oskarro.muzikum.user.*;
 import com.oskarro.muzikum.user.role.Role;
 import com.oskarro.muzikum.user.role.RoleName;
@@ -15,6 +18,7 @@ import org.springframework.security.oauth2.core.OAuth2AuthenticationException;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -44,6 +48,9 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
 
     @Autowired
     PasswordEncoder passwordEncoder;
+
+    @Autowired
+    ImageRepository imageRepository;
 
     @Override
     public OAuth2User loadUser(OAuth2UserRequest request) throws OAuth2AuthenticationException {
@@ -83,12 +90,23 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
                 .username(oAuth2UserInfo.getUsername())
                 .email(oAuth2UserInfo.getEmail())
                 .password(passwordEncoder.encode("123456"))
-                .roles(new HashSet(Collections.singletonList(roleUser)))
+                .roles(new HashSet<>(Collections.singletonList(roleUser)))
                 .provider(AuthProvider.facebook)
                 .imageUrl(oAuth2UserInfo.getImageUrl())
                 .build();
         initUserStatistics(user);
+        saveImageFromWeb(oAuth2UserInfo.getEmail(), oAuth2UserInfo.getImageUrl());
         return userRepository.save(user);
+    }
+
+    private void saveImageFromWeb(String email, String imageUrl) {
+        User user = userRepository.findByEmail(email)
+                .orElseThrow(() -> new ResourceNotFoundException("User", "email", email));
+        Image image = Image.builder()
+                .name(imageUrl)
+                .user(user)
+                .type("url")
+                .build();
     }
 
     private User updateExistingUser(User existingUser, OAuth2UserInfo oAuth2UserInfo) {

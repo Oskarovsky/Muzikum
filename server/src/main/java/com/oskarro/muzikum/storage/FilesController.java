@@ -1,5 +1,6 @@
 package com.oskarro.muzikum.storage;
 
+import com.oskarro.muzikum.user.AuthProvider;
 import com.oskarro.muzikum.user.User;
 import com.oskarro.muzikum.user.UserRepository;
 import javassist.NotFoundException;
@@ -87,6 +88,17 @@ public class FilesController {
                 .orElseThrow(() -> new NotFoundException("Image not found for user: " + username));
         Resource file = filesStorageService.load(image.getName(), username);
         return ResponseEntity.ok().contentType(MediaType.IMAGE_JPEG).body(file);
+    }
+
+    @GetMapping(value = "/{userId}/imageUrl")
+    @Transactional
+    public String getImageUrl(@PathVariable Integer userId) throws NotFoundException {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new NotFoundException("Can't find user with id: " + userId));
+        if (!user.getProvider().equals(AuthProvider.local)) {
+            return user.getImageUrl();
+        }
+        return null;
     }
 
 }

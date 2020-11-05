@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, } from '@angular/core';
 import { TokenStorageService } from '../services/auth/token-storage.service';
-import { Observable } from 'rxjs';
+import { Observable, Observer } from 'rxjs';
 import {UploadFileService} from '../services/storage/upload-file.service';
 import { HttpEventType, HttpResponse, HttpClient } from '@angular/common/http';
 import {Track} from '../tracks/track/model/track';
@@ -24,8 +24,11 @@ export class ProfileComponent implements OnInit {
   numberOfTracks: any;
 
   fileInfos: Observable<any>;
+  base64Image: any;
+  imageUrl: any;
 
   constructor(private tokenStorage: TokenStorageService,
+              private http: HttpClient,
               private uploadService: UploadFileService,
               private favoriteService: FavoriteService,
               private trackService: TrackService) { }
@@ -33,6 +36,13 @@ export class ProfileComponent implements OnInit {
   ngOnInit() {
     this.currentUser = this.tokenStorage.getUser();
     this.fileInfos = this.uploadService.getFile(this.currentUser.username);
+    this.getImageUrl();
+    if (this.imageUrl != null) {
+      this.getBase64ImageFromURL(this.imageUrl).subscribe(base64data => {
+        this.base64Image = 'data:image/jpg;base64,' + base64data;
+      });
+    }
+
     // this.getNumberOfTracksAddedByTheUser(this.currentUser.username);
     this.getImageFromService();
     this.getLastAddedTracksByUsername(this.currentUser.username, 5);
@@ -41,6 +51,37 @@ export class ProfileComponent implements OnInit {
 
   selectFile(event) {
     this.selectedFile = event.target.files;
+  }
+
+  getBase64ImageFromURL(url: string) {
+    return Observable.create((observer: Observer<string>) => {
+      const img = new Image();
+      img.crossOrigin = 'Anonymous';
+      img.src = url;  img.src = url;
+      if (!img.complete) {
+        img.onload = () => {
+          observer.next(this.getBase64Image(img));
+          observer.complete();
+        };
+        img.onerror = (err) => {
+          observer.error(err);
+        };
+      } else {
+        observer.next(this.getBase64Image(img));
+        observer.complete();
+      }
+    });
+  }
+
+  getBase64Image(img: HTMLImageElement) {
+    const canvas = document.createElement('canvas');
+    canvas.width = img.width;
+    canvas.height = img.height;
+    const ctx = canvas.getContext('2d');
+    ctx.drawImage(img, 0, 0);
+    const dataURL = canvas.toDataURL('image/png');
+    console.log(dataURL);
+    return dataURL.replace(/^data:image\/(png|jpg);base64,/, '');
   }
 
   createImageFromBlob(image: Blob) {
@@ -52,6 +93,14 @@ export class ProfileComponent implements OnInit {
     if (image) {
       reader.readAsDataURL(image);
     }
+  }
+
+  getImageUrl() {
+    this.uploadService.getImageUrl(this.currentUser.id).subscribe(data => {
+      this.imageUrl = data;
+    }, error => {
+      console.log(error);
+    });
   }
 
   getImageFromService() {
