@@ -23,7 +23,7 @@ export class SidebarLeftComponent implements OnInit {
   popularTrackRetro: Track;
   popularTrackClub: Track;
   popularTrackDance: Track;
-  popularTrackHouse: Track;
+  popularTrackVixa: Track;
   popularTrackTechno: Track;
   topUploadersWeek: User[] = [];
   topUploadersMonth: User[] = [];
@@ -49,7 +49,7 @@ export class SidebarLeftComponent implements OnInit {
     this.getMostPopularTrackByGenre('RETRO', 'RETRO');
     this.getMostPopularTrackByGenre('CLUB', 'CLUB');
     this.getMostPopularTrackByGenre('DANCE', 'DANCE');
-    this.getMostPopularTrackByGenre('HOUSE', 'HOUSE');
+    this.getMostPopularTrackByGenre('VIXA', 'VIXA');
     this.getMostPopularTrackByGenre('TECHNO', 'TECHNO');
     this.getTopUploaders('week', 5);
     this.getTopUploaders('month', 5);
@@ -114,8 +114,8 @@ export class SidebarLeftComponent implements OnInit {
           this.popularTrackClub = response;
         } else if (option === 'DANCE') {
           this.popularTrackDance = response;
-        } else if (option === 'HOUSE') {
-          this.popularTrackHouse = response;
+        } else if (option === 'VIXA') {
+          this.popularTrackVixa = response;
         } else if (option === 'TECHNO') {
           this.popularTrackTechno = response;
         }

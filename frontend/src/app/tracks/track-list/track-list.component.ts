@@ -15,7 +15,7 @@ import {VoteService} from '../../services/vote/vote.service';
 })
 export class TrackListComponent implements OnInit {
 
-  displayedColumns: string[] = ['#', 'Tytuł', 'Artysta', 'Wersja', 'Punkty', 'Ulubione', 'Zagłosuj'];
+  displayedColumns: string[] = ['#', 'Tytuł', 'Artysta', 'Wersja', 'Punkty', 'Ulubione', 'Zagłosuj', 'Link'];
 
   tracks: Array<any>;
 

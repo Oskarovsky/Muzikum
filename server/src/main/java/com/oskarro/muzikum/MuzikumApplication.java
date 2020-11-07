@@ -304,8 +304,9 @@ public class MuzikumApplication implements CommandLineRunner {
                 .version("dsd edit").video(video1).build();
         Track track02 = Track.builder().title("Firseconddtitle").artist("Msssed").version("dsd edit").video(video2).build();
         Track track03 = Track.builder().title("one tow three").artist("test").version("dsd edit").video(video2).build();
+        Track track04 = Track.builder().title("We love it").artist("Dj Shogun").version("Original Mix").genre("VIXA").build();
 
-        trackRepository.saveAll(Arrays.asList(track1, track01, track02, track03, track4, track5));
+        trackRepository.saveAll(Arrays.asList(track1, track01, track02, track03, track4, track5, track04));
 
         Post postFirst = Post.builder().
                 title("Otwarcie nowej strony")
