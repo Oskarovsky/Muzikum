@@ -113,10 +113,6 @@ export class TrackService {
     return this.http.post<TrackComment>(TRACK_API + '/comment/add', trackComment);
   }
 
-  getTrackInfoFromKrakenfiles(id: string): Observable<TrackKrakenfiles> {
-    return this.http.get<TrackKrakenfiles>('https://krakenfiles.com/json/' + id);
-  }
-
   deleteTrackCommentById(commentId: number) {
     return this.http.delete(TRACK_API + '/comment/' + commentId + '/remove');
   }

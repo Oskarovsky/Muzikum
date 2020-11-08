@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import {Component, OnInit} from '@angular/core';
+import {ActivatedRoute, Router} from '@angular/router';
 import {Observable, Subscription} from 'rxjs';
 
 import {TrackService} from '../../services/track/track.service';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Track} from './model/track';
 import {environment} from '../../../environments/environment';
 import {DomSanitizer} from '@angular/platform-browser';
@@ -11,12 +11,18 @@ import {TrackComment} from './model/track-comment';
 import {User} from '../../services/user/user';
 import {TokenStorageService} from '../../services/auth/token-storage.service';
 import {UploadFileService} from '../../services/storage/upload-file.service';
-import {TrackKrakenfiles} from './model/track-krakenfiles';
+import {map} from 'rxjs/operators';
 
 const API: string = environment.serverUrl;
 const VIDEO_API = API + '/video';
 const TRACK_API = API + '/tracks';
 const PROVIDER_API = API + '/providers';
+
+const httpOptions = {
+  headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Access-Control-Allow-Origin' : '*' })
+};
 
 @Component({
   selector: 'app-track',
@@ -30,8 +36,8 @@ export class TrackComponent implements OnInit {
   trackComments: TrackComment[] = [];
   tracks: Track[] = [];
   isLoggedIn = false;
-  trackDataFromAPI: TrackKrakenfiles;
-  trackData: any;
+  trackDataFromAPI: any;
+  jsonUrl: string;
 
   sub: Subscription;
   trackId: number;
@@ -73,10 +79,19 @@ export class TrackComponent implements OnInit {
     this.trackService.getTrackById(this.trackId).subscribe((track: Track) => {
       this.track = track;
       this.secureUrl(track);
+      if (this.track.urlSource === 'KRAKENFILES') {
+        this.getJSONFromKrakenfile(this.track.url);
+        this.http.get(this.jsonUrl, httpOptions)
+          .toPromise()
+          .then(data => {
+            this.trackDataFromAPI = data;
+            console.log(data);
+          });
+        }
       },
       error => {
         alert('An error has occurred while fetching track');
-      });
+    });
   }
 
   ngOnInit() {
@@ -107,6 +122,13 @@ export class TrackComponent implements OnInit {
     );
   }
 
+  public getJSONFromKrakenfile(fullUrl: string) {
+    this.jsonUrl = '/kraken/json/' + fullUrl.substring(
+      fullUrl.lastIndexOf('/view/') + 6,
+      fullUrl.lastIndexOf('/file')
+    );
+  }
+
   public deleteTrackCommentById(commentId: number) {
     this.trackService.deleteTrackCommentById(commentId).subscribe(
       response => {
@@ -116,27 +138,6 @@ export class TrackComponent implements OnInit {
       }
     );
   }
-
-  // TODO
-/*  getDataTrackFromKrakenfiles(url: string) {
-    const mySubString = 'https://krakenfiles.com/json/' + url.substring(
-      url.lastIndexOf('view/') + 5,
-      url.lastIndexOf('/file')
-    );
-    const mySubString1 = url.substring(
-      url.lastIndexOf('view/') + 5,
-      url.lastIndexOf('/file')
-    );
-    this.trackService.getTrackInfoFromKrakenfiles(mySubString1).subscribe(
-      response => {
-        console.log('BBB ' + response);
-        this.trackDataFromAPI = response;
-      },
-      error => {
-        alert('An error has occurred while fetching track info from Krakenfiles API');
-      }
-    );
-  }*/
 
   public addNewTrackComment(text: string) {
     const newTrackComment: TrackComment = {

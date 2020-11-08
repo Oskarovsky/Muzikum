@@ -44,10 +44,10 @@
     <div *ngIf="track.urlSource === 'KRAKENFILES'" style="color: black">
       <h3>Informacje o utworze</h3>
       <div>Gatunek: {{track.genre}}</div>
-      <div>Długość: {{track.title}}</div>
-      <div>Jakość: {{track.genre}}</div>
-      <div>Ilość wyświetleń: {{track.genre}}</div>
-      <div>Ilość pobrań: {{track.genre}}</div>
+      <div>Rozmiar: {{trackDataFromAPI.size}}</div>
+      <div>Jakość: {{trackDataFromAPI.bitrate}}</div>
+      <div>Ilość wyświetleń: {{trackDataFromAPI.views}}</div>
+      <div>Ilość pobrań: {{trackDataFromAPI.downloads}}</div>
     </div>
 
     <div>
