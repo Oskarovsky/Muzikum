@@ -51,7 +51,7 @@ export class TrackAddComponent implements OnInit {
 
   genres: string[] = ['VIXA', 'CLUB', 'RETRO', 'DANCE', 'DISCO', 'TECHNO'];
 
-  urlSources: string[] = ['ZIPPYSHARE', 'KRAKENFILES', 'SOUNDCLOUD'];
+  urlSources: string[] = ['ZIPPYSHARE', 'KRAKENFILES'];
 
   constructor(private tokenStorage: TokenStorageService,
               private trackService: TrackService) { }
