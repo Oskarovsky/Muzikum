@@ -24,10 +24,10 @@
     <div *ngIf="track.urlSource !== null" class="post-title">
     </div>
     <div *ngIf="track.urlSource === 'ZIPPYSHARE'" class="post-title">
-      <iframe [src]="track.safeUrl" width="450" height="100" frameborder="0"></iframe>
+      <iframe [src]="track.safeUrl" width="550" height="100" frameborder="0"></iframe>
     </div>
     <div *ngIf="track.urlSource === 'KRAKENFILES'" class="post-title">
-      <iframe [src]="track.safeUrl" width="450" height="100" frameborder="0"></iframe>
+      <iframe [src]="track.safeUrl" width="550" height="100" frameborder="0"></iframe>
     </div>
     <div *ngIf="track.urlSource === 'SOUNDCLOUD'" class="post-title">
       <div style="font-size: 10px; color: #cccccc;line-break: anywhere;word-break: normal;overflow: hidden;white-space: nowrap;text-overflow: ellipsis; font-family: Interstate,Lucida Grande,Lucida Sans Unicode,Lucida Sans,Garuda,Verdana,Tahoma,sans-serif;font-weight: 100;"><a href="https://soundcloud.com/oskarro" title="Oskarro" target="_blank" style="color: #cccccc; text-decoration: none;">Oskarro</a> · <a href="https://soundcloud.com/oskarro/oskarro-retro" title="Oskarro - RETRO" target="_blank" style="color: #cccccc; text-decoration: none;">Oskarro - RETRO</a></div>
@@ -48,6 +48,14 @@
       <div>Jakość: {{track.genre}}</div>
       <div>Ilość wyświetleń: {{track.genre}}</div>
       <div>Ilość pobrań: {{track.genre}}</div>
+    </div>
+
+    <div>
+      To jest super utwór. Uwaga najnowsza piosenka bardzo znanego artysty {{track.artist}}.
+      Przebój nazywa się {{track.title}}, natomiast wersja tego kawałka to {{track.version}}
+      Zarówno piosenka jak i teledysk są godne polecenia - wersje teledysku możecie znaleźć na pewno na youtube
+      Ten muzyczny hit na pewno zrobi na Was wrażenie - {{track.artist}} - {{track.title}} ({{track.version}}).
+      Możesz pobrać i ściągnąć tą piosenke już teraz, bez ukrytych kosztów - wszystko zupełnie za darmo.
     </div>
 
   </div>
@@ -99,17 +107,16 @@
                        alt="Place image title" class="img-responsive rounded-circle"
                        *ngIf="imagesToShow.get(this.modelUser.username); else noImageFound">
                   <ng-template #noImageFound>
-                    <img id="profile-img" width="50" height="50"
+                    <img id="profile-img" width="70" height="70"
                          src="//ssl.gstatic.com/accounts/ui/avatar_2x.png"
                          alt="image to show"
                          class="profile-img-card rounded-circle"/>
                   </ng-template>
                 </div>
                 <div class="form-group col-xs-12 col-sm-9 col-lg-10">
-                  <label for="comment" style="color: white">Treść komentarza</label>
+                  <label for="comment" style="color: black">Treść komentarza</label>
                   <textarea #trackCommentText class="form-control" rows="2"
                             id="comment">
-
                   </textarea>
                 </div>
               </div>

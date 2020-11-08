@@ -20,7 +20,10 @@ public class PluginServiceImpl implements PluginService {
         JSONObject jsonObject =  (JSONObject) object;
         return PluginKrakenResponse.builder()
                 .title(String.valueOf(jsonObject.get("title")))
+                .numberOfDownloads(String.valueOf(jsonObject.get("downloads")))
                 .size(String.valueOf(jsonObject.get("size")))
+                .views(String.valueOf(jsonObject.get("views")))
+                .bitrate(String.valueOf(jsonObject.get("bitrate")))
                 .uploadDate(String.valueOf(jsonObject.get("uploadDate")))
                 .hash(String.valueOf(jsonObject.get("hash")))
                 .build();
@@ -30,7 +33,7 @@ public class PluginServiceImpl implements PluginService {
     public String prepareScript(PluginKrakenResponse response) {
         StringBuilder script = new StringBuilder("https://krakenfiles.com/getEmbedPlayer/");
         script.append(response.getHash());
-        script.append("?width=450&autoplay=false&date=");
+        script.append("?width=550&autoplay=false&date=");
         script.append(response.getUploadDate());
         System.out.println(script);
         return String.valueOf(script);
@@ -40,8 +43,7 @@ public class PluginServiceImpl implements PluginService {
     public String getJsonUrlFromWebsiteUrl(String websiteUrl) {
         if (websiteUrl.contains("view")) {
             String trackHash = websiteUrl.substring(websiteUrl.indexOf("view/") + 5, websiteUrl.indexOf("/file"));
-            String resultUrl = "https://krakenfiles.com/json/" + trackHash;
-            return String.valueOf(resultUrl);
+            return "https://krakenfiles.com/json/" + trackHash;
         } else {
             return websiteUrl;
         }
@@ -51,11 +53,10 @@ public class PluginServiceImpl implements PluginService {
     public String prepareScriptForZippyshare(String websiteUrl) {
         String serverId = "www" + websiteUrl.substring(websiteUrl.indexOf("www") + 3, websiteUrl.indexOf(".zippy"));
         String trackHash = websiteUrl.substring(websiteUrl.indexOf("/v/") + 3, websiteUrl.indexOf("/file"));
-        String resultUrl = "https://api.zippyshare.com/api/jplayer_embed.jsp?" +
+        return "https://api.zippyshare.com/api/jplayer_embed.jsp?" +
                 "key=" + trackHash + "&" +
                 "server=" + serverId + "&" +
-                "width=450";
-        return resultUrl;
+                "width=550";
     }
 
 //          <iframe src="https://api.zippyshare.com/api/jplayer_embed.jsp?key=XGBt2z5D&amp;server=www87&amp;width=550"

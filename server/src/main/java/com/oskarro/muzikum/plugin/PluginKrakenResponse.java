@@ -11,6 +11,7 @@ public class PluginKrakenResponse{
     private String url;
     private String title;
     private String size;
+    private String bitrate;
     private String numberOfDownloads;
     private String views;
     private String uploadDate;

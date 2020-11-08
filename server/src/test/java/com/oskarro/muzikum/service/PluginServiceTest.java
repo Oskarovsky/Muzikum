@@ -44,7 +44,7 @@ public class PluginServiceTest {
                 pluginService.readJsonFromKrakenFiles("https://krakenfiles.com/json/9b77ee2da1");
         String resultUrl = pluginService.prepareScript(response);
         Assert.assertEquals(resultUrl,
-                "https://krakenfiles.com/getEmbedPlayer/9b77ee2da1?width=450&autoplay=false&date=02-08-2020");
+                "https://krakenfiles.com/getEmbedPlayer/9b77ee2da1?width=550&autoplay=false&date=02-08-2020");
     }
 
     @Test
