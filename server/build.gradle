@@ -1,6 +1,7 @@
 plugins {
     id 'org.springframework.boot' version '2.2.5.RELEASE'
     id 'io.spring.dependency-management' version '1.0.9.RELEASE'
+    id "org.liquibase.gradle" version "2.0.4"
     id 'java'
 }
 
@@ -40,8 +41,8 @@ bootJar {
 repositories {
     mavenCentral()
 }
-dependencies {
 
+dependencies {
 
     /* ============ region IMPLEMENTATION ============ */
     // Spring Boot's web application support
@@ -74,8 +75,9 @@ dependencies {
     compileOnly 'org.projectlombok:lombok'
     compile 'org.slf4j:slf4j-nop:1.7.25'
 
-    // Libraries for database
-//    compile group: 'org.liquibase', name: 'liquibase-core', version: '4.1.1'
+    // Libraries for liquibase
+    compile group: 'org.liquibase', name: 'liquibase-core', version: '4.1.1'
+//    compile group: 'org.liquibase.ext', name: 'liquibase-hibernate4', version: '3.6'
 
     // PostgresSQL-specific connector for JPA
     compile group: 'org.postgresql', name: 'postgresql', version: '42.2.12'
