@@ -19,7 +19,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.TypedQuery;
 import java.io.IOException;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -69,7 +68,7 @@ public class TrackServiceImpl implements TrackService {
                 if (Objects.equals(track.getUrlSource(), UrlSource.KRAKENFILES.toString())) {
                     String jsonUrl = pluginService.getJsonUrlFromWebsiteUrl(track.getUrl());
                     PluginKrakenResponse response = pluginService.readJsonFromKrakenFiles(jsonUrl);
-                    String pluginScript = pluginService.prepareScript(response);
+                    String pluginScript = pluginService.prepareScriptForKrakenfiles(response);
                     track.setUrlPlugin(pluginScript);
                 } else if (Objects.equals(track.getUrlSource(), UrlSource.ZIPPYSHARE.toString())) {
                     String pluginScript = pluginService.prepareScriptForZippyshare(track.getUrl());

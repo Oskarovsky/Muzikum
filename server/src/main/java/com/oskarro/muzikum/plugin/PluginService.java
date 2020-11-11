@@ -8,7 +8,7 @@ public interface PluginService {
 
     PluginKrakenResponse readJsonFromKrakenFiles(String jsonUrl) throws IOException, ParseException;
 
-    String prepareScript(PluginKrakenResponse response);
+    String prepareScriptForKrakenfiles(PluginKrakenResponse response);
 
     String getJsonUrlFromWebsiteUrl(String websiteUrl);
 
