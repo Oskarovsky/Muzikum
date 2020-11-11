@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+    <changeSet id="0088" author="oskarro">
+        <createTable tableName="track">
+            <column name="id" type="int" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false" unique="true" primaryKeyName="pk_track"/>
+            </column>
+            <column name="artist" type="varchar(255)">
+                <constraints nullable="true"/>
+            </column>
+            <column name="created_at" type="TIMESTAMP WITHOUT TIME ZONE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="genre" type="varchar(255)">
+                <constraints nullable="true"/>
+            </column>
+            <column name="playlist_id" type="int">
+                <constraints nullable="true" foreignKeyName="fk_track_playlist_id" references="playlist(id)"/>
+            </column>
+            <column name="points" type="int">
+                <constraints nullable="true"/>
+            </column>
+            <column name="title" type="varchar(255)">
+                <constraints nullable="true"/>
+            </column>
+            <column name="position" type="int">
+                <constraints nullable="true"/>
+            </column>
+            <column name="record_id" type="int">
+                <constraints nullable="true" foreignKeyName="fk_track_record_id" references="record(id)"/>
+            </column>
+            <column name="updated_at" type="TIMESTAMP WITHOUT TIME ZONE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="url" type="varchar(255)">
+                <constraints nullable="true"/>
+            </column>
+            <column name="url_plugin" type="varchar(255)">
+                <constraints nullable="true"/>
+            </column>
+            <column name="url_source" type="varchar(255)">
+                <constraints nullable="true"/>
+            </column>
+            <column name="user_id" type="int">
+                <constraints nullable="true" foreignKeyName="fk_track_user_id" references="users(id)"/>
+            </column>
+            <column name="provider_id" type="int">
+                <constraints nullable="true" foreignKeyName="fk_track_provider_id" references="provider(id)"/>
+            </column>
+            <column name="version" type="varchar(255)">
+                <constraints nullable="true"/>
+            </column>
+            <column name="video_id" type="int">
+                <constraints nullable="true" foreignKeyName="fk_track_video_id" references="video(id)"/>
+            </column>
+        </createTable>
+        
+        <createTable tableName="favorite_track">
+            <column name="id" type="int">
+                <constraints primaryKey="true" nullable="false" unique="true" primaryKeyName="pk_favorite_track"/>
+            </column>
+            <column name="user_id" type="int">
+                <constraints nullable="true" foreignKeyName="fk_favorite_track_user_id" references="users(id)"/>
+            </column>
+            <column name="favorite_id" type="int">
+                <constraints nullable="true" foreignKeyName="fk_favorite_track_track_id" references="track(id)"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+</databaseChangeLog>

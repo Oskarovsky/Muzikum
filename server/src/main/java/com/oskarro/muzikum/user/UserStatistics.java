@@ -13,7 +13,7 @@ import javax.persistence.*;
 public class UserStatistics {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     Integer id;
 

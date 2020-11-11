@@ -14,7 +14,7 @@ import java.util.Date;
 public class Record {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     private Date date;

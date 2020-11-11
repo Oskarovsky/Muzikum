@@ -6,95 +6,36 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
          http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
 
-    <changeSet id="001" author="oskarro">
-        <createTable tableName="users">
-            <column name="id" type="int">
-                <constraints primaryKey="true" nullable="false" unique="true" primaryKeyName="userPK"/>
-            </column>
-            <column name="activated" type="boolean">
-                <constraints nullable="true"/>
-            </column>
-            <column name="activation_key" type="varchar(20)">
-                <constraints nullable="true"/>
-            </column>
-            <column name="created_at" type="TIMESTAMP WITHOUT TIME ZONE"/>
-            <column name="created_date" type="TIMESTAMP WITHOUT TIME ZONE">
-                <constraints nullable="true"/>
-            </column>
-            <column name="updated_at" type="TIMESTAMP WITHOUT TIME ZONE">
-            </column>
-            <column name="reset_date" type="TIMESTAMP WITHOUT TIME ZONE">
-                <constraints nullable="true"/>
-            </column>
-            <column name="last_login_date" type="TIMESTAMP WITHOUT TIME ZONE">
-                <constraints nullable="true"/>
-            </column>
-            <column name="email" type="varchar(50)" >
-                <constraints unique="true"/>
-            </column>
-            <column name="favorite_track" type="int">
-                <constraints nullable="true"/>
-            </column>
-            <column name="image_url" type="varchar(256)">
-                <constraints nullable="true"/>
-            </column>
-            <column name="password" type="varchar(100)">
-            </column>
-            <column name="provider" type="varchar(255)">
-            </column>
-            <column name="provider_id" type="varchar(255)">
-                <constraints nullable="true"/>
-            </column>
-            <column name="reset_key" type="varchar(20)">
-                <constraints nullable="true"/>
-            </column>
-            <column name="reset_token" type="varchar(255)">
-                <constraints nullable="true"/>
-            </column>
-            <column name="username" type="varchar(32)">
-                <constraints nullable="true" unique="true"/>
-            </column>
-        </createTable>
-    </changeSet>
-
     <changeSet id="0056" author="oskarro">
         <createTable tableName="roles">
             <column name="id" type="int">
-                <constraints primaryKey="true" nullable="false" unique="true" primaryKeyName="rolePK"/>
+                <constraints primaryKey="true" nullable="false" unique="true" primaryKeyName="pk_role"/>
             </column>
             <column name="name" type="varchar(20)">
                 <constraints nullable="false"/>
             </column>
         </createTable>
-        <createIndex indexName="index" tableName="roles">
-            <column name="id"/>
-        </createIndex>
         <addAutoIncrement columnDataType="int" columnName="id" incrementBy="1" schemaName="public" startWith="100" tableName="roles"/>
-    </changeSet>
 
-    <changeSet author="oskarro" id="003">
         <createTable tableName="user_role">
             <column name="user_id" type="int">
-                <constraints nullable="false"/>
+                <constraints primaryKey="true" nullable="false" foreignKeyName="fk_user_id_role" references="users(id)"/>
             </column>
             <column name="role_id" type="int">
-                <constraints nullable="false"/>
+                <constraints primaryKey="true" nullable="false" foreignKeyName="fk_role_id_user" references="roles(id)"/>
             </column>
         </createTable>
-    </changeSet>
 
-    <changeSet author="oskarro" id="004">
-        <addPrimaryKey columnNames="user_id, role_id" tableName="user_role"/>
-    </changeSet>
+<!--        <addPrimaryKey columnNames="user_id, role_id" tableName="user_role"/>-->
 
-    <changeSet author="oskarro" id="005">
-        <addForeignKeyConstraint baseColumnNames="user_id" baseTableName="user_role"
-                                 constraintName="FK_user_id_for_role" deferrable="false"
-                                 initiallyDeferred="false" referencedColumnNames="id" referencedTableName="users"/>
-    </changeSet>
-    <changeSet author="oskarro" id="006">
-        <addForeignKeyConstraint baseColumnNames="role_id" baseTableName="user_role"
-                                 constraintName="FK_role_id_for_user" deferrable="false"
-                                 initiallyDeferred="false" referencedColumnNames="id" referencedTableName="roles"/>
+<!--        <addForeignKeyConstraint baseColumnNames="user_id" baseTableName="user_role"-->
+<!--                                 constraintName="FK_user_id_for_role" deferrable="false"-->
+<!--                                 initiallyDeferred="false" referencedColumnNames="id" referencedTableName="users"/>-->
+
+<!--        <addForeignKeyConstraint baseColumnNames="role_id" baseTableName="user_role"-->
+<!--                                 constraintName="FK_role_id_for_user" deferrable="false"-->
+<!--                                 initiallyDeferred="false" referencedColumnNames="id" referencedTableName="roles"/>-->
+
+
     </changeSet>
 </databaseChangeLog>

@@ -11,4 +11,25 @@
 
     <include file="schema/02-roles-schema.xml"
              relativeToChangelogFile="true" />
+
+    <include file="schema/03-playlist-schema.xml"
+             relativeToChangelogFile="true" />
+
+    <include file="schema/04-video-schema.xml"
+             relativeToChangelogFile="true" />
+
+    <include file="schema/05-record-schema.xml"
+             relativeToChangelogFile="true" />
+
+    <include file="schema/06-provider-schema.xml"
+             relativeToChangelogFile="true" />
+
+    <include file="schema/07-track-schema.xml"
+             relativeToChangelogFile="true" />
+
+    <include file="schema/08-comment-schema.xml"
+             relativeToChangelogFile="true" />
+
+    <include file="schema/09-post-schema.xml"
+             relativeToChangelogFile="true" />
 </databaseChangeLog>

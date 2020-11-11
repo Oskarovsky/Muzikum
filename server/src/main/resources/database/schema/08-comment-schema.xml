@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+    <changeSet id="0099" author="oskarro">
+        <createTable tableName="track_comments">
+            <column name="id" type="int" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false" unique="true" primaryKeyName="pk_track_comment"/>
+            </column>
+            <column name="created_at" type="TIMESTAMP WITHOUT TIME ZONE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="updated_at" type="TIMESTAMP WITHOUT TIME ZONE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="text" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="track_id" type="int">
+                <constraints nullable="true" foreignKeyName="fk_track_comment_track_id" references="track(id)"/>
+            </column>
+            <column name="user_id" type="int">
+                <constraints nullable="true" foreignKeyName="fk_track_comment_user_id" references="users(id)"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+</databaseChangeLog>
