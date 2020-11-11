@@ -27,9 +27,12 @@
     <include file="schema/07-track-schema.xml"
              relativeToChangelogFile="true" />
 
-    <include file="schema/08-comment-schema.xml"
+    <include file="schema/08-post-schema.xml"
              relativeToChangelogFile="true" />
 
-    <include file="schema/09-post-schema.xml"
+    <include file="schema/09-comment-schema.xml"
+             relativeToChangelogFile="true" />
+
+    <include file="schema/09-comment-schema.xml"
              relativeToChangelogFile="true" />
 </databaseChangeLog>

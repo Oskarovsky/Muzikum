@@ -27,6 +27,27 @@
                 <constraints nullable="true" foreignKeyName="fk_track_comment_user_id" references="users(id)"/>
             </column>
         </createTable>
+
+        <createTable tableName="comments">
+            <column name="id" type="int" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false" unique="true" primaryKeyName="pk_comment"/>
+            </column>
+            <column name="created_at" type="TIMESTAMP WITHOUT TIME ZONE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="updated_at" type="TIMESTAMP WITHOUT TIME ZONE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="text" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="post_id" type="int">
+                <constraints nullable="false" foreignKeyName="fk_comment_post_id" references="post(id)"/>
+            </column>
+            <column name="user_id" type="int">
+                <constraints nullable="true" foreignKeyName="fk_comment_user_id" references="users(id)"/>
+            </column>
+        </createTable>
     </changeSet>
 
 </databaseChangeLog>
