@@ -6,7 +6,7 @@
 }
 
 .votesection{
-  margin:0px;
+  margin: 0px;
   background-color: #ffffff;
 }
 .upvote,.downvote {
@@ -21,6 +21,20 @@
 }
 
 .votecount{
+  font-weight: bold;
+  color: black;
+  background-color: gray;
+  font-size: 17px;
+}
+
+.votecountPlus{
+  font-weight: bold;
+  color: black;
+  background-color: green;
+  font-size: 17px;
+}
+
+.votecountMinus{
   font-weight: bold;
   color: black;
   background-color: red;
