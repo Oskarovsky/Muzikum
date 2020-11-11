@@ -42,7 +42,7 @@
                 <constraints nullable="false"/>
             </column>
             <column name="post_id" type="int">
-                <constraints nullable="false" foreignKeyName="fk_comment_post_id" references="post(id)"/>
+                <constraints nullable="false" foreignKeyName="fk_comment_post_id" references="posts(id)"/>
             </column>
             <column name="user_id" type="int">
                 <constraints nullable="true" foreignKeyName="fk_comment_user_id" references="users(id)"/>

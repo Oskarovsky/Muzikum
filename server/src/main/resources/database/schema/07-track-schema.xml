@@ -62,7 +62,7 @@
         </createTable>
         
         <createTable tableName="favorite_track">
-            <column name="id" type="int">
+            <column name="id" type="int" autoIncrement="true">
                 <constraints primaryKey="true" nullable="false" unique="true" primaryKeyName="pk_favorite_track"/>
             </column>
             <column name="user_id" type="int">
