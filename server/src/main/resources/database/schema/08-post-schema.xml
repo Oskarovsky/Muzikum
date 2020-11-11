@@ -21,6 +21,9 @@
             <column name="pic" type="bytea">
                 <constraints nullable="true"/>
             </column>
+            <column name="user_id" type="int">
+                <constraints nullable="true" foreignKeyName="fk_image_user_id" references="users(id)"/>
+            </column>
         </createTable>
 
 
