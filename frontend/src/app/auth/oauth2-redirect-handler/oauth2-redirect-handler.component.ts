@@ -50,12 +50,12 @@ export class Oauth2RedirectHandlerComponent implements OnInit {
         }, error => {
           console.log(error);
         });
-      this.result = 'Zalogowałeś się w portalu oskarro.com ! Poczekaj 5 sekund albo kliknij tutaj - .';
+      this.result = 'Zalogowałeś się w portalu oskarro.com ! Poczekaj 5 sekund albo kliknij tutaj - ';
       // window.location.reload();
       // window.location.replace('/');
       // this.loginUser();
     } else {
-      this.result = 'Wystąpił błąd podczas rejestracji!';
+      this.result = 'Wystąpił błąd podczas rejestracji! Poczekaj 5 sekund albo wróć do panelu logowania - ';
       this.router.navigateByUrl('/login');
     }
   }
