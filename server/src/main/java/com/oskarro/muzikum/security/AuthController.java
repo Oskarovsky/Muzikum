@@ -144,6 +144,7 @@ public class AuthController {
                 }
             });
         }
+        user.setProvider(AuthProvider.local);
         user.setRoles(roles);
         userRepository.save(user);
 
@@ -159,7 +160,7 @@ public class AuthController {
             textMessage = "To confirm your account, please click here: " +
                     "https://oskarro.com/app/confirm-account/" + confirmationToken.getConfirmationToken();
         }
-        sendEmail("Complete Registration", "info.oskarro@gmail.com", textMessage, user.getEmail());
+        sendEmail("Complete Registration", "info@oskarro.com", textMessage, user.getEmail());
         log.info("Activation email sent!!");
 
         return ResponseEntity.ok(
@@ -190,7 +191,7 @@ public class AuthController {
             System.out.printf("USER %s ENABLED%n", user.getUsername());
             userRepository.save(user);
             initUserStatistics(user);
-            sendEmail("Success confirmation", "info.oskarro@gmail.com",
+            sendEmail("Success confirmation", "info@oskarro.com",
                     "Your email has been confirmed!", user.getEmail());
             return ResponseEntity.ok(new ApiResponse(true, "Token confirmed successfully!"));
         } else {

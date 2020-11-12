@@ -18,6 +18,7 @@ public class EmailServiceImpl implements EmailService {
 
     @Async
     public void sendEmail(SimpleMailMessage email) {
+        System.out.println("Email sending from " + email.getFrom());
         javaMailSender.send(email);
     }
 }

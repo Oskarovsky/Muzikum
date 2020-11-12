@@ -74,7 +74,7 @@
         </createTable>
 
         <createTable tableName="confirmation_token">
-            <column name="token_id" type="int">
+            <column name="token_id" type="int" autoIncrement="true">
                 <constraints primaryKey="true" nullable="false" primaryKeyName="pk_confirmation_token"/>
             </column>
             <column name="confirmation_token" type="varchar(255)">
