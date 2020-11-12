@@ -50,9 +50,9 @@ export class Oauth2RedirectHandlerComponent implements OnInit {
         }, error => {
           console.log(error);
         });
-      this.result = 'Zalogowałeś się w portalu oskarro.com ! Odśwież stronę.';
+      this.result = 'Zalogowałeś się w portalu oskarro.com ! Poczekaj 5 sekund albo kliknij tutaj - .';
       // window.location.reload();
-      // window.location.replace('/profile');
+      // window.location.replace('/');
       // this.loginUser();
     } else {
       this.result = 'Wystąpił błąd podczas rejestracji!';
@@ -61,7 +61,10 @@ export class Oauth2RedirectHandlerComponent implements OnInit {
   }
 
   ngOnInit() {
-
+      setTimeout(() => {
+        window.location.replace('/');
+        alert('5 Seconds has passed! The page will now refresh');
+    }, 5000);
   }
 
   loginUser() {
