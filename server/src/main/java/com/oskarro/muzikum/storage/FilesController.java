@@ -85,7 +85,7 @@ public class FilesController {
     @Transactional
     public ResponseEntity<Resource> getImage(@PathVariable String username) throws NotFoundException {
         Image image = imageRepository.findByUserUsername(username)
-                .orElseThrow(() -> new NotFoundException("Image not found for user: " + username));
+                .orElseThrow(null);
         Resource file = filesStorageService.load(image.getName(), username);
         return ResponseEntity.ok().contentType(MediaType.IMAGE_JPEG).body(file);
     }
