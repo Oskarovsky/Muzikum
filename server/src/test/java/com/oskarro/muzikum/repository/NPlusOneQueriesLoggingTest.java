@@ -4,6 +4,7 @@ import com.oskarro.muzikum.track.TrackCommentRepository;
 import com.oskarro.muzikum.track.TrackRepository;
 import com.oskarro.muzikum.track.model.Track;
 import com.oskarro.muzikum.track.model.TrackComment;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,7 @@ import java.util.stream.Collectors;
 @RunWith(SpringRunner.class)
 @SpringBootTest("hibernate.query.interceptor.error-level=ERROR")
 @Transactional
+@Ignore
 public class NPlusOneQueriesLoggingTest {
 
     @Autowired
