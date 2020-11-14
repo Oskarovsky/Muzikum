@@ -26,16 +26,6 @@
             </column>
         </createTable>
 
-<!--        <addPrimaryKey columnNames="user_id, role_id" tableName="user_role"/>-->
-
-<!--        <addForeignKeyConstraint baseColumnNames="user_id" baseTableName="user_role"-->
-<!--                                 constraintName="FK_user_id_for_role" deferrable="false"-->
-<!--                                 initiallyDeferred="false" referencedColumnNames="id" referencedTableName="users"/>-->
-
-<!--        <addForeignKeyConstraint baseColumnNames="role_id" baseTableName="user_role"-->
-<!--                                 constraintName="FK_role_id_for_user" deferrable="false"-->
-<!--                                 initiallyDeferred="false" referencedColumnNames="id" referencedTableName="roles"/>-->
-
 
     </changeSet>
 </databaseChangeLog>

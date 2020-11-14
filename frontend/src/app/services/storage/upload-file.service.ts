@@ -29,7 +29,4 @@ export class UploadFileService {
     return this.http.get(STORAGE_API + '/' + username + '/avatar', { responseType: 'blob' });
   }
 
-  getImageUrl(userId: string) {
-    return this.http.get<string>(STORAGE_API + '/' + userId + '/imageUrl/');
-  }
 }

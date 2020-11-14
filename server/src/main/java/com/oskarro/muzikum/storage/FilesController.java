@@ -96,7 +96,6 @@ public class FilesController {
                 .orElse(null);
         if (image != null) {
             Resource file = filesStorageService.load(image.getName(), username);
-            System.out.println("XXX " + file);
             return Optional
                     .ofNullable(file)
                     .map(x -> ResponseEntity.ok().body(x))

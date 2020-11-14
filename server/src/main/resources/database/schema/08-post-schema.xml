@@ -18,7 +18,7 @@
             <column name="type" type="varchar(255)">
                 <constraints nullable="true"/>
             </column>
-            <column name="pic" type="bigint">
+            <column name="pic" type="oid">
                 <constraints nullable="true"/>
             </column>
             <column name="user_id" type="int">

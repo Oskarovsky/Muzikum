@@ -6,6 +6,7 @@ import { HttpEventType, HttpResponse, HttpClient } from '@angular/common/http';
 import {Track} from '../tracks/track/model/track';
 import {TrackService} from '../services/track/track.service';
 import {FavoriteService} from '../services/favorite/favorite.service';
+import {DomSanitizer} from '@angular/platform-browser';
 
 @Component({
   selector: 'app-profile',
@@ -29,24 +30,31 @@ export class ProfileComponent implements OnInit {
               private http: HttpClient,
               private uploadService: UploadFileService,
               private favoriteService: FavoriteService,
-              private trackService: TrackService) { }
+              private trackService: TrackService,
+              private sanitizer: DomSanitizer) { }
 
   ngOnInit() {
-    this.currentUser = this.tokenStorage.getUser();
-    this.fileInfos = this.uploadService.getFile(this.currentUser.username);
-    this.getImageFromService();
-    this.getLastAddedTracksByUsername(this.currentUser.username, 5);
-    this.getAllFavoritesTracksByUser(this.currentUser.username);
+    if (this.tokenStorage.getToken()) {
+      this.currentUser = this.tokenStorage.getUser();
+      this.getLastAddedTracksByUsername(this.currentUser.username, 5);
+      this.getAllFavoritesTracksByUser(this.currentUser.username);
+      this.getImageFromService(this.currentUser.username);
+    }
   }
 
-  selectFile(event) {
-    this.selectedFile = event.target.files;
+  getImageFromService(username: string) {
+    this.uploadService.getFile(username).subscribe(
+      data => {
+        this.createImageFromBlob(data);
+      }, error => {
+        console.log(error);
+      });
   }
 
   createImageFromBlob(image: Blob) {
     const reader = new FileReader();
     reader.addEventListener('load', () => {
-      this.imageToShow = reader.result;
+      this.imageToShow = this.sanitizer.bypassSecurityTrustResourceUrl(reader.result as string);
     }, false);
 
     if (image) {
@@ -54,13 +62,8 @@ export class ProfileComponent implements OnInit {
     }
   }
 
-  getImageFromService() {
-    this.uploadService.getFile(this.currentUser.username).subscribe(
-      data => {
-        this.createImageFromBlob(data);
-      }, error => {
-        console.log(error);
-      });
+  selectFile(event) {
+    this.selectedFile = event.target.files;
   }
 
   upload() {
@@ -96,19 +99,5 @@ export class ProfileComponent implements OnInit {
       this.favoriteTracksByUser = track;
     });
   }
-
-  // public getNumberOfTracksAddedByTheUser(username: string) {
-  //   this.trackService.getNumberOfTracksAddedByTheUser(username).subscribe(
-  //     response => {
-  //       this.numberOfTracks = response;
-  //     },
-  //     error => {
-  //       alert('An error has occurred while fetching tracks');
-  //     }
-  //   );
-  // }
-
-
-
 
 }
