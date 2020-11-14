@@ -4,6 +4,7 @@ import com.oskarro.muzikum.user.AuthProvider;
 import com.oskarro.muzikum.user.User;
 import com.oskarro.muzikum.user.UserRepository;
 import javassist.NotFoundException;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.IOUtils;
 import org.springframework.core.io.Resource;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +32,7 @@ import java.util.stream.Collectors;
 @Controller
 @RequestMapping(value = "/api/storage")
 @CrossOrigin(origins = "*", allowedHeaders = "*")
+@Slf4j
 public class FilesController {
 
     @Autowired
@@ -40,7 +42,8 @@ public class FilesController {
     ImageRepository imageRepository;
     UserRepository userRepository;
 
-    public FilesController(FilesStorageService filesStorageService, ImageRepository imageRepository, UserRepository userRepository) {
+    public FilesController(FilesStorageService filesStorageService, ImageRepository imageRepository,
+                           UserRepository userRepository) {
         this.filesStorageService = filesStorageService;
         this.imageRepository = imageRepository;
         this.userRepository = userRepository;
@@ -53,10 +56,14 @@ public class FilesController {
         try {
             filesStorageService.save(file, username);
             message = "Dodano zdjęcie: " + file.getOriginalFilename() + ". Odśwież stronę.";
-            return ResponseEntity.status(HttpStatus.OK).body(new ResponseMessage(message));
+            return ResponseEntity
+                    .status(HttpStatus.OK)
+                    .body(new ResponseMessage(message));
         } catch (Exception e) {
             message = "Nie można załadować pliku: " + file.getOriginalFilename() + "!";
-            return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(new ResponseMessage(message));
+            return ResponseEntity
+                    .status(HttpStatus.EXPECTATION_FAILED)
+                    .body(new ResponseMessage(message));
         }
     }
 
@@ -65,7 +72,8 @@ public class FilesController {
         List<FileInfo> fileInfos = filesStorageService.loadAll().map(path -> {
             String filename = path.getFileName().toString();
             String url = MvcUriComponentsBuilder
-                    .fromMethodName(FilesController.class, "getFile", path.getFileName().toString()).build().toString();
+                    .fromMethodName(FilesController.class, "getFile", path.getFileName().toString())
+                    .build().toString();
             return new FileInfo(filename, url);
         }).collect(Collectors.toList());
 
@@ -77,7 +85,8 @@ public class FilesController {
     public ResponseEntity<Resource> getFile(@PathVariable String filename) {
         Resource file = filesStorageService.load(filename, "sss");
         return ResponseEntity.ok()
-                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + file.getFilename() + "\"").body(file);
+                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + file.getFilename() + "\"")
+                .body(file);
     }
 
     @GetMapping(value = "/{username}/avatar")
@@ -85,18 +94,26 @@ public class FilesController {
     @Transactional
     public ResponseEntity<Resource> getImage(@PathVariable String username) throws NotFoundException {
         Image image = imageRepository.findByUserUsername(username)
-                .orElseThrow(null);
-        Resource file = filesStorageService.load(image.getName(), username);
-        return ResponseEntity.ok().contentType(MediaType.IMAGE_JPEG).body(file);
+                .orElse(null);
+        if (image != null) {
+            Resource file = filesStorageService.load(image.getName(), username);
+            return Optional
+                    .ofNullable(file)
+                    .map(x -> ResponseEntity.ok().body(x))
+                    .orElseGet(() -> ResponseEntity.notFound().build());
+        } else {
+            log.info("Can't find image for user with username: {}", username);
+            return null;
+        }
     }
 
     @GetMapping(value = "/{userId}/imageUrl")
     @Transactional
-    public String getImageUrl(@PathVariable Integer userId) throws NotFoundException {
+    public ResponseEntity<String> getImageUrl(@PathVariable Integer userId) throws NotFoundException {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new NotFoundException("Can't find user with id: " + userId));
         if (!user.getProvider().equals(AuthProvider.local)) {
-            return user.getImageUrl();
+            return ResponseEntity.ok().body(user.getImageUrl());
         }
         return null;
     }
