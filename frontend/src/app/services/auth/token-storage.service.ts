@@ -29,6 +29,7 @@ export class TokenStorageService {
   }
 
   public getUser() {
+    console.log('XXX ' + sessionStorage.getItem(USER_KEY).toString());
     return JSON.parse(sessionStorage.getItem(USER_KEY));
   }
 

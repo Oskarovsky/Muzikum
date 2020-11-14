@@ -90,8 +90,8 @@ public class AuthController {
 
         return ResponseEntity.ok(new JwtAuthenticationResponse(jwt,
                                         userDetails.getId(),
-                                        userDetails.getUsername(),
                                         userDetails.getEmail(),
+                                        userDetails.getUsername(),
                                         roles));
     }
 
@@ -113,7 +113,6 @@ public class AuthController {
                 .username(registerRequest.getUsername())
                 .email(registerRequest.getEmail())
                 .password(encoder.encode(registerRequest.getPassword()))
-                .createdDate(Date.from(now()))
                 .activated(false)
                 .build();
 
@@ -160,7 +159,7 @@ public class AuthController {
             textMessage = "To confirm your account, please click here: " +
                     "https://oskarro.com/app/confirm-account/" + confirmationToken.getConfirmationToken();
         }
-        sendEmail("Complete Registration", "info@oskarro.com", textMessage, user.getEmail());
+        sendEmail("Complete Registration", "postmaster@oskarro.com", textMessage, user.getEmail());
         log.info("Activation email sent!!");
 
         return ResponseEntity.ok(
@@ -191,7 +190,7 @@ public class AuthController {
             System.out.printf("USER %s ENABLED%n", user.getUsername());
             userRepository.save(user);
             initUserStatistics(user);
-            sendEmail("Success confirmation", "info@oskarro.com",
+            sendEmail("Success confirmation", "postmaster@oskarro.com",
                     "Your email has been confirmed!", user.getEmail());
             return ResponseEntity.ok(new ApiResponse(true, "Token confirmed successfully!"));
         } else {

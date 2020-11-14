@@ -164,16 +164,16 @@ export class NavigationComponent implements OnInit, AfterViewInit {
   title = 'Oskarro.com';
 
   ngOnInit() {
-    this.isLoggedIn = !!this.tokenStorageService.getToken();
 
-    if (this.isLoggedIn) {
+    if (this.tokenStorageService.getToken()) {
+      this.isLoggedIn = true;
+      this.username = this.tokenStorageService.getUser().username;
       const user = this.tokenStorageService.getUser();
       this.roles = user.roles;
 
       this.showAdminBoard = this.roles.includes('ROLE_ADMIN');
       this.showModeratorBoard = this.roles.includes('ROLE_MODERATOR');
 
-      this.username = user.username;
     }
   }
 

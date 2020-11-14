@@ -51,9 +51,6 @@ export class Oauth2RedirectHandlerComponent implements OnInit {
           console.log(error);
         });
       this.result = 'Zalogowałeś się w portalu oskarro.com ! Poczekaj 5 sekund albo kliknij tutaj - ';
-      // window.location.reload();
-      // window.location.replace('/');
-      // this.loginUser();
     } else {
       this.result = 'Wystąpił błąd podczas rejestracji! Poczekaj 5 sekund albo wróć do panelu logowania - ';
       this.router.navigateByUrl('/login');
@@ -65,23 +62,6 @@ export class Oauth2RedirectHandlerComponent implements OnInit {
         window.location.replace('/');
         alert('5 Seconds has passed! The page will now refresh');
     }, 5000);
-  }
-
-  loginUser() {
-    this.authService.login(this.form).subscribe(
-      data => {
-        this.tokenStorage.saveToken(data.accessToken);
-        this.tokenStorage.saveUser(data);
-        this.isLoginFailed = false;
-        this.isLoggedIn = true;
-        this.roles = this.tokenStorage.getUser().roles;
-        this.reloadPage();
-      },
-      error => {
-        this.errorMessage = error.error.message;
-        this.isLoginFailed = true;
-      }
-    );
   }
 
   reloadPage() {

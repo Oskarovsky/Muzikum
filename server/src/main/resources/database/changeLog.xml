@@ -1,41 +1,41 @@
-<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
-                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-                   xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
-                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
-                   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd
-    http://www.liquibase.org/xml/ns/dbchangelog-ext
-    http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+<!--<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"-->
+<!--                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"-->
+<!--                   xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"-->
+<!--                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-->
+<!--                   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd-->
+<!--    http://www.liquibase.org/xml/ns/dbchangelog-ext-->
+<!--    http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">-->
 
-    <include file="schema/01-users-schema.xml"
-             relativeToChangelogFile="true" />
+<!--    <include file="schema/01-users-schema.xml"-->
+<!--             relativeToChangelogFile="true" />-->
 
-    <include file="schema/02-roles-schema.xml"
-             relativeToChangelogFile="true" />
+<!--    <include file="schema/02-roles-schema.xml"-->
+<!--             relativeToChangelogFile="true" />-->
 
-    <include file="schema/03-playlist-schema.xml"
-             relativeToChangelogFile="true" />
+<!--    <include file="schema/03-playlist-schema.xml"-->
+<!--             relativeToChangelogFile="true" />-->
 
-    <include file="schema/04-video-schema.xml"
-             relativeToChangelogFile="true" />
+<!--    <include file="schema/04-video-schema.xml"-->
+<!--             relativeToChangelogFile="true" />-->
 
-    <include file="schema/05-record-schema.xml"
-             relativeToChangelogFile="true" />
+<!--    <include file="schema/05-record-schema.xml"-->
+<!--             relativeToChangelogFile="true" />-->
 
-    <include file="schema/06-provider-schema.xml"
-             relativeToChangelogFile="true" />
+<!--    <include file="schema/06-provider-schema.xml"-->
+<!--             relativeToChangelogFile="true" />-->
 
-    <include file="schema/07-track-schema.xml"
-             relativeToChangelogFile="true" />
+<!--    <include file="schema/07-track-schema.xml"-->
+<!--             relativeToChangelogFile="true" />-->
 
-    <include file="schema/08-post-schema.xml"
-             relativeToChangelogFile="true" />
+<!--    <include file="schema/08-post-schema.xml"-->
+<!--             relativeToChangelogFile="true" />-->
 
-    <include file="schema/09-comment-schema.xml"
-             relativeToChangelogFile="true" />
+<!--    <include file="schema/09-comment-schema.xml"-->
+<!--             relativeToChangelogFile="true" />-->
 
-    <include file="schema/10-vote-schema.xml"
-             relativeToChangelogFile="true" />
+<!--    <include file="schema/10-vote-schema.xml"-->
+<!--             relativeToChangelogFile="true" />-->
 
-    <include file="schema/11-metric-schema.xml"
-             relativeToChangelogFile="true" />
-</databaseChangeLog>
+<!--    <include file="schema/11-metric-schema.xml"-->
+<!--             relativeToChangelogFile="true" />-->
+<!--</databaseChangeLog>-->

@@ -2,8 +2,8 @@ import {Track} from '../../tracks/track/model/track';
 
 export class User {
   id: number;
-  email: string;
   username: string;
+  email: string;
   password: string;
   createdAt: string;
   favoriteTracks: Track[];

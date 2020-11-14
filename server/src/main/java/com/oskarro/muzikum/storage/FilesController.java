@@ -42,8 +42,7 @@ public class FilesController {
     ImageRepository imageRepository;
     UserRepository userRepository;
 
-    public FilesController(FilesStorageService filesStorageService, ImageRepository imageRepository,
-                           UserRepository userRepository) {
+    public FilesController(FilesStorageService filesStorageService, ImageRepository imageRepository, UserRepository userRepository) {
         this.filesStorageService = filesStorageService;
         this.imageRepository = imageRepository;
         this.userRepository = userRepository;
@@ -92,11 +91,12 @@ public class FilesController {
     @GetMapping(value = "/{username}/avatar")
     @ResponseBody
     @Transactional
-    public ResponseEntity<Resource> getImage(@PathVariable String username) throws NotFoundException {
+    public ResponseEntity<Resource> getImage(@PathVariable String username) {
         Image image = imageRepository.findByUserUsername(username)
                 .orElse(null);
         if (image != null) {
             Resource file = filesStorageService.load(image.getName(), username);
+            System.out.println("XXX " + file);
             return Optional
                     .ofNullable(file)
                     .map(x -> ResponseEntity.ok().body(x))
