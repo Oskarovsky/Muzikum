@@ -97,4 +97,20 @@ public class User extends DateAudit {
 
     private String providerId;
 
+    @Size(max = 32)
+    @Column(name = "first_name")
+    private String firstName;
+
+    @Size(max = 64)
+    @Column(name = "facebook_url")
+    private String facebookUrl;
+
+    @Size(max = 64)
+    @Column(name = "youtube_url")
+    private String youtubeUrl;
+
+    @Size(max = 32)
+    @Column(name = "city")
+    private String city;
+
 }
