@@ -29,7 +29,12 @@
                   <h2 class="d-block" style="font-size: 1.5rem; font-weight: bold"><a href="javascript:void(0);">{{currentUser.username}}</a></h2>
 <!--                  <h6 class="d-block" style="color: white"><a href="javascript:void(0)">1,500</a> Playlist</h6>-->
 <!--                  <h6 class="d-block" style="color: white"><a href="javascript:void(0)">{{numberOfTracks}}</a> Utworów</h6>-->
-                  <button mat-stroked-button color="primary" value="Zmień zdjęcie" onclick="showAvatarForm()">Zmień zdjęcie profilowe</button>
+                  <button mat-stroked-button value="Zmień zdjęcie" onclick="showAvatarForm()"
+                          color="primary" style="margin: 2px">Zmień zdjęcie profilowe
+                  </button>
+                  <button mat-stroked-button value="Edytuj profil" [routerLink]="['/profile', 'edit']"
+                          color="primary" style="margin: 2px">Edytuj profil
+                  </button>
                   <label style="display:none;" id="avatarForm" class="image-upload-container btn btn-bwm">
                     <button class="btn btn-success" [disabled]="!selectedFile" (click)="upload()">Upload</button>
                     <input type="file" accept='image/*' (change)="selectFile($event)"/>

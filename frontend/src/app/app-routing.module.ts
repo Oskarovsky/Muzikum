@@ -42,6 +42,7 @@ import {TracksTechnoComponent} from './tracks/tracks-by-genre/genre/tracks-techn
 import {TracksRetroComponent} from './tracks/tracks-by-genre/genre/tracks-retro/tracks-retro.component';
 import {TracksDanceComponent} from './tracks/tracks-by-genre/genre/tracks-dance/tracks-dance.component';
 import {Oauth2RedirectHandlerComponent} from './auth/oauth2-redirect-handler/oauth2-redirect-handler.component';
+import {UserEditComponent} from './user/user-edit/user-edit.component';
 
 
 const routes: Routes = [
@@ -96,6 +97,7 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'profile', component: ProfileComponent },
+  { path: 'profile/edit', component: UserEditComponent },
   { path: 'profile/tracks/:page', component: UserTracksPartComponent },
   { path: 'profile/tracks', component: UserTracksPartComponent },
   { path: 'user', component: BoardUserComponent },
