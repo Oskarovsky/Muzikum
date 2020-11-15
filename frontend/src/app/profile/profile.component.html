@@ -19,26 +19,22 @@
                          class="profile-img-card"
                          alt="Avatar default"/>
                   </ng-template>
-                  <div class="middle">
-                    <input type="button" class="btn btn-secondary" id="btnChangePicture" value="Change" />
-                    <input type="file" style="display: none;" id="profilePicture" name="file" />
-                  </div>
+<!--                  -->
+<!--                  <div *ngIf="newSelectedFile" class="img-preview-container">-->
+<!--                    <div class="img-preview" [ngStyle]="{'background-image': 'url(' + newSelectedFile.src + ')'}">-->
+<!--                    </div>-->
+<!--                  </div>-->
                 </div>
-                <div class="userData ml-3">
+                <div class="userData">
                   <h2 class="d-block" style="font-size: 1.5rem; font-weight: bold"><a href="javascript:void(0);">{{currentUser.username}}</a></h2>
 <!--                  <h6 class="d-block" style="color: white"><a href="javascript:void(0)">1,500</a> Playlist</h6>-->
 <!--                  <h6 class="d-block" style="color: white"><a href="javascript:void(0)">{{numberOfTracks}}</a> Utworów</h6>-->
                   <button mat-stroked-button color="primary" value="Zmień zdjęcie" onclick="showAvatarForm()">Zmień zdjęcie profilowe</button>
-                  <p id="avatarForm" style="display:none;" class="answer_list">
-                    <input type="file" class="mat-line" (change)="selectFile($event)" />
-                    <button class="btn btn-success" [disabled]="!selectedFile" (click)="upload()">
-                      Upload
-                    </button>
-                    <span class="alert alert-light" role="alert">{{ message }}</span>
-                  </p>
-                </div>
-                <div class="ml-auto">
-                  <input type="button" class="btn btn-primary d-none" id="btnDiscard" value="Discard Changes" />
+                  <label style="display:none;" id="avatarForm" class="image-upload-container btn btn-bwm">
+                    <button class="btn btn-success" [disabled]="!selectedFile" (click)="upload()">Upload</button>
+                    <input type="file" accept='image/*' (change)="selectFile($event)"/>
+                      <span class="alert-light" role="alert">{{ message }}</span>
+                  </label>
                 </div>
               </div>
             </div>

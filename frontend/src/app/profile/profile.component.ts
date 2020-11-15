@@ -7,6 +7,11 @@ import {Track} from '../tracks/track/model/track';
 import {TrackService} from '../services/track/track.service';
 import {FavoriteService} from '../services/favorite/favorite.service';
 import {DomSanitizer} from '@angular/platform-browser';
+import {error} from 'util';
+
+class ImageSnippet {
+  constructor(public src: string, public file: File) {}
+}
 
 @Component({
   selector: 'app-profile',
@@ -21,6 +26,7 @@ export class ProfileComponent implements OnInit {
   message = '';
   imageToShow: any;
   tracks: Array<any>;
+  newSelectedFile;
   favoriteTracksByUser: Track[] = [];
 
   fileInfos: Observable<any>;
@@ -43,23 +49,18 @@ export class ProfileComponent implements OnInit {
   }
 
   getImageFromService(username: string) {
+    const reader = new FileReader();
     this.uploadService.getFile(username).subscribe(
       data => {
-        this.createImageFromBlob(data);
-      }, error => {
-        console.log(error);
+        reader.addEventListener('load', () => {
+          this.imageToShow = this.sanitizer.bypassSecurityTrustResourceUrl(reader.result as string);
+        }, false);
+        if (data) {
+          reader.readAsDataURL(data);
+        }
+      }, err => {
+        console.log(err);
       });
-  }
-
-  createImageFromBlob(image: Blob) {
-    const reader = new FileReader();
-    reader.addEventListener('load', () => {
-      this.imageToShow = this.sanitizer.bypassSecurityTrustResourceUrl(reader.result as string);
-    }, false);
-
-    if (image) {
-      reader.readAsDataURL(image);
-    }
   }
 
   selectFile(event) {
@@ -67,20 +68,20 @@ export class ProfileComponent implements OnInit {
   }
 
   upload() {
-    this.currentFile = this.selectedFile.item(0);
-    this.uploadService.upload(this.currentFile, this.currentUser.username).subscribe(
-      event => {
-        if (event.type === HttpEventType.UploadProgress) {
-        } else if (event instanceof HttpResponse) {
-          this.message = event.body.message;
-        }
-      },
-      err => {
-        this.message = 'Could not upload the file!';
-        this.currentFile = undefined;
-      });
-
-    this.selectedFile = undefined;
+    if (this.selectedFile) {
+      this.currentFile = this.selectedFile.item(0);
+      this.uploadService.upload(this.currentFile, this.currentUser.username).subscribe(
+        event => {
+          if (event.type === HttpEventType.UploadProgress) {
+          } else if (event instanceof HttpResponse) {
+            this.message = event.body.message;
+          }
+        },
+        err => {
+          this.message = 'Could not upload the file!';
+          this.currentFile = undefined;
+        });
+    }
   }
 
   public getLastAddedTracksByUsername(username: string, numberOfTracks: number) {
@@ -88,7 +89,7 @@ export class ProfileComponent implements OnInit {
       response => {
         this.tracks = response;
       },
-      error => {
+      err => {
         alert('An error has occurred while fetching tracks');
       }
     );

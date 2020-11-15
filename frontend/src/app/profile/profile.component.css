@@ -33,3 +33,33 @@ body{
 .image-container:hover .middle {
   opacity: 1;
 }
+
+.btn-bwm {
+  background-color: #000000;
+  border-color: #511b61;
+  color: white;
+  padding: 15px 30px;
+  font-size: 20px;
+}
+
+input {
+  display: none;
+}
+
+.image-upload-container {
+  cursor: pointer;
+}
+
+.img-preview-container {
+  background-color: #f7f7f7;
+  position: relative;
+}
+
+.img-preview {
+  background: center center no-repeat;
+  background-size: contain;
+  height: 116px;
+  width: 116px;
+}
+
+
