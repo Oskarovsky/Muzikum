@@ -43,6 +43,7 @@ import {TracksRetroComponent} from './tracks/tracks-by-genre/genre/tracks-retro/
 import {TracksDanceComponent} from './tracks/tracks-by-genre/genre/tracks-dance/tracks-dance.component';
 import {Oauth2RedirectHandlerComponent} from './auth/oauth2-redirect-handler/oauth2-redirect-handler.component';
 import {UserEditComponent} from './user/user-edit/user-edit.component';
+import {ForgotPasswordComponent} from './user/forgot-password/forgot-password.component';
 
 
 const routes: Routes = [
@@ -95,6 +96,7 @@ const routes: Routes = [
 
   /* USER */
   { path: 'login', component: LoginComponent },
+  { path: 'forgot-password', component: ForgotPasswordComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'profile', component: ProfileComponent },
   { path: 'profile/edit', component: UserEditComponent },

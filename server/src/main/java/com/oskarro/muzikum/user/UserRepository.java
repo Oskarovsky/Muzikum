@@ -21,11 +21,6 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 
     Optional<User> findByUsernameOrEmail(String username, String email);
 
-//    @Cacheable(cacheNames = USERS_BY_EMAIL_CACHE)
-//    Optional<User> findOneByEmailIgnoreCase(String email);
-//
-//    Optional<User> findOneByResetKey(String resetKey);
-
     List<User> findByIdIn(Collection<Integer> id);
 
     Boolean existsByUsername(String username);

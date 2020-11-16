@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -210,5 +211,10 @@ public class UserDetailsServiceImpl implements UserDetailsService, UserService {
         String email = tokenProvider.getEmailFromToken(token);
         return userRepository.findByEmail(email)
                 .orElseThrow(() -> new ResourceNotFoundException("User", "email", email));
+    }
+
+    @Override
+    public Optional<User> findUserByResetToken(String resetToken) {
+        return userRepository.findByResetToken(resetToken);
     }
 }

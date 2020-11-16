@@ -12,4 +12,9 @@ export class UserEditComponent implements OnInit {
   ngOnInit() {
   }
 
+  onSubmit() { }
+
+  private updateUser() {
+  }
+
 }

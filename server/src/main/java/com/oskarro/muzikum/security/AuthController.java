@@ -11,16 +11,19 @@ import com.oskarro.muzikum.user.*;
 import java.util.*;
 import java.util.stream.Collectors;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import com.oskarro.muzikum.user.email.EmailService;
 import com.oskarro.muzikum.user.role.Role;
 import com.oskarro.muzikum.user.role.RoleName;
 import com.oskarro.muzikum.user.role.RoleRepository;
+import com.oskarro.muzikum.utils.GenericResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.hibernate.mapping.Collection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.MessageSource;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.scheduling.annotation.Async;
@@ -166,6 +169,21 @@ public class AuthController {
                 new ApiResponse(true, "User registered successfully!"));
     }
 
+    @RequestMapping(value = "/changePassword")
+    public ResponseEntity<?> validateTokenForChangingPassword(@RequestParam("token") String token) {
+        System.out.println("TOKEN: " + token);
+        ConfirmationToken confirmationToken = confirmationTokenRepository.findByConfirmationToken(token);
+        if (token != null) {
+            User user = userRepository.findByEmail(confirmationToken.getUser().getEmail()).orElseThrow(
+                    () -> new UsernameNotFoundException("User not found with email: " + confirmationToken.getUser().getEmail())
+            );
+            sendEmail("Success confirmation", "postmaster@oskarro.com",
+                    "Your email has been confirmed!", user.getEmail());
+            return ResponseEntity.ok(
+                    new ApiResponse(true, "Token confirmed successfully!"));
+        }
+    }
+
     @Async
     void sendEmail(String subject, String sender, String text, String recipient) {
         SimpleMailMessage mailMessage = new SimpleMailMessage();
@@ -175,6 +193,31 @@ public class AuthController {
         mailMessage.setText(text);
         emailService.sendEmail(mailMessage);
     }
+
+    @RequestMapping(value = "/forgot-password", method = RequestMethod.POST)
+    public ResponseEntity<?> resetPassword(@RequestParam("email") final String email, HttpServletRequest request) {
+        User existingUser = userRepository
+                .findByEmail(email)
+                .orElseThrow(() -> new UsernameNotFoundException("User not found with email:" + email));
+
+        // Generate random 36-character string token for reset password
+        existingUser.setResetToken(UUID.randomUUID().toString());
+        userRepository.save(existingUser);
+        ConfirmationToken confirmationToken = new ConfirmationToken(existingUser);
+        confirmationTokenRepository.save(confirmationToken);
+
+        String appUrl = request.getScheme() + "://" + request.getServerName();
+
+        SimpleMailMessage passwordResetEmail = new SimpleMailMessage();
+        passwordResetEmail.setFrom("postmaster@oskarro.com");
+        passwordResetEmail.setTo(existingUser.getEmail());
+        passwordResetEmail.setSubject("Password Reset Request");
+        passwordResetEmail.setText("To reset your password, click the link below:\n" + appUrl
+                + "/reset?token=" + existingUser.getResetToken());
+
+        emailService.sendEmail(passwordResetEmail);
+        return ResponseEntity.ok(
+                new ApiResponse(true, "Reset email has been sent"));    }
 
     @RequestMapping(value="/confirm-account/{token}", method= {RequestMethod.GET, RequestMethod.POST})
     public ResponseEntity<?> confirmUserAccount(@PathVariable("token") String confirmationToken) {
