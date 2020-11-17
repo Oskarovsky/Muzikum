@@ -31,4 +31,10 @@ public interface UserService {
 
     Optional<User> findUserByResetToken(String resetToken);
 
+    User findUserByEmail(final String email);
+
+    boolean checkIfValidOldPassword(final User user, final String oldPassword);
+
+    void changeUserPassword(final User user, final String password);
+
 }

@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -33,6 +34,9 @@ public class UserDetailsServiceImpl implements UserDetailsService, UserService {
 
     @Autowired
     private UserStatisticsRepository userStatisticsRepository;
+
+//    @Autowired
+//    private PasswordEncoder passwordEncoder;
 
     @Autowired
     private JwtTokenProvider tokenProvider;
@@ -216,5 +220,22 @@ public class UserDetailsServiceImpl implements UserDetailsService, UserService {
     @Override
     public Optional<User> findUserByResetToken(String resetToken) {
         return userRepository.findByResetToken(resetToken);
+    }
+
+    @Override
+    public User findUserByEmail(final String email) {
+        return userRepository.findUserByEmail(email);
+    }
+
+    @Override
+    public boolean checkIfValidOldPassword(final User user, final String oldPassword) {
+//        return passwordEncoder.matches(oldPassword, user.getPassword());
+        return true;
+    }
+
+    @Override
+    public void changeUserPassword(final User user, final String password) {
+//        user.setPassword(passwordEncoder.encode(password));
+        userRepository.save(user);
     }
 }

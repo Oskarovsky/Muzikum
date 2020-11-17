@@ -14,7 +14,7 @@ export class TokenConfirmationService {
 
   /** GET Token confirmation */
   tokenConfirm(token: string): Observable<any> {
-    return this.http.get(API + '/auth/confirm-account/' + token);
+    return this.http.get(API + '/auth/confirmAccount/' + token);
   }
 
 }

@@ -105,7 +105,7 @@ const routes: Routes = [
   { path: 'user', component: BoardUserComponent },
   { path: 'profile/:username', component: UserProfileComponent },
   { path: 'mod', component: BoardModeratorComponent },
-  { path: 'confirm-account/:token', component: TokenConfirmationComponent },
+  { path: 'confirmAccount/:token', component: TokenConfirmationComponent },
   { path: 'oauth2/redirect', component: Oauth2RedirectHandlerComponent },
 
   /* ADMIN */

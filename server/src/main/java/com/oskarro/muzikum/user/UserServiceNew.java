@@ -16,7 +16,6 @@ public class UserServiceNew {
 
     private final UserRepository userRepository;
 
-    private final PasswordEncoder passwordEncoder;
 
 
 
