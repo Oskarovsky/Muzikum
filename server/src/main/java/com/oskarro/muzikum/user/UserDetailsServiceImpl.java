@@ -2,8 +2,7 @@ package com.oskarro.muzikum.user;
 
 import com.oskarro.muzikum.exception.ResourceNotFoundException;
 import com.oskarro.muzikum.security.jwt.JwtTokenProvider;
-import com.oskarro.muzikum.track.TrackRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -23,26 +22,23 @@ public class UserDetailsServiceImpl implements UserDetailsService, UserService {
     private final static String MONTHLY_PERIOD = "month";
     private final static String TOTAL_PERIOD = "total";
 
-    @Autowired
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
 
-    @Autowired
-    private UserDaoImpl dao;
+    private final UserStatisticsRepository userStatisticsRepository;
 
-    @Autowired
-    private TrackRepository trackRepository;
+    // TODO replace @Lazy
+    private final PasswordEncoder passwordEncoder;
 
-    @Autowired
-    private UserStatisticsRepository userStatisticsRepository;
+    private final JwtTokenProvider tokenProvider;
 
-//    @Autowired
-//    private PasswordEncoder passwordEncoder;
 
-    @Autowired
-    private JwtTokenProvider tokenProvider;
-
-    public UserDetailsServiceImpl() {
+    public UserDetailsServiceImpl(UserRepository userRepository, UserStatisticsRepository userStatisticsRepository,
+                                  @Lazy PasswordEncoder passwordEncoder, JwtTokenProvider tokenProvider) {
         super();
+        this.userRepository = userRepository;
+        this.userStatisticsRepository = userStatisticsRepository;
+        this.passwordEncoder = passwordEncoder;
+        this.tokenProvider = tokenProvider;
     }
 
     @Override
@@ -229,13 +225,12 @@ public class UserDetailsServiceImpl implements UserDetailsService, UserService {
 
     @Override
     public boolean checkIfValidOldPassword(final User user, final String oldPassword) {
-//        return passwordEncoder.matches(oldPassword, user.getPassword());
-        return true;
+        return passwordEncoder.matches(oldPassword, user.getPassword());
     }
 
     @Override
     public void changeUserPassword(final User user, final String password) {
-//        user.setPassword(passwordEncoder.encode(password));
+        user.setPassword(passwordEncoder.encode(password));
         userRepository.save(user);
     }
 }
