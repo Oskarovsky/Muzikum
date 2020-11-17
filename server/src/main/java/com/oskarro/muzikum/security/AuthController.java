@@ -272,6 +272,8 @@ public class AuthController {
             throw new InvalidOldPasswordException();
         }
         userDetailsService.changeUserPassword(user, passwordChangeDto.getNewPassword());
+        sendEmail("Successful password change", "postmaster@oskarro.com",
+                "Your password has been changed!", user.getEmail());
         return ResponseEntity.ok(
                 new ApiResponse(true, "Password has been changed successfully!"));
     }
