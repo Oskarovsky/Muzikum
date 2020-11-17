@@ -16,7 +16,7 @@ public class TestConfiguration {
 
     @Bean
     public UserService userService() {
-        return new UserDetailsServiceImpl();
+        return new UserDetailsServiceImpl(userRepository, userStatisticsRepository, passwordEncoder, tokenProvider);
     }
 
 }
