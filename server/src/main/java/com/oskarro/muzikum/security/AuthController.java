@@ -264,11 +264,11 @@ public class AuthController {
     }
 
     @RequestMapping(value = "/updatePassword", method = RequestMethod.POST)
-    public ResponseEntity<?> changeUserPassword(@Valid PasswordChangeDto passwordChangeDto) {
+    public ResponseEntity<?> changeUserPassword(@Valid @RequestBody PasswordChangeDto passwordChangeDto) {
         final User user = userDetailsService
-                .findUserByEmail(((User) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getEmail());
+                .findUserByEmail(passwordChangeDto.getEmail());
 
-        if (!userDetailsService.checkIfValidOldPassword(user, passwordChangeDto.getCurrentPassword())) {
+        if (!userDetailsService.checkIfValidOldPassword(user, passwordChangeDto.getOldPassword())) {
             throw new InvalidOldPasswordException();
         }
         userDetailsService.changeUserPassword(user, passwordChangeDto.getNewPassword());
