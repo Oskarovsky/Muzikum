@@ -218,19 +218,17 @@ public class AuthController {
                 roles));
     }
 
-    /* CHANGE PASSWORD */
+    /* RESET PASSWORD */
     @RequestMapping(value = "/resetPassword", method = RequestMethod.POST)
-    public ResponseEntity<?> resetPassword(@RequestParam("email") final String email, HttpServletRequest request) {
+    public ResponseEntity<?> resetPassword(@RequestParam("email") final String email) {
         User existingUser = userRepository
                 .findByEmail(email)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found with email:" + email));
 
-//        existingUser.setResetToken(UUID.randomUUID().toString());
-//        userRepository.save(existingUser);
         ConfirmationToken confirmationToken = new ConfirmationToken(existingUser);
         confirmationTokenRepository.save(confirmationToken);
 
-        String appUrl = request.getScheme() + "://";
+        String appUrl = "https://";
         if (activeProfile.equals("dev")) {
             appUrl += "localhost.com";
         } else if (activeProfile.equals("prod")) {
@@ -263,6 +261,7 @@ public class AuthController {
                 .body(new ApiResponse(false, "Could not change password. Wrong token!"));
     }
 
+    /* CHANGE PASSWORD */
     @RequestMapping(value = "/updatePassword", method = RequestMethod.POST)
     public ResponseEntity<?> changeUserPassword(@Valid @RequestBody PasswordChangeDto passwordChangeDto) {
         final User user = userDetailsService

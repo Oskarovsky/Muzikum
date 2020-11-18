@@ -88,6 +88,7 @@ import { Oauth2RedirectHandlerComponent } from './auth/oauth2-redirect-handler/o
 import {FlexLayoutModule} from '@angular/flex-layout';
 import { MenuListItemComponent } from './navigation/menu-list-item/menu-list-item.component';
 import { UserEditComponent } from './user/user-edit/user-edit.component';
+import { UserChangePasswordComponent } from './user/user-change-password/user-change-password.component';
 
 
 @NgModule({
@@ -155,6 +156,7 @@ import { UserEditComponent } from './user/user-edit/user-edit.component';
     Oauth2RedirectHandlerComponent,
     MenuListItemComponent,
     UserEditComponent,
+    UserChangePasswordComponent,
   ],
     imports: [
         AppRoutingModule,
