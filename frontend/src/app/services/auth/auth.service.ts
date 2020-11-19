@@ -39,7 +39,7 @@ export class AuthService {
     return this.httpClient.get<string>(AUTH_API + '/token/' + token);
   }
 
-  changeUserPassword(passwordDto: PasswordChangeDto): Observable<any> {
+  changeUserPassword(passwordDto): Observable<any> {
     return this.httpClient.post(AUTH_API + '/updatePassword', {
       email: passwordDto.email,
       oldPassword: passwordDto.oldPassword,
