@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {AuthService} from '../../services/auth/auth.service';
 import {FormGroup, AbstractControl, Validators, FormBuilder} from '@angular/forms';
+import { PasswordValidator } from './password-validator';
 
 @Component({
   selector: 'app-user-change-password',
@@ -11,6 +12,13 @@ export class UserChangePasswordComponent implements OnInit {
 
   constructor(private authService: AuthService,
               private formBuilder: FormBuilder) {
+    this.form1 = formBuilder.group({
+      oldPwd: ['', Validators.required, PasswordValidator.shouldBe1234],
+      newPwd: ['', Validators.required],
+      confirmPwd: ['', Validators.required]
+    }, {
+      validator: PasswordValidator.matchPwds
+    });
   }
 
   form1: FormGroup;
@@ -22,31 +30,11 @@ export class UserChangePasswordComponent implements OnInit {
   passwordForm: FormGroup;
   isSuccessful = false;
 
-  newIsNotOld(group: FormGroup) {
-    const newPassword = group.controls.newPW;
-    if (group.controls.current.value === newPassword.value) {
-      newPassword.setErrors({ newIsNotOld: true });
-    }
-    return null;
-  }
-
-  matchPasswords() {
-    const newPassword = this.newPassword;
-    const confirmNewPassword = this.confirmPassword;
-    if (newPassword.value !== confirmNewPassword.value) {
-      return { passwordsDontMatch: true };
-    }
-    return null;
-  }
-
   ngOnInit() {
-    this.form1 = this.formBuilder.group({
-      oldPassword: ['', Validators.required],
-      newPassword: ['', Validators.required],
-      confirmNewPassword: ['', Validators.required]
-    }, {
-      validator: this.matchPasswords
-    });
+
+    this.oldPassword = this.form1.controls.current;
+    this.newPassword = this.form1.controls.newPW;
+    this.confirmPassword = this.form1.controls.confirm;
   }
 
   public onSubmit() {
@@ -58,6 +46,18 @@ export class UserChangePasswordComponent implements OnInit {
         this.isSuccessful = false;
       }
     );
+  }
+
+  get oldPwd() {
+    return this.form1.get('oldPwd');
+  }
+
+  get newPwd() {
+    return this.form1.get('newPwd');
+  }
+
+  get confirmPwd() {
+    return this.form1.get('confirmPwd');
   }
 
 }
