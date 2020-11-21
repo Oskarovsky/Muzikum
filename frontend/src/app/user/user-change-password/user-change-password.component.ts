@@ -28,20 +28,11 @@ export class UserChangePasswordComponent implements OnInit {
 
   currentUser: any;
   formGroup: FormGroup;
-
-  oldPassword: AbstractControl;
-  newPassword: AbstractControl;
-  confirmPassword: AbstractControl;
-
   passwordForm: any = {};
   isSuccessful = false;
-  passwordDto: PasswordChangeDto;
 
   ngOnInit() {
     this.currentUser = this.tokenStorage.getUser();
-    this.oldPassword = this.formGroup.controls.oldPwd;
-    this.newPassword = this.formGroup.controls.newPwd;
-    this.confirmPassword = this.formGroup.controls.confirmPwd;
   }
 
   public onSubmit() {
