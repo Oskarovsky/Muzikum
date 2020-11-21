@@ -17,7 +17,7 @@ export class UserChangePasswordComponent implements OnInit {
               private formBuilder: FormBuilder,
               private alertService: AlertService,
               private tokenStorage: TokenStorageService) {
-    this.form1 = formBuilder.group({
+    this.formGroup = formBuilder.group({
       oldPwd: ['', Validators.required],
       newPwd: ['', Validators.required],
       confirmPwd: ['', Validators.required]
@@ -27,28 +27,26 @@ export class UserChangePasswordComponent implements OnInit {
   }
 
   currentUser: any;
-  form1: FormGroup;
+  formGroup: FormGroup;
 
   oldPassword: AbstractControl;
   newPassword: AbstractControl;
   confirmPassword: AbstractControl;
 
-  passwordForm: FormGroup;
+  passwordForm: any = {};
   isSuccessful = false;
   passwordDto: PasswordChangeDto;
 
   ngOnInit() {
     this.currentUser = this.tokenStorage.getUser();
-    this.oldPassword = this.form1.controls.current;
-    this.newPassword = this.form1.controls.newPW;
-    this.confirmPassword = this.form1.controls.confirm;
+    this.oldPassword = this.formGroup.controls.oldPwd;
+    this.newPassword = this.formGroup.controls.newPwd;
+    this.confirmPassword = this.formGroup.controls.confirmPwd;
   }
 
   public onSubmit() {
-    this.passwordDto.oldPassword = this.oldPassword.value;
-    this.passwordDto.newPassword = this.newPassword.value;
-    this.passwordDto.email = this.currentUser.email;
-    this.authService.changeUserPassword(this.passwordDto).subscribe(
+    this.passwordForm.email = this.currentUser.email;
+    this.authService.changeUserPassword(this.passwordForm).subscribe(
       data => {
         this.isSuccessful = true;
       },
@@ -60,15 +58,15 @@ export class UserChangePasswordComponent implements OnInit {
   }
 
   get oldPwd() {
-    return this.form1.get('oldPwd');
+    return this.formGroup.get('oldPwd');
   }
 
   get newPwd() {
-    return this.form1.get('newPwd');
+    return this.formGroup.get('newPwd');
   }
 
   get confirmPwd() {
-    return this.form1.get('confirmPwd');
+    return this.formGroup.get('confirmPwd');
   }
 
 }
