@@ -14,6 +14,11 @@ import {Post} from '../article/model/post';
 })
 export class HomeComponent implements OnInit {
 
+  options = {
+    autoClose: false,
+    keepAfterRouteChange: false
+  };
+
   sub: Subscription;
   isLoggedIn = false;
   currentUser: any;

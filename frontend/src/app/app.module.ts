@@ -89,6 +89,7 @@ import {FlexLayoutModule} from '@angular/flex-layout';
 import { MenuListItemComponent } from './navigation/menu-list-item/menu-list-item.component';
 import { UserEditComponent } from './user/user-edit/user-edit.component';
 import { UserChangePasswordComponent } from './user/user-change-password/user-change-password.component';
+import { AlertComponent } from './alert/alert.component';
 
 
 @NgModule({
@@ -157,6 +158,7 @@ import { UserChangePasswordComponent } from './user/user-change-password/user-ch
     MenuListItemComponent,
     UserEditComponent,
     UserChangePasswordComponent,
+    AlertComponent,
   ],
     imports: [
         AppRoutingModule,
