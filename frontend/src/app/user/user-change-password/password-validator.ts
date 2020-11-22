@@ -11,9 +11,9 @@ export class PasswordValidator {
   // }
 
   static newIsNotOld(group: FormGroup) {
-    const newPW = group.controls.newPW;
-    if (group.controls.current.value === newPW.value) {
-      newPW.setErrors({ newIsNotOld: true });
+    const newPwd = group.controls.newPwd;
+    if (group.controls.oldPwd.value === newPwd.value) {
+      newPwd.setErrors({ newIsNotOld: true });
     }
     return null;
   }

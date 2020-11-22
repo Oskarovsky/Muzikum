@@ -1,5 +1,6 @@
 package com.oskarro.muzikum.user;
 
+import com.oskarro.muzikum.dto.UserDto;
 import com.oskarro.muzikum.exception.ResourceNotFoundException;
 import com.oskarro.muzikum.security.CurrentUser;
 import com.oskarro.muzikum.track.model.Track;
@@ -81,10 +82,10 @@ public class UserController {
         return userService.getNumberOfTracksAddedInGivenPeriodByUsername(username, periodOfTime);
     }
 
-    @GetMapping("/user/test/me")
-    @PreAuthorize("hasRole('USER')")
-    public User getCurrentUser(@CurrentUser UserPrincipal userPrincipal) {
-        return userRepository.findById(userPrincipal.getId())
-                .orElseThrow(() -> new ResourceNotFoundException("User", "id", userPrincipal.getId()));
+    @PostMapping(value = "/{userId}/update")
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
+    public User updateUser(@PathVariable String userId, @RequestBody UserDto userDto) {
+        return userService.updateUser(userDto);
     }
+
 }

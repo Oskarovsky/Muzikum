@@ -1,5 +1,6 @@
 package com.oskarro.muzikum.user;
 
+import com.oskarro.muzikum.dto.UserDto;
 import com.oskarro.muzikum.exception.ResourceNotFoundException;
 import com.oskarro.muzikum.security.jwt.JwtTokenProvider;
 import org.springframework.context.annotation.Lazy;
@@ -232,5 +233,23 @@ public class UserDetailsServiceImpl implements UserDetailsService, UserService {
     public void changeUserPassword(final User user, final String password) {
         user.setPassword(passwordEncoder.encode(password));
         userRepository.save(user);
+    }
+
+    @Override
+    public User updateUser(final UserDto userDto) {
+        Optional<User> user = userRepository.findById(userDto.getId());
+        user.ifPresent(t -> {
+            Optional.ofNullable(userDto.getFirstName())
+                    .ifPresent(t::setFirstName);
+            Optional.ofNullable(userDto.getCity())
+                    .ifPresent(t::setCity);
+            Optional.ofNullable(userDto.getFacebookUrl())
+                    .ifPresent(t::setFacebookUrl);
+            Optional.ofNullable(userDto.getYoutubeUrl())
+                    .ifPresent(t::setYoutubeUrl);
+            userRepository.save(t);
+        });
+        return userRepository.findById(userDto.getId())
+                .orElseThrow(() -> new UsernameNotFoundException("User not found with id:" + userDto.getId()));
     }
 }

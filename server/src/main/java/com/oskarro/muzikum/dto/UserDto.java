@@ -19,7 +19,7 @@ import java.util.Set;
 @NoArgsConstructor
 public class UserDto {
 
-    private String id;
+    private Integer id;
 
     @NotBlank
     @Size(min = 1, max = 50)
@@ -39,12 +39,13 @@ public class UserDto {
     @Size(min = 2, max = 10)
     private String langKey;
 
-    private String createdBy;
+    private String firstName;
 
-    private Instant createdDate;
+    private String city;
 
-    private String lastModifiedBy;
+    private String facebookUrl;
 
-    private Instant lastModifiedDate;
+    private String youtubeUrl;
+
 
 }

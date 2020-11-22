@@ -1,5 +1,6 @@
 package com.oskarro.muzikum.user;
 
+import com.oskarro.muzikum.dto.UserDto;
 import io.jsonwebtoken.Jwts;
 
 import java.util.List;
@@ -36,5 +37,7 @@ public interface UserService {
     boolean checkIfValidOldPassword(final User user, final String oldPassword);
 
     void changeUserPassword(final User user, final String password);
+
+    User updateUser(final UserDto userDto);
 
 }

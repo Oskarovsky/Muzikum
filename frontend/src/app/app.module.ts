@@ -90,6 +90,7 @@ import { MenuListItemComponent } from './navigation/menu-list-item/menu-list-ite
 import { UserEditComponent } from './user/user-edit/user-edit.component';
 import { UserChangePasswordComponent } from './user/user-change-password/user-change-password.component';
 import { AlertComponent } from './alert/alert.component';
+import {AlertModule} from './alert/alert.module';
 
 
 @NgModule({
@@ -158,7 +159,6 @@ import { AlertComponent } from './alert/alert.component';
     MenuListItemComponent,
     UserEditComponent,
     UserChangePasswordComponent,
-    AlertComponent,
   ],
     imports: [
         AppRoutingModule,
@@ -187,7 +187,8 @@ import { AlertComponent } from './alert/alert.component';
         CKEditorModule,
         NgxPaginationModule,
         MatSidenavModule,
-        FlexLayoutModule
+        FlexLayoutModule,
+        AlertModule
     ],
   exports: [
     TrackComponent,

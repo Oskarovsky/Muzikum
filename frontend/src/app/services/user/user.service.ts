@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {environment} from '../../../environments/environment';
 import {Playlist} from '../../playlists/playlist/model/playlist';
@@ -8,6 +8,10 @@ import {User} from './user';
 const API: string = environment.serverUrl;
 const AUTH_API = API + '/auth';
 const USER_API = API + '/user';
+
+const httpOptions = {
+  headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+};
 
 @Injectable({
   providedIn: 'root'
@@ -65,5 +69,11 @@ export class UserService {
 
   getNumberOfTracksAddedInGivenPeriodByUsername(username: string, periodOfTime: string): Observable<number> {
     return this.httpClient.get<number>(USER_API + '/' + username + '/tracks/' + periodOfTime + '/amount');
+  }
+
+  /** POST update user */
+  updateUser(userId, userDto): Observable<any> {
+    return this.httpClient.post(USER_API + '/' + userId + '/update',
+      { user: userDto }, httpOptions);
   }
 }

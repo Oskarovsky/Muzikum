@@ -29,7 +29,6 @@ export class UserChangePasswordComponent implements OnInit {
   currentUser: any;
   formGroup: FormGroup;
   passwordForm: any = {};
-  isSuccessful = false;
 
   ngOnInit() {
     this.currentUser = this.tokenStorage.getUser();
@@ -39,11 +38,10 @@ export class UserChangePasswordComponent implements OnInit {
     this.passwordForm.email = this.currentUser.email;
     this.authService.changeUserPassword(this.passwordForm).subscribe(
       data => {
-        this.isSuccessful = true;
+        this.alertService.success('Hasło zostało zmienione. Sprawdź czy otrzymałeś wiadomość mailową z potwierdzeniem.');
       },
-      error => {
-        this.isSuccessful = false;
-        this.alertService.error('ERROR - Cannot change password.');
+      err => {
+        this.alertService.error('ERROR - Nie udało się zmienić hasła. Spróbuj ponownie.');
       }
     );
   }
