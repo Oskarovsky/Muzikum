@@ -1,7 +1,16 @@
-<div class="container">
+<div class="container" style="color: white">
+
+  <form>
+    <div class="form-group">
+      <label for="firstName">Imię</label>
+      <input [(ngModel)]="userDto.firstName" placeholder="firstName"
+             id="firstName"
+             type="text"
+             class="form-control" />
+    </div>
+    <button class="btn btn-primary" type="submit" (click)="onSubmit()">Zapisz zmiany</button>
+  </form>
+
   <button mat-raised-button type="button" color="primary"
           [routerLink]="['/profile', 'edit', 'changePassword']">Zmień hasło</button>
-  <form [formGroup]="form" (ngSubmit)="onSubmit()">
-
-  </form>
 </div>
