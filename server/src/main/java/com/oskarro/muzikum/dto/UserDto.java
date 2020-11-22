@@ -31,13 +31,8 @@ public class UserDto {
 
     private Set<String> roles = new HashSet<>();
 
-    private boolean isEnabled = false;
-
     @Size(max = 256)
     private String imageUrl;
-
-    @Size(min = 2, max = 10)
-    private String langKey;
 
     private String firstName;
 
