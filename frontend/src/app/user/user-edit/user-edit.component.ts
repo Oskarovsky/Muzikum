@@ -37,10 +37,10 @@ export class UserEditComponent implements OnInit {
     }
 
     this.form = this.formBuilder.group({
-      firstName: [''],
-      facebookUrl: [''],
-      youtubeUrl: [''],
-      city: [''],
+      firstName: '',
+      facebookUrl: '',
+      youtubeUrl: '',
+      city: '',
     });
 
     this.userService.getUserById(this.currentUser.id)
