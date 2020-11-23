@@ -81,7 +81,10 @@ export class UserService {
       {
         id: userId,
         username: userDto.username,
-        firstName: userDto.firstName
+        firstName: userDto.firstName,
+        facebookUrl: userDto.facebookUrl,
+        youtubeUrl: userDto.youtubeUrl,
+        city: userDto.city
       }, httpOptions);
   }
 }
