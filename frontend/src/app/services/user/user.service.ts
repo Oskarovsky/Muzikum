@@ -47,6 +47,10 @@ export class UserService {
     return this.httpClient.get<User[]>(USER_API + '/lastAdded/' + numberOfUsers);
   }
 
+  getUserById(userId: string): Observable<User> {
+    return this.httpClient.get<User>(USER_API + '/id/' + userId);
+  }
+
   /** GET one Top Uploader */
   getTopUploader(periodOfTime: string): Observable<User> {
     return this.httpClient.get<User>(USER_API + '/top/uploader/' + periodOfTime);

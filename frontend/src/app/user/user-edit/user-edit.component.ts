@@ -9,6 +9,7 @@ import {AuthService} from '../../services/auth/auth.service';
 import {UserDto} from './user-dto';
 import { User } from 'src/app/services/user/user';
 import {Observable} from 'rxjs';
+import {first} from 'rxjs/operators';
 
 @Component({
   selector: 'app-user-edit',
@@ -17,18 +18,11 @@ import {Observable} from 'rxjs';
 })
 export class UserEditComponent implements OnInit {
 
-  formGroup: FormGroup;
+  currentUser: any;
+  form: FormGroup;
+  id: string;
   loading = false;
   submitted = false;
-  currentUser: any;
-  userDto: UserDto = {
-    id: '',
-    username: '',
-    firstName: '',
-    city: '',
-    facebookUrl: '',
-    youtubeUlr: ''
-  };
 
 
   constructor(private formBuilder: FormBuilder, private route: ActivatedRoute,
@@ -40,42 +34,50 @@ export class UserEditComponent implements OnInit {
   ngOnInit() {
     if (this.tokenStorage.getToken()) {
       this.currentUser = this.tokenStorage.getUser();
-      this.userDto.username = this.currentUser.username;
     }
 
-    this.formGroup = this.formBuilder.group({
-      title: ['', Validators.required],
-      firstName: ['', Validators.required],
-      lastName: ['', Validators.required],
-      email: ['', [Validators.required, Validators.email]],
-      role: ['', Validators.required],
-    }, {
-      validator: MustMatch('password', 'confirmPassword')
+    this.form = this.formBuilder.group({
+      firstName: [''],
+      facebookUrl: [''],
+      youtubeUrl: [''],
+      city: [''],
     });
+
+    this.userService.getUserById(this.currentUser.id)
+      .pipe(first())
+      .subscribe(x => this.form.patchValue(x));
   }
 
   // convenience getter for easy access to form fields
-  get f() { return this.formGroup.controls; }
+  get f() { return this.form.controls; }
+
 
   onSubmit() {
     // reset alerts on submit
     this.alertService.clear();
-    this.userService.updateUser(this.currentUser.id, this.formGroup).subscribe(
-      data => {
-        this.alertService.success('');
-      }, error => {
-        this.alertService.error('');
-      }
-    );
 
     // stop here if form is invalid
-    if (this.formGroup.invalid) {
+    if (this.form.invalid) {
       return;
     }
+
     this.loading = true;
+    this.updateUser();
   }
 
-  private updateUser(email: string) {
+  private updateUser() {
+    this.userService.updateUser(this.currentUser.id, this.form.value)
+      .pipe(first())
+      .subscribe({
+        next: () => {
+          this.alertService.success('User updated', { keepAfterRouteChange: true });
+          this.router.navigate(['../'], { relativeTo: this.route });
+        },
+        error: error => {
+          this.alertService.error(error);
+          this.loading = false;
+        }
+      });
   }
 
 }
