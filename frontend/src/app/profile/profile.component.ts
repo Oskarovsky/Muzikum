@@ -8,6 +8,7 @@ import {TrackService} from '../services/track/track.service';
 import {FavoriteService} from '../services/favorite/favorite.service';
 import {DomSanitizer} from '@angular/platform-browser';
 import {error} from 'util';
+import {AlertService} from '../services/alert/alert.service';
 
 class ImageSnippet {
   constructor(public src: string, public file: File) {}
@@ -34,6 +35,7 @@ export class ProfileComponent implements OnInit {
 
   constructor(private tokenStorage: TokenStorageService,
               private http: HttpClient,
+              private alertService: AlertService,
               private uploadService: UploadFileService,
               private favoriteService: FavoriteService,
               private trackService: TrackService,
@@ -75,10 +77,11 @@ export class ProfileComponent implements OnInit {
           if (event.type === HttpEventType.UploadProgress) {
           } else if (event instanceof HttpResponse) {
             this.message = event.body.message;
+            this.alertService.success('Zdjęcie zostało dodane. Odśwież stronę.');
           }
         },
         err => {
-          this.message = 'Could not upload the file!';
+          this.alertService.error('Nie udało się dodać zdjęcia.');
           this.currentFile = undefined;
         });
     }

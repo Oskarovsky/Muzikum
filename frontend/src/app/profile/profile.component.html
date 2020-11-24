@@ -8,7 +8,7 @@
           <div class="card-body bg-transparent">
             <div class="card-title mb-4">
               <div class="d-flex justify-content-start">
-                <div class="image-container">
+                <div class="image-container" style="margin-right: 1rem">
                   <img [src]="imageToShow" width="150" height="150"
                        alt="Avatar user"
                        style="color: white"
@@ -19,22 +19,20 @@
                          class="profile-img-card"
                          alt="Avatar default"/>
                   </ng-template>
-<!--                  -->
-<!--                  <div *ngIf="newSelectedFile" class="img-preview-container">-->
-<!--                    <div class="img-preview" [ngStyle]="{'background-image': 'url(' + newSelectedFile.src + ')'}">-->
-<!--                    </div>-->
-<!--                  </div>-->
                 </div>
+
                 <div class="userData">
-                  <h2 class="d-block" style="font-size: 1.5rem; font-weight: bold"><a href="javascript:void(0);">{{currentUser.username}}</a></h2>
+                  <h4 class="d-block" id="username">{{currentUser.username}}</h4>
 <!--                  <h6 class="d-block" style="color: white"><a href="javascript:void(0)">1,500</a> Playlist</h6>-->
 <!--                  <h6 class="d-block" style="color: white"><a href="javascript:void(0)">{{numberOfTracks}}</a> Utworów</h6>-->
-                  <button mat-stroked-button value="Zmień zdjęcie" onclick="showAvatarForm()"
-                          color="primary" style="margin: 2px">Zmień zdjęcie profilowe
+                  <button mat-stroked-button value="Zmień zdjęcie" color="primary" id="buttonChangeImage"
+                          onclick="showAvatarForm()">Zmień zdjęcie profilowe
                   </button>
-                  <button mat-stroked-button value="Edytuj profil" [routerLink]="['/profile', 'edit']"
-                          color="primary" style="margin: 2px">Edytuj profil
+                  <button mat-stroked-button value="Edytuj profil" color="primary" id="buttonEditProfile"
+                          [routerLink]="['/profile', 'edit']">Edytuj profil
                   </button>
+                  <button mat-stroked-button type="button" color="primary" id="buttonChangePassword"
+                          [routerLink]="['/profile', 'edit', 'changePassword']">Zmień hasło</button>
                   <label style="display:none;" id="avatarForm" class="image-upload-container btn btn-bwm">
                     <button class="btn btn-success" [disabled]="!selectedFile" (click)="upload()">Upload</button>
                     <input type="file" accept='image/*' (change)="selectFile($event)"/>

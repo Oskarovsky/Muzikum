@@ -62,4 +62,15 @@ input {
   width: 116px;
 }
 
+#username {
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: white;
+}
+
+#buttonChangeImage,
+#buttonChangePassword,
+#buttonEditProfile {
+  margin: 2px;
+}
 
