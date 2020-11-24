@@ -1,4 +1,4 @@
-import { Component, OnInit, } from '@angular/core';
+import { Component, OnInit, SecurityContext, } from '@angular/core';
 import { TokenStorageService } from '../services/auth/token-storage.service';
 import { Observable, Observer } from 'rxjs';
 import {UploadFileService} from '../services/storage/upload-file.service';
@@ -11,10 +11,6 @@ import {error} from 'util';
 import {AlertService} from '../services/alert/alert.service';
 import {first} from 'rxjs/operators';
 import {UserService} from '../services/user/user.service';
-
-class ImageSnippet {
-  constructor(public src: string, public file: File) {}
-}
 
 @Component({
   selector: 'app-profile',
@@ -29,10 +25,7 @@ export class ProfileComponent implements OnInit {
   message = '';
   imageToShow: any;
   tracks: Array<any>;
-  newSelectedFile;
   favoriteTracksByUser: Track[] = [];
-
-  fileInfos: Observable<any>;
   imageUrl: any;
 
   constructor(private tokenStorage: TokenStorageService,
