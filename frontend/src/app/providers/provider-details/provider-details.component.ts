@@ -87,16 +87,8 @@ export class ProviderDetailsComponent implements OnInit {
           this.genres = genre;
         });
         this.getRandomTracksByProviderForAllGenres(id, 5);
-
-        // this.trackService.getTracksByProviderId(id).subscribe((track: any) => {
-        //   this.tracks = track;
-        // });
       }
     });
-    // for (const gen of this.genres) {
-    //   console.log('XXXX -- ' + gen);
-    //   this.getRandomTracksByProviderIdAndGenre(8, gen, 5);
-    // }
   }
 
   getAllTracksFromProviderByGenre(id: string, genre: string) {

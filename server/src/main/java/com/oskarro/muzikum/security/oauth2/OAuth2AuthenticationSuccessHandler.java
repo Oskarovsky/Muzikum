@@ -88,10 +88,6 @@ public class OAuth2AuthenticationSuccessHandler extends SimpleUrlAuthenticationS
 
     private boolean isAuthorizedRedirectUri(String uri) {
         URI clientRedirectUri = URI.create(uri);
-
-        System.out.println("XXXX " + clientRedirectUri);
-        System.out.println("YYYY " + appProperties.getOauth2().getAuthorizedRedirectUris());
-
         return appProperties.getOauth2().getAuthorizedRedirectUris()
                 .stream()
                 .anyMatch(authorizedRedirectUri -> {
@@ -99,10 +95,8 @@ public class OAuth2AuthenticationSuccessHandler extends SimpleUrlAuthenticationS
                     URI authorizedURI = URI.create(authorizedRedirectUri);
                     if(authorizedURI.getHost().equalsIgnoreCase(clientRedirectUri.getHost())
                             && authorizedURI.getPort() == clientRedirectUri.getPort()) {
-                        System.out.println("OOO - TRUE");
                         return true;
                     }
-                    System.out.println("OOO - FALSE");
                     return false;
                 });
     }
