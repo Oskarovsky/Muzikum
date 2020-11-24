@@ -9,6 +9,8 @@ import {FavoriteService} from '../services/favorite/favorite.service';
 import {DomSanitizer} from '@angular/platform-browser';
 import {error} from 'util';
 import {AlertService} from '../services/alert/alert.service';
+import {first} from 'rxjs/operators';
+import {UserService} from '../services/user/user.service';
 
 class ImageSnippet {
   constructor(public src: string, public file: File) {}
@@ -35,6 +37,7 @@ export class ProfileComponent implements OnInit {
 
   constructor(private tokenStorage: TokenStorageService,
               private http: HttpClient,
+              private userService: UserService,
               private alertService: AlertService,
               private uploadService: UploadFileService,
               private favoriteService: FavoriteService,
@@ -44,6 +47,11 @@ export class ProfileComponent implements OnInit {
   ngOnInit() {
     if (this.tokenStorage.getToken()) {
       this.currentUser = this.tokenStorage.getUser();
+
+      this.userService.getUserById(this.currentUser.id)
+        .pipe(first())
+        .subscribe(x => this.currentUser = x);
+
       this.getLastAddedTracksByUsername(this.currentUser.username, 5);
       this.getAllFavoritesTracksByUser(this.currentUser.username);
       this.getImageFromService(this.currentUser.username);
