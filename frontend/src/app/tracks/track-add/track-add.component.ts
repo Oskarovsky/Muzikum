@@ -49,7 +49,7 @@ export class TrackAddComponent implements OnInit {
     providerId: null
   };
 
-  genres: string[] = ['VIXA', 'CLUB', 'RETRO', 'DANCE', 'DISCO', 'TECHNO'];
+  genres: string[] = ['VIXA', 'CLUB', 'RETRO', 'DANCE', 'DISCO', 'TECHNO', 'MIXY/SETY'];
 
   urlSources: string[] = ['ZIPPYSHARE', 'KRAKENFILES'];
 
@@ -88,6 +88,12 @@ export class TrackAddComponent implements OnInit {
       favoriteUsers: null,
       user: this.modelUser
     };
+
+    if (genre === 'MIXY/SETY') {
+      newTrack.genre = 'SET';
+    } else {
+      newTrack.genre = genre;
+    }
 
     this.trackService.addTrack(newTrack).subscribe(
       response => {

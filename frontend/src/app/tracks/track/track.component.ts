@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
-import {Observable, Subscription} from 'rxjs';
+import {Subscription} from 'rxjs';
 
 import {TrackService} from '../../services/track/track.service';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
@@ -11,7 +11,6 @@ import {TrackComment} from './model/track-comment';
 import {User} from '../../services/user/user';
 import {TokenStorageService} from '../../services/auth/token-storage.service';
 import {UploadFileService} from '../../services/storage/upload-file.service';
-import {map} from 'rxjs/operators';
 
 const API: string = environment.serverUrl;
 const VIDEO_API = API + '/video';
@@ -170,7 +169,7 @@ export class TrackComponent implements OnInit {
   createImageFromBlob(username: string, image: Blob) {
     const reader = new FileReader();
     reader.addEventListener('load', () => {
-      this.imagesToShow.set(username, reader.result);
+      this.imagesToShow.set(username, this.sanitizer.bypassSecurityTrustResourceUrl(reader.result as string));
     }, false);
 
     if (image) {

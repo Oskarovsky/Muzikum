@@ -45,6 +45,7 @@ import {Oauth2RedirectHandlerComponent} from './auth/oauth2-redirect-handler/oau
 import {UserEditComponent} from './user/user-edit/user-edit.component';
 import {ForgotPasswordComponent} from './user/forgot-password/forgot-password.component';
 import {UserChangePasswordComponent} from './user/user-change-password/user-change-password.component';
+import {TracksSetComponent} from './tracks/tracks-by-genre/genre/tracks-set/tracks-set.component';
 
 
 const routes: Routes = [
@@ -63,6 +64,7 @@ const routes: Routes = [
   { path: 'tracks/retro', component: TracksRetroComponent },
   { path: 'tracks/techno', component: TracksTechnoComponent },
   { path: 'tracks/disco', component: TracksDiscoComponent },
+  { path: 'tracks/set', component: TracksSetComponent },
 
   { path: 'tracks/vixa/:page', component: TracksVixaComponent },
   { path: 'tracks/club/:page', component: TracksClubComponent },
@@ -70,6 +72,7 @@ const routes: Routes = [
   { path: 'tracks/retro/:page', component: TracksRetroComponent },
   { path: 'tracks/techno/:page', component: TracksTechnoComponent },
   { path: 'tracks/disco/:page', component: TracksDiscoComponent },
+  { path: 'tracks/set/:page', component: TracksSetComponent },
 
   { path: 'provider/:id/tracks', component: TrackListComponent },
   { path: 'provider', component: ProviderListComponent },

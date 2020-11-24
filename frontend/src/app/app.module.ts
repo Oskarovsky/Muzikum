@@ -91,6 +91,7 @@ import { UserEditComponent } from './user/user-edit/user-edit.component';
 import { UserChangePasswordComponent } from './user/user-change-password/user-change-password.component';
 import { AlertComponent } from './alert/alert.component';
 import {AlertModule} from './alert/alert.module';
+import { TracksSetComponent } from './tracks/tracks-by-genre/genre/tracks-set/tracks-set.component';
 
 
 @NgModule({
@@ -159,6 +160,7 @@ import {AlertModule} from './alert/alert.module';
     MenuListItemComponent,
     UserEditComponent,
     UserChangePasswordComponent,
+    TracksSetComponent,
   ],
     imports: [
         AppRoutingModule,
