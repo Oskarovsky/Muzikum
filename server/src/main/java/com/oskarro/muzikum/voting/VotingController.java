@@ -73,4 +73,6 @@ public class VotingController {
         tracks.forEach(x -> tracksIds.add(x.getId()));
         return tracksIds;
     }
+
+
 }
