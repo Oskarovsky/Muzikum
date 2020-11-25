@@ -4,6 +4,7 @@ import {Subscription} from 'rxjs';
 import {TokenStorageService} from '../../services/auth/token-storage.service';
 import {TrackService} from '../../services/track/track.service';
 import {User} from '../../services/user/user';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-track-add',
@@ -54,6 +55,7 @@ export class TrackAddComponent implements OnInit {
   urlSources: string[] = ['ZIPPYSHARE', 'KRAKENFILES'];
 
   constructor(private tokenStorage: TokenStorageService,
+              private router: Router,
               private trackService: TrackService) { }
 
   ngOnInit() {
@@ -66,6 +68,8 @@ export class TrackAddComponent implements OnInit {
       this.modelUser.password = this.tokenStorage.getUser().password;
       this.modelUser.provider = this.tokenStorage.getUser().provider;
       this.modelUser.imageUrl = this.tokenStorage.getUser().imageUrl;
+    } else {
+      this.redirect();
     }
   }
 
@@ -108,6 +112,10 @@ export class TrackAddComponent implements OnInit {
         alert('An error with adding new track has occurred');
       }
     );
+  }
+
+  redirect() {
+    this.router.navigate(['/']);
   }
 
 }

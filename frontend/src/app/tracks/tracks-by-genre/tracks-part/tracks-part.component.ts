@@ -5,6 +5,13 @@ import {Subscription} from 'rxjs';
 import {ActivatedRoute} from '@angular/router';
 import {DomSanitizer} from '@angular/platform-browser';
 import {TokenStorageService} from '../../../services/auth/token-storage.service';
+import {HttpHeaders} from '@angular/common/http';
+
+const httpOptions = {
+  headers: new HttpHeaders({
+    // 'Content-Type': 'application/json',
+    'Access-Control-Allow-Origin' : '*' })
+};
 
 @Component({
   selector: 'app-tracks-part',

@@ -19,8 +19,9 @@ const PROVIDER_API = API + '/providers';
 
 const httpOptions = {
   headers: new HttpHeaders({
-      'Content-Type': 'application/json',
-      'Access-Control-Allow-Origin' : '*' })
+      // 'Content-Type': 'application/json',
+      'Access-Control-Allow-Origin' : '*',
+      'x-Trigger': 'CORS' })
 };
 
 @Component({
@@ -84,7 +85,7 @@ export class TrackComponent implements OnInit {
           .toPromise()
           .then(data => {
             this.trackDataFromAPI = data;
-            console.log(data);
+            // console.log(data);
           });
         }
       },

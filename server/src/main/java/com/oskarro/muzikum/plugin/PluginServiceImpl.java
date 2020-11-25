@@ -31,7 +31,7 @@ public class PluginServiceImpl implements PluginService {
 
     @Override
     public String prepareScriptForKrakenfiles(PluginKrakenResponse response) {
-        StringBuilder script = new StringBuilder("https://krakenfiles.com/getEmbedPlayer/");
+        StringBuilder script = new StringBuilder("https://s2.krakenfiles.com/getEmbedPlayer/");
         script.append(response.getHash());
         script.append("?width=1000&autoplay=false&date=");
         script.append(response.getUploadDate());

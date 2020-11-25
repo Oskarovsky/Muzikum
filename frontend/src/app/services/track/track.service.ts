@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {HttpClient, HttpParams} from '@angular/common/http';
+import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Track } from 'src/app/tracks/track/model/track';
 import {environment} from '../../../environments/environment';
@@ -10,6 +10,13 @@ import {TrackKrakenfiles} from '../../tracks/track/model/track-krakenfiles';
 const API: string = environment.serverUrl;
 const TRACK_API = API + '/tracks';
 const PROVIDER_API = API + '/providers';
+
+const httpOptions = {
+  headers: new HttpHeaders({
+    // 'Content-Type': 'application/json',
+    'Access-Control-Allow-Origin' : '*',
+    'x-Trigger': 'CORS' })
+};
 
 @Injectable({providedIn: 'root'})
 export class TrackService {
@@ -22,7 +29,7 @@ export class TrackService {
   }
 
   getTrackById(id: number) {
-    return this.http.get(TRACK_API + '/id/' + id);
+    return this.http.get(TRACK_API + '/id/' + id, httpOptions);
   }
 
   getTracksFromProviderByGenre(id: string, genre: string) {
@@ -98,7 +105,7 @@ export class TrackService {
   }
 
   getTrackPageByGenre(genre: string, page: number): Observable<TrackResponse> {
-    return this.http.get<TrackResponse>(TRACK_API + '/genre/' + genre + '/pages/' + page);
+    return this.http.get<TrackResponse>(TRACK_API + '/genre/' + genre + '/pages/' + page, httpOptions);
   }
 
   getTrackPageByUserUsername(username: string, page: number): Observable<TrackResponse> {
