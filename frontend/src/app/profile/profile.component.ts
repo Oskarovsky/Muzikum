@@ -27,6 +27,7 @@ export class ProfileComponent implements OnInit {
   tracks: Array<any>;
   favoriteTracksByUser: Track[] = [];
   imageUrl: any;
+  srcValue: any;
 
   constructor(private tokenStorage: TokenStorageService,
               private http: HttpClient,
@@ -94,14 +95,15 @@ export class ProfileComponent implements OnInit {
         this.tracks = response;
       },
       err => {
-        alert('An error has occurred while fetching tracks');
+        this.alertService.error('An error has occurred while fetching tracks.');
       }
     );
   }
 
   getAllFavoritesTracksByUser(username: string) {
-    this.favoriteService.getAllFavoritesTracksByUsername(username).subscribe((track: any) => {
-      this.favoriteTracksByUser = track;
+    this.favoriteService.getAllFavoritesTracksByUsername(username)
+      .subscribe((track: any) => {
+        this.favoriteTracksByUser = track;
     });
   }
 

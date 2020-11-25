@@ -5,12 +5,14 @@ import com.oskarro.muzikum.exception.ResourceNotFoundException;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping(value = "/api/posts")
@@ -50,29 +52,31 @@ public class CommentController {
 
     @PutMapping(value = "/{postId}/comments/{commentId}")
     @CrossOrigin(origins = "*", allowedHeaders = "*")
-    public Comment updateComment(@PathVariable Integer postId,
+    public ResponseEntity<Comment> updateComment(@PathVariable Integer postId,
                                  @PathVariable Integer commentId,
                                  @Valid @RequestBody Comment commentRequest) {
         if (!postRepository.existsById(postId)) {
             throw new ResourceNotFoundException("Post", "id", postId);
         }
 
-        return commentRepository.findById(commentId)
-                .map(comment -> {
-                    comment.setText(commentRequest.getText());
-                    return commentRepository.save(comment);
+        Comment comment = commentRepository.findById(commentId)
+                .map(com -> {
+                    com.setText(commentRequest.getText());
+                    return commentRepository.save(com);
                 }).orElseThrow(() -> new ResourceNotFoundException("Comment", "id", commentId));
+
+        return new ResponseEntity<>(comment, HttpStatus.OK);
     }
 
     @DeleteMapping(value = "/{postId}/comments/{commentId}")
     @CrossOrigin(origins = "*", allowedHeaders = "*")
     @Transactional
-    public ResponseEntity<?> deleteComment(@PathVariable Integer postId,
-                                           @PathVariable Integer commentId) {
+    public ResponseEntity<Integer> deleteComment(@PathVariable Integer postId,
+                                                 @PathVariable Integer commentId) {
         return commentRepository.findByIdAndPostId(commentId, postId)
                 .map(comment -> {
                     commentRepository.delete(comment);
-                    return ResponseEntity.ok().build();
+                    return new ResponseEntity<>(commentId, HttpStatus.OK);
                 }).orElseThrow(() -> new ResourceNotFoundException("Comment", "id", commentId));
     }
 }
