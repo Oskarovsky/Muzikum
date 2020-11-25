@@ -35,18 +35,18 @@ public class CommentController {
     @GetMapping(value = "/{postId}/comments/all")
     @Transactional
     @CrossOrigin(origins = "*", allowedHeaders = "*")
-    public List<Comment> getAllCommentsByPostId(@PathVariable Integer postId) {
-        return commentService.getAllCommentsByPostId(postId);
+    public ResponseEntity<List<Comment>> getAllCommentsByPostId(@PathVariable Integer postId) {
+        return new ResponseEntity<>(commentService.getAllCommentsByPostId(postId), HttpStatus.OK);
     }
 
     @PostMapping(value = "/{postId}/comments")
     @CrossOrigin(origins = "*", allowedHeaders = "*")
-    public Comment createComment(@PathVariable Integer postId,
-                                 @Valid @RequestBody Comment comment) {
+    public ResponseEntity<Comment> createComment(@PathVariable Integer postId,
+                                                 @Valid @RequestBody Comment comment) {
         return postRepository.findById(postId)
                 .map(post -> {
                     comment.setPost(post);
-                    return commentRepository.save(comment);
+                    return new ResponseEntity<>(commentRepository.save(comment), HttpStatus.OK);
                 }).orElseThrow(() -> new ResourceNotFoundException("Post", "id", postId));
     }
 
@@ -58,14 +58,11 @@ public class CommentController {
         if (!postRepository.existsById(postId)) {
             throw new ResourceNotFoundException("Post", "id", postId);
         }
-
-        Comment comment = commentRepository.findById(commentId)
+        return commentRepository.findById(commentId)
                 .map(com -> {
                     com.setText(commentRequest.getText());
-                    return commentRepository.save(com);
+                    return new ResponseEntity<>(commentRepository.save(com), HttpStatus.OK);
                 }).orElseThrow(() -> new ResourceNotFoundException("Comment", "id", commentId));
-
-        return new ResponseEntity<>(comment, HttpStatus.OK);
     }
 
     @DeleteMapping(value = "/{postId}/comments/{commentId}")

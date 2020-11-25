@@ -28,6 +28,7 @@ export class AddPostComponent implements OnInit {
   isUserLogged = false;
   user: null;
   post = new Post();
+  isAdmin = false;
 
   modelPost: Post = {
     id: null,
@@ -59,12 +60,19 @@ export class AddPostComponent implements OnInit {
   ngOnInit() {
     this.isUserLogged = !!this.tokenStorageService.getToken();
     if (this.isUserLogged) {
+      this.isAdmin = this.tokenStorageService.getUser().roles.includes('ROLE_ADMIN');
       this.modelUser.username = this.tokenStorageService.getUser().username;
       this.modelUser.id = this.tokenStorageService.getUser().id;
       this.modelUser.email = this.tokenStorageService.getUser().email;
       this.modelUser.password = this.tokenStorageService.getUser().password;
       this.modelUser.provider = this.tokenStorageService.getUser().provider;
       this.modelUser.imageUrl = this.tokenStorageService.getUser().imageUrl;
+
+      if (!this.isAdmin) {
+        this.redirect();
+      }
+    } else {
+      this.redirect();
     }
     this.getAllPosts();
     this.ckeConfigForDescription = {
@@ -121,5 +129,9 @@ export class AddPostComponent implements OnInit {
         alert('An error has occurred while saving the post');
       }
     );
+  }
+
+  redirect() {
+    this.router.navigate(['/']);
   }
 }

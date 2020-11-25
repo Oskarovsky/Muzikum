@@ -3,7 +3,7 @@ import {Post} from '../model/post';
 import {Subscription} from 'rxjs';
 import {PlaylistService} from '../../services/playlist/playlist.service';
 import {TokenStorageService} from '../../services/auth/token-storage.service';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {PostService} from '../../services/article/post.service';
 
 @Component({
@@ -17,17 +17,27 @@ export class PostComponent implements OnInit {
   sub: Subscription;
   isLoggedIn = false;
   username: string;
+  isAdmin = false;
 
   constructor(private postService: PostService,
+              private router: Router,
               private tokenStorage: TokenStorageService,
               private route: ActivatedRoute) { }
 
   ngOnInit() {
     if (this.tokenStorage.getToken()) {
       this.isLoggedIn = true;
+      const user = this.tokenStorage.getUser();
+      this.isAdmin = user.roles.includes('ROLE_ADMIN');
+      if (!this.isAdmin) {
+        this.redirect();
+      }
       this.getAllPostByUsername();
+    } else {
+      this.redirect();
     }
   }
+
 
   public getAllPostByUsername() {
     this.sub = this.route.params.subscribe(params => {
@@ -58,5 +68,9 @@ export class PostComponent implements OnInit {
         }
       );
     }
+  }
+
+  redirect() {
+    this.router.navigate(['/']);
   }
 }
