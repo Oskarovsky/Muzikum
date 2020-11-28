@@ -8,6 +8,7 @@ import {UserService} from '../../services/user/user.service';
 import {User} from '../../services/user/user';
 import {Track} from '../../tracks/track/model/track';
 import {TrackService} from '../../services/track/track.service';
+import {AlertService} from '../../services/alert/alert.service';
 
 @Component({
   selector: 'app-sidebar-left',
@@ -39,6 +40,7 @@ export class SidebarLeftComponent implements OnInit {
   constructor(private playlistService: PlaylistService,
               private trackService: TrackService,
               private userService: UserService,
+              private alertService: AlertService,
               private tokenStorage: TokenStorageService,
               private route: ActivatedRoute) { }
 
@@ -67,7 +69,7 @@ export class SidebarLeftComponent implements OnInit {
         this.playlists = response;
       },
       error => {
-        alert('An error with fetching last added playlist has occurred');
+        this.alertService.error('Nie udało się pobrać ostatnio dodanych playlist');
       }
     );
   }
@@ -78,7 +80,7 @@ export class SidebarLeftComponent implements OnInit {
         this.users = response;
       },
       error => {
-        alert('An error with fetching last added users has occurred');
+        this.alertService.error('Nie udało się pobrać ostatnio dodanych użytkowników');
       }
     );
   }
@@ -89,7 +91,7 @@ export class SidebarLeftComponent implements OnInit {
         this.randomTrack = response;
       },
       error => {
-        alert('An error with fetching random track has occurred');
+        this.alertService.error('Nie udało się pobrać pobrać losowego utworu');
       }
     );
   }
@@ -100,7 +102,7 @@ export class SidebarLeftComponent implements OnInit {
         this.usersTrack = response;
       },
       error => {
-        alert('An error with fetching random track has occurred');
+        this.alertService.error('Nie udało się pobrać ostatnio dodanych przez Ciebie utworów');
       }
     );
   }
@@ -121,7 +123,7 @@ export class SidebarLeftComponent implements OnInit {
         }
       },
       error => {
-        alert('An error with fetching the most popular track by genre: ' + genre);
+        this.alertService.error('Nie udało się pobrać najbardziej popularnych utworów');
       }
     );
   }
