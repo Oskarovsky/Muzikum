@@ -54,23 +54,23 @@ public class VotingController {
 
     @GetMapping(value = "/{username}/tracks")
     @CrossOrigin(origins = "*", allowedHeaders = "*")
-    List<Track> getAllVotedTracksByUser(@PathVariable String username) {
+    ResponseEntity<List<Track>> getAllVotedTracksByUser(@PathVariable String username) {
         List<Vote> votesForTracks = votingRepository.findVotesByUserUsername(username);
         List<Track> tracks = new ArrayList<>();
         votesForTracks.forEach(x -> tracks.add(trackService.findById(x.getTrack().getId())
                 .orElseThrow(() -> new ResourceNotFoundException("Track", "id", x))));
-        return tracks;
+        return new ResponseEntity<>(tracks, HttpStatus.OK);
     }
 
     @GetMapping(value = "/{username}/tracks/ids")
     @CrossOrigin(origins = "*", allowedHeaders = "*")
-    List<Integer> getAllVotedTracksIdsByUser(@PathVariable String username) {
+    ResponseEntity<List<Integer>> getAllVotedTracksIdsByUser(@PathVariable String username) {
         List<Vote> votesForTracks = votingRepository.findVotesByUserUsername(username);
         List<Track> tracks = new ArrayList<>();
         votesForTracks.forEach(x -> tracks.add(trackService.findById(x.getTrack().getId())
                 .orElseThrow(() -> new ResourceNotFoundException("Track", "id", x))));
         List<Integer> tracksIds = new ArrayList<>();
         tracks.forEach(x -> tracksIds.add(x.getId()));
-        return tracksIds;
+        return new ResponseEntity<>(tracksIds, HttpStatus.OK);
     }
 }
