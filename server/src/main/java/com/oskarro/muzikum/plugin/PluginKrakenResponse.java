@@ -7,7 +7,7 @@ import lombok.Setter;
 @Builder
 @Getter
 @Setter
-public class PluginKrakenResponse{
+public class PluginKrakenResponse {
     private String url;
     private String title;
     private String size;
@@ -16,4 +16,5 @@ public class PluginKrakenResponse{
     private String views;
     private String uploadDate;
     private String hash;
+    private String server;
 }

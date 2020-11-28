@@ -26,12 +26,15 @@ public class PluginServiceImpl implements PluginService {
                 .bitrate(String.valueOf(jsonObject.get("bitrate")))
                 .uploadDate(String.valueOf(jsonObject.get("uploadDate")))
                 .hash(String.valueOf(jsonObject.get("hash")))
+                .server(String.valueOf(jsonObject.get("server")))
                 .build();
     }
 
     @Override
     public String prepareScriptForKrakenfiles(PluginKrakenResponse response) {
-        StringBuilder script = new StringBuilder("https://s2.krakenfiles.com/getEmbedPlayer/");
+        StringBuilder script = new StringBuilder("https://");
+        script.append(response.getServer());
+        script.append("krakenfiles.com/getEmbedPlayer/");
         script.append(response.getHash());
         script.append("?width=1000&autoplay=false&date=");
         script.append(response.getUploadDate());
