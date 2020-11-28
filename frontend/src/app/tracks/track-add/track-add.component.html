@@ -9,6 +9,7 @@
                style="background-color: #e5e1e1"
                id="title"
                name="title"
+               required
                placeholder="Wprowadź tytuł">
       </div>
 
@@ -19,8 +20,8 @@
                style="background-color: #e5e1e1"
                id="artist"
                name="artist"
-               placeholder="Wprowadź nazwę artysty"
-               required #trackArtist="ngModel">
+               required
+               placeholder="Wprowadź nazwę artysty">
       </div>
 
       <div class="form-group">
@@ -30,14 +31,16 @@
                style="background-color: #e5e1e1"
                id="version"
                name="version"
-               placeholder="Wprowadź nazwę wersji/remixu"
-               required #trackVersion="ngModel">
+               placeholder="Wprowadź nazwę wersji/remixu">
       </div>
 
       <div class="form-group">
         <mat-form-field style="color: white">
           <label for="genres" style="color: white">Gatunek</label>
-          <mat-select #trackGenre [(ngModel)]="modelTrack.genre" style="color: black" id="genres">
+          <mat-select #trackGenre [(ngModel)]="modelTrack.genre"
+                      style="color: black" id="genres"
+                      name="genre"
+                      required>
             <mat-option *ngFor="let genre of genres" [value]="genre">
               {{genre}}
             </mat-option>
@@ -52,14 +55,18 @@
                style="background-color: #e5e1e1"
                id="url"
                name="url"
-               placeholder="Wprowadź link do utworu"
-               required #trackUrl="ngModel">
+               required
+               placeholder="Wprowadź link do utworu">
       </div>
 
       <div class="form-group">
         <mat-form-field style="color: white">
           <label for="genres" style="color: white">Żródło URL</label>
-          <mat-select #trackUrlSource [(ngModel)]="modelTrack.urlSource" style="color: black" id="urlSource">
+          <mat-select #trackUrlSource [(ngModel)]="modelTrack.urlSource"
+                      style="color: black"
+                      id="urlSource"
+                      name="urlSource"
+                      required>
             <mat-option *ngFor="let urlSource of urlSources" [value]="urlSource">
               {{urlSource}}
             </mat-option>
