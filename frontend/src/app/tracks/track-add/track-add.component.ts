@@ -5,6 +5,7 @@ import {TokenStorageService} from '../../services/auth/token-storage.service';
 import {TrackService} from '../../services/track/track.service';
 import {User} from '../../services/user/user';
 import {Router} from '@angular/router';
+import {AlertService} from '../../services/alert/alert.service';
 
 @Component({
   selector: 'app-track-add',
@@ -56,6 +57,7 @@ export class TrackAddComponent implements OnInit {
 
   constructor(private tokenStorage: TokenStorageService,
               private router: Router,
+              private alertService: AlertService,
               private trackService: TrackService) { }
 
   ngOnInit() {
@@ -107,9 +109,11 @@ export class TrackAddComponent implements OnInit {
         newTrack.version = version;
         newTrack.url = url;
         this.track = response;
+        this.router.navigateByUrl('/');
+        this.alertService.success('Utwór został dodany na stronę!');
       },
       error => {
-        alert('An error with adding new track has occurred');
+        this.alertService.error('Nie udało się dodać utworu. Sprawdź wprowadzone informacje i spróubuj jeszcze raz!');
       }
     );
   }
