@@ -1,6 +1,7 @@
 package com.oskarro.muzikum.voting;
 
 import com.oskarro.muzikum.dto.VoteDto;
+import com.oskarro.muzikum.exception.AppException;
 import com.oskarro.muzikum.exception.ResourceNotFoundException;
 import com.oskarro.muzikum.track.model.Track;
 import com.oskarro.muzikum.track.TrackService;
@@ -72,5 +73,15 @@ public class VotingController {
         List<Integer> tracksIds = new ArrayList<>();
         tracks.forEach(x -> tracksIds.add(x.getId()));
         return new ResponseEntity<>(tracksIds, HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/track/{trackId}/checkVote/{userId}")
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
+    ResponseEntity<Boolean> checkIfUserVotedForTrack(@PathVariable Integer trackId, @PathVariable Integer userId) {
+        if (votingService.isVotedForTrackByUser(trackId, userId)) {
+            return new ResponseEntity<>(true, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(false, HttpStatus.OK);
+        }
     }
 }

@@ -39,4 +39,8 @@ export class VoteService {
   getAllVotedTracksIdsByUser(username: string): Observable<any> {
     return this.http.get(VOTE_API + '/' + username + '/tracks/ids');
   }
+
+  checkIfUserVotedForTrack(trackId: number, userId: number): Observable<any> {
+    return this.http.get(VOTE_API + '/track/' + trackId + '/checkVote/' + userId);
+  }
 }
