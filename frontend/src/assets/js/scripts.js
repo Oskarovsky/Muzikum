@@ -66,18 +66,6 @@ $(document).ready(function test() {
   }
 });
 
-// $(document).ready(function(){
-//   $(".votecount").filter(function() {
-//     var div = $('div:contains(On Call)', this);
-//     if (div.length === 0) return false;
-//
-//     var points = div.text();
-//
-//     return points <= 0;
-//
-//   }).css("color","red");
-// });
-
 
 $(document).ready(function () {
   $imgSrc = $('#imgProfile').attr('src');

@@ -17,6 +17,7 @@ export class TrackVoteButtonComponent implements OnInit {
   @Input() track: Track;
   votePayload: VotePayload;
   isLoggedIn = false;
+  isVoted = false;
 
   constructor(private tokenStorage: TokenStorageService,
               private trackService: TrackService,
@@ -32,6 +33,7 @@ export class TrackVoteButtonComponent implements OnInit {
     if (this.tokenStorage.getToken()) {
       this.isLoggedIn = true;
       this.votePayload.userId = this.tokenStorage.getUser().id;
+      this.checkIfUserVotedForTrack(this.track.id, this.tokenStorage.getUser().id);
     }
     this.updateVoteDetails();
   }
@@ -44,6 +46,14 @@ export class TrackVoteButtonComponent implements OnInit {
   downvotePost() {
     this.votePayload.voteType = VoteType.DOWNVOTE;
     this.vote();
+  }
+
+  checkIfUserVotedForTrack(trackId: number, userId: number) {
+    this.voteService.checkIfUserVotedForTrack(trackId, userId).subscribe(
+      response => {
+        this.isVoted = response;
+      }
+    );
   }
 
   private vote() {
