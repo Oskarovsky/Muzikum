@@ -1,0 +1,9 @@
+.sidebar-window-title {
+  color: white;
+  font-weight: bold;
+  text-align: center;
+}
+
+.sidebar-window-background {
+  background: linear-gradient(180deg, rgba(116,1,161,1) 0%, rgba(0,0,0,1) 100%);
+}

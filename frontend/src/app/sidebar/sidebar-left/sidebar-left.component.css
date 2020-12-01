@@ -13,6 +13,11 @@ p.panel-playlists:hover{
   text-align: center
 }
 
+.sidebar-window-background {
+  background: linear-gradient(180deg, rgba(116,1,161,1) 0%, rgba(0,0,0,1) 100%);
+}
+
+
 table {
   width:100%;
 }
