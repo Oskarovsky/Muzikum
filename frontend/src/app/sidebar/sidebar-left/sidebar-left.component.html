@@ -3,10 +3,10 @@
   <!-- region USER -->
   <div class="panel panel-default">
     <div class="panel-heading" style="background-color: #610061">
-      <h3 class="panel-title" style="color: white" >Twoje utwory</h3>
+      <h3 class="panel-title sidebar-window-title">TWOJE UTWORY</h3>
     </div>
     <div *ngIf="isLoggedIn" class="panel-body text-center" style="color: #d4d4d4; background-color: #181818">
-        <p *ngFor="let userTrack of usersTrack" class="panel-playlists" style="color: white;">
+        <p *ngFor="let userTrack of usersTrack" class="list-group-item" style="background-color: black">
           {{ userTrack.artist }} - {{ userTrack.title }}
         </p>
       <span>
@@ -42,7 +42,7 @@
   <!-- region RANDOM HITS -->
   <div class="panel panel-default" fxHide.lt-md>
     <div class="panel-heading" style="background-color: #610061">
-      <h3 class="panel-title" style="color: white" >Przypadkowy hit</h3>
+      <h3 class="panel-title sidebar-window-title" >PRZYPADKOWY HIT</h3>
     </div>
     <div class="panel-body text-center" style="color: #d4d4d4; background-color: #181818">
       <h3>{{randomTrack.title}}</h3>
@@ -59,7 +59,7 @@
   <!-- region TOP5 -->
   <div class="panel panel-default" fxHide.lt-md>
     <div class="panel-heading" style="background-color: #610061">
-      <h3 class="panel-title" style="color: white;">TOP 5</h3>
+      <h3 class="panel-title sidebar-window-title">TOP 5</h3>
     </div>
     <table class="table table-bordered" style="color: #d4d4d4; background-color: #181818">
       <tbody>
@@ -93,7 +93,7 @@
   <!-- region THE BEST UPLOADERS -->
   <div class="panel panel-default" style="background-color: #181818" fxHide.lt-md>
     <div class="panel-heading" style="background-color: #610061; margin-bottom: 5px">
-      <h3 class="panel-title" style="color: white">Najlepsi uploaderzy</h3>
+      <h3 class="panel-title sidebar-window-title">NAJLEPSI UPLOADERZY</h3>
     </div>
 
     <ul class="nav justify-content-center" style="width: 100%">
