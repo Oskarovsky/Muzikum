@@ -101,9 +101,12 @@
         <div class="col" style="margin-left: 10px">
           <app-sidebar-left></app-sidebar-left>
         </div>
+
         <div class="col-8">
           <app-alert></app-alert>
-          <router-outlet></router-outlet>
+          <div class="customer-content">
+            <router-outlet></router-outlet>
+          </div>
         </div>
         <div class="col" style="margin-right: 10px">
           <app-sidebar-right></app-sidebar-right>
