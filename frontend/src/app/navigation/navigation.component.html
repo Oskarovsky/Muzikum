@@ -19,7 +19,7 @@
 
 
 <!-- NAVIGATION PANEL PANEL -->
-<div class="row" style="width: 100%; align-content: center; display: inline-block; text-align: center; margin-bottom: 40px">
+<div class="row" id="navigation-menu">
     <button mat-button routerLink="/" style="color: white" fxHide.xs>Strona główna</button>
 
     <button mat-button [matMenuTriggerFor]="tracksMenu" style="color: white" fxHide.xs>Utwory</button>
@@ -74,6 +74,7 @@
 <!--        <button mat-menu-item *ngIf="isLoggedIn" routerLink="/playlist/all/{{username}}">Moje składanki</button>-->
 <!--      </mat-menu>-->
 </div>
+<div class="fade-effect1"></div>
 <!-- END -->
 
 <mat-sidenav-container fxFlexFill>
@@ -96,7 +97,7 @@
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content *ngIf="!getIsMobileResolution()">
-      <div class="set-bg" style="background-image: url('/assets/img/bg.jpg');">
+      <div style="background: #121e1b url(../../assets/img/templatemo_main_bg.png) repeat;">
       <div class="row">
         <div class="col" style="margin-left: 10px">
           <app-sidebar-left></app-sidebar-left>

@@ -93,3 +93,19 @@ $xx-large-desktop: 1920px;
 
 }
 
+#navigation-menu {
+  width: 100%;
+  align-content: center;
+  display: inline-block;
+  text-align: center;
+  margin-bottom: 2px;
+}
+
+.fade-effect1{
+  display:block;
+  border:none;
+  color:black;
+  height:3px;
+  background:white;
+  background: -webkit-gradient(radial, 50% 50%, 0, 50% 50%, 900, from(#770c8d), to(#000000));
+}
