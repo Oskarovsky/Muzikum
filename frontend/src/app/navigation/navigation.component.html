@@ -99,17 +99,15 @@
   <mat-sidenav-content *ngIf="!getIsMobileResolution()">
       <div style="background: #121e1b url(../../assets/img/templatemo_main_bg.png) repeat;">
       <div class="row">
-        <div class="col" style="margin-left: 10px">
+        <div class="col" style="margin-left: 10px; margin-top: 30px;">
           <app-sidebar-left></app-sidebar-left>
         </div>
 
-        <div class="col-8">
+        <div class="col-8" style="background-color: rgba(0,0,0,0.4); margin-top: 20px;">
           <app-alert></app-alert>
-          <div class="customer-content">
-            <router-outlet></router-outlet>
-          </div>
+          <router-outlet></router-outlet>
         </div>
-        <div class="col" style="margin-right: 10px">
+        <div class="col" style="margin-right: 10px; margin-top: 30px;">
           <app-sidebar-right></app-sidebar-right>
         </div>
       </div>

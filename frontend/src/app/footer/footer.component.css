@@ -13,16 +13,18 @@ body{
 }
 
 .copyright{
-  background-color:#f0f0f0;
+  align-content: center;
+  text-align: center;
+  background-color: rgba(0,0,0,0.4);
 }
 
 .copyright p{
-  margin:10px 0px;
+  margin:10px;
 }
 
 footer{
-  background-color:#222222;
-  padding: 25px 0px;
+  background-color: rgba(0,0,0,0.4);
+  padding: 25px ;
 }
 
 footer .menu li a{
