@@ -20,9 +20,9 @@
 
 <!-- NAVIGATION PANEL PANEL -->
 <div class="row" id="navigation-menu">
-    <button mat-button routerLink="/" style="color: white" fxHide.xs>Strona główna</button>
+    <button mat-button routerLink="/" style="color: white; font-size: 17px;" fxHide.xs>Strona główna</button>
 
-    <button mat-button [matMenuTriggerFor]="tracksMenu" style="color: white" fxHide.xs>Utwory</button>
+    <button mat-button [matMenuTriggerFor]="tracksMenu" style="color: white; font-size: 17px;" fxHide.xs>Utwory</button>
     <mat-menu #tracksMenu="matMenu" yPosition="below">
       <button [routerLink]="['/tracks', 'vixa']" mat-menu-item>Vixa</button>
       <button [routerLink]="['/tracks', 'club']" mat-menu-item>Club</button>
@@ -33,7 +33,7 @@
       <button [routerLink]="['/tracks', 'set']" mat-menu-item>Sety/Mixy</button>
     </mat-menu>
 
-    <button mat-button [matMenuTriggerFor]="genreMenu" style="color: white" fxHide.xs>Top ranking</button>
+    <button mat-button [matMenuTriggerFor]="genreMenu" style="color: white; font-size: 17px;" fxHide.xs>Top ranking</button>
       <mat-menu #genreMenu="matMenu" yPosition="below">
         <button mat-menu-item routerLink="/tracklist/vixa">Vixa</button>
         <button mat-menu-item routerLink="/tracklist/club">Club</button>
@@ -60,7 +60,7 @@
 <!--        <button mat-menu-item routerLink="/toplist/techno">Techno</button>-->
 <!--      </mat-menu>-->
 
-    <button mat-button [matMenuTriggerFor]="videoMenu" style="color: white" fxHide.xs>Video</button>
+    <button mat-button [matMenuTriggerFor]="videoMenu" style="color: white; font-size: 17px;" fxHide.xs>Video</button>
       <mat-menu #videoMenu="matMenu" xPosition="after">
         <button mat-menu-item routerLink="/video/category/MIX">Mixy</button>
         <button mat-menu-item routerLink="/video/category/LUNA_MIX">Luna Mix</button>
