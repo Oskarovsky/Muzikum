@@ -19,12 +19,26 @@
     </div>
     <div *ngIf="track.urlSource !== null" class="post-title">
     </div>
-    <div *ngIf="track.urlSource === 'ZIPPYSHARE'" class="post-title iframe_track">
-      <iframe [id]="track.id" [src]="track.safeUrl" width="1000" height="100" frameborder="0"></iframe>
+    <div *ngIf="mapa.get(track.id) != null">
+      <div *ngIf="track.urlSource === 'ZIPPYSHARE'" class="post-title iframe_track">
+        <iframe [src]="mapa.get(track.id)" width="1000" height="100" frameborder="0"></iframe>
+      </div>
+      <div *ngIf="track.urlSource === 'KRAKENFILES'" class="post-title iframe_track">
+        <iframe [src]="mapa.get(track.id)" width="1000" height="100" frameborder="0"></iframe>
+      </div>
     </div>
-    <div *ngIf="track.urlSource === 'KRAKENFILES'" class="post-title iframe_track">
-      <iframe [id]="track.id" [src]="track.safeUrl" width="1000" height="100" frameborder="0" ></iframe>
+
+    <!-- TODO -->
+    <div *ngIf="mapa.get(track.id) === null">
+      <div *ngIf="track.urlSource === 'ZIPPYSHARE'" class="post-title iframe_track">
+        <img [src]="urlSafe" width="1000" height="100"/>
+      </div>
+      <div *ngIf="track.urlSource === 'KRAKENFILES'" class="post-title iframe_track">
+        <img [src]="urlSafe" width="1000" height="100"/>
+      </div>
     </div>
+
+
     <span>
       <a *ngIf="isLoggedIn" class="btnCommments" href="app/track/{{track.id}}" role="button">
        <button class="btn-info">Download</button>
@@ -33,12 +47,7 @@
        <button class="btn-info">Zaloguj się, aby pobrać utwór</button>
       </a>
     </span>
+    <button type="button" (click)="fakeClick(track.id)">Pokaż odtwarzacz</button>
     <hr />
   </div>
 </div>
-
-
-
-<!--
-https://s2.krakenfiles.com/uploads/12-11-2020/da9fea7baa/waveform.png
--->
