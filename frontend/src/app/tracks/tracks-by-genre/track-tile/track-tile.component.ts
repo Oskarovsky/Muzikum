@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
 import {Track} from '../../track/model/track';
 
 @Component({
@@ -14,10 +14,11 @@ export class TrackTileComponent implements OnInit {
   @Input() currentPage: number;
   @Input() isLoggedIn: boolean;
 
+  element: ElementRef;
+
   constructor() {}
 
   ngOnInit() {
-
   }
 
 }

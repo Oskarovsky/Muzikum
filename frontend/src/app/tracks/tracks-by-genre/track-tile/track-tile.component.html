@@ -20,10 +20,10 @@
     <div *ngIf="track.urlSource !== null" class="post-title">
     </div>
     <div *ngIf="track.urlSource === 'ZIPPYSHARE'" class="post-title iframe_track">
-      <iframe [src]="track.safeUrl" width="1000" height="100" frameborder="0"></iframe>
+      <iframe [id]="track.id" [src]="track.safeUrl" width="1000" height="100" frameborder="0"></iframe>
     </div>
     <div *ngIf="track.urlSource === 'KRAKENFILES'" class="post-title iframe_track">
-      <iframe [src]="track.safeUrl" width="1000" height="100" frameborder="0"></iframe>
+      <iframe [id]="track.id" [src]="track.safeUrl" width="1000" height="100" frameborder="0" ></iframe>
     </div>
     <span>
       <a *ngIf="isLoggedIn" class="btnCommments" href="app/track/{{track.id}}" role="button">
@@ -37,3 +37,8 @@
   </div>
 </div>
 
+
+
+<!--
+https://s2.krakenfiles.com/uploads/12-11-2020/da9fea7baa/waveform.png
+-->
