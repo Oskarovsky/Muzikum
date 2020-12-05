@@ -9,7 +9,7 @@
   },
   "/kraken": {
     "target": "https://krakenfiles.com",
-    "secure": true,
+    "secure": false,
     "logLevel": "debug",
     "pathRewrite": {
       "^/kraken": ""
