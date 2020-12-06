@@ -46,7 +46,9 @@ dependencies {
 
     /* ============ region IMPLEMENTATION ============ */
     // Spring Boot's web application support
-    implementation('org.springframework.boot:spring-boot-starter-web')
+    implementation('org.springframework.boot:spring-boot-starter-web') {
+        exclude group: 'org.springframework.boot', module: 'spring-boot-starter-logging'
+    }
 
     // Spring Boot's JPA support
     implementation('org.springframework.boot:spring-boot-starter-data-jpa')
@@ -87,6 +89,12 @@ dependencies {
     compile group: 'org.jsoup', name: 'jsoup', version: '1.9.1'
     compile group: 'org.gebish', name: 'geb-core', version: '3.3'
     compile group: 'net.sourceforge.htmlunit', name: 'htmlunit', version: '2.38.0'
+
+    // Libraries for logging
+    compile group: 'org.apache.logging.log4j', name: 'log4j-core', version: '2.14.0'
+    compile group: 'org.apache.logging.log4j', name: 'log4j-api', version: '2.14.0'
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-log4j2', version: '2.4.0'
+
 
     // Set of libraries for authentication methods
     compile group: 'org.json', name: 'json', version: '20090211'

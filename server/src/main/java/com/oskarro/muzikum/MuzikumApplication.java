@@ -64,6 +64,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+
 @SpringBootApplication(exclude = {SecurityAutoConfiguration.class })
 @EntityScan(basePackageClasses = {
         MuzikumApplication.class,
@@ -74,7 +75,7 @@ import java.util.stream.Stream;
 @EnableConfigurationProperties(AppProperties.class)
 public class MuzikumApplication implements CommandLineRunner {
 
-    private static final Logger log = LoggerFactory.getLogger(MuzikumApplication.class);
+    private static final Logger logger = LoggerFactory.getLogger(MuzikumApplication.class);
 
     private final Environment env;
 
@@ -377,9 +378,9 @@ public class MuzikumApplication implements CommandLineRunner {
         try {
             hostAddress = InetAddress.getLocalHost().getHostAddress();
         } catch (UnknownHostException e) {
-            log.warn("The host name could not be determined, using `localhost` as fallback");
+            logger.warn("The host name could not be determined, using `localhost` as fallback");
         }
-        log.info("\n----------------------------------------------------------\n\t" +
+        logger.info("\n----------------------------------------------------------\n\t" +
                         "Application '{}' is running! Access URLs:\n\t" +
                         "Local: \t\t{}://localhost:{}{}\n\t" +
                         "External: \t{}://{}:{}{}\n\t" +
