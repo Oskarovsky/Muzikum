@@ -22,12 +22,14 @@ export class TrackTileComponent implements OnInit {
   url = 'https://i.ibb.co/JrDVPRN/Untitled.png';
   urlSafe: SafeResourceUrl;
 
-  divShow = true;
-
   constructor(public sanitizer: DomSanitizer) {}
 
   fakeClick(trackId: number) {
     this.divShowMapa.set(trackId, true);
+    this.tracks.filter(x => x.id !== trackId).forEach(t => {
+      this.mapa.set(t.id, null);
+      this.divShowMapa.set(t.id, false);
+    });
     this.track = this.tracks.find(x => x.id === trackId);
     this.mapa.set(this.track.id, this.track.safeUrl);
   }

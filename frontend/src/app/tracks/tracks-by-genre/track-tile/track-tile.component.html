@@ -27,9 +27,9 @@
         <iframe [src]="mapa.get(track.id)" width="1000" height="100" frameborder="0"></iframe>
       </div>
     </div>
-
-
-
+    <div *ngIf="!divShowMapa.get(track.id)">
+      <input type="image" src="assets/img/player_oskarro.jpg" alt="player_image" (click)="fakeClick(track.id)">
+    </div>
     <span>
       <a *ngIf="isLoggedIn" class="btnCommments" href="app/track/{{track.id}}" role="button">
        <button class="btn-info">Download</button>
@@ -38,9 +38,6 @@
        <button class="btn-info">Zaloguj się, aby pobrać utwór</button>
       </a>
     </span>
-    <div *ngIf="!divShowMapa.get(track.id)">
-      <input type="image" src="{{url}}" alt="player_image" (click)="fakeClick(track.id)">
-    </div>
     <hr />
   </div>
 </div>
