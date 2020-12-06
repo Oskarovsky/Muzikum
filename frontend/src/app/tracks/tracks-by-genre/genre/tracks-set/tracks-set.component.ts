@@ -49,7 +49,8 @@ export class TracksSetComponent implements OnInit {
 
   secureAllUrl(allTracks: Track[]) {
     for (const track of allTracks) {
-      track.safeUrl = this.sanitizer.bypassSecurityTrustResourceUrl(`${track.urlPlugin}`);
+      const urlNoAuto = track.urlPlugin.replace('false', 'true');
+      track.safeUrl = this.sanitizer.bypassSecurityTrustResourceUrl(urlNoAuto);
     }
   }
 

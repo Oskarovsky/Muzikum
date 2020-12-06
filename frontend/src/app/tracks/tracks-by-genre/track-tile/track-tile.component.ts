@@ -1,4 +1,4 @@
-import {Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
+import {Component, Input, OnInit, SecurityContext} from '@angular/core';
 import {Track} from '../../track/model/track';
 import {DomSanitizer, SafeResourceUrl} from '@angular/platform-browser';
 
@@ -19,8 +19,6 @@ export class TrackTileComponent implements OnInit {
   mapa: Map<number, SafeResourceUrl> = new Map<number, SafeResourceUrl>();
   divShowMapa: Map<number, boolean> = new Map<number, boolean>();
   track: Track;
-  url = 'https://i.ibb.co/JrDVPRN/Untitled.png';
-  urlSafe: SafeResourceUrl;
 
   constructor(public sanitizer: DomSanitizer) {}
 
@@ -35,14 +33,8 @@ export class TrackTileComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.urlSafe = this.sanitizer.bypassSecurityTrustResourceUrl(this.url);
-    this.setDefaultPlayer();
   }
 
-  setDefaultPlayer() {
-    this.tracks.forEach(t => {
-      this.mapa.set(t.id, this.sanitizer.bypassSecurityTrustResourceUrl(this.url));
-    });
-  }
+
 
 }
