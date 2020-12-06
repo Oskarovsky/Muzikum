@@ -28,15 +28,6 @@
       </div>
     </div>
 
-    <!-- TODO -->
-    <div *ngIf="mapa.get(track.id) === null">
-      <div *ngIf="track.urlSource === 'ZIPPYSHARE'" class="post-title iframe_track">
-        <img [src]="urlSafe" width="1000" height="100"/>
-      </div>
-      <div *ngIf="track.urlSource === 'KRAKENFILES'" class="post-title iframe_track">
-        <img [src]="urlSafe" width="1000" height="100"/>
-      </div>
-    </div>
 
 
     <span>
@@ -47,7 +38,9 @@
        <button class="btn-info">Zaloguj się, aby pobrać utwór</button>
       </a>
     </span>
-    <button type="button" (click)="fakeClick(track.id)">Pokaż odtwarzacz</button>
+    <div *ngIf="!divShowMapa.get(track.id)">
+      <input type="image" src="{{url}}" alt="player_image" (click)="fakeClick(track.id)">
+    </div>
     <hr />
   </div>
 </div>

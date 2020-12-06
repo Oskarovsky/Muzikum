@@ -17,19 +17,30 @@ export class TrackTileComponent implements OnInit {
   @Input() isLoggedIn: boolean;
 
   mapa: Map<number, SafeResourceUrl> = new Map<number, SafeResourceUrl>();
+  divShowMapa: Map<number, boolean> = new Map<number, boolean>();
   track: Track;
   url = 'https://i.ibb.co/JrDVPRN/Untitled.png';
   urlSafe: SafeResourceUrl;
 
+  divShow = true;
+
   constructor(public sanitizer: DomSanitizer) {}
 
   fakeClick(trackId: number) {
+    this.divShowMapa.set(trackId, true);
     this.track = this.tracks.find(x => x.id === trackId);
     this.mapa.set(this.track.id, this.track.safeUrl);
   }
 
   ngOnInit() {
     this.urlSafe = this.sanitizer.bypassSecurityTrustResourceUrl(this.url);
+    this.setDefaultPlayer();
+  }
+
+  setDefaultPlayer() {
+    this.tracks.forEach(t => {
+      this.mapa.set(t.id, this.sanitizer.bypassSecurityTrustResourceUrl(this.url));
+    });
   }
 
 }
