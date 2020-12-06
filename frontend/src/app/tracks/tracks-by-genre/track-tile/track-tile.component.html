@@ -1,18 +1,21 @@
 <div class="row post" *ngFor="let track of tracks">
-  <div class="col-md-1">
+  <div class="col-md-1 vote-area">
     <app-track-vote-button [track]="track"></app-track-vote-button>
   </div>
   <div class="col-md-11">
-        <span class="subreddit-info">
-            <span class="subreddit-text"><a class="posturl" routerLink="">Dodano {{track.createdAt | dateAgo}}</a></span>
-            <span *ngIf="track.user!==null">
-              Autor <a class="username" routerLink="/profile/{{track.user.username}}">{{track.user.username}}</a>
-            </span>
-            <span *ngIf="track.user==null">
-              Autor <a class="username" routerLink="/user/oskarro">Oskarro</a>
-            </span>
-        </span>
-    <hr />
+    <div class="info-area">
+      <span class="subreddit-text">
+        <a class="posturl" routerLink="">Dodano {{track.createdAt | dateAgo}}   |</a>
+      </span>
+      <span *ngIf="track.user!==null" style="color: black">
+        Autor <a class="username" routerLink="/profile/{{track.user.username}}" style="color: rebeccapurple; font-weight: bold">
+        {{track.user.username}}</a>
+      </span>
+      <span *ngIf="track.user==null">
+        Autor <a class="username" routerLink="/user/oskarro">Oskarro</a>
+      </span>
+    </div>
+
     <div class="post-title">
       <a *ngIf="track.version !== null" class="postname" href="/track/{{track.id}}">{{track.artist}} - {{track.title}} ({{track.version}})</a>
       <a *ngIf="track.version === null" class="postname" href="/track/{{track.id}}">{{track.artist}} - {{track.title}}</a>

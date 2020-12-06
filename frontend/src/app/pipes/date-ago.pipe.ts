@@ -27,7 +27,7 @@ export class DateAgoPipe implements PipeTransform {
         counter = Math.floor(seconds / intervals[i]);
         if (counter > 0) {
           if (counter <= 4) {
-            return counter + ' ' + i + 'y temu'; // singular (1 day ago)
+            return counter + ' ' + i + ' temu'; // singular (1 day ago)
           } else {
             return counter + ' ' + i + ' temu'; // plural (2 days ago)
           }

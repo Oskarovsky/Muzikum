@@ -5,8 +5,9 @@ import {UploadFileService} from '../../services/storage/upload-file.service';
 import {FavoriteService} from '../../services/favorite/favorite.service';
 import {TrackService} from '../../services/track/track.service';
 import {Subscription} from 'rxjs';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {UserService} from '../../services/user/user.service';
+import {AlertService} from '../../services/alert/alert.service';
 
 @Component({
   selector: 'app-user-profile',
@@ -25,19 +26,26 @@ export class UserProfileComponent implements OnInit {
   favoriteTracksByUser: Track[] = [];
   userProfile: any;
 
-  constructor(private token: TokenStorageService,
+  constructor(private tokenStorage: TokenStorageService,
               private uploadService: UploadFileService,
               private favoriteService: FavoriteService,
               private route: ActivatedRoute,
+              private router: Router,
+              private alertService: AlertService,
               private userService: UserService,
               private trackService: TrackService) { }
 
   ngOnInit() {
-    this.currentUser = this.token.getUser();
-    this.getUserProfile();
-    this.getImageFromService();
-    this.getLastAddedTracksByUsername(this.userProfile.username, 5);
-    this.getAllFavoritesTracksByUser(this.userProfile.username);
+    if (this.tokenStorage.getToken()) {
+      this.currentUser = this.tokenStorage.getUser();
+      this.getUserProfile();
+      this.getImageFromService();
+      this.getLastAddedTracksByUsername(this.userProfile.username, 5);
+      this.getAllFavoritesTracksByUser(this.userProfile.username);
+    } else {
+      this.alertService.warn('Zaloguj się, aby zobaczyć profil użytkownika.', { keepAfterRouteChange: true });
+      this.redirect();
+    }
   }
 
   getUserProfile() {
@@ -92,6 +100,10 @@ export class UserProfileComponent implements OnInit {
     this.favoriteService.getAllFavoritesTracksByUsername(username).subscribe((track: any) => {
       this.favoriteTracksByUser = track;
     });
+  }
+
+  redirect() {
+    this.router.navigate(['/']);
   }
 
 }
