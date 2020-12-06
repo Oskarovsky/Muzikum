@@ -6,9 +6,12 @@
       <h3 class="panel-title sidebar-window-title">TWOJE UTWORY</h3>
     </div>
     <div *ngIf="isLoggedIn" class="panel-body text-center" style="color: #d4d4d4; background-color: #181818">
+      <div>
         <p *ngFor="let userTrack of usersTrack" class="list-group-item" style="background-color: black">
           {{ userTrack.artist }} - {{ userTrack.title }}
         </p>
+      </div>
+      <div style="margin-top: 10px">
       <span>
         <button mat-raised-button
                 type="button"
@@ -27,6 +30,7 @@
                       <i class="material-icons">list</i>
         </button>
       </span>
+      </div>
     </div>
     <div *ngIf="!isLoggedIn" class="panel-body text-center" style="color: #d4d4d4; background-color: #181818">
       <button mat-raised-button
