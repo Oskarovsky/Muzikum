@@ -35,10 +35,10 @@
     </div>
     <span>
       <a *ngIf="isLoggedIn" class="btnCommments" href="app/track/{{track.id}}" role="button">
-       <button class="btn-info">Download</button>
+       <button class="btn-download">Pobierz utwór</button>
       </a>
       <a *ngIf="!isLoggedIn" class="btnCommments" [routerLink]="['/login']" role="button">
-       <button class="btn-info">Zaloguj się, aby pobrać utwór</button>
+       <button class="btn-download">Zaloguj się, aby pobrać utwór</button>
       </a>
     </span>
     <hr />

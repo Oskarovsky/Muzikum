@@ -5,7 +5,7 @@ import {DomSanitizer, SafeResourceUrl} from '@angular/platform-browser';
 @Component({
   selector: 'app-track-tile',
   templateUrl: './track-tile.component.html',
-  styleUrls: ['./track-tile.component.css']
+  styleUrls: ['./track-tile.component.scss']
 })
 export class TrackTileComponent implements OnInit {
 
