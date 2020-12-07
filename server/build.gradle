@@ -75,6 +75,9 @@ dependencies {
 
     // Cache libraries
     compile group: 'org.springframework.boot', name: 'spring-boot-starter-cache', version: '2.4.0'
+    compile group: 'javax.cache', name: 'cache-api', version: '1.1.1'
+    compile group: 'org.ehcache', name: 'ehcache', version: '3.9.0'
+
 
     // Lombok auto-generates things like getters and setters
     compileOnly 'org.projectlombok:lombok'
