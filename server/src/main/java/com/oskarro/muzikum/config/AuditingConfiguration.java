@@ -13,7 +13,7 @@ import java.util.Optional;
 
 @Configuration
 @EnableJpaAuditing
-public class AuditingConfig {
+public class AuditingConfiguration {
 
     @Bean
     public AuditorAware<Integer> auditorProvider() {

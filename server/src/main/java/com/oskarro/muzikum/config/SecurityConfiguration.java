@@ -40,7 +40,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
         prePostEnabled = true,
         securedEnabled = true,
         jsr250Enabled = true)
-public class SecurityConfig extends WebSecurityConfigurerAdapter {
+public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     /**
      * To authenticate a User or perform various role-based checks, Spring security needs to load users details somehow.
