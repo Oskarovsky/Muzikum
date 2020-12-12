@@ -5,14 +5,14 @@
 
   <table id="tracks">
     <tr>
-      <th *ngFor="let column of displayedColumns" style="background-color: #610061">
+      <th *ngFor="let column of displayedColumns" style="background-color: #3e1f3e">
         {{ column }}
       </th>
     </tr>
 
     <tr *ngFor="let track of tracks |slice:0:numberOfTracks; let i=index; index as i" style="text-align: center">
       <td style="font-weight: bold">{{ i+1 }}</td>
-      <td>{{ track.title }}</td>
+      <td style="font-size: 1.5em">{{ track.title }}</td>
       <td>{{ track.artist }}</td>
       <td>{{ track.version }}</td>
       <td>

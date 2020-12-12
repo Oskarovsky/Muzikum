@@ -1,6 +1,6 @@
 .title_table {
   color:white;
-  background-color: rgb(65, 0, 88);
+  background-color: rgb(48, 0, 62);
   border: 1px solid #ddd;
 }
 
@@ -13,7 +13,7 @@
   border-collapse: collapse;
   width: 100%;
   color: white;
-  //background-color: #313131;
+  background-color: rgba(49, 49, 49, 0.7);
 }
 
 #tracks td, #tracks th {
@@ -21,9 +21,13 @@
   padding: 8px;
 }
 
-//#tracks tr:nth-child(even){background-color: #313131;}
-//
-//#tracks tr:hover {background-color: #505050;}
+#tracks tr:nth-child(even){
+  background-color: rgba(49, 49, 49, 0.7);
+}
+
+#tracks tr:hover {
+  background-color: rgba(64, 64, 64, 0.7);
+}
 
 #tracks th {
   padding-top: 12px;
