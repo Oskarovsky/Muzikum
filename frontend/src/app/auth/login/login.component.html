@@ -43,9 +43,6 @@
 
 
       <p class="text-center">Chcesz stworzyć nowe konto? <a href="">Dołącz do nas!</a></p>
-      <div class="alert alert-warning" *ngIf="f.submitted && isLoginFailed">
-        Wystąpił błąd podczas rejestracji!<br />{{ errorMessage }}
-      </div>
     </form>
     <div class="alert alert-success" *ngIf="isLoggedIn">
       Zalogowałeś się w portalu oskarro.com !

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../services/auth/auth.service';
 import {FormBuilder, FormGroup, Validators, FormControl} from '@angular/forms';
 import {MustMatch} from './MustMatch';
+import {AlertService} from '../../services/alert/alert.service';
 
 @Component({
   selector: 'app-register',
@@ -12,12 +13,11 @@ export class RegisterComponent implements OnInit {
 
   form: any = {};
   isSuccessful = false;
-  isSignUpFailed = false;
-  errorMessage = '';
   registerForm: FormGroup;
   submitted = false;
 
   constructor(private authService: AuthService,
+              private alertService: AlertService,
               private formBuilder: FormBuilder) { }
 
   ngOnInit() {
@@ -35,11 +35,9 @@ export class RegisterComponent implements OnInit {
     this.authService.register(this.form).subscribe(
       data => {
         this.isSuccessful = true;
-        this.isSignUpFailed = false;
       },
       err => {
-        this.errorMessage = err.error.message;
-        this.isSignUpFailed = true;
+        this.alertService.error('Wystąpił błąd podczas procesu rejestracji. Spróbuj ponownie!');
       }
     );
   }

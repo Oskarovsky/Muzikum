@@ -74,11 +74,7 @@
         <button type="submit" class="btn btn-dark btn-block" id="submit_register" disabled>Zarejestruj się</button>
       </div> <!-- form-group// -->
 
-
       <p class="text-center" style="color: white">Masz już konto? <a [routerLink]="['/login']">Zaloguj się!</a></p>
-      <div class="alert alert-warning" *ngIf="f.submitted && isSignUpFailed">
-        Wystąpił błąd podczas rejestracji!<br />{{ errorMessage }}
-      </div>
     </form>
     <div class="alert alert-success" *ngIf="isSuccessful">
       Zarejestrowałeś się w portalu oskarro.com ! <br/>
