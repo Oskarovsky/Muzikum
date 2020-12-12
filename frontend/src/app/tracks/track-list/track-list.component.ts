@@ -11,7 +11,7 @@ import {VoteService} from '../../services/vote/vote.service';
 @Component({
   selector: 'app-track-list',
   templateUrl: './track-list.component.html',
-  styleUrls: ['./track-list.component.css']
+  styleUrls: ['./track-list.component.scss']
 })
 export class TrackListComponent implements OnInit {
 

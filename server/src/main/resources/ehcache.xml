@@ -13,4 +13,6 @@
     <cache alias="TopUploaders" uses-template="default"/>
     <cache alias="MostPopularTrackByGenre" uses-template="default"/>
 
+    <!-- TODO update/zmiana cache w wypadku gdy dodajemy nowy utwór - CachePut -->
+
 </config>

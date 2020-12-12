@@ -1,7 +1,6 @@
 <div class="example-container">
-
-  <div style="color:white; background-color: #610061; border: 1px solid #ddd; vertical-align: middle;">
-    <h2 style="text-align: center;">TOPLISTA - {{tracks[0].genre}}</h2>
+  <div class="title_table">
+    <h3 class="title_table_name">TOPLISTA - {{tracks[0].genre}}</h3>
   </div>
 
   <table id="tracks">
@@ -11,13 +10,13 @@
       </th>
     </tr>
 
-    <tr *ngFor="let track of tracks |slice:0:numberOfTracks; let i=index; index as i">
+    <tr *ngFor="let track of tracks |slice:0:numberOfTracks; let i=index; index as i" style="text-align: center">
       <td>{{ i+1 }}</td>
       <td>{{ track.title }}</td>
       <td>{{ track.artist }}</td>
       <td>{{ track.version }}</td>
-      <td style="text-align: center">{{ track.points }}</td>
-      <td *ngIf="isLoggedIn" style="text-align: center">
+      <td>{{ track.points }}</td>
+      <td *ngIf="isLoggedIn">
         <button mat-raised-button *ngIf="!favoriteTracksIds.toString().includes(track.id.toString())"
                 (click)="addTrackToFavorites(track.id, username); clicked[i] = true;"
                 [disabled]="clicked[i]"
@@ -35,10 +34,10 @@
                 style="margin-left: 10px; color: white">Dodany
         </button>
       </td>
-      <td *ngIf="!isLoggedIn"  style="text-align: center; vertical-align: middle;">
+      <td *ngIf="!isLoggedIn"  style="vertical-align: middle;">
         <button mat-stroked-button [routerLink]="['/login']">Zaloguj się !</button>
       </td>
-      <td *ngIf="isLoggedIn" style="text-align: center; vertical-align: middle;">
+      <td *ngIf="isLoggedIn" style="vertical-align: middle;">
         <button mat-raised-button *ngIf="!votedTracksIds.toString().includes(track.id.toString())"
                 (click)="addVoteForTrack(track.id, username); clickedVote[i] = true;"
                 [disabled]="clickedVote[i]"
@@ -56,10 +55,10 @@
                 style="margin-left: 10px; color: white">Już to lubisz.
         </button>
       </td>
-      <td *ngIf="!isLoggedIn"  style="text-align: center; vertical-align: middle;">
+      <td *ngIf="!isLoggedIn"  style="vertical-align: middle;">
         <button mat-stroked-button [routerLink]="['/login']">Zaloguj się !</button>
       </td>
-      <td style="text-align: center; vertical-align: middle;">
+      <td style="vertical-align: middle;">
         <button mat-stroked-button [routerLink]="['/track', track.id]">Zobacz</button>
       </td>
     </tr>
