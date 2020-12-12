@@ -13,7 +13,7 @@
   border-collapse: collapse;
   width: 100%;
   color: white;
-  background-color: #313131;
+  //background-color: #313131;
 }
 
 #tracks td, #tracks th {
@@ -21,9 +21,9 @@
   padding: 8px;
 }
 
-#tracks tr:nth-child(even){background-color: #313131;}
-
-#tracks tr:hover {background-color: #505050;}
+//#tracks tr:nth-child(even){background-color: #313131;}
+//
+//#tracks tr:hover {background-color: #505050;}
 
 #tracks th {
   padding-top: 12px;
@@ -34,3 +34,49 @@
 }
 
 
+
+
+
+svg {
+  width: 130px;
+  height: 40px;
+}
+
+a {
+  color: #000;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+
+/* HIGHLIGHT */
+.highlight .button {
+  display: inline-block;
+  color: #fff;
+  background: #370749;
+  margin: 10px;
+  width: fit-content;
+  height: 40px;
+  padding: 0 10px;
+  line-height: 40px;
+  border-radius: 10px;
+  position: relative;
+  overflow: hidden;
+}
+
+.highlight .button:before {
+  content: "";
+  position: absolute;
+  top: -30px;
+  left: -80px;
+  height: 100px;
+  width: 70px;
+  background: rgba(173, 173, 173, 0.7);
+  transform: rotate(20deg);
+}
+
+.highlight .button:hover:before {
+  left: 150px;
+  transition: all .5s;
+}
+.highlight {margin-bottom:100px;}

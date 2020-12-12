@@ -1,4 +1,4 @@
-<div class="example-container">
+<div class="example-container highlight">
   <div class="title_table">
     <h3 class="title_table_name">TOPLISTA - {{tracks[0].genre}}</h3>
   </div>
@@ -11,55 +11,55 @@
     </tr>
 
     <tr *ngFor="let track of tracks |slice:0:numberOfTracks; let i=index; index as i" style="text-align: center">
-      <td>{{ i+1 }}</td>
+      <td style="font-weight: bold">{{ i+1 }}</td>
       <td>{{ track.title }}</td>
       <td>{{ track.artist }}</td>
       <td>{{ track.version }}</td>
-      <td>{{ track.points }}</td>
+      <td>
+        <button mat-mini-fab color="accent">
+          {{ track.points }}
+        </button>
+      </td>
       <td *ngIf="isLoggedIn">
-        <button mat-raised-button *ngIf="!favoriteTracksIds.toString().includes(track.id.toString())"
+        <button *ngIf="!favoriteTracksIds.toString().includes(track.id.toString())"
                 (click)="addTrackToFavorites(track.id, username); clicked[i] = true;"
                 [disabled]="clicked[i]"
                 type="button"
-                color="primary"
                 class="btn btn-primary"
                 style="margin-left: 10px; color: white">Dodaj
         </button>
-        <button mat-raised-button *ngIf="favoriteTracksIds.toString().includes(track.id.toString())"
+        <button *ngIf="favoriteTracksIds.toString().includes(track.id.toString())"
                 (click)="addTrackToFavorites(track.id, username)"
                 type="button"
-                color="accent"
                 [disabled]="true"
                 class="btn btn-primary"
                 style="margin-left: 10px; color: white">Dodany
         </button>
       </td>
       <td *ngIf="!isLoggedIn"  style="vertical-align: middle;">
-        <button mat-stroked-button [routerLink]="['/login']">Zaloguj się !</button>
+        <a class="button" [routerLink]="['/login']">Zaloguj się !</a>
       </td>
       <td *ngIf="isLoggedIn" style="vertical-align: middle;">
-        <button mat-raised-button *ngIf="!votedTracksIds.toString().includes(track.id.toString())"
+        <button *ngIf="!votedTracksIds.toString().includes(track.id.toString())"
                 (click)="addVoteForTrack(track.id, username); clickedVote[i] = true;"
                 [disabled]="clickedVote[i]"
                 type="button"
-                color="primary"
                 class="btn btn-primary"
                 style="margin-left: 10px; color: white">Lubię To!
         </button>
-        <button mat-raised-button *ngIf="votedTracksIds.toString().includes(track.id.toString())"
+        <button *ngIf="votedTracksIds.toString().includes(track.id.toString())"
                 (click)="addVoteForTrack(track.id, username)"
                 type="button"
-                color="accent"
                 [disabled]="true"
                 class="btn btn-primary"
                 style="margin-left: 10px; color: white">Już to lubisz.
         </button>
       </td>
       <td *ngIf="!isLoggedIn"  style="vertical-align: middle;">
-        <button mat-stroked-button [routerLink]="['/login']">Zaloguj się !</button>
+        <a class="button" [routerLink]="['/login']">Zaloguj się !</a>
       </td>
       <td style="vertical-align: middle;">
-        <button mat-stroked-button [routerLink]="['/track', track.id]">Zobacz</button>
+        <a class="button" style="background-color: #5b0a78" [routerLink]="['/track', track.id]">Zobacz</a>
       </td>
     </tr>
   </table>
@@ -67,5 +67,5 @@
   <div *ngIf="!isLoggedIn"  class="alert alert-warning" role="alert">
     <a routerLink="/login">Zaloguj się</a>, jeśli chcesz zobaczyć więcej utworów!
   </div>
-
 </div>
+
