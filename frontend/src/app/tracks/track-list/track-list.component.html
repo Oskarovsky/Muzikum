@@ -15,11 +15,7 @@
       <td style="font-size: 1.5em">{{ track.title }}</td>
       <td>{{ track.artist }}</td>
       <td>{{ track.version }}</td>
-      <td>
-        <button mat-mini-fab color="primary">
-          {{ track.points }}
-        </button>
-      </td>
+      <td><button mat-mini-fab color="primary">{{ track.points }}</button></td>
 
 
       <td *ngIf="isLoggedIn">
@@ -27,15 +23,13 @@
                 (click)="addTrackToFavorites(track.id, username); clicked[i] = true;"
                 [disabled]="clicked[i]"
                 type="button"
-                class="btn btn-primary"
-                style="margin-left: 10px; color: white">Dodaj
+                class="btn btn-primary buttonTable">Dodaj
         </button>
         <button *ngIf="favoriteTracksIds.toString().includes(track.id.toString())"
                 (click)="addTrackToFavorites(track.id, username)"
                 type="button"
                 [disabled]="true"
-                class="btn btn-primary"
-                style="margin-left: 10px; color: white">Dodany
+                class="btn btn-primary buttonTable">Dodany
         </button>
       </td>
 
@@ -44,15 +38,13 @@
                 (click)="addVoteForTrack(track.id, username); clickedVote[i] = true;"
                 [disabled]="clickedVote[i]"
                 type="button"
-                class="btn btn-primary"
-                style="margin-left: 10px; color: white">Lubię To!
+                class="btn btn-primary buttonTable">Lubię To!
         </button>
         <button *ngIf="votedTracksIds.toString().includes(track.id.toString())"
                 (click)="addVoteForTrack(track.id, username)"
                 type="button"
                 [disabled]="true"
-                class="btn btn-primary"
-                style="margin-left: 10px; color: white">Już to lubisz.
+                class="btn btn-primary buttonTable">Już to lubisz.
         </button>
       </td>
 
