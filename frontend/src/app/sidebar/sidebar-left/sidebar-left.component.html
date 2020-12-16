@@ -53,9 +53,9 @@
       <h4>{{randomTrack.artist}}</h4>
       <h5>({{randomTrack.version}})</h5>
       <p style="display: none" id="randomTrack">{{randomTrack.artist}} - {{randomTrack.title}} ({{randomTrack.version}})</p>
-      <button onclick="copyToClipboard('#randomTrack')">
-        <i class="material-icons">content_copy</i>
-      </button>
+      <a [routerLink]="['track', randomTrack.id]">
+        <i class="material-icons">play_circle_filled</i>
+      </a>
     </div>
   </div>
   <!-- endregion -->

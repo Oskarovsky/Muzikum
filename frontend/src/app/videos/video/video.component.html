@@ -1,25 +1,24 @@
-<div class="example-container" style="margin-top: 20px">
+<div class="example-container video-container">
 
-  <div class="row" style="margin-bottom: 20px">
+  <div class="search-field">
     <button mat-raised-button
             *ngIf="showAdminBoard"
             type="button"
             color="primary"
-            routerLink="/video/add"
-            style="margin-right: 15px;">Dodaj video
+            routerLink="/video/add">Dodaj video
     </button>
-    <input type="text"
-           [(ngModel)]="searchText"
-           class="mat-form-field"
-           style="width: 80%;"
-           placeholder="Wyszukaj video..." />
+    <label>
+      <input type="text"
+             [(ngModel)]="searchText"
+             class="mat-form-field"
+             placeholder="Wyszukaj video..." />
+    </label>
   </div>
 
   <mat-accordion>
-    <mat-expansion-panel *ngFor="let video of videos | videoFilter:searchText"
-                         style="text-align: center; background-color: #610061">
+    <mat-expansion-panel *ngFor="let video of videos | videoFilter:searchText" class="expansion-panel">
       <mat-expansion-panel-header>
-        <mat-panel-title style="color: white">
+        <mat-panel-title class="panel-main-title">
           {{ video.name }}
         </mat-panel-title>
       </mat-expansion-panel-header>
@@ -27,8 +26,16 @@
         <iframe width="640" height="360"
                 [src]=video.safeUrl>
         </iframe> <br/>
-        <button *ngIf="isLoggedIn" mat-flat-button color="primary" [routerLink]="['/video', video.id, 'details']">Pokaż tracklistę / Sprawdź szczegóły</button>
-        <button *ngIf="!isLoggedIn" mat-stroked-button color="primary" [routerLink]="['/login']">Zaloguj się, aby zobaczyć tracklistę!</button>
+        <button *ngIf="isLoggedIn"
+                mat-flat-button
+                color="primary"
+                [routerLink]="['/video', video.id, 'details']">Pokaż tracklistę / Sprawdź szczegóły
+        </button>
+        <button *ngIf="!isLoggedIn"
+                mat-stroked-button
+                color="primary"
+                [routerLink]="['/login']">Zaloguj się, aby zobaczyć tracklistę!
+        </button>
       </ng-template>
     </mat-expansion-panel>
   </mat-accordion>
