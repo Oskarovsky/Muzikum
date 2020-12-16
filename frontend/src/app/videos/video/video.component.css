@@ -9,10 +9,19 @@
 
 .expansion-panel {
   text-align: center;
+  color: white;
   background-color: #3c0047
 }
 
 .panel-main-title {
   color: white;
-  size: 2em;
+  font-size: 1.5em;
+}
+
+.expansion-panel-header {
+  color: white;
+}
+
+.button-area {
+  margin-top: 20px;
 }

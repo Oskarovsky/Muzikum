@@ -16,10 +16,12 @@
       <td>{{ track.artist }}</td>
       <td>{{ track.version }}</td>
       <td>
-        <button mat-mini-fab color="accent">
+        <button mat-mini-fab color="primary">
           {{ track.points }}
         </button>
       </td>
+
+
       <td *ngIf="isLoggedIn">
         <button *ngIf="!favoriteTracksIds.toString().includes(track.id.toString())"
                 (click)="addTrackToFavorites(track.id, username); clicked[i] = true;"
@@ -36,9 +38,7 @@
                 style="margin-left: 10px; color: white">Dodany
         </button>
       </td>
-      <td *ngIf="!isLoggedIn"  style="vertical-align: middle;">
-        <a class="button" [routerLink]="['/login']">Zaloguj się !</a>
-      </td>
+
       <td *ngIf="isLoggedIn" style="vertical-align: middle;">
         <button *ngIf="!votedTracksIds.toString().includes(track.id.toString())"
                 (click)="addVoteForTrack(track.id, username); clickedVote[i] = true;"
@@ -55,11 +55,13 @@
                 style="margin-left: 10px; color: white">Już to lubisz.
         </button>
       </td>
-      <td *ngIf="!isLoggedIn"  style="vertical-align: middle;">
-        <a class="button" [routerLink]="['/login']">Zaloguj się !</a>
-      </td>
-      <td style="vertical-align: middle;">
+
+      <td *ngIf="isLoggedIn" style="vertical-align: middle;">
         <a class="button" style="background-color: #5b0a78" [routerLink]="['/track', track.id]">Zobacz</a>
+      </td>
+
+      <td colspan="3" *ngIf="!isLoggedIn"  style="vertical-align: middle;">
+        <a class="button" [routerLink]="['/login']">Zaloguj się !</a>
       </td>
     </tr>
   </table>

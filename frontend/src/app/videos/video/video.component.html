@@ -17,25 +17,28 @@
 
   <mat-accordion>
     <mat-expansion-panel *ngFor="let video of videos | videoFilter:searchText" class="expansion-panel">
-      <mat-expansion-panel-header>
+      <mat-expansion-panel-header class="expansion-panel-header">
         <mat-panel-title class="panel-main-title">
           {{ video.name }}
         </mat-panel-title>
       </mat-expansion-panel-header>
       <ng-template matExpansionPanelContent>
-        <iframe width="640" height="360"
+        <iframe width="854" height="480"
                 [src]=video.safeUrl>
-        </iframe> <br/>
-        <button *ngIf="isLoggedIn"
-                mat-flat-button
-                color="primary"
-                [routerLink]="['/video', video.id, 'details']">Pokaż tracklistę / Sprawdź szczegóły
-        </button>
-        <button *ngIf="!isLoggedIn"
-                mat-stroked-button
-                color="primary"
-                [routerLink]="['/login']">Zaloguj się, aby zobaczyć tracklistę!
-        </button>
+        </iframe>
+        <br/>
+        <div class="button-area">
+          <button *ngIf="isLoggedIn"
+                  mat-flat-button
+                  color="primary"
+                  [routerLink]="['/video', video.id, 'details']">Pokaż tracklistę / Sprawdź szczegóły
+          </button>
+          <button *ngIf="!isLoggedIn"
+                  mat-stroked-button
+                  color="primary"
+                  [routerLink]="['/login']">Zaloguj się, aby zobaczyć tracklistę!
+          </button>
+        </div>
       </ng-template>
     </mat-expansion-panel>
   </mat-accordion>
