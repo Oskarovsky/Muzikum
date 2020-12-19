@@ -28,4 +28,14 @@ public class Video {
     @JoinColumn(name = "playlist_id")
     private Playlist playlist;
 
+    @Column(name = "comment_count")
+    private Integer commentCount;
+
+    @Column(name = "view_count")
+    private Integer viewCount;
+
+    @Column(name = "like_count")
+    private Integer likeCount;
+
+
 }

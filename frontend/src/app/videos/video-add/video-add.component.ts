@@ -22,7 +22,10 @@ export class VideoAddComponent implements OnInit {
     name: '',
     url: '',
     category: '',
-    safeUrl: null,
+    commentCount: null,
+    viewCount: null,
+    likeCount: null,
+    safeUrl: null
   };
 
   constructor(private videoService: VideoService) {
@@ -49,6 +52,9 @@ export class VideoAddComponent implements OnInit {
       url,
       name,
       category,
+      commentCount: 0,
+      viewCount: 0,
+      likeCount: 0,
       safeUrl: null,
     };
     this.videoService.addVideo(newVideo).subscribe(

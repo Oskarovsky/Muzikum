@@ -18,4 +18,6 @@ public interface VideoService {
     void deleteVideoById(Integer id);
 
     Playlist getPlaylistFromVideoById(Integer id);
+
+    void
 }

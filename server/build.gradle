@@ -85,7 +85,6 @@ dependencies {
 
     // Libraries for liquibase
 //    compile group: 'org.liquibase', name: 'liquibase-core', version: '4.1.1'
-//    compile group: 'org.liquibase.ext', name: 'liquibase-hibernate4', version: '3.6'
 
     // PostgresSQL-specific connector for JPA
     compile group: 'org.postgresql', name: 'postgresql', version: '42.2.12'
@@ -126,6 +125,9 @@ dependencies {
     // Libraries for plugin handling
     compile group: 'commons-io', name: 'commons-io', version: '2.7'
     compile group: 'com.googlecode.json-simple', name: 'json-simple', version: '1.1.1'
+
+    // Other plugins
+    compile group: 'org.javatuples', name: 'javatuples', version: '1.2'
 
     /* ============ endregion COMPILE ============ */
 

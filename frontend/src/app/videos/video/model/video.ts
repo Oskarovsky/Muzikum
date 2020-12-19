@@ -5,5 +5,8 @@ export class Video {
   name: string;
   url: string;
   category: string;
+  commentCount: number;
+  viewCount: number;
+  likeCount: number;
   safeUrl: SafeResourceUrl;
 }

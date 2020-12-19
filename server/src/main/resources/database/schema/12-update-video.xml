@@ -6,23 +6,8 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
          http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
 
-    <changeSet id="0056" author="oskarro">
-        <createTable tableName="video">
-            <column name="id" type="int" autoIncrement="true">
-                <constraints primaryKey="true" nullable="false" unique="true" primaryKeyName="pk_video"/>
-            </column>
-            <column name="name" type="varchar(255)">
-                <constraints nullable="true"/>
-            </column>
-            <column name="category" type="varchar(255)">
-                <constraints nullable="true"/>
-            </column>
-            <column name="playlist_id" type="int">
-                <constraints nullable="true" foreignKeyName="fk_video_playlist_id" references="playlist(id)"/>
-            </column>
-            <column name="url" type="varchar(255)">
-                <constraints nullable="true"/>
-            </column>
+    <changeSet id="1056" author="oskarro">
+        <update schemaName="public" tableName="video">
             <column name="updated_at" type="TIMESTAMP WITHOUT TIME ZONE">
                 <constraints nullable="true"/>
             </column>
@@ -35,7 +20,7 @@
             <column name="comment_count" type="BIGINT">
                 <constraints nullable="true"/>
             </column>
-        </createTable>
+        </update>
     </changeSet>
 
 </databaseChangeLog>
