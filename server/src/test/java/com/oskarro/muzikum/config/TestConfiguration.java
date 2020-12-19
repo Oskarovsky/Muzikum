@@ -8,7 +8,11 @@ import com.oskarro.muzikum.user.UserRepository;
 import com.oskarro.muzikum.user.UserService;
 import com.oskarro.muzikum.user.UserStatisticsRepository;
 import org.springframework.context.annotation.Bean;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.security.crypto.password.PasswordEncoder;
+
+import java.util.Properties;
 
 @org.springframework.boot.test.context.TestConfiguration
 public class TestConfiguration {
@@ -35,5 +39,25 @@ public class TestConfiguration {
     public UserService userService() {
         return new UserDetailsServiceImpl(userRepository, userStatisticsRepository, passwordEncoder, tokenProvider);
     }
+
+    @Bean
+    public JavaMailSender getJavaMailSender() {
+        JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
+        mailSender.setHost("smtp.gmail.com");
+        mailSender.setPort(587);
+
+        mailSender.setUsername("my.gmail@gmail.com");
+        mailSender.setPassword("password");
+
+        Properties props = mailSender.getJavaMailProperties();
+        props.put("mail.transport.protocol", "smtp");
+        props.put("mail.smtp.auth", "true");
+        props.put("mail.smtp.starttls.enable", "true");
+        props.put("mail.debug", "true");
+
+        return mailSender;
+    }
+
+
 
 }

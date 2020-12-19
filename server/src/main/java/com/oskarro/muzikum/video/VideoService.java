@@ -1,6 +1,8 @@
 package com.oskarro.muzikum.video;
 
 import com.oskarro.muzikum.playlist.Playlist;
+import org.javatuples.Pair;
+import org.javatuples.Tuple;
 
 import java.util.List;
 import java.util.Optional;
@@ -19,5 +21,5 @@ public interface VideoService {
 
     Playlist getPlaylistFromVideoById(Integer id);
 
-    void
+    void updateVideoStatistics();
 }

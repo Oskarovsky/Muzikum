@@ -16,4 +16,6 @@ public interface VideoRepository extends JpaRepository<Video, Integer> {
     Video save(Video video);
 
     void deleteById(Integer id);
+
+    Optional<Video> findByUrl(String url);
 }
