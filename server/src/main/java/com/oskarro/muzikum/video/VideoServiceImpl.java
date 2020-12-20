@@ -14,6 +14,8 @@ import lombok.extern.slf4j.Slf4j;
 
 import java.io.IOException;
 import java.net.URL;
+import java.time.Instant;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -90,18 +92,23 @@ public class VideoServiceImpl implements VideoService {
         Object object = new JSONParser().parse(IOUtils.toString(new URL(youtubeApiUrl), UTF_8));
         JSONObject jsonObject = (JSONObject) object;
         JSONArray itemsPartFromJson = (JSONArray) jsonObject.get("items");
-        JSONObject itemsPartJsonObject = (JSONObject) itemsPartFromJson.get(0);
-        JSONObject statisticsPartJsonObject = (JSONObject) itemsPartJsonObject.get("statistics");
-        String viewCount = String.valueOf(statisticsPartJsonObject.get("viewCount"));
-        String commentCount = String.valueOf(statisticsPartJsonObject.get("commentCount"));
-        String likeCount = String.valueOf(statisticsPartJsonObject.get("likeCount"));
-        Video video = videoRepository.findByUrl(videoUrl)
-                .orElseThrow(() -> new ResourceNotFoundException("Video", "videoUrl", videoUrl));
-        video.setViewCount(Integer.valueOf(viewCount));
-        video.setCommentCount(Integer.valueOf(commentCount));
-        video.setLikeCount(Integer.valueOf(likeCount));
-        videoRepository.save(video);
-        log.info("Video statistics for {} has been updated --> views: {}, likes: {}, comments: {}",
-                video.getName(), viewCount, likeCount, commentCount);
+        if (!itemsPartFromJson.isEmpty()) {
+            JSONObject itemsPartJsonObject = (JSONObject) itemsPartFromJson.get(0);
+            JSONObject statisticsPartJsonObject = (JSONObject) itemsPartJsonObject.get("statistics");
+            String viewCount = String.valueOf(statisticsPartJsonObject.get("viewCount"));
+            String commentCount = String.valueOf(statisticsPartJsonObject.get("commentCount"));
+            String likeCount = String.valueOf(statisticsPartJsonObject.get("likeCount"));
+            Video video = videoRepository.findByUrl(videoUrl)
+                    .orElseThrow(() -> new ResourceNotFoundException("Video", "videoUrl", videoUrl));
+            video.setViewCount(Integer.valueOf(viewCount));
+            video.setCommentCount(Integer.valueOf(commentCount));
+            video.setLikeCount(Integer.valueOf(likeCount));
+            video.setUpdatedAt(Instant.now());
+            videoRepository.save(video);
+            log.info("Video statistics for {} has been updated --> views: {}, likes: {}, comments: {}",
+                    video.getName(), viewCount, likeCount, commentCount);
+        } else {
+            log.warn("Video statistics with url {} cannot be updated", videoUrl);
+        }
     }
 }
