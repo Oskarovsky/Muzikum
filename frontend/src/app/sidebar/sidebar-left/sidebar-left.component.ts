@@ -45,8 +45,6 @@ export class SidebarLeftComponent implements OnInit {
               private route: ActivatedRoute) { }
 
   ngOnInit() {
-    // this.getLastAddedPlaylists('5');
-    // this.getLastAddedUsers('2');
     this.getRandomTrack();
     this.getMostPopularTrackByGenre('RETRO', 'RETRO');
     this.getMostPopularTrackByGenre('CLUB', 'CLUB');
