@@ -2,8 +2,10 @@ package com.oskarro.muzikum.video;
 
 import com.oskarro.muzikum.playlist.Playlist;
 import lombok.*;
+import org.springframework.data.annotation.LastModifiedDate;
 
 import javax.persistence.*;
+import java.time.Instant;
 
 @Data
 @Entity
@@ -37,5 +39,8 @@ public class Video {
     @Column(name = "like_count")
     private Integer likeCount;
 
+    @LastModifiedDate
+    @Column(name = "updated_at")
+    private Instant updatedAt;
 
 }

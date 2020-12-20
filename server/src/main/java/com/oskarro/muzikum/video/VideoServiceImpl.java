@@ -3,26 +3,32 @@ package com.oskarro.muzikum.video;
 import com.oskarro.muzikum.exception.ResourceNotFoundException;
 import com.oskarro.muzikum.playlist.Playlist;
 import org.apache.commons.io.IOUtils;
-import org.javatuples.Pair;
-import org.javatuples.Tuple;
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import lombok.extern.slf4j.Slf4j;
+
 
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+
 import static java.nio.charset.StandardCharsets.UTF_8;
 
+@Slf4j
 @Service
 public class VideoServiceImpl implements VideoService {
 
     VideoRepository videoRepository;
+
+    @Value("${google.api.key}")
+    private String GOOGLE_API_KEY;
 
 
     public VideoServiceImpl(VideoRepository videoRepository) {
@@ -65,15 +71,37 @@ public class VideoServiceImpl implements VideoService {
     @Override
     public void updateVideoStatistics() {
         List<String> videoUrls = videoRepository.findAll().stream().map(Video::getUrl).collect(Collectors.toList());
+        for (String url: videoUrls) {
+            try {
+                updateYoutubeInformation(url);
+            } catch (IOException | ParseException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
+    @Override
     public void updateYoutubeInformation(String videoUrl) throws IOException, ParseException {
-        Object object = new JSONParser().parse(IOUtils.toString(new URL(videoUrl), UTF_8));
+        String jsonPart = "statistics";
+        String youtubeApiUrl = "https://www.googleapis.com/youtube/v3/videos" +
+                "?part=" + jsonPart +
+                "&id=" + videoUrl +
+                "&key=" + GOOGLE_API_KEY;
+        Object object = new JSONParser().parse(IOUtils.toString(new URL(youtubeApiUrl), UTF_8));
         JSONObject jsonObject = (JSONObject) object;
-        Integer val1 = (Integer) jsonObject.get("statistics.viewCount");
+        JSONArray itemsPartFromJson = (JSONArray) jsonObject.get("items");
+        JSONObject itemsPartJsonObject = (JSONObject) itemsPartFromJson.get(0);
+        JSONObject statisticsPartJsonObject = (JSONObject) itemsPartJsonObject.get("statistics");
+        String viewCount = String.valueOf(statisticsPartJsonObject.get("viewCount"));
+        String commentCount = String.valueOf(statisticsPartJsonObject.get("commentCount"));
+        String likeCount = String.valueOf(statisticsPartJsonObject.get("likeCount"));
         Video video = videoRepository.findByUrl(videoUrl)
                 .orElseThrow(() -> new ResourceNotFoundException("Video", "videoUrl", videoUrl));
-        video.setViewCount(val1);
+        video.setViewCount(Integer.valueOf(viewCount));
+        video.setCommentCount(Integer.valueOf(commentCount));
+        video.setLikeCount(Integer.valueOf(likeCount));
         videoRepository.save(video);
+        log.info("Video statistics for {} has been updated --> views: {}, likes: {}, comments: {}",
+                video.getName(), viewCount, likeCount, commentCount);
     }
 }
