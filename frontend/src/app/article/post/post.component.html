@@ -2,8 +2,10 @@
   <div>
     <mat-card-title>Wszystkie posty dodane przez użytkownika {{username}}</mat-card-title>
     <!-- Post content -->
-    <div class="row" style="margin-top: 28px; width: 100%; text-align: center; display: inline-block" *ngIf="isLoggedIn">
-      <table class="table table-striped" style="margin: 0 auto">
+    <div *ngIf="isLoggedIn"
+         class="row"
+         style="color: white; margin-top: 28px; width: 100%; text-align: center; display: inline-block">
+      <table class="table" style="margin: 0 auto">
         <thead>
         <tr>
           <th scope="col" style="text-align: center">#</th>
