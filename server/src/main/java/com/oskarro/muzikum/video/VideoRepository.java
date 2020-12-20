@@ -1,10 +1,13 @@
 package com.oskarro.muzikum.video;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Optional;
 
+@Repository
 public interface VideoRepository extends JpaRepository<Video, Integer> {
 
     List<Video> findAll();
@@ -18,4 +21,6 @@ public interface VideoRepository extends JpaRepository<Video, Integer> {
     void deleteById(Integer id);
 
     Optional<Video> findByUrl(String url);
+
+    List<Video> findTop10ByOrderByViewCountDesc();
 }

@@ -74,4 +74,11 @@ public class VideoServiceTest {
     public void test_updateYoutubeDetailsInfo() throws IOException, ParseException {
         videoService.updateYoutubeInformation("WRooj5n80uo");
     }
+
+    @Test
+    public void test_getTop10PopularVideo() {
+        System.out.println(videoService.getTop10PopularVideos());
+    }
+
+
 }

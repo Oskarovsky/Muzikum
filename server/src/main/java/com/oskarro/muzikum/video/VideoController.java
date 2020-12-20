@@ -76,4 +76,10 @@ public class VideoController {
         return videoService.getPlaylistFromVideoById(id);
     }
 
+    @GetMapping(value = "/top")
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
+    public List<Video> getTopVideos() {
+        return videoService.getTop10PopularVideos();
+    }
+
 }

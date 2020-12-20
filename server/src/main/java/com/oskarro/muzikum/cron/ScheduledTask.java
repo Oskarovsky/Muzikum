@@ -37,6 +37,7 @@ public class ScheduledTask {
 
     @Scheduled(cron = "0 0/5 * * * *")
     public void updateYoutubeStatistics() {
+        log.info("Youtube statistics updating {}", dateFormat.format(new Date()));
         videoService.updateVideoStatistics();
     }
 

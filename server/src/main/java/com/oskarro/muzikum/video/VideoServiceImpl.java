@@ -111,4 +111,9 @@ public class VideoServiceImpl implements VideoService {
             log.warn("Video statistics with url {} cannot be updated", videoUrl);
         }
     }
+
+    @Override
+    public List<Video> getTop10PopularVideos() {
+        return videoRepository.findTop10ByOrderByViewCountDesc();
+    }
 }
