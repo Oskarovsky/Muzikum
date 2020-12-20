@@ -7,3 +7,8 @@
 .sidebar-window-background {
   background: linear-gradient(180deg, rgba(116,1,161,1) 0%, rgba(0,0,0,1) 100%);
 }
+
+[class^="icon-"], [class*=" icon-"] {
+  display: inline-block;
+  width: 100%;
+}

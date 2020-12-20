@@ -92,6 +92,7 @@ import { UserChangePasswordComponent } from './user/user-change-password/user-ch
 import { AlertComponent } from './alert/alert.component';
 import {AlertModule} from './alert/alert.module';
 import { TracksSetComponent } from './tracks/tracks-by-genre/genre/tracks-set/tracks-set.component';
+import { VideoAllComponent } from './videos/video-all/video-all.component';
 
 
 @NgModule({
@@ -161,6 +162,7 @@ import { TracksSetComponent } from './tracks/tracks-by-genre/genre/tracks-set/tr
     UserEditComponent,
     UserChangePasswordComponent,
     TracksSetComponent,
+    VideoAllComponent,
   ],
     imports: [
         AppRoutingModule,

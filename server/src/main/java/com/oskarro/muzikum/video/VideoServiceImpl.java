@@ -116,4 +116,9 @@ public class VideoServiceImpl implements VideoService {
     public List<Video> getTop10PopularVideos() {
         return videoRepository.findTop10ByOrderByViewCountDesc();
     }
+
+    @Override
+    public List<Video> getAllVideosSortedByViews() {
+        return videoRepository.findAllByOrderByViewCountDesc();
+    }
 }

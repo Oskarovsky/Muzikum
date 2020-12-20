@@ -24,11 +24,25 @@
       <h3 class="panel-title sidebar-window-title">DEEJAY OSKARRO</h3>
     </div>
     <div class="bg-grey text-center panel-body" >
-      <img src="../../../assets/img/logo_oskarro.png" style="max-width:100%; max-height:100%;">
+
+      <table style="width:100%; border: solid 1px white; color: wheat; text-align: center">
+        <tr style="border: solid 1px white;">
+          <th style="text-align: center; color: white; border: solid 1px white;"><mat-icon class="icon-ok">title</mat-icon></th>
+          <th style="text-align: center; color: #7dabdb; border: solid 1px white;"><mat-icon class="icon-ok">pageview</mat-icon></th>
+          <th style="text-align: center; color: rebeccapurple; border: solid 1px white;"><mat-icon class="icon-ok">favorite</mat-icon></th>
+        </tr>
+        <tr *ngFor="let video of videoList" style="border: solid 1px white;">
+          <td style="border: solid 1px white;">{{video.name}}</td>
+          <td style="border: solid 1px white;">{{video.viewCount}}</td>
+          <td style="border: solid 1px white;">{{video.likeCount}}</td>
+        </tr>
+      </table>
+
+<!--      <img src="../../../assets/img/logo_oskarro.png" style="max-width:100%; max-height:100%;">
       <p style="text-align: justify">
         Byłem aktywnym DJem oraz rezydentem klubu Planeta Luna, natomiast obecnie pracuję jako programista,
         a w wolnych chwilach oddaje społeczeństwu swoje mixy.
-      </p>
+      </p>-->
     </div>
   </div>
 

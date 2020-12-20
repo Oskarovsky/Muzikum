@@ -82,4 +82,10 @@ public class VideoController {
         return videoService.getTop10PopularVideos();
     }
 
+    @GetMapping(value = "/all/sorted")
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
+    public List<Video> getAllVideosSortedByViews() {
+        return videoService.getAllVideosSortedByViews();
+    }
+
 }

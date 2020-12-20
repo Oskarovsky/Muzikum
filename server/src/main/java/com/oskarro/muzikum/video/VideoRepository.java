@@ -23,4 +23,6 @@ public interface VideoRepository extends JpaRepository<Video, Integer> {
     Optional<Video> findByUrl(String url);
 
     List<Video> findTop10ByOrderByViewCountDesc();
+
+    List<Video> findAllByOrderByViewCountDesc();
 }

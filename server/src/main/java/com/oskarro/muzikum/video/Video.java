@@ -1,5 +1,8 @@
 package com.oskarro.muzikum.video;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIdentityReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.oskarro.muzikum.playlist.Playlist;
 import lombok.*;
 import org.springframework.data.annotation.LastModifiedDate;
@@ -28,6 +31,8 @@ public class Video {
 
     @OneToOne
     @JoinColumn(name = "playlist_id")
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+    @JsonIdentityReference(alwaysAsId = true)
     private Playlist playlist;
 
     @Column(name = "comment_count")

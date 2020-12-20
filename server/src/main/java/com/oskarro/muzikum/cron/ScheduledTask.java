@@ -35,7 +35,7 @@ public class ScheduledTask {
         userService.resetWeeklyStatsForUploading();
     }
 
-    @Scheduled(cron = "0 0/5 * * * *")
+    @Scheduled(cron = "0 0 1 * * *")
     public void updateYoutubeStatistics() {
         log.info("Youtube statistics updating {}", dateFormat.format(new Date()));
         videoService.updateVideoStatistics();

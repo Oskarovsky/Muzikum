@@ -46,6 +46,7 @@ import {UserEditComponent} from './user/user-edit/user-edit.component';
 import {ForgotPasswordComponent} from './user/forgot-password/forgot-password.component';
 import {UserChangePasswordComponent} from './user/user-change-password/user-change-password.component';
 import {TracksSetComponent} from './tracks/tracks-by-genre/genre/tracks-set/tracks-set.component';
+import {VideoAllComponent} from './videos/video-all/video-all.component';
 
 
 const routes: Routes = [
@@ -89,10 +90,12 @@ const routes: Routes = [
   { path: 'post/user/:username', component: PostComponent},
   { path: 'post/add', component: AddPostComponent},
   { path: 'post/:id/details', component: PostDetailsComponent},
+
   { path: 'video/category/:category', component: VideoComponent },
   { path: 'video/:id/edit', component: VideoEditComponent },
   { path: 'video/:id/details', component: VideoDetailsComponent },
   { path: 'video/add', component: VideoAddComponent },
+  { path: 'video/all', component: VideoAllComponent },
 
   /* INFO */
   { path: 'info/about', component: AboutComponent },

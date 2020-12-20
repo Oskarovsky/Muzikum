@@ -28,4 +28,6 @@ public interface VideoService {
     void updateYoutubeInformation(String videoUrl) throws IOException, ParseException;
 
     List<Video> getTop10PopularVideos();
+
+    List<Video> getAllVideosSortedByViews();
 }

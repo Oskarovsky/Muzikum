@@ -1,0 +1,18 @@
+<table>
+  <thead>
+  <tr>
+    <th style="text-align: center">Nazwa</th>
+    <th style="text-align: center">Ilość wyświetleń</th>
+    <th style="text-align: center">Ilość komentarzy</th>
+    <th style="text-align: center">Ilość polubień</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let video of videoList">
+    <td>{{video.name}}</td>
+    <td>{{video.viewCount}}</td>
+    <td>{{video.likeCount}}</td>
+    <td>{{video.commentCount}}</td>
+  </tr>
+  </tbody>
+</table>

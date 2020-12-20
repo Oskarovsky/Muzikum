@@ -54,4 +54,13 @@ export class VideoService {
     return this.http.get<Playlist>(VIDEO_API + '/' + videoId + '/playlist');
   }
 
+  /** GET list the most popular videos */
+  getTopVideos(): Observable<Video> {
+    return this.http.get<Video>(VIDEO_API + '/top');
+  }
+
+  /** GET list the all videos sorted by views number */
+  getAllVideosSortedByViews(): Observable<Video> {
+    return this.http.get<Video>(VIDEO_API + '/all/sorted');
+  }
 }
