@@ -23,13 +23,12 @@
     <div class="panel-heading sidebar-window-background">
       <h3 class="panel-title sidebar-window-title">DEEJAY OSKARRO</h3>
     </div>
-    <div class="bg-grey text-center panel-body" >
-
-      <table style="width:100%; border: solid 1px white; color: wheat; text-align: center">
+    <div>
+      <table id="rankingVideo">
         <tr style="border: solid 1px white;">
-          <th style="text-align: center; color: white; border: solid 1px white; font-weight: bolder">Składanka</th>
-          <th style="text-align: center; color: #7dabdb; border: solid 1px white;"><mat-icon class="icon-ok">pageview</mat-icon></th>
-          <th style="text-align: center; color: rebeccapurple; border: solid 1px white;"><mat-icon class="icon-ok">favorite</mat-icon></th>
+          <th class="head-row-name">Składanka</th>
+          <th class="head-row-view"><mat-icon class="icon-ok">pageview</mat-icon></th>
+          <th class="head-row-like"><mat-icon class="icon-ok">favorite</mat-icon></th>
         </tr>
         <tr *ngFor="let video of videoList" style="border: solid 1px white;">
           <td style="border: solid 1px white;">{{video.name}}</td>
@@ -37,7 +36,9 @@
           <td style="border: solid 1px white;">{{video.likeCount}}</td>
         </tr>
       </table>
-      <a [routerLink]="['/video', 'all']">Pokaż więcej...</a>
+      <button [routerLink]="['/video', 'all']" class="btn btn-secondary btn-sm"
+              style="margin: 5px;">Pokaż więcej...
+      </button>
     </div>
   </div>
 

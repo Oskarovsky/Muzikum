@@ -93,6 +93,7 @@ import { AlertComponent } from './alert/alert.component';
 import {AlertModule} from './alert/alert.module';
 import { TracksSetComponent } from './tracks/tracks-by-genre/genre/tracks-set/tracks-set.component';
 import { VideoAllComponent } from './videos/video-all/video-all.component';
+import { ZippyPlayerComponent } from './tracks/zippy-player/zippy-player.component';
 
 
 @NgModule({
@@ -163,6 +164,7 @@ import { VideoAllComponent } from './videos/video-all/video-all.component';
     UserChangePasswordComponent,
     TracksSetComponent,
     VideoAllComponent,
+    ZippyPlayerComponent,
   ],
     imports: [
         AppRoutingModule,

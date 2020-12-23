@@ -11,4 +11,31 @@
 [class^="icon-"], [class*=" icon-"] {
   display: inline-block;
   width: 100%;
+  vertical-align: middle;
+}
+
+#rankingVideo {
+  width:100%;
+  border: solid 1px white;
+  color: wheat;
+  text-align: center;
+}
+
+.head-row-name {
+  text-align: center;
+  color: white;
+  border: solid 1px white;
+  font-weight: bolder
+}
+
+.head-row-view {
+  text-align: center;
+  color: #7dabdb;
+  border: solid 1px white;
+}
+
+.head-row-like {
+  text-align: center;
+  color: rebeccapurple;
+  border: solid 1px white;
 }

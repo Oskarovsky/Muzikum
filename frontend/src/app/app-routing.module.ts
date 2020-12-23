@@ -47,6 +47,7 @@ import {ForgotPasswordComponent} from './user/forgot-password/forgot-password.co
 import {UserChangePasswordComponent} from './user/user-change-password/user-change-password.component';
 import {TracksSetComponent} from './tracks/tracks-by-genre/genre/tracks-set/tracks-set.component';
 import {VideoAllComponent} from './videos/video-all/video-all.component';
+import {ZippyPlayerComponent} from './tracks/zippy-player/zippy-player.component';
 
 
 const routes: Routes = [
@@ -74,6 +75,7 @@ const routes: Routes = [
   { path: 'tracks/techno/:page', component: TracksTechnoComponent },
   { path: 'tracks/disco/:page', component: TracksDiscoComponent },
   { path: 'tracks/set/:page', component: TracksSetComponent },
+  { path: 'tracks/player/zippy', component: ZippyPlayerComponent },
 
   { path: 'provider/:id/tracks', component: TrackListComponent },
   { path: 'provider', component: ProviderListComponent },

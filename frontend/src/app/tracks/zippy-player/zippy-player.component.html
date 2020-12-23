@@ -1,0 +1,163 @@
+
+<div class="center" style="text-align: center;">
+  <div id="jquery_jplayer" class="jp-jplayer"></div>
+  <div id="jp_container" class="jp-audio">
+    <div class="jp-type-single">
+      <div class="jp-interface">
+        <ul class="jp-controls">
+          <li><a href="javascript:;" class="jp-play" tabindex="1">play</a></li>
+          <li><a href="javascript:;" class="jp-pause" tabindex="1">pause</a></li>
+        </ul>
+        <div class="jp-time-holder">
+          <span class="jp-current-time"></span>
+          /
+          <span class="jp-duration"></span>
+        </div>
+        <div class="jp-progress">
+          <div onclick="toggleSDHD();" class="hdsdtoggle sd-icon"></div>
+          <div class="jp-seek-bar">
+            <img src="//www54.zippyshare.com/wf/gbkmuRdL/file.html" style="height: 100%; width: 100%; position: absolute;">
+            <img src="//www.zippyshare.com/images/jplayer/player-overlay.png" style="height: 100%; width: 100%;">
+            <div class="jp-play-bar" style="position: absolute; top: 0;"></div>
+          </div>
+        </div>
+      </div>
+      <div class="jp-download" style="height: 0; border-top: none;">
+      </div>
+      <div class="jp-no-solution">
+        <span>Update Required</span>
+        To play the media you will need to either update your browser to a recent version or update your
+        <a href="https://get.adobe.com/flashplayer/" target="_blank">Flash plugin</a>.
+      </div>
+    </div>
+  </div>
+</div>
+<script type="text/javascript">
+
+  function setCookie(cname, cvalue, exdays) {
+    var d = new Date();
+    d.setTime(d.getTime() + (exdays*24*60*60*1000));
+    var expires = "expires="+ d.toUTCString();
+    document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+  }
+
+  function findGetParameter(parameterName) {
+    var result = null,
+      tmp = [];
+    var items = location.search.substr(1).split("&");
+    for (var index = 0; index < items.length; index++) {
+      tmp = items[index].split("=");
+      if (tmp[0] === parameterName) result = decodeURIComponent(tmp[1]);
+    }
+    return result;
+  }
+
+  var currentUrl = window.location.href;
+  var keyParam = findGetParameter("key")
+  var serverParam = findGetParameter("server")
+  var autoplayParam = findGetParameter("autoplay")
+
+  console.log(keyParam + " XXX")
+  console.log(serverParam + " XXX")
+  console.log(autoplayParam + " XXX")
+
+
+  var url_string = currentUrl //window.location.href
+  var url = new URL(url_string);
+  var key = url.searchParams.get("key");
+  var server = url.searchParams.get("server");
+  console.log(key);
+  console.log(server);
+
+  function getCookie(cname) {
+    var name = cname + "=";
+    var decodedCookie = decodeURIComponent(document.cookie);
+    var ca = decodedCookie.split(';');
+    for(var i = 0; i <ca.length; i++) {
+      var c = ca[i];
+      while (c.charAt(0) == ' ') {
+        c = c.substring(1);
+      }
+      if (c.indexOf(name) == 0) {
+        return c.substring(name.length, c.length);
+      }
+    }
+    return "";
+  }
+
+  function redirectTo(url){
+    window.location = url;
+  }
+
+  var bodyWidth = $("body").width();
+  $('.jp-audio').width(bodyWidth-182);
+  $('.jp-progress').width(bodyWidth-82);
+  $('.jp-download').width(bodyWidth-2);
+
+  $(document).ready(function(){
+    var isFirefox = navigator.userAgent.toLowerCase().indexOf('firefox') > -1;
+
+    zippyhq = false || isFirefox;
+
+
+    if (isFirefox) {
+      $.each($(".hdsdtoggle"), function (idx, val) {
+        $(val).removeClass("sd-icon").addClass("hd-icon");
+      });
+    }
+    $("#jquery_jplayer").jPlayer({
+      ready: function (event) {
+        if (!zippyhq) {
+          $(this).jPlayer("setMedia", {
+            m4a: "//www54.zippyshare.com/music/gbkmuRdL/0/file.mp3"
+          });
+
+        } else {
+          $(this).jPlayer("setMedia", {
+            m4a: "//www54.zippyshare.com/musicHQ/gbkmuRdL/0/file.mp3"
+          });
+        }
+      },
+      swfPath: "//api.zippyshare.com/js",
+      supplied: "m4a",
+      wmode: "window",
+      solution: "html, flash",
+      cssSelectorAncestor: "#jp_container",
+      ended: function() {
+        var autoplayCookie = 'on';
+        var news = $(".nowPlayed",parent.document).closest('.news').nextAll('.free:first');
+        if(news.hasClass('top-music') && autoplayCookie.main === "on"){
+          news.click();
+        } else if(autoplayCookie.main === "on") {
+          news.find('.getPlayer, .showPlayerTop').click();
+        }
+
+      },
+    });
+
+    toggleSDHD = function () {
+      if (isFirefox) {
+        return;
+      }
+      if (zippyhq) {
+        zippyhq = false;
+        $.cookie('zippyhq', "0", {expires:99999, domain: 'zippyshare.com', path: '/'});
+        $("#jquery_jplayer").jPlayer("setMedia", {
+          m4a: '//www54.zippyshare.com/music/gbkmuRdL/0/file.mp3'
+        });
+        $.each($(".hdsdtoggle"), function (idx, val) {
+          $(val).removeClass("hd-icon").addClass("sd-icon");
+        });
+      } else {
+        zippyhq = true;
+        $.cookie('zippyhq', "1", {expires:99999, domain: 'zippyshare.com', path: '/'});
+        $("#jquery_jplayer").jPlayer("setMedia", {
+          m4a: '//www54.zippyshare.com/musicHQ/gbkmuRdL/0/file.mp3'
+        });
+        $.each($(".hdsdtoggle"), function (idx, val) {
+          $(val).removeClass("sd-icon").addClass("hd-icon");
+        });
+      }
+    };
+  });
+</script>
