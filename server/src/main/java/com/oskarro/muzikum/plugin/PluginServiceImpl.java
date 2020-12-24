@@ -59,7 +59,7 @@ public class PluginServiceImpl implements PluginService {
         return "https://api.zippyshare.com/api/jplayer_embed.jsp?" +
                 "key=" + trackHash + "&" +
                 "server=" + serverId + "&" +
-                "autoplay=true&" +
+                "autostart=true&" +
                 "width=1000";
     }
 
