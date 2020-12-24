@@ -1,6 +1,6 @@
 {
   "/api": {
-    "target": "https://localhost:8443",
+    "target": "https://oskarro.com:8443",
     "secure": false,
     "logLevel": "debug",
     "pathRewrite": {
