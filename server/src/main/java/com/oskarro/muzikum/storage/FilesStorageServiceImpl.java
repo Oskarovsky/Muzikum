@@ -29,11 +29,15 @@ public class FilesStorageServiceImpl implements FilesStorageService {
     ImageRepository imageRepository;
 
     private final Path rootPath = Paths.get("uploads");
+    private final Path userRootPath = Paths.get("uploads/user");
+    private final Path coverRootPath = Paths.get("uploads/cover");
 
     @Override
     public void init() {
         try {
             Files.createDirectory(rootPath);
+            Files.createDirectory(userRootPath);
+            Files.createDirectory(coverRootPath);
         } catch (IOException e) {
             throw new RuntimeException("Could not initialize folder for upload!");
         }
@@ -43,9 +47,9 @@ public class FilesStorageServiceImpl implements FilesStorageService {
     @Override
     public void save(MultipartFile file, String username, String destination) {
         try {
-            final Path userPath = Paths.get(rootPath.toString() + "/" + username);
+            final Path userPath = Paths.get(userRootPath.toString() + "/" + username);
             FileSystemUtils.deleteRecursively(userPath.toFile());
-            Files.createDirectory(Paths.get(rootPath.toString() + "/" + username));
+            Files.createDirectory(Paths.get(userRootPath.toString() + "/" + username));
             Files.copy(file.getInputStream(), userPath.resolve(Objects.requireNonNull(file.getOriginalFilename())));
 
 
@@ -71,10 +75,42 @@ public class FilesStorageServiceImpl implements FilesStorageService {
         }
     }
 
+    @Transactional
+    @Override
+    public void save(MultipartFile file, String username, String trackId, String destination) {
+        try {
+            final Path userPath = Paths.get(coverRootPath.toString() + "/" + trackId);
+            FileSystemUtils.deleteRecursively(Paths.get(coverRootPath.toFile() + "/" + trackId));
+            Files.createDirectory(Paths.get(coverRootPath.toString() + "/" + trackId));
+            Files.copy(file.getInputStream(), userPath.resolve(Objects.requireNonNull(file.getOriginalFilename())));
+
+
+            User user = userRepository.findByUsername(username)
+                    .orElseThrow(() -> new UsernameNotFoundException("User not found with username or email:" + username));
+
+            if (imageRepository.existsByName(trackId + "_trackCover")) {
+                imageRepository.deleteByName(trackId + "_trackCover");
+            }
+
+            Image image = Image.builder()
+                    .name(trackId + "_trackCover")
+                    .user(user)
+                    .destination(destination)
+                    .type(file.getContentType())
+                    .pic(file.getBytes())
+                    .build();
+            imageRepository.save(image);
+            System.out.println("Image saved");
+
+        } catch (Exception e) {
+            throw new RuntimeException("Could not store the file. Error: " + e.getMessage());
+        }
+    }
+
     @Override
     public Resource load(String filename, String username) {
         try {
-            final Path userPath = Paths.get(rootPath.toString() + "/" + username);
+            final Path userPath = Paths.get(userRootPath.toString() + "/" + username);
             Path file = userPath.resolve(filename);
             Resource resource = new UrlResource(file.toUri());
 

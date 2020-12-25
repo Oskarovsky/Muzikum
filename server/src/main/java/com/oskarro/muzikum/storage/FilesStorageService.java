@@ -14,6 +14,8 @@ public interface FilesStorageService {
 
     void save(MultipartFile file, String username, String destination);
 
+    void save(MultipartFile file, String username, String trackId, String destination);
+
     Resource load(String filename, String username);
 
     void deleteAll();

@@ -52,15 +52,33 @@ public class FilesController {
     public ResponseEntity<ResponseMessage> uploadFile(@RequestParam("file") MultipartFile file,
                                                       @RequestParam("username") String username,
                                                       @RequestParam("destination") String destination) {
-        String message = "";
         try {
             filesStorageService.save(file, username, destination);
-            message = "Dodano zdjęcie: " + file.getOriginalFilename() + ". Odśwież stronę.";
+            String message = "Dodano zdjęcie: " + file.getOriginalFilename() + ". Odśwież stronę.";
             return ResponseEntity
                     .status(HttpStatus.OK)
                     .body(new ResponseMessage(message));
         } catch (Exception e) {
-            message = "Nie można załadować pliku: " + file.getOriginalFilename() + "!";
+            String message = "Nie można załadować pliku: " + file.getOriginalFilename() + "!";
+            return ResponseEntity
+                    .status(HttpStatus.EXPECTATION_FAILED)
+                    .body(new ResponseMessage(message));
+        }
+    }
+
+    @PostMapping(value = "/uploadCover")
+    public ResponseEntity<ResponseMessage> uploadFileCover(@RequestParam("file") MultipartFile file,
+                                                           @RequestParam("username") String username,
+                                                           @RequestParam("trackId") String trackId,
+                                                           @RequestParam("destination") String destination) {
+        try {
+            filesStorageService.save(file, username, trackId, destination);
+            String message = "Dodano zdjęcie jako okładkę do utworu: " + file.getOriginalFilename() + ". Odśwież stronę.";
+            return ResponseEntity
+                    .status(HttpStatus.OK)
+                    .body(new ResponseMessage(message));
+        } catch (Exception e) {
+            String message = "Nie można załadować pliku: " + file.getOriginalFilename() + "!";
             return ResponseEntity
                     .status(HttpStatus.EXPECTATION_FAILED)
                     .body(new ResponseMessage(message));

@@ -74,6 +74,16 @@
         </mat-form-field>
       </div>
 
+      <button mat-stroked-button value="Dodaj zdjęcie" color="primary" id="buttonChangeImage"
+              onclick="showAvatarForm()">Dodaj zdjęcie
+      </button>
+
+      <label style="display:none;" id="avatarForm" class="image-upload-container btn btn-bwm">
+        <button class="btn btn-success" [disabled]="!selectedFile" (click)="uploadCover()">Upload</button>
+        <input type="file" accept='image/*' (change)="selectFile($event)"/>
+        <span class="alert-light" role="alert" style="color: white">{{ message }}</span>
+      </label>
+
       <button type="submit" [disabled]="!userForm.form.valid"
               (click)="addNewTrack(trackTitle.value, trackArtist.value, trackVersion.value,
               trackGenre.value, trackUrl.value, trackUrlSource.value)"

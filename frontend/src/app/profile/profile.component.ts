@@ -26,8 +26,6 @@ export class ProfileComponent implements OnInit {
   imageToShow: any;
   tracks: Array<any>;
   favoriteTracksByUser: Track[] = [];
-  imageUrl: any;
-  srcValue: any;
 
   constructor(private tokenStorage: TokenStorageService,
               private http: HttpClient,

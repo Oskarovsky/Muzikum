@@ -25,6 +25,19 @@ export class UploadFileService {
     return this.http.request(req);
   }
 
+  uploadCover(file: File, username: string, trackId: string, destination: string): Observable<HttpEvent<any>> {
+    const formData: FormData = new FormData();
+    formData.append('file', file);
+    formData.append('username', username);
+    formData.append('trackId', trackId);
+    formData.append('destination', destination);
+    const req = new HttpRequest('POST', STORAGE_API + '/uploadCover', formData, {
+      reportProgress: true,
+      responseType: 'json'
+    });
+    return this.http.request(req);
+  }
+
   getFile(username: string): Observable<Blob> {
     return this.http.get(STORAGE_API + '/' + username + '/avatar', { responseType: 'blob' });
   }

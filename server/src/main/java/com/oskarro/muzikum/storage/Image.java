@@ -29,7 +29,7 @@ public class Image {
     @Lob
     private byte[] pic;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(optional = true, fetch = FetchType.LAZY)
     @MapsId
     private User user;
 }

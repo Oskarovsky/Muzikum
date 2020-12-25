@@ -6,6 +6,8 @@ import {TrackService} from '../../services/track/track.service';
 import {User} from '../../services/user/user';
 import {Router} from '@angular/router';
 import {AlertService} from '../../services/alert/alert.service';
+import {HttpEventType, HttpResponse} from '@angular/common/http';
+import {UploadFileService} from '../../services/storage/upload-file.service';
 
 @Component({
   selector: 'app-track-add',
@@ -19,6 +21,11 @@ export class TrackAddComponent implements OnInit {
   isLoggedIn = false;
   username: string;
   showAdminBoard = false;
+
+  currentUser: any;
+  selectedFile;
+  currentFile: File;
+  message = '';
 
   modelTrack: Track = {
     id: null,
@@ -57,6 +64,7 @@ export class TrackAddComponent implements OnInit {
 
   constructor(private tokenStorage: TokenStorageService,
               private router: Router,
+              private uploadService: UploadFileService,
               private alertService: AlertService,
               private trackService: TrackService) { }
 
@@ -116,6 +124,28 @@ export class TrackAddComponent implements OnInit {
         this.alertService.error('Nie udało się dodać utworu. Sprawdź wprowadzone informacje i spróubuj jeszcze raz!');
       }
     );
+  }
+
+  selectFile(event) {
+    this.selectedFile = event.target.files;
+  }
+
+  uploadCover() {
+    if (this.selectedFile) {
+      this.currentFile = this.selectedFile.item(0);
+      this.uploadService.uploadCover(this.currentFile, this.modelUser.username, '120', 'TRACK').subscribe(
+        event => {
+          if (event.type === HttpEventType.UploadProgress) {
+          } else if (event instanceof HttpResponse) {
+            this.message = event.body.message;
+            this.alertService.success('Zdjęcie zostało dodane. Odśwież stronę.');
+          }
+        },
+        err => {
+          this.alertService.error('Nie udało się dodać zdjęcia.');
+          this.currentFile = undefined;
+        });
+    }
   }
 
   redirect() {
