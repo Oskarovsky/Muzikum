@@ -1,12 +1,7 @@
 package com.oskarro.muzikum.storage;
 
-import com.mortennobel.imagescaling.DimensionConstrain;
-import com.mortennobel.imagescaling.ResampleOp;
 import com.oskarro.muzikum.user.User;
 import com.oskarro.muzikum.user.UserRepository;
-import net.coobird.thumbnailator.Thumbnails;
-import org.apache.commons.io.FileUtils;
-import org.imgscalr.Scalr;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
@@ -15,10 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.FileSystemUtils;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.imageio.ImageIO;
 import javax.transaction.Transactional;
-import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.nio.file.Files;
@@ -49,7 +41,7 @@ public class FilesStorageServiceImpl implements FilesStorageService {
 
     @Transactional
     @Override
-    public void save(MultipartFile file, String username) {
+    public void save(MultipartFile file, String username, String destination) {
         try {
             final Path userPath = Paths.get(rootPath.toString() + "/" + username);
             FileSystemUtils.deleteRecursively(userPath.toFile());
@@ -67,10 +59,11 @@ public class FilesStorageServiceImpl implements FilesStorageService {
             Image image = Image.builder()
                     .name(file.getOriginalFilename())
                     .user(user)
+                    .destination(destination)
                     .type(file.getContentType())
                     .pic(file.getBytes())
                     .build();
-            final Image savedImage = imageRepository.save(image);
+            imageRepository.save(image);
             System.out.println("Image saved");
 
         } catch (Exception e) {

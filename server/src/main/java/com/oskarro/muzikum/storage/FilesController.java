@@ -50,10 +50,11 @@ public class FilesController {
 
     @PostMapping(value = "/upload")
     public ResponseEntity<ResponseMessage> uploadFile(@RequestParam("file") MultipartFile file,
-                                                      @RequestParam("username") String username) {
+                                                      @RequestParam("username") String username,
+                                                      @RequestParam("destination") String destination) {
         String message = "";
         try {
-            filesStorageService.save(file, username);
+            filesStorageService.save(file, username, destination);
             message = "Dodano zdjęcie: " + file.getOriginalFilename() + ". Odśwież stronę.";
             return ResponseEntity
                     .status(HttpStatus.OK)

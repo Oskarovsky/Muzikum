@@ -74,7 +74,7 @@ export class ProfileComponent implements OnInit {
   upload() {
     if (this.selectedFile) {
       this.currentFile = this.selectedFile.item(0);
-      this.uploadService.upload(this.currentFile, this.currentUser.username).subscribe(
+      this.uploadService.upload(this.currentFile, this.currentUser.username, 'AVATAR').subscribe(
         event => {
           if (event.type === HttpEventType.UploadProgress) {
           } else if (event instanceof HttpResponse) {

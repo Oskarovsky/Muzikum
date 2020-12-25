@@ -24,6 +24,8 @@ public class Image {
 
     private String type;
 
+    private String destination;
+
     @Lob
     private byte[] pic;
 

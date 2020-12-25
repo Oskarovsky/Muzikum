@@ -26,6 +26,8 @@ export class SidebarLeftComponent implements OnInit {
   popularTrackDance: Track;
   popularTrackVixa: Track;
   popularTrackTechno: Track;
+  popularTrackDisco: Track;
+  popularTrackSet: Track;
   topUploadersWeek: User[] = [];
   topUploadersMonth: User[] = [];
   topUploadersTotal: User[] = [];
@@ -51,6 +53,8 @@ export class SidebarLeftComponent implements OnInit {
     this.getMostPopularTrackByGenre('DANCE', 'DANCE');
     this.getMostPopularTrackByGenre('VIXA', 'VIXA');
     this.getMostPopularTrackByGenre('TECHNO', 'TECHNO');
+    this.getMostPopularTrackByGenre('DISCO', 'DISCO');
+    this.getMostPopularTrackByGenre('SET', 'SET');
     this.getTopUploaders('week', 5);
     this.getTopUploaders('month', 5);
     this.getTopUploaders('total', 5);
@@ -118,6 +122,10 @@ export class SidebarLeftComponent implements OnInit {
           this.popularTrackVixa = response;
         } else if (option === 'TECHNO') {
           this.popularTrackTechno = response;
+        } else if (option === 'DISCO') {
+          this.popularTrackDisco = response;
+        } else if (option === 'SET') {
+          this.popularTrackSet = response;
         }
       },
       error => {

@@ -1,8 +1,8 @@
 var HttpsProxyAgent = require('https-proxy-agent');
 var proxyConfig = [{
   context: '/api',
-  // target: '//localhost:8443',
-  target: '//oskarro.com:8443',
+  target: '//localhost:8443',
+  // target: '//oskarro.com:8443',
   secure: false
 }];
 
