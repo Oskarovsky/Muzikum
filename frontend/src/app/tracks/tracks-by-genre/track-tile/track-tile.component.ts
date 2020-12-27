@@ -1,4 +1,4 @@
-import {Component, ElementRef, Input, OnInit, SecurityContext} from '@angular/core';
+import {AfterViewChecked, Component, ElementRef, Input, OnChanges, OnInit, SecurityContext, SimpleChanges} from '@angular/core';
 import {Track} from '../../track/model/track';
 import {DomSanitizer, SafeResourceUrl} from '@angular/platform-browser';
 import {UploadFileService} from '../../../services/storage/upload-file.service';
@@ -8,8 +8,7 @@ import {UploadFileService} from '../../../services/storage/upload-file.service';
   templateUrl: './track-tile.component.html',
   styleUrls: ['./track-tile.component.scss']
 })
-export class TrackTileComponent implements OnInit {
-
+export class TrackTileComponent implements AfterViewChecked {
 
   @Input() tracks: Array<Track>;
   @Input() totalNumberOfTracks: number;
@@ -21,16 +20,19 @@ export class TrackTileComponent implements OnInit {
   mapa: Map<number, SafeResourceUrl> = new Map<number, SafeResourceUrl>();
   divShowMapa: Map<number, boolean> = new Map<number, boolean>();
   track: Track;
+  idList: Array<number> = new Array<number>();
 
   constructor(public sanitizer: DomSanitizer,
-              private el: ElementRef,
               public fileService: UploadFileService) {
   }
 
-  ngOnInit() {
-    console.log('userId is:', this.tracks);
-    console.log('userId is:', this.totalNumberOfTracks);
-    this.assignAllCovers();
+  ngAfterViewChecked() {
+    this.tracks.forEach(t => {
+      if (!this.idList.includes(t.id)) {
+        this.idList.push(t.id);
+        this.getCoverImage(t.id);
+      }
+    });
   }
 
   fakeClick(trackId: number) {
@@ -51,12 +53,6 @@ export class TrackTileComponent implements OnInit {
     });
   }
 
-  assignAllCovers() {
-    if (this.tracks) {
-      console.log('AAA = TEST');
-    }
-  }
-
   createCoverFromBlob(trackId: number, image: Blob) {
     const reader = new FileReader();
     reader.addEventListener('load', () => {
@@ -67,7 +63,4 @@ export class TrackTileComponent implements OnInit {
       reader.readAsDataURL(image);
     }
   }
-
-
-
 }

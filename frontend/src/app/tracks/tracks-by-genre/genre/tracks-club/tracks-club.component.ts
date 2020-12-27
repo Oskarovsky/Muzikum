@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {AfterViewChecked, Component, OnInit} from '@angular/core';
 import {Subscription} from 'rxjs';
 import {Track} from '../../../track/model/track';
 import {TrackService} from '../../../../services/track/track.service';
@@ -11,7 +11,7 @@ import {DomSanitizer} from '@angular/platform-browser';
   templateUrl: './tracks-club.component.html',
   styleUrls: ['./tracks-club.component.scss']
 })
-export class TracksClubComponent implements OnInit {
+export class TracksClubComponent implements OnInit, AfterViewChecked {
 
   sub: Subscription;
 
@@ -45,6 +45,13 @@ export class TracksClubComponent implements OnInit {
     if (this.tokenStorage.getToken()) {
       this.isLoggedIn = true;
     }
+  }
+
+  ngAfterViewChecked() {
+    this.tracks.forEach(t => {
+      // this.getCoverImage(t.id);
+      // console.log('ASSIGNED COVER FOR TRACK WITH ID: ' + t.id);
+    });
   }
 
   secureAllUrl(allTracks: Track[]) {

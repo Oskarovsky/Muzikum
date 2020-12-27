@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {AfterViewChecked, Component, OnInit} from '@angular/core';
 import {Track} from '../../track/model/track';
 import {TrackService} from '../../../services/track/track.service';
 import {Subscription} from 'rxjs';
