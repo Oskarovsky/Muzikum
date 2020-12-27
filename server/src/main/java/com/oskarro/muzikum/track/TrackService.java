@@ -53,6 +53,8 @@ public interface TrackService {
 
     List<TrackComment> getAllTrackCommentsByTrackId(Integer id);
 
+    Optional<Track> getTrackByUrl(String url);
+
     TrackComment saveTrackComment(TrackComment trackComment);
 
     void deleteTrackCommentById(Integer commentId);

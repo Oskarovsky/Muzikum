@@ -7,20 +7,24 @@ import com.oskarro.muzikum.user.UserDetailsServiceImpl;
 import com.oskarro.muzikum.user.UserRepository;
 import com.oskarro.muzikum.user.UserService;
 import com.oskarro.muzikum.user.UserStatisticsRepository;
+import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import javax.sql.DataSource;
 import java.util.Properties;
 
 @org.springframework.boot.test.context.TestConfiguration
 public class TestConfiguration {
 
-    UserRepository userRepository;
-    UserStatisticsRepository userStatisticsRepository;
     PasswordEncoder passwordEncoder;
     JwtTokenProvider tokenProvider;
+
+
+/*    UserRepository userRepository;
+    UserStatisticsRepository userStatisticsRepository;
 
     public TestConfiguration(UserRepository userRepository, UserStatisticsRepository userStatisticsRepository,
                              PasswordEncoder passwordEncoder, JwtTokenProvider tokenProvider) {
@@ -38,7 +42,7 @@ public class TestConfiguration {
     @Bean
     public UserService userService() {
         return new UserDetailsServiceImpl(userRepository, userStatisticsRepository, passwordEncoder, tokenProvider);
-    }
+    }*/
 
     @Bean
     public JavaMailSender getJavaMailSender() {
@@ -58,6 +62,15 @@ public class TestConfiguration {
         return mailSender;
     }
 
+    @Bean
+    public DataSource datasource() {
+        return DataSourceBuilder.create()
+                .driverClassName("org.postgresql.Driver")
+                .url("jdbc:postgresql://localhost:5433/muzikum_db")
+                .username("admin")
+                .password("Osasuna1")
+                .build();
+    }
 
 
 }

@@ -79,7 +79,7 @@
       </button>
 
       <label style="display:none;" id="avatarForm" class="image-upload-container btn btn-bwm">
-        <button class="btn btn-success" [disabled]="!selectedFile" (click)="uploadCover()">Upload</button>
+        <button class="btn btn-success" [disabled]="!selectedFile" (click)="uploadCover(trackUrl.value)">Upload</button>
         <input type="file" accept='image/*' (change)="selectFile($event)"/>
         <span class="alert-light" role="alert" style="color: white">{{ message }}</span>
       </label>
@@ -89,6 +89,7 @@
               trackGenre.value, trackUrl.value, trackUrlSource.value)"
               class="btn btn-info">Submit
       </button>
+
     </form>
   </div>
 </div>

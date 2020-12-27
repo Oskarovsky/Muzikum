@@ -3,6 +3,10 @@ package com.oskarro.muzikum.track;
 import com.oskarro.muzikum.exception.ResourceNotFoundException;
 import com.oskarro.muzikum.plugin.PluginKrakenResponse;
 import com.oskarro.muzikum.plugin.PluginService;
+import com.oskarro.muzikum.storage.Cover;
+import com.oskarro.muzikum.storage.CoverRepository;
+import com.oskarro.muzikum.storage.Image;
+import com.oskarro.muzikum.storage.ImageRepository;
 import com.oskarro.muzikum.track.model.Track;
 import com.oskarro.muzikum.track.model.TrackComment;
 import com.oskarro.muzikum.track.model.TrackPageResponse;
@@ -39,14 +43,19 @@ public class TrackServiceImpl implements TrackService {
     private final UserRepository userRepository;
     private final TrackCommentRepository trackCommentRepository;
     private final PluginService pluginService;
+    private final CoverRepository coverRepository;
+    private final ImageRepository imageRepository;
 
     public TrackServiceImpl(TrackRepository trackRepository, UserRepository userRepository,
-                            PluginService pluginService, TrackCommentRepository trackCommentRepository) {
+                            PluginService pluginService, TrackCommentRepository trackCommentRepository,
+                            ImageRepository imageRepository, CoverRepository coverRepository) {
         super();
         this.trackRepository = trackRepository;
         this.userRepository = userRepository;
         this.trackCommentRepository = trackCommentRepository;
         this.pluginService = pluginService;
+        this.imageRepository = imageRepository;
+        this.coverRepository = coverRepository;
     }
 
     @Override
@@ -76,6 +85,10 @@ public class TrackServiceImpl implements TrackService {
                     track.setUrlPlugin(pluginScript);
                 } else if (Objects.equals(track.getUrlSource(), UrlSource.SOUNDCLOUD.toString())) {
                     // TODO SOUNDCLOUD
+                }
+                Cover cover = coverRepository.findByUrl(track.getUrl());
+                if (cover != null) {
+                    track.setCover(cover);
                 }
             } catch (IOException | ParseException e) {
                 e.printStackTrace();
@@ -107,6 +120,11 @@ public class TrackServiceImpl implements TrackService {
     @Override
     public List<Track> findAllTracksFromPlaylist(Integer id) {
         return new ArrayList<>(trackRepository.findTracksByPlaylistId(id));
+    }
+
+    @Override
+    public Optional<Track> getTrackByUrl(String url) {
+        return trackRepository.findTrackByUrl(url);
     }
 
     @Override

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+    <changeSet id="10941" author="oskarro">
+
+        <createTable tableName="cover">
+            <column name="id" type="int" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false" unique="true" foreignKeyName="fk_cover_track_id" primaryKeyName="pk_image_track"/>
+            </column>
+            <column name="name" type="varchar(255)">
+                <constraints nullable="true"/>
+            </column>
+            <column name="type" type="varchar(255)">
+                <constraints nullable="true"/>
+            </column>
+            <column name="pic" type="oid">
+                <constraints nullable="true"/>
+            </column>
+            <column name="track_id" type="int">
+                <constraints nullable="true" foreignKeyName="fk_cover_track_id" references="track(id)"/>
+            </column>
+        </createTable>
+    </changeSet>
+</databaseChangeLog>

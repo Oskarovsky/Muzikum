@@ -1,6 +1,7 @@
 import {Component, Input, OnInit, SecurityContext} from '@angular/core';
 import {Track} from '../../track/model/track';
 import {DomSanitizer, SafeResourceUrl} from '@angular/platform-browser';
+import {UploadFileService} from '../../../services/storage/upload-file.service';
 
 @Component({
   selector: 'app-track-tile',
@@ -18,9 +19,11 @@ export class TrackTileComponent implements OnInit {
 
   mapa: Map<number, SafeResourceUrl> = new Map<number, SafeResourceUrl>();
   divShowMapa: Map<number, boolean> = new Map<number, boolean>();
+  // coverMapa: Map<>
   track: Track;
 
-  constructor(public sanitizer: DomSanitizer) {}
+  constructor(public sanitizer: DomSanitizer,
+              public fileService: UploadFileService) {}
 
   fakeClick(trackId: number) {
     this.divShowMapa.set(trackId, true);
@@ -33,6 +36,7 @@ export class TrackTileComponent implements OnInit {
   }
 
   ngOnInit() {
+    // this.fileService.getTrackCoverByTrackId()
   }
 
 

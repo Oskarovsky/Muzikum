@@ -41,11 +41,14 @@ public class FilesController {
     FilesStorageService filesStorageService;
     ImageRepository imageRepository;
     UserRepository userRepository;
+    CoverRepository coverRepository;
 
-    public FilesController(FilesStorageService filesStorageService, ImageRepository imageRepository, UserRepository userRepository) {
+    public FilesController(FilesStorageService filesStorageService, ImageRepository imageRepository,
+                           UserRepository userRepository, CoverRepository coverRepository) {
         this.filesStorageService = filesStorageService;
         this.imageRepository = imageRepository;
         this.userRepository = userRepository;
+        this.coverRepository = coverRepository;
     }
 
     @PostMapping(value = "/upload")
@@ -67,12 +70,13 @@ public class FilesController {
     }
 
     @PostMapping(value = "/uploadCover")
+    @Transactional
     public ResponseEntity<ResponseMessage> uploadFileCover(@RequestParam("file") MultipartFile file,
                                                            @RequestParam("username") String username,
-                                                           @RequestParam("trackId") String trackId,
+                                                           @RequestParam("trackUrl") String trackUrl,
                                                            @RequestParam("destination") String destination) {
         try {
-            filesStorageService.save(file, username, trackId, destination);
+            filesStorageService.save(file, username, trackUrl, destination);
             String message = "Dodano zdjęcie jako okładkę do utworu: " + file.getOriginalFilename() + ". Odśwież stronę.";
             return ResponseEntity
                     .status(HttpStatus.OK)
@@ -83,6 +87,43 @@ public class FilesController {
                     .status(HttpStatus.EXPECTATION_FAILED)
                     .body(new ResponseMessage(message));
         }
+    }
+
+    @PostMapping(value = "/uploadFileCoverTrack")
+    public ResponseEntity<ResponseMessage> uploadFileCoverTrack(@RequestParam("file") MultipartFile file,
+                                                      @RequestParam("username") String username,
+                                                      @RequestParam("trackUrl") String trackUrl) {
+        try {
+            filesStorageService.saveCover(file, username, trackUrl);
+            String message = "Dodano zdjęcie: " + file.getOriginalFilename() + ". Odśwież stronę.";
+            return ResponseEntity
+                    .status(HttpStatus.OK)
+                    .body(new ResponseMessage(message));
+        } catch (Exception e) {
+            String message = "Nie można załadować pliku: " + file.getOriginalFilename() + "!";
+            return ResponseEntity
+                    .status(HttpStatus.EXPECTATION_FAILED)
+                    .body(new ResponseMessage(message));
+        }
+    }
+
+    @GetMapping(value = "/getCoverId")
+    @Transactional
+    @ResponseBody
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
+    public Integer getCoverId(@RequestParam("filename") String fileName) {
+        Image image = filesStorageService.findImageByFileName(fileName);
+        String trackUrl = image.getUrl();
+        // TODO get image by track zippy/krakenfiles
+        // TODO get image for track if there are the same link url
+        return image.getId();
+    }
+
+    @GetMapping(value = "/getTrackCover/{trackId}")
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
+    public ResponseEntity<Cover> getTrackCover(@PathVariable Integer trackId) {
+        Cover cover = filesStorageService.getTrackCover(trackId);
+        return ResponseEntity.status(HttpStatus.OK).body(cover);
     }
 
     @GetMapping(value = "/files")

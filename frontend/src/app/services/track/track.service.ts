@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
+import {HttpClient, HttpEvent, HttpHeaders, HttpParams, HttpRequest} from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Track } from 'src/app/tracks/track/model/track';
 import {environment} from '../../../environments/environment';
@@ -62,6 +62,11 @@ export class TrackService {
 
   addTrack(track: Track): Observable<Track> {
     return this.http.post<Track>(TRACK_API + '/add', track);
+  }
+
+  getTrackByUrl(urlX: string): Observable<any> {
+    const data = {url: urlX};
+    return this.http.get(TRACK_API + '/getByUrl', {params: data});
   }
 
   deleteTrackFromPlaylist(id: number): Observable<any> {

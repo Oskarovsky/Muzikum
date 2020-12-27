@@ -17,7 +17,7 @@ import java.io.IOException;
 @Import(com.oskarro.muzikum.config.TestConfiguration.class)
 @RunWith(SpringRunner.class)
 @SpringBootTest
-@Ignore
+//@Ignore
 public class PluginServiceTest {
 
     @Autowired

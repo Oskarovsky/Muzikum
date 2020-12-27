@@ -2,6 +2,7 @@ import {Playlist} from '../../../playlists/playlist/model/playlist';
 import {Video} from '../../../videos/video/model/video';
 import { User } from 'src/app/services/user/user';
 import {SafeResourceUrl} from '@angular/platform-browser';
+import {Cover} from './cover';
 
 export interface Track {
   id: number;
@@ -20,4 +21,5 @@ export interface Track {
   video: Video;
   favoriteUsers: User[];
   user: User;
+  cover: Cover;
 }

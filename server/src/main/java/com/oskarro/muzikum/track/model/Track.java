@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.oskarro.muzikum.playlist.Playlist;
 import com.oskarro.muzikum.provider.Provider;
 import com.oskarro.muzikum.record.Record;
+import com.oskarro.muzikum.storage.Cover;
+import com.oskarro.muzikum.storage.Image;
 import com.oskarro.muzikum.user.User;
 import com.oskarro.muzikum.utils.DateAudit;
 import com.oskarro.muzikum.video.Video;
@@ -11,6 +13,7 @@ import lombok.*;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -46,6 +49,7 @@ public class Track extends DateAudit {
 
     private Integer position;
 
+
     @ManyToOne
     @JsonIgnore
     @JoinColumn(name = "provider_id")
@@ -69,4 +73,7 @@ public class Track extends DateAudit {
     @JoinColumn(name = "user_id")
     private User user;
 
+    @ManyToOne
+    @JoinColumn(name = "cover_id")
+    private Cover cover;
 }

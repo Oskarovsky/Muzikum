@@ -8,6 +8,7 @@ import {Router} from '@angular/router';
 import {AlertService} from '../../services/alert/alert.service';
 import {HttpEventType, HttpResponse} from '@angular/common/http';
 import {UploadFileService} from '../../services/storage/upload-file.service';
+import {Cover} from '../track/model/cover';
 
 @Component({
   selector: 'app-track-add',
@@ -17,10 +18,12 @@ import {UploadFileService} from '../../services/storage/upload-file.service';
 export class TrackAddComponent implements OnInit {
 
   track: Track;
+  tempTrack: Track;
   sub: Subscription;
   isLoggedIn = false;
   username: string;
   showAdminBoard = false;
+  currentFileName = '';
 
   currentUser: any;
   selectedFile;
@@ -43,7 +46,8 @@ export class TrackAddComponent implements OnInit {
     playlist: null,
     video: null,
     favoriteUsers: null,
-    user: null
+    user: null,
+    cover: null
   };
 
   modelUser: User = {
@@ -100,7 +104,16 @@ export class TrackAddComponent implements OnInit {
       playlist: null,
       video: null,
       favoriteUsers: null,
-      user: this.modelUser
+      user: this.modelUser,
+      cover: null
+    };
+
+    const newCover: Cover = {
+      id: null,
+      name: '',
+      type: '',
+      url: '',
+      track: null
     };
 
     if (genre === 'MIXY/SETY') {
@@ -109,6 +122,18 @@ export class TrackAddComponent implements OnInit {
       newTrack.genre = genre;
     }
 
+/*
+    if (this.currentFileName !== null) {
+      this.uploadService.getFileIdByFilename(this.currentFileName).subscribe(
+        response => {
+          newCover.id = response;
+          newTrack.image = response;
+          console.log('VVV - ' + response);
+        }
+      );
+    }
+*/
+
     this.trackService.addTrack(newTrack).subscribe(
       response => {
         newTrack.title = title;
@@ -116,6 +141,7 @@ export class TrackAddComponent implements OnInit {
         newTrack.genre = genre;
         newTrack.version = version;
         newTrack.url = url;
+        newTrack.cover = newCover;
         this.track = response;
         this.router.navigateByUrl('/');
         this.alertService.success('Utwór został dodany na stronę!');
@@ -126,18 +152,20 @@ export class TrackAddComponent implements OnInit {
     );
   }
 
+
   selectFile(event) {
     this.selectedFile = event.target.files;
   }
 
-  uploadCover() {
+  uploadCover(trackUrl: string) {
     if (this.selectedFile) {
       this.currentFile = this.selectedFile.item(0);
-      this.uploadService.uploadCover(this.currentFile, this.modelUser.username, '120', 'TRACK').subscribe(
+      this.uploadService.uploadCover(this.currentFile, this.modelUser.username, trackUrl).subscribe(
         event => {
           if (event.type === HttpEventType.UploadProgress) {
           } else if (event instanceof HttpResponse) {
             this.message = event.body.message;
+            this.currentFileName = 'trackCover_'.concat(this.currentFile.name);
             this.alertService.success('Zdjęcie zostało dodane. Odśwież stronę.');
           }
         },

@@ -36,6 +36,10 @@ public interface TrackRepository extends JpaRepository<Track, Integer> {
 
     List<Track> findTracksByVideoId(Integer id);
 
+    Optional<Track> findTrackByUrl(String url);
+
+    List<Track> findTracksByUrl(String url);
+
     void deleteById(Integer id);
 
     long count();

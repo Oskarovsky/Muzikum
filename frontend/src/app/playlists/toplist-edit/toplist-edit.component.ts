@@ -28,7 +28,8 @@ export class ToplistEditComponent implements OnInit {
     playlist: null,
     video: null,
     favoriteUsers: null,
-    user: null
+    user: null,
+    cover: null
   };
 
 

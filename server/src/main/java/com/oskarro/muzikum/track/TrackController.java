@@ -126,6 +126,12 @@ public class TrackController {
         return trackService.getLastAddedTracksByGenreOnlyWithUser(genre, numberOfTracks);
     }
 
+    @GetMapping(value = "/getByUrl")
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
+    public Optional<Track> getTrackByUrl(@RequestParam String url) {
+        return trackService.getTrackByUrl(url);
+    }
+
     @GetMapping(value = "/genre/{genre}/list")
     @CrossOrigin(origins = "*", allowedHeaders = "*")
     public ResponseEntity<Map<String, Object>> getAllTracks(

@@ -1,6 +1,6 @@
 package com.oskarro.muzikum.storage;
 
-import com.oskarro.muzikum.user.User;
+import com.oskarro.muzikum.track.model.Track;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -13,8 +13,8 @@ import javax.persistence.*;
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "image")
-public class Image {
+@Table(name = "cover")
+public class Cover {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,14 +24,8 @@ public class Image {
 
     private String type;
 
-    private String destination;
-
     private String url;
 
     @Lob
     private byte[] pic;
-
-    @OneToOne(fetch = FetchType.LAZY)
-    @MapsId
-    private User user;
 }
