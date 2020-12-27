@@ -77,7 +77,7 @@ export class TrackComponent implements OnInit {
       this.trackId = params.id;
     });
 
-    this.getCoverImage(231);
+    this.getCoverImage(this.trackId);
 
     this.trackService.getTrackById(this.trackId).subscribe((track: Track) => {
       this.track = track;
@@ -170,9 +170,9 @@ export class TrackComponent implements OnInit {
     });
   }
 
-  getCoverImage(coverId: number) {
-    this.uploadFileService.getCoverFile(coverId).subscribe(data => {
-      this.createCoverFromBlob(coverId, data);
+  getCoverImage(trackId: number) {
+    this.uploadFileService.getCoverFile(trackId).subscribe(data => {
+      this.createCoverFromBlob(trackId, data);
     }, error => {
       console.log(error);
     });
@@ -189,10 +189,10 @@ export class TrackComponent implements OnInit {
     }
   }
 
-  createCoverFromBlob(coverId: number, image: Blob) {
+  createCoverFromBlob(trackId: number, image: Blob) {
     const reader = new FileReader();
     reader.addEventListener('load', () => {
-      this.coversToShow.set(coverId, this.sanitizer.bypassSecurityTrustResourceUrl(reader.result as string));
+      this.coversToShow.set(trackId, this.sanitizer.bypassSecurityTrustResourceUrl(reader.result as string));
     }, false);
 
     if (image) {

@@ -1,4 +1,4 @@
-import {Component, Input, OnInit, SecurityContext} from '@angular/core';
+import {Component, ElementRef, Input, OnInit, SecurityContext} from '@angular/core';
 import {Track} from '../../track/model/track';
 import {DomSanitizer, SafeResourceUrl} from '@angular/platform-browser';
 import {UploadFileService} from '../../../services/storage/upload-file.service';
@@ -17,14 +17,20 @@ export class TrackTileComponent implements OnInit {
   @Input() currentPage: number;
   @Input() isLoggedIn: boolean;
 
+  coversToShow: Map<number, any> = new Map<number, any>();
   mapa: Map<number, SafeResourceUrl> = new Map<number, SafeResourceUrl>();
   divShowMapa: Map<number, boolean> = new Map<number, boolean>();
   track: Track;
-  coversToShow: Map<number, any> = new Map<number, any>();
 
   constructor(public sanitizer: DomSanitizer,
+              private el: ElementRef,
               public fileService: UploadFileService) {
-    this.getCoverImage(231);
+  }
+
+  ngOnInit() {
+    console.log('userId is:', this.tracks);
+    console.log('userId is:', this.totalNumberOfTracks);
+    this.assignAllCovers();
   }
 
   fakeClick(trackId: number) {
@@ -37,22 +43,18 @@ export class TrackTileComponent implements OnInit {
     this.mapa.set(this.track.id, this.track.safeUrl);
   }
 
-  ngOnInit() {
-  }
-
-  assignCoverToTrack(tracks: Array<Track>) {
-    tracks.forEach(t => {
-      console.log('XXX - ' + t.id);
-      this.getCoverImage(t.id);
-    });
-  }
-
   getCoverImage(trackId: number) {
     this.fileService.getCoverFile(trackId).subscribe(data => {
       this.createCoverFromBlob(trackId, data);
     }, error => {
       console.log(error);
     });
+  }
+
+  assignAllCovers() {
+    if (this.tracks) {
+      console.log('AAA = TEST');
+    }
   }
 
   createCoverFromBlob(trackId: number, image: Blob) {

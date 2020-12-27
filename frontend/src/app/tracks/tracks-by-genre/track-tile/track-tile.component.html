@@ -1,6 +1,6 @@
 <div class="row post" *ngFor="let track of tracks">
   <div class="col-md-1 vote-area">
-    <img [src]="coversToShow.get(231)" width="100%" alt="Place image title">
+    <img [src]="coversToShow.get(track.id)" width="100%" alt="Place image title">
     <app-track-vote-button [track]="track"></app-track-vote-button>
   </div>
   <div class="col-md-11">

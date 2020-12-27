@@ -122,17 +122,6 @@ export class TrackAddComponent implements OnInit {
       newTrack.genre = genre;
     }
 
-/*
-    if (this.currentFileName !== null) {
-      this.uploadService.getFileIdByFilename(this.currentFileName).subscribe(
-        response => {
-          newCover.id = response;
-          newTrack.image = response;
-          console.log('VVV - ' + response);
-        }
-      );
-    }
-*/
 
     this.trackService.addTrack(newTrack).subscribe(
       response => {
