@@ -95,9 +95,9 @@ public class FilesStorageServiceImpl implements FilesStorageService {
     @Override
     public void saveCover(MultipartFile file, String username, String trackUrl) {
         try {
-            final Path coverPath = Paths.get(coverRootPath.toString() + "/" + username);
-            FileSystemUtils.deleteRecursively(Paths.get(coverRootPath.toFile() + "/" + username));
-            Files.createDirectory(Paths.get(coverRootPath.toString() + "/" + username));
+            final Path coverPath = Paths.get(coverRootPath.toString());
+//            FileSystemUtils.deleteRecursively(Paths.get(coverRootPath.toFile() + "/" + trackUrl));
+//            Files.createDirectory(Paths.get(coverRootPath.toString() + "/" + trackUrl));
             Files.copy(file.getInputStream(), coverPath.resolve(Objects.requireNonNull(file.getOriginalFilename())));
 
             Cover cover = Cover.builder()
@@ -108,7 +108,6 @@ public class FilesStorageServiceImpl implements FilesStorageService {
                     .build();
             coverRepository.save(cover);
             System.out.println("Cover saved for track from url: " + trackUrl);
-
         } catch (Exception e) {
             throw new RuntimeException("Could not store the file. Error: " + e.getMessage());
         }
@@ -161,6 +160,23 @@ public class FilesStorageServiceImpl implements FilesStorageService {
         try {
             final Path userPath = Paths.get(userRootPath.toString() + "/" + username);
             Path file = userPath.resolve(filename);
+            Resource resource = new UrlResource(file.toUri());
+
+            if (resource.exists() || resource.isReadable()) {
+                return resource;
+            } else {
+                throw new RuntimeException("Could not read the file!");
+            }
+        } catch (MalformedURLException e) {
+            throw new RuntimeException("Error: " + e.getMessage());
+        }
+    }
+
+    @Override
+    public Resource loadCover(String filename, Integer coverId) {
+        try {
+            final Path coverPath = Paths.get(coverRootPath.toString());
+            Path file = coverPath.resolve(filename);
             Resource resource = new UrlResource(file.toUri());
 
             if (resource.exists() || resource.isReadable()) {

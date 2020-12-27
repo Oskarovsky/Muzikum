@@ -6,6 +6,7 @@ import {ActivatedRoute} from '@angular/router';
 import {DomSanitizer} from '@angular/platform-browser';
 import {TokenStorageService} from '../../../services/auth/token-storage.service';
 import {HttpHeaders} from '@angular/common/http';
+import {UploadFileService} from '../../../services/storage/upload-file.service';
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -28,12 +29,14 @@ export class TracksPartComponent implements OnInit {
   numberOfPage: number;
   isLoggedIn = false;
 
+  coversToShow: Map<number, any> = new Map<number, any>();
   genre: string;
   currentPage: number;
 
 
   constructor(private trackService: TrackService,
               private tokenStorage: TokenStorageService,
+              private uploadFileService: UploadFileService,
               private route: ActivatedRoute,
               private sanitizer: DomSanitizer) {
     this.sub = this.route.params.subscribe(params => {
@@ -41,7 +44,8 @@ export class TracksPartComponent implements OnInit {
       this.currentPage = params.page || 1;
     });
 
-    this.trackService.getTrackPageByGenre(this.genre, +this.currentPage - 1).subscribe(trackResponse => {
+    this.trackService.getTrackPageByGenre(this.genre, +this.currentPage - 1)
+      .subscribe(trackResponse => {
       this.totalNumberOfTracks = trackResponse.totalElements;
       this.numberOfPage = trackResponse.numberPage;
       this.totalNumberOfPages = trackResponse.totalPages;
@@ -60,6 +64,25 @@ export class TracksPartComponent implements OnInit {
     for (const track of allTracks) {
       track.urlPlugin.replace('false', 'true');
       track.safeUrl = this.sanitizer.bypassSecurityTrustResourceUrl(`${track.urlPlugin}`);
+    }
+  }
+
+  getCoverImage(trackId: number) {
+    this.uploadFileService.getCoverFile(trackId).subscribe(data => {
+      this.createCoverFromBlob(trackId, data);
+    }, error => {
+      console.log(error);
+    });
+  }
+
+  createCoverFromBlob(trackId: number, image: Blob) {
+    const reader = new FileReader();
+    reader.addEventListener('load', () => {
+      this.coversToShow.set(trackId, this.sanitizer.bypassSecurityTrustResourceUrl(reader.result as string));
+    }, false);
+
+    if (image) {
+      reader.readAsDataURL(image);
     }
   }
 

@@ -1,5 +1,7 @@
 package com.oskarro.muzikum.storage;
 
+import com.oskarro.muzikum.track.TrackRepository;
+import com.oskarro.muzikum.track.model.Track;
 import com.oskarro.muzikum.user.AuthProvider;
 import com.oskarro.muzikum.user.User;
 import com.oskarro.muzikum.user.UserRepository;
@@ -42,13 +44,16 @@ public class FilesController {
     ImageRepository imageRepository;
     UserRepository userRepository;
     CoverRepository coverRepository;
+    TrackRepository trackRepository;
 
     public FilesController(FilesStorageService filesStorageService, ImageRepository imageRepository,
-                           UserRepository userRepository, CoverRepository coverRepository) {
+                           UserRepository userRepository, CoverRepository coverRepository,
+                           TrackRepository trackRepository) {
         this.filesStorageService = filesStorageService;
         this.imageRepository = imageRepository;
         this.userRepository = userRepository;
         this.coverRepository = coverRepository;
+        this.trackRepository = trackRepository;
     }
 
     @PostMapping(value = "/upload")
@@ -165,6 +170,31 @@ public class FilesController {
             return null;
         }
     }
+
+    @GetMapping(value = "/{trackId}/cover")
+    @ResponseBody
+    @Transactional
+    public ResponseEntity<Resource> getCoverImage(@PathVariable Integer trackId) {
+        Optional<Track> track = trackRepository.findById(trackId);
+        if (track.isPresent()) {
+            Cover cover = coverRepository.findById(track.get().getCover().getId()).orElse(null);
+            if (cover != null) {
+                Resource file = filesStorageService.loadCover(cover.getName(), cover.getId());
+                return Optional
+                        .ofNullable(file)
+                        .map(x -> ResponseEntity.ok().body(x))
+                        .orElseGet(() -> ResponseEntity.notFound().build());
+            } else {
+                log.info("Can't find cover for track with id: ");
+                return null;
+            }
+        } else {
+            log.info("Can't find cover for track with id: ");
+            return null;
+        }
+    }
+
+
 
     @GetMapping(value = "/{userId}/imageUrl")
     @Transactional

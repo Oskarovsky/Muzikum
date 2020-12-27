@@ -42,6 +42,7 @@ export class TrackComponent implements OnInit {
   sub: Subscription;
   trackId: number;
   imagesToShow: Map<string, any> = new Map<string, any>();
+  coversToShow: Map<number, any> = new Map<number, any>();
 
 
   modelTrackComment: TrackComment = {
@@ -75,6 +76,8 @@ export class TrackComponent implements OnInit {
     this.sub = this.route.params.subscribe(params => {
       this.trackId = params.id;
     });
+
+    this.getCoverImage(231);
 
     this.trackService.getTrackById(this.trackId).subscribe((track: Track) => {
       this.track = track;
@@ -167,10 +170,29 @@ export class TrackComponent implements OnInit {
     });
   }
 
+  getCoverImage(coverId: number) {
+    this.uploadFileService.getCoverFile(coverId).subscribe(data => {
+      this.createCoverFromBlob(coverId, data);
+    }, error => {
+      console.log(error);
+    });
+  }
+
   createImageFromBlob(username: string, image: Blob) {
     const reader = new FileReader();
     reader.addEventListener('load', () => {
       this.imagesToShow.set(username, this.sanitizer.bypassSecurityTrustResourceUrl(reader.result as string));
+    }, false);
+
+    if (image) {
+      reader.readAsDataURL(image);
+    }
+  }
+
+  createCoverFromBlob(coverId: number, image: Blob) {
+    const reader = new FileReader();
+    reader.addEventListener('load', () => {
+      this.coversToShow.set(coverId, this.sanitizer.bypassSecurityTrustResourceUrl(reader.result as string));
     }, false);
 
     if (image) {

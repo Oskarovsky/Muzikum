@@ -52,4 +52,8 @@ export class UploadFileService {
     return this.http.get(STORAGE_API + '/' + username + '/avatar', { responseType: 'blob' });
   }
 
+  getCoverFile(trackId: number): Observable<Blob> {
+    return this.http.get(STORAGE_API + '/' + trackId + '/cover', { responseType: 'blob' });
+  }
+
 }

@@ -19,11 +19,13 @@ export class TrackTileComponent implements OnInit {
 
   mapa: Map<number, SafeResourceUrl> = new Map<number, SafeResourceUrl>();
   divShowMapa: Map<number, boolean> = new Map<number, boolean>();
-  // coverMapa: Map<>
   track: Track;
+  coversToShow: Map<number, any> = new Map<number, any>();
 
   constructor(public sanitizer: DomSanitizer,
-              public fileService: UploadFileService) {}
+              public fileService: UploadFileService) {
+    this.getCoverImage(231);
+  }
 
   fakeClick(trackId: number) {
     this.divShowMapa.set(trackId, true);
@@ -36,7 +38,32 @@ export class TrackTileComponent implements OnInit {
   }
 
   ngOnInit() {
-    // this.fileService.getTrackCoverByTrackId()
+  }
+
+  assignCoverToTrack(tracks: Array<Track>) {
+    tracks.forEach(t => {
+      console.log('XXX - ' + t.id);
+      this.getCoverImage(t.id);
+    });
+  }
+
+  getCoverImage(trackId: number) {
+    this.fileService.getCoverFile(trackId).subscribe(data => {
+      this.createCoverFromBlob(trackId, data);
+    }, error => {
+      console.log(error);
+    });
+  }
+
+  createCoverFromBlob(trackId: number, image: Blob) {
+    const reader = new FileReader();
+    reader.addEventListener('load', () => {
+      this.coversToShow.set(trackId, this.sanitizer.bypassSecurityTrustResourceUrl(reader.result as string));
+    }, false);
+
+    if (image) {
+      reader.readAsDataURL(image);
+    }
   }
 
 

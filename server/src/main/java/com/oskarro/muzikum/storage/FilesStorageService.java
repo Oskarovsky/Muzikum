@@ -18,6 +18,8 @@ public interface FilesStorageService {
 
     Resource load(String filename, String username);
 
+    Resource loadCover(String filename, Integer coverId);
+
     void deleteAll();
 
     Stream<Path> loadAll();
