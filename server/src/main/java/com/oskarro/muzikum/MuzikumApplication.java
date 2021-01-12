@@ -139,38 +139,38 @@ public class MuzikumApplication implements CommandLineRunner {
         }
 
         // BEANS
-//        CrawlerService crawlerService = applicationContext.getBean(CrawlerService.class);
-//        ProviderRepository providerRepository = applicationContext.getBean(ProviderRepository.class);
-//        DanceChartService danceChartService = applicationContext.getBean(DanceChartService.class);
-//        NuteczkiService nuteczkiService = applicationContext.getBean(NuteczkiService.class);
-//        RadiopartyService radiopartyService = applicationContext.getBean(RadiopartyService.class);
-//        BillboardService billboardService = applicationContext.getBean(BillboardService.class);
-//        PromodjService promodjService = applicationContext.getBean(PromodjService.class);
-//        MusicListService musicListService = applicationContext.getBean(MusicListService.class);
-//        AriaChartsService ariaChartsService = applicationContext.getBean(AriaChartsService.class);
-//        AppleService appleService = applicationContext.getBean(AppleService.class);
-//        PlaylistService playlistService = applicationContext.getBean(PlaylistService.class);
-//        PlaylistRepository playlistRepository = applicationContext.getBean(PlaylistRepository.class);
-//        TrackRepository trackRepository = applicationContext.getBean(TrackRepository.class);
-//        TrackService trackService = applicationContext.getBean(TrackService.class);
-//        UserDetailsService userDetailsService = applicationContext.getBean(UserDetailsService.class);
-//        RoleRepository roleRepository = applicationContext.getBean(RoleRepository.class);
-//        VideoRepository videoRepository = applicationContext.getBean(VideoRepository.class);
-//        VideoService videoService = applicationContext.getBean(VideoService.class);
-//        PasswordEncoder encoder = applicationContext.getBean(PasswordEncoder.class);
-//        UserRepository userRepository = applicationContext.getBean(UserRepository.class);
-//        PostRepository postRepository = applicationContext.getBean(PostRepository.class);
-//        PostService postService = applicationContext.getBean(PostService.class);
-//        VotingService votingService = applicationContext.getBean(VotingService.class);
-//        VotingRepository votingRepository = applicationContext.getBean(VotingRepository.class);
-//        FavoriteTrackRepository favoriteTrackRepository = applicationContext.getBean(FavoriteTrackRepository.class);
-//        UserService userService = applicationContext.getBean(UserService.class);
-//        UserStatisticsRepository userStatisticsRepository = applicationContext.getBean(UserStatisticsRepository.class);
-//        TrackCommentRepository trackCommentRepository = applicationContext.getBean(TrackCommentRepository.class);
-//        ImageRepository imageRepository = applicationContext.getBean(ImageRepository.class);
-//        FilesStorageService filesStorageService = applicationContext.getBean(FilesStorageService.class);
-//        CommentRepository commentRepository = applicationContext.getBean(CommentRepository.class);
-/*
+        CrawlerService crawlerService = applicationContext.getBean(CrawlerService.class);
+        ProviderRepository providerRepository = applicationContext.getBean(ProviderRepository.class);
+        DanceChartService danceChartService = applicationContext.getBean(DanceChartService.class);
+        NuteczkiService nuteczkiService = applicationContext.getBean(NuteczkiService.class);
+        RadiopartyService radiopartyService = applicationContext.getBean(RadiopartyService.class);
+        BillboardService billboardService = applicationContext.getBean(BillboardService.class);
+        PromodjService promodjService = applicationContext.getBean(PromodjService.class);
+        MusicListService musicListService = applicationContext.getBean(MusicListService.class);
+        AriaChartsService ariaChartsService = applicationContext.getBean(AriaChartsService.class);
+        AppleService appleService = applicationContext.getBean(AppleService.class);
+        PlaylistService playlistService = applicationContext.getBean(PlaylistService.class);
+        PlaylistRepository playlistRepository = applicationContext.getBean(PlaylistRepository.class);
+        TrackRepository trackRepository = applicationContext.getBean(TrackRepository.class);
+        TrackService trackService = applicationContext.getBean(TrackService.class);
+        UserDetailsService userDetailsService = applicationContext.getBean(UserDetailsService.class);
+        RoleRepository roleRepository = applicationContext.getBean(RoleRepository.class);
+        VideoRepository videoRepository = applicationContext.getBean(VideoRepository.class);
+        VideoService videoService = applicationContext.getBean(VideoService.class);
+        PasswordEncoder encoder = applicationContext.getBean(PasswordEncoder.class);
+        UserRepository userRepository = applicationContext.getBean(UserRepository.class);
+        PostRepository postRepository = applicationContext.getBean(PostRepository.class);
+        PostService postService = applicationContext.getBean(PostService.class);
+        VotingService votingService = applicationContext.getBean(VotingService.class);
+        VotingRepository votingRepository = applicationContext.getBean(VotingRepository.class);
+        FavoriteTrackRepository favoriteTrackRepository = applicationContext.getBean(FavoriteTrackRepository.class);
+        UserService userService = applicationContext.getBean(UserService.class);
+        UserStatisticsRepository userStatisticsRepository = applicationContext.getBean(UserStatisticsRepository.class);
+        TrackCommentRepository trackCommentRepository = applicationContext.getBean(TrackCommentRepository.class);
+        ImageRepository imageRepository = applicationContext.getBean(ImageRepository.class);
+        FilesStorageService filesStorageService = applicationContext.getBean(FilesStorageService.class);
+        CommentRepository commentRepository = applicationContext.getBean(CommentRepository.class);
+
         // USER ROLES CREATOR
         Role roleAdmin = new Role();
         roleAdmin.setName(RoleName.ROLE_ADMIN);
@@ -213,7 +213,7 @@ public class MuzikumApplication implements CommandLineRunner {
         List<Genre> appleGenres = Stream.of(Genre.CLUB, Genre.RETRO).collect(Collectors.toList());
 
         // DEFAULT PROVIDERS
-        providerRepository.saveAll(Arrays.asList(
+/*        providerRepository.saveAll(Arrays.asList(
                 Provider.builder().id(1).description("nice").url("https://nuteczki.eu/top20/#").name("nuteczki").genres(nuteczkiGenres).build(),
                 Provider.builder().id(2).description("very nice").url("https://radioparty.pl/partylista.html").genres(radiopartyGenres).name("radioparty").build(),
                 Provider.builder().id(3).description("sehr gut").url("https://www.dance-charts.de/").name("dancecharts").build(),
@@ -222,8 +222,95 @@ public class MuzikumApplication implements CommandLineRunner {
                 Provider.builder().id(6).description("bombastic").url("https://musiclist.com/en/").name("musiclist").build(),
                 Provider.builder().id(7).description("nicename").url("https://www.ariacharts.com.au/").name("ariacharts").build(),
                 Provider.builder().id(8).description("tasty service").url("https://music.apple.com/").genres(appleGenres).name("apple").build()
-        ));
+        ));*/
 
+        // PLAYLIST CREATING
+        Playlist playlist = Playlist.builder().id(1).name("MyTop").user(userAdmin).views(10).build();
+        Playlist playlist2 = Playlist.builder().id(2).name("SecondTop").user(userJacek).build();
+        playlistRepository.saveAll(Arrays.asList(playlist, playlist2));
+
+        Track track1 = Track.builder().id(3).title("This is my test").artist("Mega test").version("Radio edit").playlist(playlist).build();
+        Track track2 = Track.builder().id(5).title("next tes").artist("Mega test").version("Radio edit").playlist(playlist).build();
+        Track track3 = Track.builder().id(7).title("ddfdf my test").artist("super").version("Extended edit").playlist(playlist2).build();
+        Track track4 = Track.builder().id(1).title("This is More than ntht").artist("Mega tdsdsest").version("Remix").playlist(playlist2).build();
+        Track track5 = Track.builder().id(4).title("This is my test").artist("Mega oss").version("dsd edit").playlist(playlist).build();
+
+        Track track6 = Track.builder().title("L'Italiano").artist("The Sicilians ft. Angelo Venuto")
+                .version("The DJ Serg Remix").url("https://www.youtube.com/watch?v=hymoFuKK_Ac").playlist(playlist).build();
+        Track track7 = Track.builder().title("This is my test").artist("Mega oss").version("dsd edit").playlist(playlist).build();
+        Track track8 = Track.builder().title("This is my test").artist("Mega oss").version("dsd edit").playlist(playlist).build();
+        Track track9 = Track.builder().title("This is my test").artist("Mega oss").version("dsd edit").playlist(playlist).build();
+
+        // VIDEO PANE:
+        Video video1 = Video.builder().id(1).name("Vixa").url("Dp--txMIGPI")
+                .category(Category.MIX.toString()).playlist(playlist).build();
+        Video video2 = Video.builder().id(2).name("Virus").url("MpWfj-2P-9M")
+                .category(Category.MIX.toString()).playlist(playlist2).build();
+        Video video3 = Video.builder().id(3).name("L'Italiano").url("moFuKK_Ac")
+                .category(Category.RETRO.name()).build();
+        Video video4 = Video.builder().id(4).name("Luna Mix Vol. 9").url("WRooj5n80uo")
+                .category(Category.LUNA_MIX.name()).build();
+
+        videoRepository.saveAll(Arrays.asList(video1, video2, video3, video4));
+
+        Track track01 = Track.builder().title("First shit title").artist("Med")
+                .version("dsd edit").video(video1).build();
+        Track track02 = Track.builder().title("Firseconddtitle").artist("Msssed").version("dsd edit").video(video2).build();
+        Track track03 = Track.builder().title("one tow three").artist("test").version("dsd edit").video(video2).build();
+        Track track04 = Track.builder().title("We love it").artist("Dj Shogun").version("Original Mix").points(0).genre("VIXA").build();
+
+        trackRepository.saveAll(Arrays.asList(track1, track01, track02, track03, track4, track5, track04));
+
+        Post postFirst = Post.builder().
+                title("Otwarcie nowej strony")
+                .description("Opis wszystkich opcji dostępnych na stronie")
+                .content("Dostępnych jest wiele nowych super rzeczy, które są idealne dla fanów muzyki klubowej")
+                .user(userAdmin)
+                .build();
+        postRepository.save(postFirst);
+
+        Vote vote1 = Vote.builder().user(userAdmin).track(track01).build();
+        Vote vote2 = Vote.builder().user(userJacek).track(track02).build();
+        Vote vote3 = Vote.builder().user(userAdmin).track(track03).build();
+        votingRepository.saveAll(Arrays.asList(vote1, vote2, vote3));
+
+        FavoriteTrack favoriteTrack001 = FavoriteTrack.builder().track(track01).user(userAdmin).build();
+        FavoriteTrack favoriteTrack002 = FavoriteTrack.builder().track(track02).user(userAdmin).build();
+        FavoriteTrack favoriteTrack003 = FavoriteTrack.builder().track(track03).user(userAdmin).build();
+        favoriteTrackRepository.saveAll(Arrays.asList(favoriteTrack001, favoriteTrack002, favoriteTrack003));
+
+        Track popularTrackRetro = Track.builder().artist("Scooter").title("Maria (I like it loud)").version("Original Mix")
+                .genre(Genre.RETRO.toString()).points(2).build();
+        Track popularTrackClub = Track.builder().artist("Oskarro").title("Vixologia").version("Extended Mix")
+                .genre(Genre.CLUB.toString()).points(4).build();
+        Track popularTrackDance = Track.builder().artist("Danya").title("My Love").version("Ozi Remix")
+                .genre(Genre.DANCE.toString()).points(3).build();
+        Track popularTrackTechno = Track.builder().artist("Bumps").title("O shit!").version("Original Mix")
+                .genre(Genre.TECHNO.toString()).points(2).build();
+        Track popularTrackHouse = Track.builder().artist("Calian").title("Summer ending").version("Radio Mix")
+                .genre(Genre.HOUSE.toString()).points(5).build();
+
+        trackRepository.saveAll(Arrays.asList(popularTrackClub, popularTrackDance, popularTrackHouse,
+                popularTrackRetro, popularTrackTechno));
+
+
+        Track userTrack1 = Track.builder().artist("Hitman").title("One River").version("Original Mix")
+                .genre(Genre.TECHNO.toString()).points(1).user(userAdmin).build();
+        Track userTrack2 = Track.builder().artist("OneSound").title("Magician Dream").version("Dave Aude Mix")
+                .genre(Genre.DANCE.toString()).points(3).user(userAdmin).build();
+        Track userTrack3 = Track.builder().artist("BeatBoxer").title("Night Our").version("Vinyl Edit")
+                .genre(Genre.DANCE.toString()).points(1).user(userAdmin).build();
+
+        trackRepository.saveAll(Arrays.asList(userTrack1, userTrack2, userTrack3));
+
+        TrackComment trackComment1 =
+                TrackComment.builder().track(popularTrackClub).text("Super hit").user(userAdmin).build();
+        TrackComment trackComment2 =
+                TrackComment.builder().track(popularTrackClub).text("Jest fajnie").user(userJacek).build();
+        trackCommentRepository.saveAll(Arrays.asList(trackComment1, trackComment2));
+
+
+/*
         Optional<Provider> nuteczkiProvider = providerRepository.findById(1);
         Optional<Provider> radiopartyProvider = providerRepository.findById(2);
         Optional<Provider> dancechartProvider = providerRepository.findById(3);
@@ -233,7 +320,7 @@ public class MuzikumApplication implements CommandLineRunner {
         Optional<Provider> ariaChartsProvider = providerRepository.findById(7);
         Optional<Provider> appleProvider = providerRepository.findById(8);
 
-*//*        Provider provider = Provider.builder()
+       Provider provider = Provider.builder()
                 .id(8).description("tasty service").url("https://music.apple.com/").name("apple").build();
         crawlerService.parseWeb(provider);*//**//*
 
@@ -275,37 +362,6 @@ public class MuzikumApplication implements CommandLineRunner {
         //System.out.println(appleProvider.map(crawlerService::parseWeb).toString());
         //System.out.println(ariaChartsProvider.map((Provider provider1) -> crawlerService.getWeb(provider1, Genre.club)).toString());
 
-        // PLAYLIST CREATING
-        Playlist playlist = Playlist.builder().id(1).name("MyTop").user(userAdmin).views(10).build();
-        Playlist playlist2 = Playlist.builder().id(2).name("SecondTop").user(userJacek).build();
-        playlistRepository.saveAll(Arrays.asList(playlist, playlist2));
-
-        Track track1 = Track.builder().id(3).title("This is my test").artist("Mega test").version("Radio edit").playlist(playlist).build();
-        Track track2 = Track.builder().id(5).title("next tes").artist("Mega test").version("Radio edit").playlist(playlist).build();
-        Track track3 = Track.builder().id(7).title("ddfdf my test").artist("super").version("Extended edit").playlist(playlist2).build();
-        Track track4 = Track.builder().id(1).title("This is More than ntht").artist("Mega tdsdsest").version("Remix").playlist(playlist2).build();
-        Track track5 = Track.builder().id(4).title("This is my test").artist("Mega oss").version("dsd edit").playlist(playlist).build();
-
-        Track track6 = Track.builder().title("L'Italiano").artist("The Sicilians ft. Angelo Venuto")
-                .version("The DJ Serg Remix").url("https://www.youtube.com/watch?v=hymoFuKK_Ac").playlist(playlist).build();
-        Track track7 = Track.builder().title("This is my test").artist("Mega oss").version("dsd edit").playlist(playlist).build();
-        Track track8 = Track.builder().title("This is my test").artist("Mega oss").version("dsd edit").playlist(playlist).build();
-        Track track9 = Track.builder().title("This is my test").artist("Mega oss").version("dsd edit").playlist(playlist).build();
-
-
-        // VIDEO PANE:
-        Video video1 = Video.builder().id(1).name("Vixa").url("Dp--txMIGPI")
-                .category(Category.MIX.toString()).playlist(playlist).build();
-        Video video2 = Video.builder().id(2).name("Virus").url("MpWfj-2P-9M")
-                .category(Category.MIX.toString()).playlist(playlist2).build();
-        Video video3 = Video.builder().id(3).name("L'Italiano").url("moFuKK_Ac")
-                .category(Category.RETRO.name()).build();
-        Video video4 = Video.builder().id(4).name("Luna Mix Vol. 9").url("WRooj5n80uo")
-                .category(Category.LUNA_MIX.name()).build();
-
-        videoRepository.saveAll(Arrays.asList(video1, video2, video3, video4));
-
-
 
         Track track01 = Track.builder().title("First shit title").artist("Med")
                 .version("dsd edit").video(video1).build();
@@ -333,41 +389,7 @@ public class MuzikumApplication implements CommandLineRunner {
 //                .password(encoder.encode("123456")).roles(new HashSet<>(Collections.singletonList(roleUser))).build();
 //        userRepository.save(userGosia);
 
-        FavoriteTrack favoriteTrack001 = FavoriteTrack.builder().track(track01).user(userAdmin).build();
-        FavoriteTrack favoriteTrack002 = FavoriteTrack.builder().track(track02).user(userAdmin).build();
-        FavoriteTrack favoriteTrack003 = FavoriteTrack.builder().track(track03).user(userAdmin).build();
-        favoriteTrackRepository.saveAll(Arrays.asList(favoriteTrack001, favoriteTrack002, favoriteTrack003));
-
-        Track popularTrackRetro = Track.builder().artist("Scooter").title("Maria (I like it loud)").version("Original Mix")
-                .genre(Genre.RETRO.toString()).points(2).build();
-        Track popularTrackClub = Track.builder().artist("Oskarro").title("Vixologia").version("Extended Mix")
-                .genre(Genre.CLUB.toString()).points(4).build();
-        Track popularTrackDance = Track.builder().artist("Danya").title("My Love").version("Ozi Remix")
-                .genre(Genre.DANCE.toString()).points(3).build();
-        Track popularTrackTechno = Track.builder().artist("Bumps").title("O shit!").version("Original Mix")
-                .genre(Genre.TECHNO.toString()).points(2).build();
-        Track popularTrackHouse = Track.builder().artist("Calian").title("Summer ending").version("Radio Mix")
-                .genre(Genre.HOUSE.toString()).points(5).build();
-
-        trackRepository.saveAll(Arrays.asList(popularTrackClub, popularTrackDance, popularTrackHouse,
-                popularTrackRetro, popularTrackTechno));
-
-
-        Track userTrack1 = Track.builder().artist("Hitman").title("One River").version("Original Mix")
-                .genre(Genre.TECHNO.toString()).points(1).user(userAdmin).build();
-        Track userTrack2 = Track.builder().artist("OneSound").title("Magician Dream").version("Dave Aude Mix")
-                .genre(Genre.DANCE.toString()).points(3).user(userAdmin).build();
-        Track userTrack3 = Track.builder().artist("BeatBoxer").title("Night Our").version("Vinyl Edit")
-                        .genre(Genre.DANCE.toString()).points(1).user(userAdmin).build();
-
-        trackRepository.saveAll(Arrays.asList(userTrack1, userTrack2, userTrack3));
-
-        TrackComment trackComment1 =
-                TrackComment.builder().track(popularTrackClub).text("Super hit").user(userAdmin).build();
-        TrackComment trackComment2 =
-                TrackComment.builder().track(popularTrackClub).text("Jest fajnie").user(userJacek).build();
-        trackCommentRepository.saveAll(Arrays.asList(trackComment1, trackComment2));*/
-
+*/
     }
 
     private static void logApplicationStartup(Environment env) {

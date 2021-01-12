@@ -6,8 +6,8 @@
     http://www.liquibase.org/xml/ns/dbchangelog-ext
     http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
 
-<!-- CREATE
-    <include file="schema/01-users-schema.xml"
+<!-- CREATE-->
+<!--    <include file="schema/01-users-schema.xml"
              relativeToChangelogFile="true" />
 
     <include file="schema/02-roles-schema.xml"
@@ -45,13 +45,14 @@
 
 
 
-<!-- UPDATE
+<!-- UPDATE-->
+<!--
     <include file="schema/12-update-video.xml"
              relativeToChangelogFile="true" />
 
     <include file="schema/13-update-track.xml"
              relativeToChangelogFile="true" />
--->
 
+-->
 
 </databaseChangeLog>
