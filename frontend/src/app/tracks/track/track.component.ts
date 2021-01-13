@@ -77,8 +77,6 @@ export class TrackComponent implements OnInit, AfterViewChecked {
       this.trackId = params.id;
     });
 
-    this.getCoverImage(this.trackId);
-
     this.trackService.getTrackById(this.trackId).subscribe((track: Track) => {
       this.track = track;
       this.secureUrl(track);
@@ -88,7 +86,6 @@ export class TrackComponent implements OnInit, AfterViewChecked {
           .toPromise()
           .then(data => {
             this.trackDataFromAPI = data;
-            // console.log(data);
           });
         }
       },
