@@ -2,7 +2,14 @@
 
 <!-- BASIC TRACK INFORMATION -->
   <div class="col-md-1">
-    <img [src]="coversToShow.get(trackId)" width="100%" alt="Place image title">
+    <img *ngIf="coversToShow.get(track.id); else noCoverFound"
+         [src]="coversToShow.get(track.id)" width="100%" alt="Zdjęcie do utworu {{track.title}}">
+    <ng-template #noCoverFound>
+      <img id="profile-imga" width="100%"
+           src="/assets/img/logo_music.png"
+           alt="Domyślne zdjęcie do utworu {{track.title}}"
+           class="profile-img-card rounded-circle"/>
+    </ng-template>
     <app-track-vote-button [track]="track"></app-track-vote-button>
   </div>
   <div class="col-md-11">

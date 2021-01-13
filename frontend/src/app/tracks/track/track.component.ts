@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {AfterViewChecked, Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {Subscription} from 'rxjs';
 
@@ -29,7 +29,7 @@ const httpOptions = {
   templateUrl: './track.component.html',
   styleUrls: ['./track.component.scss']
 })
-export class TrackComponent implements OnInit {
+export class TrackComponent implements OnInit, AfterViewChecked {
 
   track: Track;
   newTrackComment: TrackComment;
@@ -95,6 +95,9 @@ export class TrackComponent implements OnInit {
       error => {
         alert('An error has occurred while fetching track');
     });
+  }
+
+  ngAfterViewChecked() {
   }
 
   ngOnInit() {
