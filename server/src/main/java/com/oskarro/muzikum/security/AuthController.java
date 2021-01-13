@@ -160,10 +160,10 @@ public class AuthController {
 
         if (activeProfile.equals("dev")) {
             textMessage = "To confirm your account, please click here: " +
-                    "https://localhost:4200/app/confirmAccount/" + confirmationToken.getConfirmationToken();
+                    "https://localhost:4200/confirmAccount/" + confirmationToken.getConfirmationToken();
         } else if (activeProfile.equals("prod")) {
             textMessage = "To confirm your account, please click here: " +
-                    "https://oskarro.com/app/confirmAccount/" + confirmationToken.getConfirmationToken();
+                    "https://oskarro.com/confirmAccount/" + confirmationToken.getConfirmationToken();
         }
         sendEmail("Complete Registration", "postmaster@oskarro.com", textMessage, user.getEmail());
         log.info("Activation email sent!!");

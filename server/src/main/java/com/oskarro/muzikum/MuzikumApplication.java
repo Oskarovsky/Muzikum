@@ -170,6 +170,7 @@ public class MuzikumApplication implements CommandLineRunner {
         ImageRepository imageRepository = applicationContext.getBean(ImageRepository.class);
         FilesStorageService filesStorageService = applicationContext.getBean(FilesStorageService.class);
         CommentRepository commentRepository = applicationContext.getBean(CommentRepository.class);
+/*
 
         // USER ROLES CREATOR
         Role roleAdmin = new Role();
@@ -213,6 +214,7 @@ public class MuzikumApplication implements CommandLineRunner {
         List<Genre> appleGenres = Stream.of(Genre.CLUB, Genre.RETRO).collect(Collectors.toList());
 
         // DEFAULT PROVIDERS
+*/
 /*        providerRepository.saveAll(Arrays.asList(
                 Provider.builder().id(1).description("nice").url("https://nuteczki.eu/top20/#").name("nuteczki").genres(nuteczkiGenres).build(),
                 Provider.builder().id(2).description("very nice").url("https://radioparty.pl/partylista.html").genres(radiopartyGenres).name("radioparty").build(),
@@ -222,7 +224,8 @@ public class MuzikumApplication implements CommandLineRunner {
                 Provider.builder().id(6).description("bombastic").url("https://musiclist.com/en/").name("musiclist").build(),
                 Provider.builder().id(7).description("nicename").url("https://www.ariacharts.com.au/").name("ariacharts").build(),
                 Provider.builder().id(8).description("tasty service").url("https://music.apple.com/").genres(appleGenres).name("apple").build()
-        ));*/
+        ));*//*
+
 
         // PLAYLIST CREATING
         Playlist playlist = Playlist.builder().id(1).name("MyTop").user(userAdmin).views(10).build();
@@ -308,6 +311,7 @@ public class MuzikumApplication implements CommandLineRunner {
         TrackComment trackComment2 =
                 TrackComment.builder().track(popularTrackClub).text("Jest fajnie").user(userJacek).build();
         trackCommentRepository.saveAll(Arrays.asList(trackComment1, trackComment2));
+*/
 
 
 /*
