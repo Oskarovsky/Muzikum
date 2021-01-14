@@ -12,13 +12,13 @@
 
   <div *ngIf="totalNumberOfPages > 1" style="text-align: center;">
       <span class="pagination">
-        <a *ngIf="currentPage > 1" type='button' href="app/tracks/{{genre}}/{{previousPage(currentPage)}}">&laquo;</a>
+        <a *ngIf="currentPage > 1" type='button' href="tracks/{{genre}}/{{previousPage(currentPage)}}">&laquo;</a>
       </span>
     <span class="pagination">
-        <a class="active" type='button' href="app/tracks/{{genre}}/{{currentPage}}">{{currentPage}} / {{totalNumberOfPages}}</a>
+        <a class="active" type='button' href="tracks/{{genre}}/{{currentPage}}">{{currentPage}} / {{totalNumberOfPages}}</a>
       </span>
     <span class="pagination">
-        <a *ngIf="currentPage < totalNumberOfPages" type='button' href="app/tracks/{{genre}}/{{nextPage(currentPage)}}">&raquo;</a>
+        <a *ngIf="currentPage < totalNumberOfPages" type='button' href="tracks/{{genre}}/{{nextPage(currentPage)}}">&raquo;</a>
       </span>
   </div>
 
