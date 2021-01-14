@@ -155,7 +155,7 @@ export class TrackAddComponent implements OnInit {
           } else if (event instanceof HttpResponse) {
             this.message = event.body.message;
             this.currentFileName = 'trackCover_'.concat(this.currentFile.name);
-            this.alertService.success('Zdjęcie zostało dodane. Odśwież stronę.');
+            this.alertService.success('Zdjęcie zostało dodane !');
           }
         },
         err => {

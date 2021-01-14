@@ -1,5 +1,5 @@
 function showAvatarForm() {
-  document.getElementById('avatarForm').style.display = "block";
+  document.getElementById('avatarForm').style.display = "flex";
 }
 
 function passwordCompare() {

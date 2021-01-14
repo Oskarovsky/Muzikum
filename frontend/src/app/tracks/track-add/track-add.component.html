@@ -74,21 +74,30 @@
         </mat-form-field>
       </div>
 
-      <h3>Okładka utworu</h3>
-      <button mat-stroked-button value="Dodaj zdjęcie" color="primary" id="buttonChangeImage"
-              onclick="showAvatarForm()">Dodaj zdjęcie
-      </button>
+      <div>
+        <span style="font-size: large; color: white; margin-right: 15px">Możesz dodać okładkę do utworu:</span>
+        <span>
+          <button mat-stroked-button value="Dodaj zdjęcie" color="primary" id="buttonChangeImage"
+                  onclick="showAvatarForm()">Dodaj zdjęcie
+          </button>
+        </span>
+      </div>
+
 
       <label style="display:none;" id="avatarForm" class="image-upload-container btn btn-bwm">
-        <button class="btn btn-success" [disabled]="!selectedFile" (click)="uploadCover(trackUrl.value)">Upload</button>
-        <input type="file" accept='image/*' (change)="selectFile($event)"/>
-        <span class="alert-light" role="alert" style="color: white">{{ message }}</span>
+        <span style="margin-right: 10px">
+          <button class="btn btn-success" [disabled]="!selectedFile" (click)="uploadCover(trackUrl.value)">Upload</button>
+        </span>
+        <span>
+          <input style="color: white" type="file" accept='image/*' (change)="selectFile($event)"/>
+        </span>
+        <span role="alert" style="color: white">{{ message }}</span>
       </label>
 
       <button type="submit" [disabled]="!userForm.form.valid"
               (click)="addNewTrack(trackTitle.value, trackArtist.value, trackVersion.value,
               trackGenre.value, trackUrl.value, trackUrlSource.value)"
-              class="btn btn-info">Submit
+              class="btn btn-info" style="margin-top: 30px">Dodaj utwór
       </button>
 
     </form>
