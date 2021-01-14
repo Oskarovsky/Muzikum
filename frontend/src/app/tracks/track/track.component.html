@@ -38,7 +38,7 @@
       <iframe [src]="track.safeUrl" width="1000" height="100" frameborder="0"></iframe>
     </div>
     <div>
-      <a *ngIf="isLoggedIn" href="{{track.url}}" role="button">
+      <a *ngIf="isLoggedIn" href="{{track.url}}" role="button" target="_blank">
         <button class="btn-download">Pobierz utwór</button>
       </a>
     </div>

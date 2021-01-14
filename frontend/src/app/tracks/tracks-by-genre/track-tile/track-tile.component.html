@@ -42,7 +42,7 @@
       <input type="image" src="assets/img/player_oskarro.jpg" alt="player_image" (click)="fakeClick(track.id)">
     </div>
     <span>
-      <a *ngIf="isLoggedIn" class="btnCommments" href="app/track/{{track.id}}" role="button">
+      <a *ngIf="isLoggedIn" class="btnCommments" href="track/{{track.id}}" role="button">
        <button class="btn-download">Pobierz utwór</button>
       </a>
       <a *ngIf="!isLoggedIn" class="btnCommments" [routerLink]="['/login']" role="button">
