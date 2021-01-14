@@ -3,6 +3,7 @@ import { AuthService } from '../../services/auth/auth.service';
 import {FormBuilder, FormGroup, Validators, FormControl} from '@angular/forms';
 import {MustMatch} from './MustMatch';
 import {AlertService} from '../../services/alert/alert.service';
+import {FACEBOOK_AUTH_URL} from '../../../assets/constants/app.const';
 
 @Component({
   selector: 'app-register',
@@ -15,6 +16,7 @@ export class RegisterComponent implements OnInit {
   isSuccessful = false;
   registerForm: FormGroup;
   submitted = false;
+  facebookAuthUrl = FACEBOOK_AUTH_URL;
 
   constructor(private authService: AuthService,
               private alertService: AlertService,
