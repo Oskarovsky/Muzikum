@@ -108,6 +108,7 @@ export class TrackComponent implements OnInit, AfterViewChecked {
       this.modelUser.provider = this.tokenStorage.getUser().provider;
       this.modelUser.providerId = this.tokenStorage.getUser().providerId;
     }
+    this.getCoverImage(this.trackId);
     this.getUserImage(this.modelUser.username);
   }
 
