@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {AfterViewInit, Component, Input, OnChanges, OnInit} from '@angular/core';
 import {Track} from '../track/model/track';
 import {TokenStorageService} from '../../services/auth/token-storage.service';
 import {TrackService} from '../../services/track/track.service';
@@ -12,7 +12,7 @@ import { VoteType } from './model/vote-type';
   templateUrl: './track-vote-button.component.html',
   styleUrls: ['./track-vote-button.component.css']
 })
-export class TrackVoteButtonComponent implements OnInit {
+export class TrackVoteButtonComponent implements OnInit, AfterViewInit {
 
   @Input() track: Track;
   votePayload: VotePayload;
@@ -36,6 +36,10 @@ export class TrackVoteButtonComponent implements OnInit {
       this.checkIfUserVotedForTrack(this.track.id, this.tokenStorage.getUser().id);
     }
     this.updateVoteDetails();
+  }
+
+  ngAfterViewInit() {
+    // this.checkIfUserVotedForTrack(this.track.id, this.tokenStorage.getUser().id);
   }
 
   upvotePost() {

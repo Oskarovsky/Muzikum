@@ -1,7 +1,8 @@
-<div class="row post" *ngFor="let track of tracks">
-  <div class="col-md-1 vote-area">
+<div class="row post no-gutters" *ngFor="let track of tracks">
+  <div class="col-md-1 vote-area" style="margin-right: 10px; border: solid 3px black; height: min-content">
     <img *ngIf="coversToShow.get(track.id); else noCoverFound"
-         [src]="coversToShow.get(track.id)" width="100%" alt="Zdjęcie do utworu {{track.title}}">
+         [src]="coversToShow.get(track.id)" width="100%" alt="Zdjęcie do utworu {{track.title}}"
+         style="min-height: 80px">
     <ng-template #noCoverFound>
       <img id="profile-img" width="100%"
            src="/assets/img/logo_music.png"
@@ -10,7 +11,7 @@
     </ng-template>
     <app-track-vote-button [track]="track"></app-track-vote-button>
   </div>
-  <div class="col-md-11">
+  <div class="col-md-10">
     <div class="info-area">
       <span class="subreddit-text">
         <a class="posturl" routerLink="">Dodano {{track.createdAt | dateAgo}}   |</a>

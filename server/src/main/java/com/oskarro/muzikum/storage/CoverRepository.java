@@ -10,7 +10,7 @@ public interface CoverRepository extends JpaRepository<Cover, Integer> {
 
     Cover findByName(String fileName);
 
-    Cover findByUrl(String url);
+    Cover findTopByUrl(String url);
 
     Optional<Cover> findById(Integer coverId);
 

@@ -86,7 +86,7 @@ public class TrackServiceImpl implements TrackService {
                 } else if (Objects.equals(track.getUrlSource(), UrlSource.SOUNDCLOUD.toString())) {
                     // TODO SOUNDCLOUD
                 }
-                Cover cover = coverRepository.findByUrl(track.getUrl());
+                Cover cover = coverRepository.findTopByUrl(track.getUrl());
                 if (cover != null) {
                     track.setCover(cover);
                 }

@@ -2,6 +2,7 @@
   <div *ngIf="(track.points<0)" class="votecountMinus">{{track.points}}</div>
   <div *ngIf="(track.points>0)" class="votecountPlus">{{track.points}}</div>
   <div *ngIf="(track.points==0)" class="votecount">{{track.points}}</div>
+
   <div *ngIf="!isVoted && isLoggedIn">
     <span>
       <img (click)="upvotePost()" src="../../../assets/img/thumbs_up.png" alt="thumbs_up"
