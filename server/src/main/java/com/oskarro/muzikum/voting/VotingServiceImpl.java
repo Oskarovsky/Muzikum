@@ -10,6 +10,7 @@ import com.oskarro.muzikum.user.User;
 import com.oskarro.muzikum.user.UserRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -107,6 +108,7 @@ public class VotingServiceImpl implements VotingService {
     }
 
     @Override
+    @Transactional
     public boolean isVotedForTrackByUser(Integer trackId, Integer userId) {
         List<Vote> votes = votingRepository.findVotesByTrackId(trackId);
         Vote vote = votes.stream()

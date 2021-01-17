@@ -5,25 +5,26 @@
 
   <div *ngIf="!isVoted && isLoggedIn">
     <span>
-      <img (click)="upvotePost()" src="../../../assets/img/thumbs_up.png" alt="thumbs_up"
-           style="max-width:50%; max-height:50%;">
+      <img (click)="upvotePost()" src="../../../assets/img/thumbs_up.png" alt="thumbs_up" id="upvoteButton"
+           style="max-width:50%; max-height:50%; border-top: 3px solid black; border-right: 1px solid black">
     </span>
     <span>
       <img (click)="downvotePost()" src="../../../assets/img/thumbs_down.png" alt="thumbs_down"
-           style="max-width:50%; max-height:50%;">
+           style="max-width:50%; max-height:50%; border-top: 3px solid black; border-left: 1px solid black">
     </span>
   </div>
 
   <div *ngIf="isVoted && isLoggedIn">
     <span>
-      <img (click)="upvotePost()" src="../../../assets/img/thumbs_up.png" alt="thumbs_up"
-           style="max-width:50%; max-height:50%; filter: grayscale(100%);">
+      <img (click)="upvotePost()" src="../../../assets/img/thumbs-up.png" alt="thumbs-up"
+           style="max-width:50%; max-height:50%; filter: grayscale(70%);">
     </span>
     <span>
-      <img (click)="downvotePost()" src="../../../assets/img/thumbs_down.png" alt="thumbs_down"
-           style="max-width:50%; max-height:50%; filter: grayscale(100%);">
+      <img (click)="downvotePost()" src="../../../assets/img/thumbs-down.png" alt="thumbs-down"
+           style="max-width:50%; max-height:50%; filter: grayscale(70%);">
     </span>
   </div>
 
 </div>
+
 
