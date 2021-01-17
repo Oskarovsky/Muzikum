@@ -80,7 +80,7 @@
                    *ngIf="imagesToShow.get(comment.user.username); else noImageFound">
               <ng-template #noImageFound>
                 <img id="profile-imgs" width="50" height="50"
-                     src="//ssl.gstatic.com/accounts/ui/avatar_2x.png"
+                     src="/assets/img/user_avatar.png"
                      alt="image to show"
                      class="profile-img-card rounded-circle"/>
               </ng-template>
@@ -112,7 +112,7 @@
                        *ngIf="imagesToShow.get(this.modelUser.username); else noImageFound">
                   <ng-template #noImageFound>
                     <img id="profile-img" width="70" height="70"
-                         src="//ssl.gstatic.com/accounts/ui/avatar_2x.png"
+                         src="/assets/img/user_avatar.png"
                          alt="image to show"
                          class="profile-img-card rounded-circle"/>
                   </ng-template>

@@ -26,6 +26,7 @@ export class ProfileComponent implements OnInit {
   imageToShow: any;
   tracks: Array<any>;
   favoriteTracksByUser: Track[] = [];
+  linksrc = '/assets/img/user_avatar.png';
 
   constructor(private tokenStorage: TokenStorageService,
               private http: HttpClient,
@@ -49,6 +50,7 @@ export class ProfileComponent implements OnInit {
       this.getImageFromService(this.currentUser.username);
     }
   }
+
 
   getImageFromService(username: string) {
     const reader = new FileReader();
