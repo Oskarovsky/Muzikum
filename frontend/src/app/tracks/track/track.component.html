@@ -1,7 +1,7 @@
-<div class="row post">
+<div class="row post no-gutters">
 
 <!-- BASIC TRACK INFORMATION -->
-  <div class="col-md-1">
+  <div class="col-md-1" style="margin-right: 10px; border: solid 3px black; height: min-content">
     <img *ngIf="coversToShow.get(trackId); else noCoverFound"
          [src]="coversToShow.get(trackId)" width="100%" alt="Zdjęcie do utworu {{track.title}}">
     <ng-template #noCoverFound>
@@ -12,7 +12,7 @@
     </ng-template>
     <app-track-vote-button [track]="track"></app-track-vote-button>
   </div>
-  <div class="col-md-11">
+  <div class="col-md-10">
         <span class="subreddit-info">
             <span class="subreddit-text"><a class="posturl" routerLink="">Dodano {{track.createdAt | dateAgo}}</a></span>
             <span *ngIf="track.user!==null">
