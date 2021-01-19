@@ -12,10 +12,10 @@
                   <img [src]="imageToShow" width="150" height="150"
                        alt="Avatar user"
                        style="color: white"
-                       *ngIf="imageToShow; else noImageFound">
+                       *ngIf="isImage; else noImageFound">
                   <ng-template #noImageFound>
                     <img id="profile-imgs" width="150" height="150"
-                         [src]=linksrc
+                         src="/assets/img/user_avatar.png"
                          class="profile-img-card"
                          alt="Avatar default"/>
                   </ng-template>

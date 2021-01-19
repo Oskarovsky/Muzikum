@@ -6,7 +6,7 @@ import { HttpEventType, HttpResponse, HttpClient } from '@angular/common/http';
 import {Track} from '../tracks/track/model/track';
 import {TrackService} from '../services/track/track.service';
 import {FavoriteService} from '../services/favorite/favorite.service';
-import {DomSanitizer} from '@angular/platform-browser';
+import {DomSanitizer, SafeHtml, SafeResourceUrl} from '@angular/platform-browser';
 import {error} from 'util';
 import {AlertService} from '../services/alert/alert.service';
 import {first} from 'rxjs/operators';
@@ -25,8 +25,8 @@ export class ProfileComponent implements OnInit {
   message = '';
   imageToShow: any;
   tracks: Array<any>;
+  isImage = false;
   favoriteTracksByUser: Track[] = [];
-  linksrc = '/assets/img/user_avatar.png';
 
   constructor(private tokenStorage: TokenStorageService,
               private http: HttpClient,
@@ -35,7 +35,8 @@ export class ProfileComponent implements OnInit {
               private uploadService: UploadFileService,
               private favoriteService: FavoriteService,
               private trackService: TrackService,
-              private sanitizer: DomSanitizer) { }
+              private sanitizer: DomSanitizer) {
+  }
 
   ngOnInit() {
     if (this.tokenStorage.getToken()) {
@@ -51,6 +52,9 @@ export class ProfileComponent implements OnInit {
     }
   }
 
+  getInnerHTMLValue() {
+  }
+
 
   getImageFromService(username: string) {
     const reader = new FileReader();
@@ -58,9 +62,14 @@ export class ProfileComponent implements OnInit {
       data => {
         reader.addEventListener('load', () => {
           this.imageToShow = this.sanitizer.bypassSecurityTrustResourceUrl(reader.result as string);
+          console.log('YYY1 ' + this.imageToShow);
         }, false);
         if (data) {
-          reader.readAsDataURL(data);
+          if (data.size > 0) {
+            console.log('YYY2 ' + data.size);
+            this.isImage = true;
+            reader.readAsDataURL(data);
+          }
         }
       }, err => {
         console.log(err);
