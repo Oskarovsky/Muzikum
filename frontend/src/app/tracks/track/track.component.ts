@@ -38,6 +38,7 @@ export class TrackComponent implements OnInit, AfterViewChecked {
   isLoggedIn = false;
   trackDataFromAPI: any;
   jsonUrl: string;
+  isImage = false;
 
   sub: Subscription;
   trackId: number;
@@ -186,7 +187,11 @@ export class TrackComponent implements OnInit, AfterViewChecked {
     }, false);
 
     if (image) {
-      reader.readAsDataURL(image);
+      if (image.size > 0) {
+        console.log('YYY2 ' + image.size);
+        this.isImage = true;
+        reader.readAsDataURL(image);
+      }
     }
   }
 

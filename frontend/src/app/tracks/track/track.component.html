@@ -75,11 +75,11 @@
         <div class="comment-widgets">
           <div *ngFor="let comment of trackComments" class="d-flex flex-row comment-row m-t-0">
             <a class="media-left" href="#">
-              <img [src]="imagesToShow.get(comment.user.username)" width="50" height="50"
+              <img [src]="imagesToShow.get(comment.user.username)" width="80" height="80"
                    alt="Place image title" class="rounded-circle"
                    *ngIf="imagesToShow.get(comment.user.username); else noImageFound">
               <ng-template #noImageFound>
-                <img id="profile-imgs" width="50" height="50"
+                <img id="profile-imgs" width="80" height="80"
                      src="/assets/img/user_avatar.png"
                      alt="image to show"
                      class="profile-img-card rounded-circle"/>
@@ -100,18 +100,22 @@
           </div>
         </div>
 
+        <hr />
+
         <!-- COMMENTS FORM -->
         <div *ngIf="isLoggedIn" class="card my-5" style="background-color: transparent">
           <form #commentForm="ngForm">
-            <div><h4>Dodaj nowy komentarz</h4></div>
+            <div style="margin-bottom: 20px">
+              <h4>Dodaj nowy komentarz</h4>
+            </div>
             <fieldset>
               <div class="row">
                 <div class="col-sm-3 col-lg-2 hidden-xs">
                   <img [src]="imagesToShow.get(this.modelUser.username)" width="100%" height="100%"
                        alt="Place image title" class="img-responsive rounded-circle"
-                       *ngIf="imagesToShow.get(this.modelUser.username); else noImageFound">
+                       *ngIf="imagesToShow.get(modelUser.username); else noImageFound">
                   <ng-template #noImageFound>
-                    <img id="profile-img" width="70" height="70"
+                    <img id="profile-img" width="100" height="100"
                          src="/assets/img/user_avatar.png"
                          alt="image to show"
                          class="profile-img-card rounded-circle"/>
