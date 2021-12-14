@@ -23,19 +23,19 @@ public class ScheduledTask {
 
     private static final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
-    @Scheduled(cron = "0 0 0 1 * ?")
+//    @Scheduled(cron = "0 0 0 1 * ?")
     public void resetMonthlyStatsJob() {
         log.info("Monthly stats reset correctly {}", dateFormat.format(new Date()));
         userService.resetMonthlyStatsForUploading();
     }
 
-    @Scheduled(cron = "0 0 0 1 * ?")
+//    @Scheduled(cron = "0 0 0 1 * ?")
     public void resetWeeklyStatsJob() {
         log.info("Weekly stats reset correctly {}", dateFormat.format(new Date()));
         userService.resetWeeklyStatsForUploading();
     }
 
-    @Scheduled(cron = "0 0/5 * * * ?")
+//    @Scheduled(cron = "0 0/5 * * * ?")
     public void updateYoutubeStatistics() {
         log.info("Youtube statistics updating {}", dateFormat.format(new Date()));
         videoService.updateVideoStatistics();

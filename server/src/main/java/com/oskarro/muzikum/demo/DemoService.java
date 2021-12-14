@@ -15,6 +15,7 @@ import com.oskarro.muzikum.track.TrackRepository;
 import com.oskarro.muzikum.track.model.Genre;
 import com.oskarro.muzikum.track.model.Track;
 import com.oskarro.muzikum.track.model.TrackComment;
+import com.oskarro.muzikum.track.model.UrlSource;
 import com.oskarro.muzikum.user.*;
 import com.oskarro.muzikum.user.favorite.FavoriteTrack;
 import com.oskarro.muzikum.user.favorite.FavoriteTrackRepository;
@@ -106,7 +107,7 @@ public class DemoService {
                 .username("Jacek")
                 .email("jacek@pw.pl")
                 .password(encoder.encode("123456"))
-                .roles(new HashSet(Collections.singletonList(roleUser)))
+                .roles(new HashSet<>(Collections.singletonList(roleUser)))
                 .provider(AuthProvider.local)
                 .build();
         User userGosia = User.builder()
@@ -155,6 +156,14 @@ public class DemoService {
                 .build();
         postRepository.save(postFirst);
 
+        Post postSecond = Post.builder().
+                title("Ciąg dalszy nastąpi...")
+                .description("Sprawdzenie zawartości drugiego posta, który powinien pojawić się na stronie głównej")
+                .content("Dostępnych jest wiele nowych super rzeczy, które są idealne dla fanów muzyki klubowej")
+                .user(userAdmin)
+                .build();
+        postRepository.save(postSecond);
+
 
         // TRACK
         Track track1 = Track.builder().id(3).title("Nitro pleasure").artist("Mango Bordex")
@@ -198,16 +207,51 @@ public class DemoService {
         FavoriteTrack favoriteTrack003 = FavoriteTrack.builder().track(track11).user(userAdmin).build();
         favoriteTrackRepository.saveAll(Arrays.asList(favoriteTrack001, favoriteTrack002, favoriteTrack003));
 
-        Track popularTrackRetro = Track.builder().artist("Scooter").title("Maria (I like it loud)").version("Original Mix")
-                .genre(Genre.RETRO.toString()).points(2).build();
-        Track popularTrackClub = Track.builder().artist("Oskarro").title("Vixologia").version("Extended Mix")
-                .genre(Genre.CLUB.toString()).points(4).build();
-        Track popularTrackDance = Track.builder().artist("Danya").title("My Love").version("Ozi Remix")
-                .genre(Genre.DANCE.toString()).points(3).build();
-        Track popularTrackTechno = Track.builder().artist("Bumps").title("O shit!").version("Original Mix")
-                .genre(Genre.TECHNO.toString()).points(2).build();
-        Track popularTrackHouse = Track.builder().artist("Calian").title("Summer ending").version("Radio Mix")
-                .genre(Genre.HOUSE.toString()).points(5).build();
+        Track popularTrackRetro = Track.builder()
+                .artist("Scooter")
+                .title("Maria (I like it loud)")
+                .version("Original Mix")
+                .genre(Genre.RETRO.toString())
+                .points(2)
+                .urlSource(UrlSource.KRAKENFILES.name())
+                .url("https://krakenfiles.com/view/OmdojlqSnV/file.html")
+                .build();
+        Track popularTrackClub = Track.builder()
+                .artist("Oskarro")
+                .title("Vixologia")
+                .version("Extended Mix")
+                .genre(Genre.CLUB.toString())
+                .urlSource(UrlSource.ZIPPYSHARE.name())
+                .url("https://www44.zippyshare.com/v/InBKmpoy/file.html")
+                .points(4)
+                .build();
+        Track popularTrackDance = Track.builder()
+                .artist("Danya")
+                .title("My Love")
+                .version("Ozi Remix")
+                .urlSource(UrlSource.KRAKENFILES.name())
+                .url("https://krakenfiles.com/view/LYsGyhpfGa/file.html")
+                .genre(Genre.DANCE.toString())
+                .points(3)
+                .build();
+        Track popularTrackTechno = Track.builder()
+                .artist("Bumps")
+                .title("O shit!")
+                .version("Original Mix")
+                .urlSource(UrlSource.KRAKENFILES.name())
+                .url("https://krakenfiles.com/view/j9PeY5Qk7t/file.html")
+                .genre(Genre.TECHNO.toString())
+                .points(2)
+                .build();
+        Track popularTrackHouse = Track.builder()
+                .artist("Calian")
+                .title("Summer ending")
+                .version("Radio Mix")
+                .urlSource(UrlSource.KRAKENFILES.name())
+                .url("https://krakenfiles.com/view/j9PeY5Qk7t/file.html")
+                .genre(Genre.HOUSE.toString())
+                .points(5)
+                .build();
 
         trackRepository.saveAll(Arrays.asList(popularTrackClub, popularTrackDance, popularTrackHouse,
                 popularTrackRetro, popularTrackTechno));
@@ -216,9 +260,9 @@ public class DemoService {
         Track userTrack1 = Track.builder().artist("Hitman").title("One River").version("Original Mix")
                 .genre(Genre.TECHNO.toString()).points(1).user(userAdmin).build();
         Track userTrack2 = Track.builder().artist("OneSound").title("Magician Dream").version("Dave Aude Mix")
-                .genre(Genre.DANCE.toString()).points(3).user(userAdmin).build();
+                .genre(Genre.SET.toString()).points(3).user(userAdmin).build();
         Track userTrack3 = Track.builder().artist("BeatBoxer").title("Night Our").version("Vinyl Edit")
-                .genre(Genre.DANCE.toString()).points(1).user(userAdmin).build();
+                .genre(Genre.DISCO.toString()).points(1).user(userAdmin).build();
 
         trackRepository.saveAll(Arrays.asList(userTrack1, userTrack2, userTrack3));
 

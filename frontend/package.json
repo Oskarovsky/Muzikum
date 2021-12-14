@@ -2,10 +2,10 @@
   "name": "frontend",
   "version": "0.0.0",
   "scripts": {
-    "ng": "frontend/node_modules/.bin/ng",
-    "start": "frontend/node_modules/.bin/ng serve --ssl true",
-    "build": "frontend/node_modules/.bin/ng build --ssl true",
-    "test": "frontend/node_modules/.bin/ng test",
+    "ng": "../frontend/node_modules/.bin/ng",
+    "start": "../frontend/node_modules/.bin/ng serve --ssl true",
+    "build": "../frontend/node_modules/.bin/ng build --ssl true",
+    "test": "../frontend/node_modules/.bin/ng test",
     "lint": "frontend/node_modules/.bin/ng lint",
     "e2e": "frontend/node_modules/.bin/ng e2e"
   },
@@ -29,7 +29,7 @@
     "@types/jest": "^26.0.5",
     "angular-font-awesome": "^3.1.2",
     "cors": "^2.8.5",
-    "dompurify": "^2.0.12",
+    "dompurify": "^2.3.4",
     "font-awesome": "^4.7.0",
     "ng2-ckeditor": "^1.2.7",
     "ngx-pagination": "^5.0.0",
@@ -39,7 +39,7 @@
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "^0.803.29",
-    "@angular/cli": "^8.3.28",
+    "@angular/cli": "^13.1.1",
     "@angular/compiler-cli": "~8.2.7",
     "@angular/language-service": "~8.2.7",
     "@babel/compat-data": "^7.10.5",
@@ -62,5 +62,9 @@
   },
   "resolutions": {
     "@babel/preset-env": "7.5.5"
-  }
+  },
+  "description": "This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.3.5.",
+  "main": "karma.conf.js",
+  "author": "",
+  "license": "ISC"
 }

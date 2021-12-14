@@ -114,7 +114,7 @@ public class VideoServiceImpl implements VideoService {
     }
 
     @Override
-    @Cacheable(cacheNames = "TopVideos")
+//    @Cacheable(cacheNames = "TopVideos")
     public List<Video> getTop10PopularVideos() {
         return videoRepository.findTop10ByOrderByViewCountDesc();
     }

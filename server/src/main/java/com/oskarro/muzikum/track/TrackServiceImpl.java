@@ -187,7 +187,7 @@ public class TrackServiceImpl implements TrackService {
     }
 
     @Override
-    @Cacheable(cacheNames = "MostPopularTrackByGenre", key = "#genre")
+//    @Cacheable(cacheNames = "MostPopularTrackByGenre", key = "#genre")
     public Track getMostPopularTrackByGenre(String genre) {
         List<Track> allTracksByGenre = findTracksByGenre(genre);
         return allTracksByGenre

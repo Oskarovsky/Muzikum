@@ -133,7 +133,7 @@ public class UserDetailsServiceImpl implements UserDetailsService, UserService {
 
 
     @Override
-    @Cacheable(cacheNames = "TopUploaders", key = "#periodOfTime")
+//    @Cacheable(cacheNames = "TopUploaders", key = "#periodOfTime")
     public List<User> getTopUploaders(String periodOfTime, int numberOfUser) {
         switch (periodOfTime) {
             case TOTAL_PERIOD: {
