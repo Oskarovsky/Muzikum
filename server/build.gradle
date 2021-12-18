@@ -67,6 +67,7 @@ dependencies {
 
     // Library for detecting N+1 queries
     implementation 'com.yannbriancon:spring-hibernate-query-utils:1.0.3'
+    implementation 'org.projectlombok:lombok:1.18.20'
 
     /* ============ endregion IMPLEMENTATION ============ */
 

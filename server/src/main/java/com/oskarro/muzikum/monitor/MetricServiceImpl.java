@@ -12,23 +12,16 @@ import java.util.concurrent.ConcurrentMap;
 @Service
 public class MetricServiceImpl implements MetricService {
 
-    private ConcurrentMap<String, ConcurrentHashMap<Integer, Integer>> metricMap;
     private final ConcurrentMap<Integer, Integer> statusMetric;
-    private ConcurrentMap<String, ConcurrentHashMap<Integer, Integer>> timeMap;
+    private final ConcurrentMap<String, ConcurrentHashMap<Integer, Integer>> metricMap;
+    private final ConcurrentMap<String, ConcurrentHashMap<Integer, Integer>> timeMap;
     private static final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 
     public MetricServiceImpl() {
         super();
-        metricMap = new ConcurrentHashMap<String, ConcurrentHashMap<Integer, Integer>>();
-        statusMetric = new ConcurrentHashMap<Integer, Integer>();
-        timeMap = new ConcurrentHashMap<String, ConcurrentHashMap<Integer, Integer>>();
-    }
-
-    @Override
-    public void increaseCount(final String request, final int status) {
-        increaseMainMetric(request, status);
-        increaseStatusMetric(status);
-        updateTimeMap(status);
+        metricMap = new ConcurrentHashMap<>();
+        statusMetric = new ConcurrentHashMap<>();
+        timeMap = new ConcurrentHashMap<>();
     }
 
     @Override
@@ -67,11 +60,18 @@ public class MetricServiceImpl implements MetricService {
         return result;
     }
 
+    @Override
+    public void increaseCount(final String request, final int status) {
+        increaseMainMetric(request, status);
+        increaseStatusMetric(status);
+        updateTimeMap(status);
+    }
 
+    /* It records metrics for each endpoint by URL */
     private void increaseMainMetric(final String request, final int status) {
         ConcurrentHashMap<Integer, Integer> statusMap = metricMap.get(request);
         if (statusMap == null) {
-            statusMap = new ConcurrentHashMap<Integer, Integer>();
+            statusMap = new ConcurrentHashMap<>();
         }
 
         Integer count = statusMap.get(status);
@@ -97,7 +97,7 @@ public class MetricServiceImpl implements MetricService {
         final String time = dateFormat.format(new Date());
         ConcurrentHashMap<Integer, Integer> statusMap = timeMap.get(time);
         if (statusMap == null) {
-            statusMap = new ConcurrentHashMap<Integer, Integer>();
+            statusMap = new ConcurrentHashMap<>();
         }
 
         Integer count = statusMap.get(status);

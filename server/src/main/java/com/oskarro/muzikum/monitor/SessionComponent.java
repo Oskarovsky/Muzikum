@@ -13,7 +13,6 @@ import java.util.concurrent.atomic.AtomicInteger;
 @SessionScope
 public class SessionComponent {
 
-    private AtomicInteger sessionViews;
     private final PlaylistService playlistService;
     private final PlaylistRepository playlistRepository;
 
@@ -22,6 +21,7 @@ public class SessionComponent {
         this.playlistRepository = playlistRepository;
     }
 
+    /* Method for counting views of a playlist */
     public Integer updateSessionViews(Integer playlistId) {
         Playlist playlist = playlistService.findPlaylistById(playlistId)
                 .orElseThrow(() -> new ResourceNotFoundException("Playlist", "id", playlistId));
@@ -30,6 +30,7 @@ public class SessionComponent {
         } else {
             playlist.setViews(playlist.getViews() + 1);
         }
+
         playlistRepository.save(playlist);
         return playlist.getViews();
     }

@@ -20,8 +20,8 @@ public class MetricFilter implements Filter {
     }
 
     @Override
-    public void init(FilterConfig filterConfig) throws ServletException {
-        metricService = (MetricServiceImpl) WebApplicationContextUtils
+    public void init(FilterConfig filterConfig) {
+        metricService = WebApplicationContextUtils
                 .getRequiredWebApplicationContext(filterConfig.getServletContext())
                 .getBean(MetricServiceImpl.class);
     }
@@ -29,14 +29,9 @@ public class MetricFilter implements Filter {
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
         HttpServletRequest httpServletRequest = ((HttpServletRequest) request);
-        String req = httpServletRequest.getMethod() + " " + httpServletRequest.getRequestURI();
+        String req = String.format("%s %s", httpServletRequest.getMethod(), httpServletRequest.getRequestURI());
         chain.doFilter(request, response);
         int status = ((HttpServletResponse) response).getStatus();
         metricService.increaseCount(req, status);
-    }
-
-    @Override
-    public void destroy() {
-
     }
 }

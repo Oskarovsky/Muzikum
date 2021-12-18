@@ -1,12 +1,10 @@
 package com.oskarro.muzikum.monitor;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.Scheduled;
-import org.springframework.stereotype.Service;
-
 import io.micrometer.core.instrument.Counter;
 import io.micrometer.core.instrument.Meter;
 import io.micrometer.core.instrument.MeterRegistry;
+import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.stereotype.Service;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -16,17 +14,16 @@ import java.util.List;
 @Service
 public class ActuatorMetricServiceImpl implements ActuatorMetricService {
 
-    @Autowired
-    private MeterRegistry publicMetrics;
-
+    private final MeterRegistry publicMetrics;
     private final List<ArrayList<Integer>> statusMetricsByMinute;
     private final List<String> statusList;
     private static final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 
-    public ActuatorMetricServiceImpl() {
+    public ActuatorMetricServiceImpl(MeterRegistry publicMetrics) {
         super();
-        statusMetricsByMinute = new ArrayList<ArrayList<Integer>>();
-        statusList = new ArrayList<String>();
+        statusMetricsByMinute = new ArrayList<>();
+        statusList = new ArrayList<>();
+        this.publicMetrics = publicMetrics;
     }
 
     @Override
@@ -48,7 +45,7 @@ public class ActuatorMetricServiceImpl implements ActuatorMetricService {
         }
 
         List<Integer> minuteOfStatuses;
-        List<Integer> last = new ArrayList<Integer>();
+        List<Integer> last = new ArrayList<>();
 
         for (int i = 1; i < rowCount; i++) {
             minuteOfStatuses = statusMetricsByMinute.get(i - 1);

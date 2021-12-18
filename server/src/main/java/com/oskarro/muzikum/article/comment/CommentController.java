@@ -53,8 +53,8 @@ public class CommentController {
     @PutMapping(value = "/{postId}/comments/{commentId}")
     @CrossOrigin(origins = "*", allowedHeaders = "*")
     public ResponseEntity<Comment> updateComment(@PathVariable Integer postId,
-                                 @PathVariable Integer commentId,
-                                 @Valid @RequestBody Comment commentRequest) {
+                                                 @PathVariable Integer commentId,
+                                                 @Valid @RequestBody Comment commentRequest) {
         if (!postRepository.existsById(postId)) {
             throw new ResourceNotFoundException("Post", "id", postId);
         }

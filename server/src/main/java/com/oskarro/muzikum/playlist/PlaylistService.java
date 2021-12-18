@@ -7,7 +7,7 @@ public interface PlaylistService {
 
     List<Playlist> getAllPlaylist();
 
-    void addPlaylist(Playlist playlist);
+    Playlist save(Playlist playlist);
 
     Optional<Playlist> findPlaylistById(Integer id);
 

@@ -30,44 +30,44 @@ public class PlaylistController {
         this.sessionComponent = sessionComponent;
     }
 
-    @GetMapping(value = "/findAll")
+    @GetMapping(value = "/")
     @CrossOrigin(origins = "*", allowedHeaders = "*")
-    List<Playlist> findAll() {
+    public List<Playlist> getAllPlaylists() {
         return playlistService.getAllPlaylist();
     }
 
     @GetMapping(value = "/{id}")
     @CrossOrigin(origins = "*", allowedHeaders = "*")
-    Optional<Playlist> getPlaylistById(@PathVariable Integer id) {
+    public Optional<Playlist> getPlaylistById(@PathVariable Integer id) {
         return playlistService.findPlaylistById(id);
     }
 
     @GetMapping(value = "/{id}/tracks")
     @CrossOrigin(origins = "*", allowedHeaders = "*")
-    List<Track> getAllTracksFromPlaylist(@PathVariable Integer id) {
+    public List<Track> getAllTracksFromPlaylist(@PathVariable Integer id) {
         return trackService.findAllTracksFromPlaylist(id);
     }
 
     @GetMapping(value = "/{id}/updateViews")
     @CrossOrigin(origins = "*", allowedHeaders = "*")
-    Integer getViewsNumber(@PathVariable Integer id) {
+    public Integer getViewsNumber(@PathVariable Integer id) {
         return sessionComponent.updateSessionViews(id);
     }
 
-    @PostMapping(value = "/add")
+    @PostMapping(value = "/")
     @CrossOrigin(origins = "*", allowedHeaders = "*")
-    public void addPlaylist(@RequestBody Playlist playlist) {
-        playlistService.addPlaylist(playlist);
+    public Playlist addPlaylist(@RequestBody Playlist playlist) {
+        return playlistService.save(playlist);
     }
 
     @DeleteMapping(value = "/{id}")
     @CrossOrigin(origins = "*", allowedHeaders = "*")
-    public void delete(@PathVariable Integer id) {
-        trackRepository.findTracksByPlaylistId(id).forEach(trackRepository::delete);
+    void delete(@PathVariable Integer id) {
+        trackRepository.deleteAll(trackRepository.findTracksByPlaylistId(id));
         this.playlistRepository.deleteById(id);
     }
 
-    @GetMapping(value = "/all/{username}")
+    @GetMapping(value = "/user/{username}")
     @CrossOrigin(origins = "*", allowedHeaders = "*")
     public List<Playlist> getAllPlaylistByUserName(@PathVariable String username) {
         return playlistService.findAllPlaylistByUsername(username);
