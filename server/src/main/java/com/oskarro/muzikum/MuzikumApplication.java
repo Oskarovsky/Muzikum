@@ -65,55 +65,11 @@ public class MuzikumApplication implements CommandLineRunner {
 
     private static final Logger logger = LoggerFactory.getLogger(MuzikumApplication.class);
 
-    private final Environment env;
-
-    public MuzikumApplication(Environment env) {
-        this.env = env;
-    }
-
     @PostConstruct
     void init() {
         TimeZone.setDefault(TimeZone.getTimeZone("UTC"));
     }
 
-
-    @Bean
-    public ServletWebServerFactory servletContainer() {
-        // Enable SSL Traffic
-        TomcatServletWebServerFactory tomcat = new TomcatServletWebServerFactory() {
-            @Override
-            protected void postProcessContext(Context context) {
-                SecurityConstraint securityConstraint = new SecurityConstraint();
-                securityConstraint.setUserConstraint("CONFIDENTAL");
-                SecurityCollection collection = new SecurityCollection();
-                collection.addPattern("/*");
-                securityConstraint.addCollection(collection);
-                context.addConstraint(securityConstraint);
-            }
-        };
-
-        // Add HTTP to HTTPS redirect
-        tomcat.addAdditionalTomcatConnectors(httpToHttpsRedirectConnector());
-        return tomcat;
-    }
-
-
-/*    We need to redirect from HTTP to HTTPS. Without SSL, this application used
-    port 8080. With SSL it will use port 8443. So, any request for 8082 needs to be
-    redirected to HTTPS on 8443.*/
-
-    private Connector httpToHttpsRedirectConnector() {
-        Connector connector = new Connector(TomcatServletWebServerFactory.DEFAULT_PROTOCOL);
-        connector.setScheme("http");
-        connector.setPort(8080);
-        connector.setSecure(false);
-        connector.setRedirectPort(8443);
-        return connector;
-    }
-
-
-//    @Resource
-//    FilesStorageService storageService;
 
     public static void main(String[] args) {
         ApplicationContext applicationContext = SpringApplication.run(MuzikumApplication.class, args);

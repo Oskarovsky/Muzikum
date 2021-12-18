@@ -47,8 +47,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
      * For this purpose, It consists of an interface called UserDetailsService
      * which has a single method that loads a user based on username
      * */
-    @Autowired
-    UserDetailsServiceImpl userDetailsService;
+    private final UserDetailsServiceImpl userDetailsService;
 
 
     /**
@@ -56,8 +55,13 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
      * that try to access a protected resource without proper authentication.
      * It implements Spring Security’s AuthenticationEntryPoint interface
      * */
-    @Autowired
-    private JwtAuthenticationEntryPoint unauthorizedHandler;
+    private final JwtAuthenticationEntryPoint unauthorizedHandler;
+
+    public SecurityConfiguration(UserDetailsServiceImpl userDetailsService,
+                                 JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint) {
+        this.userDetailsService = userDetailsService;
+        this.unauthorizedHandler = jwtAuthenticationEntryPoint;
+    }
 
 
     /**
@@ -92,9 +96,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private OAuth2AuthenticationFailureHandler oAuth2AuthenticationFailureHandler;
-
-    @Autowired
-    private HttpCookieOAuth2AuthorizationRequestRepository httpCookieOAuth2AuthorizationRequestRepository;
 
 
     /**

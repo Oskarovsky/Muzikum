@@ -3,7 +3,6 @@ package com.oskarro.muzikum.user;
 import com.oskarro.muzikum.dto.UserDto;
 import com.oskarro.muzikum.exception.ResourceNotFoundException;
 import com.oskarro.muzikum.security.jwt.JwtTokenProvider;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -133,7 +132,6 @@ public class UserDetailsServiceImpl implements UserDetailsService, UserService {
 
 
     @Override
-//    @Cacheable(cacheNames = "TopUploaders", key = "#periodOfTime")
     public List<User> getTopUploaders(String periodOfTime, int numberOfUser) {
         switch (periodOfTime) {
             case TOTAL_PERIOD: {

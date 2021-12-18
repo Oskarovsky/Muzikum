@@ -5,7 +5,6 @@ import com.oskarro.muzikum.plugin.PluginKrakenResponse;
 import com.oskarro.muzikum.plugin.PluginService;
 import com.oskarro.muzikum.storage.Cover;
 import com.oskarro.muzikum.storage.CoverRepository;
-import com.oskarro.muzikum.storage.Image;
 import com.oskarro.muzikum.storage.ImageRepository;
 import com.oskarro.muzikum.track.model.Track;
 import com.oskarro.muzikum.track.model.TrackComment;
@@ -15,7 +14,6 @@ import com.oskarro.muzikum.user.User;
 import com.oskarro.muzikum.user.UserRepository;
 import org.json.simple.parser.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -187,7 +185,6 @@ public class TrackServiceImpl implements TrackService {
     }
 
     @Override
-//    @Cacheable(cacheNames = "MostPopularTrackByGenre", key = "#genre")
     public Track getMostPopularTrackByGenre(String genre) {
         List<Track> allTracksByGenre = findTracksByGenre(genre);
         return allTracksByGenre

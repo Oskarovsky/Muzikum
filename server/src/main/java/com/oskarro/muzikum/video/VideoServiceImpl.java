@@ -2,25 +2,21 @@ package com.oskarro.muzikum.video;
 
 import com.oskarro.muzikum.exception.ResourceNotFoundException;
 import com.oskarro.muzikum.playlist.Playlist;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.IOUtils;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
-import lombok.extern.slf4j.Slf4j;
-
 
 import java.io.IOException;
 import java.net.URL;
 import java.time.Instant;
-import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
-
 
 import static java.nio.charset.StandardCharsets.UTF_8;
 
@@ -114,7 +110,6 @@ public class VideoServiceImpl implements VideoService {
     }
 
     @Override
-//    @Cacheable(cacheNames = "TopVideos")
     public List<Video> getTop10PopularVideos() {
         return videoRepository.findTop10ByOrderByViewCountDesc();
     }
