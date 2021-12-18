@@ -16,7 +16,5 @@ public interface ProviderService {
 
     Optional<Provider> findByName(String name);
 
-    String getCrawler(Integer id);
-
     Collection<Genre> getAllGenresFromProvider(Integer id);
 }

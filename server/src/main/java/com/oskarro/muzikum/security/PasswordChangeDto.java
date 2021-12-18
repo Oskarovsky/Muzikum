@@ -1,4 +1,4 @@
-package com.oskarro.muzikum.dto;
+package com.oskarro.muzikum.security;
 
 
 import lombok.AllArgsConstructor;

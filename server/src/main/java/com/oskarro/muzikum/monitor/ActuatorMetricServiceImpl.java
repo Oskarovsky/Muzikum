@@ -44,7 +44,7 @@ public class ActuatorMetricServiceImpl implements ActuatorMetricService {
         }
 
         for (int i = 1; i < rowCount; i++) {
-            result[i][0] = dateFormat.format(new Date(current.getTime() - (60000 * (rowCount - i))));
+            result[i][0] = dateFormat.format(new Date(current.getTime() - (60000L * (rowCount - i))));
         }
 
         List<Integer> minuteOfStatuses;

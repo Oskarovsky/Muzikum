@@ -1,6 +1,5 @@
 package com.oskarro.muzikum.user;
 
-import com.oskarro.muzikum.dto.UserDto;
 import com.oskarro.muzikum.exception.ResourceNotFoundException;
 import com.oskarro.muzikum.security.jwt.JwtTokenProvider;
 import org.springframework.context.annotation.Lazy;

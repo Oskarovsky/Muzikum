@@ -1,4 +1,4 @@
-package com.oskarro.muzikum.dto;
+package com.oskarro.muzikum.track.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

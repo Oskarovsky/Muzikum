@@ -22,7 +22,7 @@ public class CommentController {
 
     private final CommentRepository commentRepository;
     private final PostRepository postRepository;
-    final private CommentService commentService;
+    private final CommentService commentService;
 
     @GetMapping(value = "/{postId}/comments")
     @Transactional

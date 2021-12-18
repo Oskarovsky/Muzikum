@@ -17,8 +17,8 @@ import java.util.Optional;
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 public class PostController {
 
-    private PostRepository postRepository;
-    private PostService postService;
+    private final PostRepository postRepository;
+    private final PostService postService;
 
     public PostController(PostRepository postRepository, PostService postService) {
         this.postRepository = postRepository;

@@ -1,4 +1,4 @@
-package com.oskarro.muzikum.dto;
+package com.oskarro.muzikum.user;
 
 import lombok.*;
 

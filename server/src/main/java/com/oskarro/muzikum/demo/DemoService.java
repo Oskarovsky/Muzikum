@@ -3,13 +3,9 @@ package com.oskarro.muzikum.demo;
 import com.oskarro.muzikum.article.comment.CommentRepository;
 import com.oskarro.muzikum.article.post.Post;
 import com.oskarro.muzikum.article.post.PostRepository;
-import com.oskarro.muzikum.crawler.CrawlerService;
 import com.oskarro.muzikum.playlist.Playlist;
 import com.oskarro.muzikum.playlist.PlaylistRepository;
-import com.oskarro.muzikum.provider.Provider;
 import com.oskarro.muzikum.provider.ProviderRepository;
-import com.oskarro.muzikum.provider.contractor.BillboardService;
-import com.oskarro.muzikum.provider.contractor.RadiopartyService;
 import com.oskarro.muzikum.track.TrackCommentRepository;
 import com.oskarro.muzikum.track.TrackRepository;
 import com.oskarro.muzikum.track.model.Genre;
@@ -30,9 +26,9 @@ import com.oskarro.muzikum.voting.VotingRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.*;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashSet;
 
 @Service
 public class DemoService {
@@ -50,10 +46,6 @@ public class DemoService {
     public TrackCommentRepository trackCommentRepository;
     public UserStatisticsRepository userStatisticsRepository;
 
-    public CrawlerService crawlerService;
-    public BillboardService billboardService;
-    public RadiopartyService radiopartyService;
-
     public PasswordEncoder encoder;
 
     public DemoService(CommentRepository commentRepository, RoleRepository roleRepository,
@@ -62,8 +54,6 @@ public class DemoService {
                        PlaylistRepository playlistRepository, VideoRepository videoRepository,
                        UserStatisticsRepository userStatisticsRepository, PostRepository postRepository,
                        TrackRepository trackRepository, TrackCommentRepository trackCommentRepository,
-                       CrawlerService crawlerService, RadiopartyService radiopartyService,
-                       BillboardService billboardService,
                        PasswordEncoder encoder) {
         this.postRepository = postRepository;
         this.userRepository = userRepository;
@@ -77,9 +67,6 @@ public class DemoService {
         this.votingRepository = votingRepository;
         this.trackCommentRepository = trackCommentRepository;
         this.trackRepository = trackRepository;
-        this.crawlerService = crawlerService;
-        this.billboardService = billboardService;
-        this.radiopartyService = radiopartyService;
         this.encoder = encoder;
     }
 
@@ -271,33 +258,6 @@ public class DemoService {
         TrackComment trackComment2 =
                 TrackComment.builder().track(popularTrackClub).text("Jest fajnie").user(userJacek).build();
         trackCommentRepository.saveAll(Arrays.asList(trackComment1, trackComment2));
-
-    }
-
-    public void createProviders() {
-        // GENRE COLLECTIONS FOR PROVIDERS
-        List<Genre> radiopartyGenres = Stream.of(Genre.CLUB).collect(Collectors.toList());
-        List<Genre> billboardGenres = Stream.of(Genre.DANCE).collect(Collectors.toList());
-
-        // DEFAULT PROVIDERS
-
-        providerRepository.saveAll(Arrays.asList(
-                Provider.builder().id(2).description("very nice").url("https://radioparty.pl/partylista.html").
-                        genres(radiopartyGenres).name("radioparty").build(),
-                Provider.builder().id(4).description("beautiful").url("https://www.billboard.com/charts/year-end/2019/dance-club-songs")
-                        .genres(billboardGenres).name("billboard").build()
-        ));
-
-        Optional<Provider> radiopartyProvider = providerRepository.findById(2);
-        Optional<Provider> billboardProvider = providerRepository.findById(4);
-
-        Provider provider = Provider.builder()
-                .id(8).description("tasty service").url("https://music.apple.com/").name("apple").build();
-        crawlerService.parseWeb(provider);
-
-        // TRACKS FETCHING FROM EXTERNAL SERVICES
-        radiopartyProvider.map(radiopartyService::getTrackList);
-        billboardProvider.map(billboardService::getTrackList);
 
     }
 

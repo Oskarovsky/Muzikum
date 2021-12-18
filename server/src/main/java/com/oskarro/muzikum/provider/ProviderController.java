@@ -1,15 +1,13 @@
 package com.oskarro.muzikum.provider;
 
-import com.oskarro.muzikum.provider.contractor.NuteczkiService;
+import com.oskarro.muzikum.track.TrackService;
 import com.oskarro.muzikum.track.model.Genre;
 import com.oskarro.muzikum.track.model.Track;
-import com.oskarro.muzikum.track.TrackService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
-
 
 @RestController
 @RequestMapping(value = "/api/providers")
@@ -17,14 +15,12 @@ import java.util.Optional;
 public class ProviderController {
 
     ProviderService providerService;
-    NuteczkiService nuteczkiService;
     ProviderRepository providerRepository;
     TrackService trackService;
 
-    public ProviderController(ProviderService providerService, NuteczkiService nuteczkiService,
-                              ProviderRepository providerRepository, TrackService trackService) {
+    public ProviderController(ProviderService providerService,ProviderRepository providerRepository,
+                              TrackService trackService) {
         this.providerService = providerService;
-        this.nuteczkiService = nuteczkiService;
         this.providerRepository = providerRepository;
         this.trackService = trackService;
     }

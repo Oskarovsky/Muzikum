@@ -1,7 +1,5 @@
 package com.oskarro.muzikum.article.post;
 
-import com.oskarro.muzikum.exception.ResourceNotFoundException;
-import com.oskarro.muzikum.user.User;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

@@ -1,6 +1,5 @@
 package com.oskarro.muzikum.security;
 
-import com.oskarro.muzikum.dto.PasswordChangeDto;
 import com.oskarro.muzikum.exception.AppException;
 import com.oskarro.muzikum.exception.InvalidOldPasswordException;
 import com.oskarro.muzikum.security.jwt.JwtTokenProvider;
@@ -13,19 +12,15 @@ import com.oskarro.muzikum.user.*;
 import java.util.*;
 import java.util.stream.Collectors;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import com.oskarro.muzikum.user.email.EmailService;
 import com.oskarro.muzikum.user.role.Role;
 import com.oskarro.muzikum.user.role.RoleName;
 import com.oskarro.muzikum.user.role.RoleRepository;
-import com.oskarro.muzikum.utils.GenericResponse;
 import lombok.extern.slf4j.Slf4j;
-import org.hibernate.mapping.Collection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.MessageSource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mail.SimpleMailMessage;

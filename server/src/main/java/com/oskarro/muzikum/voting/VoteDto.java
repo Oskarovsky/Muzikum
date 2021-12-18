@@ -1,4 +1,4 @@
-package com.oskarro.muzikum.dto;
+package com.oskarro.muzikum.voting;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -7,10 +7,9 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class CommentDto {
+public class VoteDto {
 
-    private Integer id;
-    private String text;
-    private Integer postId;
+    private VoteType voteType;
+    private Integer trackId;
     private Integer userId;
 }

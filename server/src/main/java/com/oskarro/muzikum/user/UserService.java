@@ -1,8 +1,5 @@
 package com.oskarro.muzikum.user;
 
-import com.oskarro.muzikum.dto.UserDto;
-import io.jsonwebtoken.Jwts;
-
 import java.util.List;
 import java.util.Optional;
 

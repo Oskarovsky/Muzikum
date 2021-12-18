@@ -1,7 +1,5 @@
 package com.oskarro.muzikum.voting;
 
-import com.oskarro.muzikum.dto.VoteDto;
-import com.oskarro.muzikum.exception.AppException;
 import com.oskarro.muzikum.exception.ResourceNotFoundException;
 import com.oskarro.muzikum.track.model.Track;
 import com.oskarro.muzikum.track.TrackService;
@@ -47,7 +45,7 @@ public class VotingController {
 
     @PostMapping(value = "/track")
     @CrossOrigin(origins = "*", allowedHeaders = "*")
-    public ResponseEntity<Void> voteForTrackById(@RequestBody VoteDto vote) throws ValidationException {
+    public ResponseEntity<Void> voteForTrackById(@RequestBody VoteDto vote) {
         votingService.voteForTrack(vote);
         return new ResponseEntity<>(HttpStatus.OK);
 

@@ -1,12 +1,7 @@
 package com.oskarro.muzikum.user;
 
-import com.oskarro.muzikum.dto.UserDto;
 import com.oskarro.muzikum.exception.ResourceNotFoundException;
-import com.oskarro.muzikum.security.CurrentUser;
-import com.oskarro.muzikum.track.model.Track;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
