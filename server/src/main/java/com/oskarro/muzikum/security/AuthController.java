@@ -42,35 +42,35 @@ import static java.time.Instant.now;
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 public class AuthController {
 
-    @Autowired
-    AuthenticationManager authenticationManager;
+    final AuthenticationManager authenticationManager;
+    final UserRepository userRepository;
+    final RoleRepository roleRepository;
+    final UserStatisticsRepository userStatisticsRepository;
+    final PasswordEncoder encoder;
+    final JwtTokenProvider jwtTokenProvider;
+    final UserDetailsServiceImpl userDetailsService;
 
-    @Autowired
-    UserRepository userRepository;
-
-    @Autowired
-    RoleRepository roleRepository;
-
-    @Autowired
-    UserStatisticsRepository userStatisticsRepository;
-
-    @Autowired
-    PasswordEncoder encoder;
-
-    @Autowired
-    JwtTokenProvider jwtTokenProvider;
-
-    @Autowired
-    private ConfirmationTokenRepository confirmationTokenRepository;
-
-    @Autowired
-    private EmailService emailService;
-
-    @Autowired
-    UserDetailsServiceImpl userDetailsService;
+    private final ConfirmationTokenRepository confirmationTokenRepository;
+    private final EmailService emailService;
 
     @Value("${spring.profiles.active}")
     private String activeProfile;
+
+    public AuthController(AuthenticationManager authenticationManager, UserRepository userRepository,
+                          RoleRepository roleRepository, UserStatisticsRepository userStatisticsRepository,
+                          PasswordEncoder encoder, JwtTokenProvider jwtTokenProvider,
+                          ConfirmationTokenRepository confirmationTokenRepository, EmailService emailService,
+                          UserDetailsServiceImpl userDetailsService) {
+        this.authenticationManager = authenticationManager;
+        this.userRepository = userRepository;
+        this.roleRepository = roleRepository;
+        this.userStatisticsRepository = userStatisticsRepository;
+        this.encoder = encoder;
+        this.jwtTokenProvider = jwtTokenProvider;
+        this.confirmationTokenRepository = confirmationTokenRepository;
+        this.emailService = emailService;
+        this.userDetailsService = userDetailsService;
+    }
 
     @RequestMapping(value = "/signin", method = RequestMethod.POST)
     @CrossOrigin(origins = "*", allowedHeaders = "*")

@@ -17,7 +17,7 @@ public class PluginServiceImpl implements PluginService {
     @Override
     public PluginKrakenResponse readJsonFromKrakenFiles(String jsonUrl) throws IOException, ParseException {
         Object object = new JSONParser().parse(IOUtils.toString(new URL(jsonUrl), UTF_8));
-        JSONObject jsonObject =  (JSONObject) object;
+        JSONObject jsonObject = (JSONObject) object;
         return PluginKrakenResponse.builder()
                 .title(String.valueOf(jsonObject.get("title")))
                 .numberOfDownloads(String.valueOf(jsonObject.get("downloads")))

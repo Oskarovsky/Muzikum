@@ -1,13 +1,10 @@
 package com.oskarro.muzikum.config;
 
 import com.oskarro.muzikum.security.jwt.JwtTokenProvider;
-import com.oskarro.muzikum.user.UserDetailsServiceImpl;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.sql.DataSource;
@@ -16,21 +13,17 @@ import java.util.Properties;
 @org.springframework.boot.test.context.TestConfiguration
 public class TestConfiguration {
 
-    PasswordEncoder passwordEncoder;
-    JwtTokenProvider tokenProvider;
-
-
     @Bean
     public JavaMailSender getJavaMailSender() {
         JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
-        mailSender.setHost("smtp.gmail.com");
-        mailSender.setPort(587);
+        mailSender.setHost("ssl0.ovh.net");
+        mailSender.setPort(465);
 
-        mailSender.setUsername("my.gmail@gmail.com");
-        mailSender.setPassword("password");
+        mailSender.setUsername("manager@oskarro.com");
+        mailSender.setPassword("osasuna1234");
 
         Properties props = mailSender.getJavaMailProperties();
-        props.put("mail.transport.protocol", "smtp");
+        props.put("mail.transport.protocol", "smtps");
         props.put("mail.smtp.auth", "true");
         props.put("mail.smtp.starttls.enable", "true");
         props.put("mail.debug", "true");

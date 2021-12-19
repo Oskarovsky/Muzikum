@@ -18,7 +18,7 @@ public class ProviderController {
     ProviderRepository providerRepository;
     TrackService trackService;
 
-    public ProviderController(ProviderService providerService,ProviderRepository providerRepository,
+    public ProviderController(ProviderService providerService, ProviderRepository providerRepository,
                               TrackService trackService) {
         this.providerService = providerService;
         this.providerRepository = providerRepository;
@@ -70,7 +70,8 @@ public class ProviderController {
 
     @GetMapping(value = "/{providerId}/genre/{genre}/tracks/{numberOfTracks}")
     @CrossOrigin(origins = "*", allowedHeaders = "*")
-    public List<Track> getRandomTracksByProviderIdAndGenre(@PathVariable Integer providerId, @PathVariable String genre,
+    public List<Track> getRandomTracksByProviderIdAndGenre(@PathVariable Integer providerId,
+                                                           @PathVariable String genre,
                                                            @PathVariable int numberOfTracks) {
         return trackService.findRandomTracksByProviderIdAndGenre(providerId, genre, numberOfTracks);
     }
