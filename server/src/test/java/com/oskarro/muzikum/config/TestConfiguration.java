@@ -19,7 +19,7 @@ public class TestConfiguration {
         mailSender.setHost("ssl0.ovh.net");
         mailSender.setPort(465);
 
-        mailSender.setUsername("manager@oskarro.com");
+        mailSender.setUsername("postmaster@oskarro.com");
         mailSender.setPassword("osasuna1234");
 
         Properties props = mailSender.getJavaMailProperties();
