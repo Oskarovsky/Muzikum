@@ -5,7 +5,6 @@ import com.oskarro.muzikum.article.post.Post;
 import com.oskarro.muzikum.article.post.PostRepository;
 import com.oskarro.muzikum.playlist.Playlist;
 import com.oskarro.muzikum.playlist.PlaylistRepository;
-import com.oskarro.muzikum.provider.ProviderRepository;
 import com.oskarro.muzikum.track.TrackCommentRepository;
 import com.oskarro.muzikum.track.TrackRepository;
 import com.oskarro.muzikum.track.model.Genre;
@@ -46,7 +45,6 @@ public class DemoService {
     public PlaylistRepository playlistRepository;
     public VideoRepository videoRepository;
     public TrackRepository trackRepository;
-    public ProviderRepository providerRepository;
     public FavoriteTrackRepository favoriteTrackRepository;
     public VotingRepository votingRepository;
     public TrackCommentRepository trackCommentRepository;
@@ -56,7 +54,7 @@ public class DemoService {
 
     public DemoService(CommentRepository commentRepository, RoleRepository roleRepository,
                        UserRepository userRepository, FavoriteTrackRepository favoriteTrackRepository,
-                       VotingRepository votingRepository, ProviderRepository providerRepository,
+                       VotingRepository votingRepository,
                        PlaylistRepository playlistRepository, VideoRepository videoRepository,
                        UserStatisticsRepository userStatisticsRepository, PostRepository postRepository,
                        TrackRepository trackRepository, TrackCommentRepository trackCommentRepository,
@@ -65,7 +63,6 @@ public class DemoService {
         this.userRepository = userRepository;
         this.playlistRepository = playlistRepository;
         this.videoRepository = videoRepository;
-        this.providerRepository = providerRepository;
         this.userStatisticsRepository = userStatisticsRepository;
         this.roleRepository = roleRepository;
         this.commentRepository = commentRepository;

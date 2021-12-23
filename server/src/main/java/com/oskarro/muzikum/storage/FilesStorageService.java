@@ -14,21 +14,11 @@ public interface FilesStorageService {
 
     void save(MultipartFile file, String username, String destination);
 
-    void save(MultipartFile file, String username, String trackId, String destination);
-
     Resource load(String filename, String username);
 
     Resource loadCover(String filename, Integer coverId);
 
-    void deleteAll();
-
     Stream<Path> loadAll();
 
-    Image findImageByFileName(String filename);
-
-    Image findImageByUrl(String url);
-
     void saveCover(MultipartFile file, String username, String trackUrl);
-
-    Cover getTrackCover(Integer trackId);
 }

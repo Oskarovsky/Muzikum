@@ -30,7 +30,7 @@ public class PlaylistController {
         this.sessionComponent = sessionComponent;
     }
 
-    @GetMapping(value = "/")
+    @GetMapping
     @CrossOrigin(origins = "*", allowedHeaders = "*")
     public List<Playlist> getAllPlaylists() {
         return playlistService.getAllPlaylist();
@@ -48,13 +48,13 @@ public class PlaylistController {
         return trackService.findAllTracksFromPlaylist(id);
     }
 
-    @GetMapping(value = "/{id}/updateViews")
+    @GetMapping(value = "/{id}/views")
     @CrossOrigin(origins = "*", allowedHeaders = "*")
     public Integer getViewsNumber(@PathVariable Integer id) {
         return sessionComponent.updateSessionViews(id);
     }
 
-    @PostMapping(value = "/")
+    @PostMapping
     @CrossOrigin(origins = "*", allowedHeaders = "*")
     public Playlist addPlaylist(@RequestBody Playlist playlist) {
         return playlistService.save(playlist);

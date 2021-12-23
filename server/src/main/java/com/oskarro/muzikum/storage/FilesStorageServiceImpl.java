@@ -25,16 +25,9 @@ import java.util.stream.Stream;
 @Service
 public class FilesStorageServiceImpl implements FilesStorageService {
 
-    @Autowired
     UserRepository userRepository;
-
-    @Autowired
     ImageRepository imageRepository;
-
-    @Autowired
     TrackRepository trackRepository;
-
-    @Autowired
     CoverRepository coverRepository;
 
     public FilesStorageServiceImpl(UserRepository userRepository, ImageRepository imageRepository,
@@ -96,8 +89,6 @@ public class FilesStorageServiceImpl implements FilesStorageService {
     public void saveCover(MultipartFile file, String username, String trackUrl) {
         try {
             final Path coverPath = Paths.get(coverRootPath.toString());
-//            FileSystemUtils.deleteRecursively(Paths.get(coverRootPath.toFile() + "/" + trackUrl));
-//            Files.createDirectory(Paths.get(coverRootPath.toString() + "/" + trackUrl));
             Files.copy(file.getInputStream(), coverPath.resolve(Objects.requireNonNull(file.getOriginalFilename())));
 
             Cover cover = Cover.builder()
@@ -108,48 +99,6 @@ public class FilesStorageServiceImpl implements FilesStorageService {
                     .build();
             coverRepository.save(cover);
             System.out.println("Cover saved for track from url: " + trackUrl);
-        } catch (Exception e) {
-            throw new RuntimeException("Could not store the file. Error: " + e.getMessage());
-        }
-    }
-
-    @Override
-    public Cover getTrackCover(Integer trackId) {
-        return trackRepository
-                .findById(trackId)
-                .map(Track::getCover)
-                .orElse(null);
-    }
-
-    @Transactional
-    @Override
-    public void save(MultipartFile file, String username, String trackUrl, String destination) {
-        try {
-
-            final Path coverPath = Paths.get(coverRootPath.toString() + "/" + username);
-            FileSystemUtils.deleteRecursively(Paths.get(coverRootPath.toFile() + "/" + username));
-            Files.createDirectory(Paths.get(coverRootPath.toString() + "/" + username));
-            Files.copy(file.getInputStream(), coverPath.resolve(Objects.requireNonNull(file.getOriginalFilename())));
-
-
-            User user = userRepository.findByUsername(username)
-                    .orElseThrow(() -> new UsernameNotFoundException("User not found with username or email:" + username));
-
-            if (imageRepository.existsByName("trackCover_" + file.getOriginalFilename())) {
-                imageRepository.deleteByName("trackCover_" + file.getOriginalFilename());
-            }
-
-            Image image = Image.builder()
-                    .name("trackCover_" + file.getOriginalFilename())
-                    .destination(destination)
-                    .type(file.getContentType())
-                    .pic(file.getBytes())
-                    .user(user)
-                    .url(trackUrl)
-                    .build();
-            imageRepository.save(image);
-            System.out.println("Image saved");
-
         } catch (Exception e) {
             throw new RuntimeException("Could not store the file. Error: " + e.getMessage());
         }
@@ -187,23 +136,6 @@ public class FilesStorageServiceImpl implements FilesStorageService {
         } catch (MalformedURLException e) {
             throw new RuntimeException("Error: " + e.getMessage());
         }
-    }
-
-    @Override
-    @Transactional
-    public Image findImageByFileName(String filename) {
-        return imageRepository.findByName(filename);
-    }
-
-    @Override
-    @Transactional
-    public Image findImageByUrl(String url) {
-        return imageRepository.findByName(url);
-    }
-
-    @Override
-    public void deleteAll() {
-        FileSystemUtils.deleteRecursively(rootPath.toFile());
     }
 
     @Override

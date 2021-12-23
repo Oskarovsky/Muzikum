@@ -25,7 +25,7 @@ public class PostController {
         this.postService = postService;
     }
 
-    @GetMapping(value = "/all")
+    @GetMapping
     @CrossOrigin(origins = "*", allowedHeaders = "*")
     public Page<Post> getAllPosts(Pageable pageable) {
         return postRepository.findAll(pageable);
@@ -48,7 +48,7 @@ public class PostController {
         return postService.findByUserId(userId);
     }
 
-    @PostMapping(value = "")
+    @PostMapping
     @CrossOrigin(origins = "*", allowedHeaders = "*")
     public void createPost(@Valid @RequestBody Post post) {
         postService.createPost(post);

@@ -9,6 +9,8 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import java.util.Collection;
 
+// TODO - remove Provider entity
+
 @Data
 @Builder
 @Entity
