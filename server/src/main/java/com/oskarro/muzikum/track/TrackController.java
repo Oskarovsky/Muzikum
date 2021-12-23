@@ -9,6 +9,7 @@ import com.oskarro.muzikum.user.favorite.FavoriteTrackRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,32 +23,42 @@ import java.util.*;
 @RestController
 @RequestMapping(value = "/api/tracks")
 @CrossOrigin(origins = "*", allowedHeaders = "*")
-@AllArgsConstructor
 public class TrackController {
 
     private final TrackService trackService;
     private final TrackRepository trackRepository;
-    private final FavoriteTrackRepository favoriteTrackRepository;
     private final FavoriteService favoriteService;
     private final TrackDao trackDao;
     private final UserService userService;
 
-    @GetMapping(value = "/findAll")
+    public TrackController(TrackService trackService,
+                           TrackRepository trackRepository,
+                           FavoriteService favoriteService,
+                           TrackDao trackDao,
+                           UserService userService) {
+        this.trackService = trackService;
+        this.trackRepository = trackRepository;
+        this.favoriteService = favoriteService;
+        this.trackDao = trackDao;
+        this.userService = userService;
+    }
+
+    @GetMapping
     @CrossOrigin(origins = "*", allowedHeaders = "*")
+    @Transactional
     List<Track> findAll() {
         return trackDao.findAll();
     }
 
-    @GetMapping(value = "/id/{id}")
+    @GetMapping(value = "/{trackId}")
     @CrossOrigin(origins = "*", allowedHeaders = "*")
-    Optional<Track> findById(@PathVariable Integer id) {
-        return trackService.findById(id);
+    Optional<Track> findById(@PathVariable Integer trackId) {
+        return trackService.findById(trackId);
     }
 
-    @PostMapping(value = "/add")
+    @PostMapping
     @CrossOrigin(origins = "*", allowedHeaders = "*")
     public void addTrack(@RequestBody Track track, BindingResult bindingResult) throws ValidationException {
-        System.out.println("PROBA 1");
         if (bindingResult.hasErrors()) {
             throw new ValidationException("There are a problem with binding");
         }
