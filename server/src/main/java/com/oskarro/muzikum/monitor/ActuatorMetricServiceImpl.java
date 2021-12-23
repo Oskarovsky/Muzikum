@@ -12,7 +12,7 @@ import java.util.Date;
 import java.util.List;
 
 @Service
-public class ActuatorMetricServiceImpl implements ActuatorMetricService {
+public class ActuatorMetricServiceImpl {
 
     private final MeterRegistry publicMetrics;
     private final List<ArrayList<Integer>> statusMetricsByMinute;
@@ -24,41 +24,6 @@ public class ActuatorMetricServiceImpl implements ActuatorMetricService {
         statusMetricsByMinute = new ArrayList<>();
         statusList = new ArrayList<>();
         this.publicMetrics = publicMetrics;
-    }
-
-    @Override
-    public Object[][] getGraphData() {
-        final Date current = new Date();
-        final int colCount = statusList.size() + 1;
-        final int rowCount = statusMetricsByMinute.size() + 1;
-        final Object[][] result = new Object[rowCount][colCount];
-        result[0][0] = "Time";
-        int j = 1;
-
-        for (final String status : statusList) {
-            result[0][j] = status;
-            j++;
-        }
-
-        for (int i = 1; i < rowCount; i++) {
-            result[i][0] = dateFormat.format(new Date(current.getTime() - (60000L * (rowCount - i))));
-        }
-
-        List<Integer> minuteOfStatuses;
-        List<Integer> last = new ArrayList<>();
-
-        for (int i = 1; i < rowCount; i++) {
-            minuteOfStatuses = statusMetricsByMinute.get(i - 1);
-            for (j = 1; j <= minuteOfStatuses.size(); j++) {
-                result[i][j] = minuteOfStatuses.get(j - 1) - (last.size() >= j ? last.get(j - 1) : 0);
-            }
-            while (j < colCount) {
-                result[i][j] = 0;
-                j++;
-            }
-            last = minuteOfStatuses;
-        }
-        return result;
     }
 
     @Scheduled(fixedDelay = 60000)

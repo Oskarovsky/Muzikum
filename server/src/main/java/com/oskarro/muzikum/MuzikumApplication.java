@@ -1,27 +1,7 @@
 package com.oskarro.muzikum;
 
-import com.oskarro.muzikum.article.comment.CommentRepository;
-import com.oskarro.muzikum.article.post.PostRepository;
-import com.oskarro.muzikum.article.post.PostService;
 import com.oskarro.muzikum.config.AppProperties;
 import com.oskarro.muzikum.demo.DemoService;
-import com.oskarro.muzikum.playlist.PlaylistRepository;
-import com.oskarro.muzikum.playlist.PlaylistService;
-import com.oskarro.muzikum.provider.ProviderRepository;
-import com.oskarro.muzikum.storage.FilesStorageService;
-import com.oskarro.muzikum.storage.ImageRepository;
-import com.oskarro.muzikum.track.TrackCommentRepository;
-import com.oskarro.muzikum.track.TrackRepository;
-import com.oskarro.muzikum.track.TrackService;
-import com.oskarro.muzikum.user.UserRepository;
-import com.oskarro.muzikum.user.UserService;
-import com.oskarro.muzikum.user.UserStatisticsRepository;
-import com.oskarro.muzikum.user.favorite.FavoriteTrackRepository;
-import com.oskarro.muzikum.user.role.RoleRepository;
-import com.oskarro.muzikum.video.VideoRepository;
-import com.oskarro.muzikum.video.VideoService;
-import com.oskarro.muzikum.voting.VotingRepository;
-import com.oskarro.muzikum.voting.VotingService;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -36,8 +16,6 @@ import org.springframework.core.env.Environment;
 import org.springframework.data.jpa.convert.threeten.Jsr310JpaConverters;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.annotation.EnableScheduling;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.annotation.PostConstruct;
 import java.net.InetAddress;

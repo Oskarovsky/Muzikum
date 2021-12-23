@@ -9,6 +9,13 @@ import org.springframework.stereotype.Component;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+/**
+ * Component enables to schedule tasks to run periodically at a specified date/time.
+ * And it's naturally a great tool for automating lots of process runs.
+ * Cron runs as a daemon process. This means it only needs to be started once, so it will keep running in the background.
+ *
+ * */
+
 @Slf4j
 @Component
 public class ScheduledTask {

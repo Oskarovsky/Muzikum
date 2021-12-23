@@ -11,9 +11,18 @@ import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.PathMatchConfigurer;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
+/**
+ * Configuration class for customization Spring MVC
+ * It defines callback methods.
+ * */
+
 @Configuration
 public class WebConfiguration implements WebMvcConfigurer {
 
+    /**
+     * Bean is an alternative way to configuring CORS in the Spring.
+     * It is useful for security constraints that require CORS checks.
+     * */
     @Bean
     public CorsFilter corsFilter() {
         final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();

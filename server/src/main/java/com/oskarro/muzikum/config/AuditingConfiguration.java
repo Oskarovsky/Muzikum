@@ -11,6 +11,11 @@ import org.springframework.security.core.context.SecurityContextHolder;
 
 import java.util.Optional;
 
+/**
+ * Config class enables auditing in JPA via annotation configuration.
+ *
+ * */
+
 @Configuration
 @EnableJpaAuditing
 public class AuditingConfiguration {

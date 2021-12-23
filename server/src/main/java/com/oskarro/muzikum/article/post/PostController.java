@@ -43,11 +43,12 @@ public class PostController {
     }
 
     @GetMapping(value = "/userId/{userId}")
+    @Transactional
     public List<Post> getPostsByUserId(@PathVariable Integer userId) {
         return postService.findByUserId(userId);
     }
 
-    @PostMapping(value = "/new")
+    @PostMapping(value = "")
     @CrossOrigin(origins = "*", allowedHeaders = "*")
     public void createPost(@Valid @RequestBody Post post) {
         postService.createPost(post);
@@ -56,7 +57,8 @@ public class PostController {
     @PutMapping(value = "/{postId}")
     @CrossOrigin(origins = "*", allowedHeaders = "*")
     @Transactional
-    public Post updatePost(@PathVariable Integer postId, @Valid @RequestBody Post postRequest) {
+    public Post updatePost(@PathVariable Integer postId,
+                           @Valid @RequestBody Post postRequest) {
         return postRepository.findById(postId)
                 .map(post -> {
                     post.setTitle(postRequest.getTitle());

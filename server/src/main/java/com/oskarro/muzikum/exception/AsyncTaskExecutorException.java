@@ -10,7 +10,6 @@ import java.util.concurrent.Callable;
 import java.util.concurrent.Future;
 
 public class AsyncTaskExecutorException implements AsyncTaskExecutor, InitializingBean, DisposableBean {
-    static final String EXCEPTION_MESSAGE = "Caught async exception";
     private final Logger log = LoggerFactory.getLogger(AsyncTaskExecutorException.class);
     private final AsyncTaskExecutor executor;
 

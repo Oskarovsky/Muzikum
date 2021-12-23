@@ -30,6 +30,12 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
 
+/**
+ * Service for creating examples of all basic components and entities
+ * It is starting during running application.
+ *
+ * */
+
 @Service
 public class DemoService {
 
