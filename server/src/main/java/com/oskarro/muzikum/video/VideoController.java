@@ -16,56 +16,50 @@ import java.util.Optional;
 public class VideoController {
 
     private final VideoService videoService;
-    private final VideoRepository videoRepository;
     private final TrackService trackService;
 
-    public VideoController(VideoService videoService, VideoRepository videoRepository,
-                           TrackService trackService) {
+    public VideoController(final VideoService videoService,
+                           final TrackService trackService) {
         this.videoService = videoService;
-        this.videoRepository = videoRepository;
         this.trackService = trackService;
     }
 
-    @GetMapping(value = "/findAll")
+    @GetMapping
     List<Video> findAll() {
         return videoService.getAllVideo();
     }
 
-    @GetMapping(value = "/{id}")
-    Optional<Video> getVideoById(@PathVariable Integer id) {
-        return videoService.findVideoById(id);
+    @GetMapping(value = "/{videoId}")
+    Video getVideoById(@PathVariable final Integer videoId) {
+        return videoService.findVideoById(videoId);
     }
 
-    @PostMapping(value = "/add")
-    public void addVideo(@RequestBody Video video, BindingResult bindingResult) throws ValidationException {
+    @PostMapping
+    public void addVideo(@RequestBody final Video video,
+                         final BindingResult bindingResult) throws ValidationException {
         if (bindingResult.hasErrors()) {
             throw new ValidationException("Video has errors - it cannot by send");
         }
-        Video videoAdded = Video.builder()
-                .name(video.getName())
-                .category(video.getCategory())
-                .url(video.getUrl())
-                .build();
-        videoService.addVideo(videoAdded);
+        videoService.addVideo(video);
     }
 
-    @DeleteMapping(value = "/{id}")
-    public void delete(@PathVariable Integer id) {
-        this.videoRepository.deleteById(videoRepository.findById(id).get().getId());
+    @DeleteMapping(value = "/{videoId}")
+    public void delete(@PathVariable final Integer videoId) {
+        videoService.deleteById(videoId);
     }
 
-    @GetMapping(value = "/findAll/{category}")
-    public List<Video> getVideosByCategory(@PathVariable String category) {
+    @GetMapping(value = "/category/{category}")
+    public List<Video> getVideosByCategory(@PathVariable final String category) {
         return videoService.findVideosByCategory(category);
     }
 
     @GetMapping(value = "/{id}/tracks")
-    public List<Track> getAllTracksFromVideo(@PathVariable Integer id) {
+    public List<Track> getAllTracksFromVideo(@PathVariable final Integer id) {
         return trackService.findAllTracksFromVideo(id);
     }
 
     @GetMapping(value = "/{id}/playlist")
-    public Playlist getPlaylistFromVideo(@PathVariable Integer id) {
+    public Playlist getPlaylistFromVideo(@PathVariable final Integer id) {
         return videoService.getPlaylistFromVideoById(id);
     }
 
@@ -74,7 +68,7 @@ public class VideoController {
         return videoService.getTop10PopularVideos();
     }
 
-    @GetMapping(value = "/all/sorted")
+    @GetMapping(value = "/sorted")
     public List<Video> getAllVideosSortedByViews() {
         return videoService.getAllVideosSortedByViews();
     }

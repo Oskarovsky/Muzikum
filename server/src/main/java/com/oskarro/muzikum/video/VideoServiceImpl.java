@@ -24,13 +24,13 @@ import static java.nio.charset.StandardCharsets.UTF_8;
 @Service
 public class VideoServiceImpl implements VideoService {
 
-    VideoRepository videoRepository;
+    private final VideoRepository videoRepository;
 
     @Value("${google.api.key}")
     private String GOOGLE_API_KEY;
 
 
-    public VideoServiceImpl(VideoRepository videoRepository) {
+    public VideoServiceImpl(final VideoRepository videoRepository) {
         this.videoRepository = videoRepository;
     }
 
@@ -50,12 +50,14 @@ public class VideoServiceImpl implements VideoService {
     }
 
     @Override
-    public Optional<Video> findVideoById(Integer id) {
-        return videoRepository.findById(id);
+    public Video findVideoById(Integer videoId) {
+        return videoRepository
+                .findById(videoId)
+                .orElseThrow(() -> new ResourceNotFoundException("Video", "id", videoId));
     }
 
     @Override
-    public void deleteVideoById(Integer id) {
+    public void deleteById(final Integer id) {
         videoRepository.deleteById(id);
     }
 
@@ -69,14 +71,17 @@ public class VideoServiceImpl implements VideoService {
 
     @Override
     public void updateVideoStatistics() {
-        List<String> videoUrls = videoRepository.findAll().stream().map(Video::getUrl).collect(Collectors.toList());
-        for (String url: videoUrls) {
-            try {
-                updateYoutubeInformation(url);
-            } catch (IOException | ParseException e) {
-                e.printStackTrace();
-            }
-        }
+        videoRepository
+                .findAll()
+                .stream()
+                .map(Video::getUrl)
+                .forEach(t -> {
+                    try {
+                        updateYoutubeInformation(t);
+                    } catch (IOException | ParseException e) {
+                        e.printStackTrace();
+                    }
+                });
     }
 
     @Override

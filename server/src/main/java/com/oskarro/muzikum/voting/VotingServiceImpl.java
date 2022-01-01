@@ -8,6 +8,7 @@ import com.oskarro.muzikum.track.TrackRepository;
 import com.oskarro.muzikum.user.User;
 import com.oskarro.muzikum.user.UserRepository;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -24,14 +25,13 @@ public class VotingServiceImpl implements VotingService {
     private final VotingRepository votingRepository;
     private final UserRepository userRepository;
     private final TrackRepository trackRepository;
-    private final AuthService authService;
 
-    public VotingServiceImpl(VotingRepository votingRepository, UserRepository userRepository,
-                             TrackRepository trackRepository, AuthService authService) {
+    public VotingServiceImpl(final VotingRepository votingRepository,
+                             final UserRepository userRepository,
+                             final TrackRepository trackRepository) {
         this.votingRepository = votingRepository;
         this.userRepository = userRepository;
         this.trackRepository = trackRepository;
-        this.authService = authService;
     }
 
     @Override
@@ -98,12 +98,14 @@ public class VotingServiceImpl implements VotingService {
         }
     }
 
-    private Vote mapToVote(VoteDto voteDto, Track track) {
-        return Vote.builder()
-                .voteType(voteDto.getVoteType())
-                .track(track)
-                .user(authService.getCurrentUser())
-                .build();
+    @Override
+    public List<Vote> getVotesByUserUsername(final String username) {
+        return votingRepository.findVotesByUserUsername(username);
+    }
+
+    @Override
+    public List<Vote> getVotesByTrackId(final Integer trackId) {
+        return votingRepository.findVotesByTrackId(trackId);
     }
 
     @Override

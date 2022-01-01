@@ -17,9 +17,9 @@ public interface VideoService {
 
     void addVideo(Video video);
 
-    Optional findVideoById(Integer id);
+    Video findVideoById(Integer id);
 
-    void deleteVideoById(Integer id);
+    void deleteById(Integer id);
 
     Playlist getPlaylistFromVideoById(Integer id);
 
