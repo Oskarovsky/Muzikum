@@ -87,9 +87,9 @@ public class TrackController {
         return trackService.getRandomTrack();
     }
 
-    @GetMapping(value = "/{id}/addToFavorites/{username}")
+    @GetMapping(value = "/{id}/user/{username}/favorites")
     @CrossOrigin(origins = "*", allowedHeaders = "*")
-    public void addTrackToFavorites(@PathVariable Integer id, @PathVariable String username) {
+    public void addTrackToUserFavorites(@PathVariable Integer id, @PathVariable String username) {
         favoriteService.addTrackToFavorite(id, username);
     }
 

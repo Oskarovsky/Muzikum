@@ -1,5 +1,5 @@
 plugins {
-    id 'org.springframework.boot' version '2.3.5.RELEASE'
+    id 'org.springframework.boot' version '2.5.7'
     id 'io.spring.dependency-management' version '1.0.9.RELEASE'
     id "org.liquibase.gradle" version "2.0.4"
     id 'java'
@@ -14,8 +14,10 @@ allprojects {
 }
 
 group = 'com.oskarro'
-version = '0.0.1-SNAPSHOT'
-sourceCompatibility = '8'
+version = '0.0.2-SNAPSHOT'
+sourceCompatibility = '17'
+targetCompatibility = '17'
+
 
 configurations {
     developmentOnly
@@ -45,11 +47,8 @@ repositories {
 dependencies {
 
     /* ============ region IMPLEMENTATION ============ */
-    // Spring Boot's web application support
-    implementation('org.springframework.boot:spring-boot-starter-web') {
-        exclude group: 'org.springframework.boot', module: 'spring-boot-starter-logging'
-    }
-    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-tomcat', version: '2.4.4'
+    // Spring Boot's tomcat application support
+    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-tomcat', version: '2.5.7'
 
 
     // Spring Boot's JPA support
@@ -60,6 +59,7 @@ dependencies {
 
     // Spring Security support
     implementation 'org.springframework.boot:spring-boot-starter-security'
+    implementation 'org.springframework.security:spring-security-web'
     implementation 'org.springframework.security:spring-security-test'
 
     // Library for mapping between model and DTO
@@ -67,83 +67,84 @@ dependencies {
 
     // Library for detecting N+1 queries
     implementation 'com.yannbriancon:spring-hibernate-query-utils:1.0.3'
-    implementation 'org.projectlombok:lombok:1.18.20'
 
     /* ============ endregion IMPLEMENTATION ============ */
 
 
     /* ============ region COMPILE ============ */
     // Email support
-    compile group: 'org.springframework.boot', name: 'spring-boot-starter-mail', version: '2.2.6.RELEASE'
+    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-mail', version: '2.5.7'
 
     // Cache libraries
-    compile group: 'org.springframework.boot', name: 'spring-boot-starter-cache', version: '2.4.0'
-    compile group: 'javax.cache', name: 'cache-api', version: '1.1.1'
-    compile group: 'org.ehcache', name: 'ehcache', version: '3.9.0'
+    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-cache', version: '2.5.7'
+    implementation group: 'javax.cache', name: 'cache-api', version: '1.1.1'
+    implementation group: 'org.ehcache', name: 'ehcache', version: '3.9.0'
 
 
     // Lombok auto-generates things like getters and setters
-    compileOnly 'org.projectlombok:lombok'
-    compile 'org.slf4j:slf4j-nop:1.7.25'
+    compileOnly 'org.projectlombok:lombok:1.18.20'
+    implementation 'org.slf4j:slf4j-nop:1.7.25'
 
     // Libraries for liquibase
 //    compile group: 'org.liquibase', name: 'liquibase-core', version: '4.1.1'
 
     // PostgresSQL-specific connector for JPA
-    compile group: 'org.postgresql', name: 'postgresql', version: '42.2.12'
-    compile group: 'org.springframework.boot', name: 'spring-boot-starter-jdbc', version: '2.2.6.RELEASE'
+    implementation group: 'org.postgresql', name: 'postgresql', version: '42.2.12'
+    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-jdbc', version: '2.5.7'
 
     // Libraries for crawling and scrapping web contents
-    compile group: 'org.jsoup', name: 'jsoup', version: '1.9.1'
-    compile group: 'org.gebish', name: 'geb-core', version: '3.3'
-    compile group: 'net.sourceforge.htmlunit', name: 'htmlunit', version: '2.38.0'
+    implementation group: 'org.jsoup', name: 'jsoup', version: '1.9.1'
+    implementation group: 'org.gebish', name: 'geb-core', version: '3.3'
+    implementation group: 'net.sourceforge.htmlunit', name: 'htmlunit', version: '2.38.0'
 
     // Libraries for logging
-    compile group: 'org.apache.logging.log4j', name: 'log4j-core', version: '2.14.0'
-    compile group: 'org.apache.logging.log4j', name: 'log4j-api', version: '2.14.0'
-    compile group: 'org.springframework.boot', name: 'spring-boot-starter-log4j2', version: '2.4.0'
+    implementation group: 'org.apache.logging.log4j', name: 'log4j-core', version: '2.14.0'
+    implementation group: 'org.apache.logging.log4j', name: 'log4j-api', version: '2.14.0'
+    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-log4j2', version: '2.5.7'
 
 
     // Set of libraries for authentication methods
-    compile group: 'org.json', name: 'json', version: '20090211'
-    compile group: 'io.jsonwebtoken', name: 'jjwt', version: '0.3'
-    compile group: 'org.springframework.security', name: 'spring-security-core', version: '5.3.1.RELEASE'
-    compile group: 'org.springframework.security', name: 'spring-security-oauth2-client', version: '5.3.1.RELEASE'
-    compile group: 'org.springframework.security.oauth', name: 'spring-security-oauth2', version: '2.5.0.RELEASE'
-    compile group: 'org.springframework.security.oauth.boot', name: 'spring-security-oauth2-autoconfigure', version: '2.3.4.RELEASE'
+    implementation group: 'org.json', name: 'json', version: '20090211'
+    implementation group: 'io.jsonwebtoken', name: 'jjwt', version: '0.3'
+    implementation group: 'org.springframework.security', name: 'spring-security-core', version: '5.5.0'
+    implementation group: 'org.springframework.security', name: 'spring-security-oauth2-client', version: '5.5.0'
+    implementation group: 'org.springframework.security.oauth', name: 'spring-security-oauth2', version: '2.5.0.RELEASE'
+    implementation group: 'org.springframework.security.oauth.boot', name: 'spring-security-oauth2-autoconfigure', version: '2.5.7'
 
     // Libraries for minimizing users avatar
-    compile group: 'org.imgscalr', name: 'imgscalr-lib', version: '4.2'
-    compile group: 'net.coobird', name: 'thumbnailator', version: '0.4.1'
-    compile group: 'com.mortennobel', name: 'java-image-scaling', version: '0.8.5'
+    implementation group: 'org.imgscalr', name: 'imgscalr-lib', version: '4.2'
+    implementation group: 'net.coobird', name: 'thumbnailator', version: '0.4.1'
+    implementation group: 'com.mortennobel', name: 'java-image-scaling', version: '0.8.5'
 
     // Libraries for metrics and statistics
-    compile group: 'org.springframework.boot', name: 'spring-boot-starter-actuator', version: '2.3.0.RELEASE'
-    compile group: 'io.micrometer', name: 'micrometer-core', version: '1.5.1'
-    compile group: 'io.micrometer', name: 'micrometer-registry-prometheus', version: '1.5.1'
+    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-actuator', version: '2.5.7'
+    implementation group: 'io.micrometer', name: 'micrometer-core', version: '1.5.1'
+    implementation group: 'io.micrometer', name: 'micrometer-registry-prometheus', version: '1.5.1'
 
     // For Java 8 Date/Time Support
-    compile group: 'com.fasterxml.jackson.datatype', name: 'jackson-datatype-jsr310', version: '2.11.0'
+    implementation group: 'com.fasterxml.jackson.datatype', name: 'jackson-datatype-jsr310', version: '2.11.0'
 
     // Libraries for plugin handling
-    compile group: 'commons-io', name: 'commons-io', version: '2.7'
-    compile group: 'com.googlecode.json-simple', name: 'json-simple', version: '1.1.1'
+    implementation group: 'commons-io', name: 'commons-io', version: '2.7'
+    implementation group: 'com.googlecode.json-simple', name: 'json-simple', version: '1.1.1'
 
     // Other plugins
-    compile group: 'org.javatuples', name: 'javatuples', version: '1.2'
+    implementation group: 'org.javatuples', name: 'javatuples', version: '1.2'
 
     /* ============ endregion COMPILE ============ */
 
 
     /* ============ region TEST ============ */
-    testCompile group: 'org.springframework.boot', name: 'spring-boot-starter-test', version: '2.3.4.RELEASE'
+    testImplementation group: 'org.springframework.boot', name: 'spring-boot-starter-test', version: '2.5.7'
+    testCompileOnly 'org.projectlombok:lombok:1.18.20'
+    testAnnotationProcessor 'org.projectlombok:lombok:1.18.20'
 
     /* ============ endregion TEST ============ */
 
 
     /* ============ region OTHER ============ */
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
-    annotationProcessor 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok:1.18.20'
     annotationProcessor 'org.mapstruct:mapstruct-processor:1.3.1.Final'
     annotationProcessor "org.springframework.boot:spring-boot-configuration-processor"
     implementation 'org.junit.jupiter:junit-jupiter'
