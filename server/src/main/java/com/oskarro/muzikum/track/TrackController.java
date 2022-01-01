@@ -55,7 +55,8 @@ public class TrackController {
     }
 
     @PostMapping
-    public void addTrack(@RequestBody Track track, BindingResult bindingResult) throws ValidationException {
+    public void addTrack(@RequestBody Track track,
+                         BindingResult bindingResult) throws ValidationException {
         if (bindingResult.hasErrors()) {
             throw new ValidationException("There are a problem with binding");
         }
@@ -82,7 +83,8 @@ public class TrackController {
     }
 
     @GetMapping(value = "/{id}/user/{username}/favorites")
-    public void addTrackToUserFavorites(@PathVariable Integer id, @PathVariable String username) {
+    public void addTrackToUserFavorites(@PathVariable Integer id,
+                                        @PathVariable String username) {
         favoriteService.addTrackToFavorite(id, username);
     }
 
@@ -92,35 +94,27 @@ public class TrackController {
     }
 
     @GetMapping(value = "/genre/{genre}/top/{numberOfTracks}")
-    public List<Track> getListOfMostPopularTracksByGenre(@PathVariable String genre, @PathVariable Integer numberOfTracks) {
+    public List<Track> getListOfMostPopularTracksByGenre(@PathVariable String genre,
+                                                         @PathVariable Integer numberOfTracks) {
         return trackService.getListOfMostPopularTracksByGenre(genre, numberOfTracks);
     }
 
     @GetMapping(value = "/genre/{genre}/{numberOfTracks}")
-    public List<Track> getLastAddedTracksByGenre(@PathVariable String genre, @PathVariable Integer numberOfTracks) {
+    public List<Track> getLastAddedTracksByGenre(@PathVariable String genre,
+                                                 @PathVariable Integer numberOfTracks) {
         return trackService.getLastAddedTracksByGenre(genre, numberOfTracks);
     }
 
     @GetMapping(value = "/user/{username}/{numberOfTracks}")
-    public List<Track> getLastAddedTracksByUsername(@PathVariable String username, @PathVariable Integer numberOfTracks) {
+    public List<Track> getLastAddedTracksByUsername(@PathVariable String username,
+                                                    @PathVariable Integer numberOfTracks) {
         return trackService.getLastAddedTracksByUsername(username, numberOfTracks);
     }
 
-    @GetMapping(value = "/genre/{genre}/lastAddedByUser/{numberOfTracks}")
-    public List<Track> getLastAddedTracksByGenreOnlyWithUser(@PathVariable String genre, @PathVariable Integer numberOfTracks) {
-        return trackService.getLastAddedTracksByGenreOnlyWithUser(genre, numberOfTracks);
-    }
-
-    @GetMapping(value = "/getByUrl")
-    public Optional<Track> getTrackByUrl(@RequestParam String url) {
-        return trackService.getTrackByUrl(url);
-    }
-
     @GetMapping(value = "/genre/{genre}/list")
-    public ResponseEntity<Map<String, Object>> getAllTracks(
-            @PathVariable String genre,
-            @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "10") int size
+    public ResponseEntity<Map<String, Object>> getAllTracks(@PathVariable String genre,
+                                                            @RequestParam(defaultValue = "0") int page,
+                                                            @RequestParam(defaultValue = "10") int size
     ) {
         try {
             List<Track> tracks;
@@ -142,36 +136,39 @@ public class TrackController {
         }
     }
 
-    @GetMapping(value = "/genre/{genre}/page/{idPage}")
-    public List<Track> getTracksByGenreFromOnePage(@PathVariable String genre, @PathVariable int idPage) {
-        return trackService.getAddedTracksByGenreFromPage(genre, idPage);
+    @GetMapping(value = "/genre/{genre}/page/{pageNumber}")
+    public List<Track> getTracksByGenreFromOnePage(@PathVariable String genre,
+                                                   @PathVariable int pageNumber) {
+        return trackService.getAddedTracksByGenreFromPage(genre, pageNumber);
     }
 
-    @GetMapping(value = "/genre/{genre}/pages/{idPage}")
-    public TrackPageResponse getTrackPageByGenre(@PathVariable String genre, @PathVariable int idPage) {
-        return trackService.getTrackPageByGenre(genre, idPage);
+    @GetMapping(value = "/genre/{genre}/pages/{pageNumber}")
+    public TrackPageResponse getTrackPageByGenre(@PathVariable String genre,
+                                                 @PathVariable int pageNumber) {
+        return trackService.getTrackPageByGenre(genre, pageNumber);
     }
 
-    @GetMapping(value = "/user/{username}/pages/{idPage}")
-    public TrackPageResponse getTrackPageByUserUsername(@PathVariable String username, @PathVariable int idPage) {
-        return trackService.getTrackPageByUserUsername(username, idPage);
+    @GetMapping(value = "/user/{username}/pages/{pageNumber}")
+    public TrackPageResponse getTrackPageByUserUsername(@PathVariable String username,
+                                                        @PathVariable int pageNumber) {
+        return trackService.getTrackPageByUserUsername(username, pageNumber);
     }
 
-    @GetMapping(value = "/id/{trackId}/comments")
+    @GetMapping(value = "/{trackId}/comments")
     public List<TrackComment> getTrackCommentsByTrackId(@PathVariable Integer trackId) {
         return trackService.getAllTrackCommentsByTrackId(trackId);
     }
 
     @PostMapping(value = "/comment/add")
-    public void addTrackComment(@RequestBody TrackComment trackComment, BindingResult bindingResult)
-            throws ValidationException {
+    public void addTrackComment(@RequestBody TrackComment trackComment,
+                                BindingResult bindingResult) throws ValidationException {
         if (bindingResult.hasErrors()) {
             throw new ValidationException("There are a problem with binding");
         }
         trackService.saveTrackComment(trackComment);
     }
 
-    @DeleteMapping(value = "/comment/{commentId}/remove")
+    @DeleteMapping(value = "/comment/{commentId}")
     public void deleteTrackCommentById(@PathVariable Integer commentId) {
         trackService.deleteTrackCommentById(commentId);
     }

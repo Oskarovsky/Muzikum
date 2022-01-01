@@ -24,21 +24,11 @@ public interface TrackRepository extends JpaRepository<Track, Integer> {
 
     Track save(Track track);
 
-    List<Track> findTracksByProviderId(Integer id);
-
     List<Track> findTracksByGenre(String genre);
-
-    List<Track> findTracksByProviderName(String name);
-
-    List<Track> findTracksByProviderIdAndGenre(Integer id, String genre);
 
     List<Track> findTracksByPlaylistId(Integer id);
 
     List<Track> findTracksByVideoId(Integer id);
-
-    Optional<Track> findTrackByUrl(String url);
-
-    List<Track> findTracksByUrl(String url);
 
     void deleteById(Integer id);
 
