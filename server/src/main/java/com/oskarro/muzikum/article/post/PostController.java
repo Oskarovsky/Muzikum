@@ -14,7 +14,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping(value = "/api/posts")
-@CrossOrigin(origins = "*", allowedHeaders = "*")
+@CrossOrigin
 public class PostController {
 
     private final PostRepository postRepository;
@@ -26,7 +26,6 @@ public class PostController {
     }
 
     @GetMapping
-    @CrossOrigin(origins = "*", allowedHeaders = "*")
     public Page<Post> getAllPosts(Pageable pageable) {
         return postRepository.findAll(pageable);
     }
@@ -49,13 +48,11 @@ public class PostController {
     }
 
     @PostMapping
-    @CrossOrigin(origins = "*", allowedHeaders = "*")
     public void createPost(@Valid @RequestBody Post post) {
         postService.createPost(post);
     }
 
     @PutMapping(value = "/{postId}")
-    @CrossOrigin(origins = "*", allowedHeaders = "*")
     @Transactional
     public Post updatePost(@PathVariable Integer postId,
                            @Valid @RequestBody Post postRequest) {
@@ -69,7 +66,6 @@ public class PostController {
     }
 
     @DeleteMapping(value = "/{postId}")
-    @CrossOrigin(origins = "*", allowedHeaders = "*")
     public ResponseEntity<?> deletePost(@PathVariable Integer postId) {
         return postRepository.findById(postId)
                 .map(post -> {
@@ -79,7 +75,6 @@ public class PostController {
     }
 
     @GetMapping(value = "/lastAdded/{quantity}")
-    @CrossOrigin(origins = "*", allowedHeaders = "*")
     @Transactional
     public List<Post> getLastAddedPosts(@PathVariable Integer quantity) {
         return postService.getLastAddedPosts(quantity);

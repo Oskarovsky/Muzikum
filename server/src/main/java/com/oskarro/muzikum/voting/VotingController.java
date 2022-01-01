@@ -16,7 +16,7 @@ import java.util.List;
 @Slf4j
 @RestController
 @RequestMapping("/api/vote")
-@CrossOrigin(origins = "*", allowedHeaders = "*")
+@CrossOrigin
 @AllArgsConstructor
 public class VotingController {
 
@@ -25,26 +25,22 @@ public class VotingController {
     VotingService votingService;
 
     @GetMapping(value = "/track/{trackId}")
-    @CrossOrigin(origins = "*", allowedHeaders = "*")
     public ResponseEntity<List<Vote>> getVotesByTrackId(@PathVariable Integer trackId) {
         return new ResponseEntity<>(votingRepository.findVotesByTrackId(trackId), HttpStatus.OK);
     }
 
     @GetMapping(value = "/track/{trackId}/all")
-    @CrossOrigin(origins = "*", allowedHeaders = "*")
     public ResponseEntity<Integer> getNumberOfVotesByTrackId(@PathVariable Integer trackId) {
         return new ResponseEntity<>(votingService.getNumberOfVotesByTrackId(trackId), HttpStatus.OK);
     }
 
     @GetMapping(value = "/track/{trackId}/add/{username}")
-    @CrossOrigin(origins = "*", allowedHeaders = "*")
     public ResponseEntity<Void> addVoteForTrackById(@PathVariable Integer trackId, @PathVariable String username) {
         votingService.addVoteForTrack(trackId, username);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @PostMapping(value = "/track")
-    @CrossOrigin(origins = "*", allowedHeaders = "*")
     public ResponseEntity<Void> voteForTrackById(@RequestBody VoteDto vote) {
         votingService.voteForTrack(vote);
         return new ResponseEntity<>(HttpStatus.OK);
@@ -52,7 +48,6 @@ public class VotingController {
     }
 
     @GetMapping(value = "/{username}/tracks")
-    @CrossOrigin(origins = "*", allowedHeaders = "*")
     ResponseEntity<List<Track>> getAllVotedTracksByUser(@PathVariable String username) {
         List<Vote> votesForTracks = votingRepository.findVotesByUserUsername(username);
         List<Track> tracks = new ArrayList<>();
@@ -62,7 +57,6 @@ public class VotingController {
     }
 
     @GetMapping(value = "/{username}/tracks/ids")
-    @CrossOrigin(origins = "*", allowedHeaders = "*")
     ResponseEntity<List<Integer>> getAllVotedTracksIdsByUser(@PathVariable String username) {
         List<Vote> votesForTracks = votingRepository.findVotesByUserUsername(username);
         List<Track> tracks = new ArrayList<>();
@@ -74,7 +68,6 @@ public class VotingController {
     }
 
     @GetMapping(value = "/track/{trackId}/checkVote/{userId}")
-    @CrossOrigin(origins = "*", allowedHeaders = "*")
     ResponseEntity<Boolean> checkIfUserVotedForTrack(@PathVariable Integer trackId, @PathVariable Integer userId) {
         if (votingService.isVotedForTrackByUser(trackId, userId)) {
             return new ResponseEntity<>(true, HttpStatus.OK);

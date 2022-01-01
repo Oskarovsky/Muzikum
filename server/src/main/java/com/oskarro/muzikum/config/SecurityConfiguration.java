@@ -10,6 +10,7 @@ import com.oskarro.muzikum.user.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.BeanIds;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -142,9 +143,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                     .antMatchers("/api/test/**").permitAll()
                     .antMatchers( "/api/**").permitAll()
                     .antMatchers("/api/auth/**").permitAll()
-                    .antMatchers("/api/playlist/lastAdded/**").permitAll()
                     .antMatchers("/actuator/*").permitAll()
-                    .antMatchers("/track/v2/*").permitAll()
+                    .antMatchers("/api/tracks/random").permitAll()
+                    .antMatchers(HttpMethod.OPTIONS).permitAll()
                     .anyRequest().authenticated()
                     .and()
                 .oauth2Login()

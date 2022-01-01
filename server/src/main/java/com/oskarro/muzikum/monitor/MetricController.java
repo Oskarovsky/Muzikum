@@ -11,7 +11,7 @@ import java.util.concurrent.ConcurrentHashMap;
  * */
 
 @RestController
-@CrossOrigin(origins = "*", maxAge = 3600)
+@CrossOrigin
 @RequestMapping(value = "/api/stat")
 public class MetricController {
 

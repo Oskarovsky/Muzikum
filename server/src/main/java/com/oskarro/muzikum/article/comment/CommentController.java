@@ -16,7 +16,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping(value = "/api/posts")
-@CrossOrigin(origins = "*", allowedHeaders = "*")
+@CrossOrigin
 @AllArgsConstructor
 public class CommentController {
 
@@ -26,7 +26,6 @@ public class CommentController {
 
     @GetMapping(value = "/{postId}/comments")
     @Transactional
-    @CrossOrigin(origins = "*", allowedHeaders = "*")
     public Page<Comment> getAllCommentsByPostId(@PathVariable Integer postId,
                                                 Pageable pageable) {
         return commentService.getAllCommentsByPostId(postId, pageable);
@@ -34,13 +33,11 @@ public class CommentController {
 
     @GetMapping(value = "/{postId}/comments/all")
     @Transactional
-    @CrossOrigin(origins = "*", allowedHeaders = "*")
     public ResponseEntity<List<Comment>> getAllCommentsByPostId(@PathVariable Integer postId) {
         return new ResponseEntity<>(commentService.getAllCommentsByPostId(postId), HttpStatus.OK);
     }
 
     @PostMapping(value = "/{postId}/comments")
-    @CrossOrigin(origins = "*", allowedHeaders = "*")
     public ResponseEntity<Comment> createComment(@PathVariable Integer postId,
                                                  @Valid @RequestBody Comment comment) {
         return postRepository.findById(postId)
@@ -51,7 +48,6 @@ public class CommentController {
     }
 
     @PutMapping(value = "/{postId}/comments/{commentId}")
-    @CrossOrigin(origins = "*", allowedHeaders = "*")
     public ResponseEntity<Comment> updateComment(@PathVariable Integer postId,
                                                  @PathVariable Integer commentId,
                                                  @Valid @RequestBody Comment commentRequest) {
@@ -66,7 +62,6 @@ public class CommentController {
     }
 
     @DeleteMapping(value = "/{postId}/comments/{commentId}")
-    @CrossOrigin(origins = "*", allowedHeaders = "*")
     @Transactional
     public ResponseEntity<Integer> deleteComment(@PathVariable Integer postId,
                                                  @PathVariable Integer commentId) {

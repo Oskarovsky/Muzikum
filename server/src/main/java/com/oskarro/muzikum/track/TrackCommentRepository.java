@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import java.util.List;
 
 @RepositoryRestResource
-@CrossOrigin(origins = "*")
+@CrossOrigin
 public interface TrackCommentRepository extends JpaRepository<TrackComment, Integer> {
 
     List<TrackComment> findTrackCommentsByTrackIdOrderByCreatedAtDesc(Integer trackId);

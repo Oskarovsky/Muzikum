@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-@CrossOrigin(origins = "*", allowedHeaders = "*")
+@CrossOrigin
 public interface PlaylistRepository extends CrudRepository<Playlist, Integer> {
 
     List<Playlist> findAll();

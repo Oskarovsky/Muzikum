@@ -39,7 +39,7 @@ import static java.time.Instant.now;
 @Slf4j
 @RestController
 @RequestMapping(value = "/api/auth")
-@CrossOrigin(origins = "*", allowedHeaders = "*")
+@CrossOrigin
 public class AuthController {
 
     final AuthenticationManager authenticationManager;
@@ -73,7 +73,6 @@ public class AuthController {
     }
 
     @RequestMapping(value = "/signin", method = RequestMethod.POST)
-    @CrossOrigin(origins = "*", allowedHeaders = "*")
     public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
 
         Authentication authentication = authenticationManager.authenticate(
@@ -97,7 +96,6 @@ public class AuthController {
     }
 
     @RequestMapping(value = "/signup", method = RequestMethod.POST)
-    @CrossOrigin(origins = "*", allowedHeaders = "*")
     public ResponseEntity<?> registerUser(@Valid @RequestBody RegisterRequest registerRequest) {
         if (userRepository.existsByUsername(registerRequest.getUsername())) {
             return ResponseEntity

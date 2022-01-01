@@ -11,7 +11,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping(value = "/api/playlist")
-@CrossOrigin(origins = "*", allowedHeaders = "*")
+@CrossOrigin
 public class PlaylistController {
 
     private final PlaylistService playlistService;
@@ -31,50 +31,42 @@ public class PlaylistController {
     }
 
     @GetMapping
-    @CrossOrigin(origins = "*", allowedHeaders = "*")
     public List<Playlist> getAllPlaylists() {
         return playlistService.getAllPlaylist();
     }
 
     @GetMapping(value = "/{id}")
-    @CrossOrigin(origins = "*", allowedHeaders = "*")
     public Optional<Playlist> getPlaylistById(@PathVariable Integer id) {
         return playlistService.findPlaylistById(id);
     }
 
     @GetMapping(value = "/{id}/tracks")
-    @CrossOrigin(origins = "*", allowedHeaders = "*")
     public List<Track> getAllTracksFromPlaylist(@PathVariable Integer id) {
         return trackService.findAllTracksFromPlaylist(id);
     }
 
     @GetMapping(value = "/{id}/views")
-    @CrossOrigin(origins = "*", allowedHeaders = "*")
     public Integer getViewsNumber(@PathVariable Integer id) {
         return sessionComponent.updateSessionViews(id);
     }
 
     @PostMapping
-    @CrossOrigin(origins = "*", allowedHeaders = "*")
     public Playlist addPlaylist(@RequestBody Playlist playlist) {
         return playlistService.save(playlist);
     }
 
     @DeleteMapping(value = "/{id}")
-    @CrossOrigin(origins = "*", allowedHeaders = "*")
     void delete(@PathVariable Integer id) {
         trackRepository.deleteAll(trackRepository.findTracksByPlaylistId(id));
         this.playlistRepository.deleteById(id);
     }
 
     @GetMapping(value = "/user/{username}")
-    @CrossOrigin(origins = "*", allowedHeaders = "*")
     public List<Playlist> getAllPlaylistByUserName(@PathVariable String username) {
         return playlistService.findAllPlaylistByUsername(username);
     }
 
     @GetMapping(value = "/lastAdded/{quantity}")
-    @CrossOrigin(origins = "*", allowedHeaders = "*")
     public List<Playlist> getLastAddedPlaylist(@PathVariable Integer quantity) {
         return playlistService.getFirstPlaylists(quantity);
     }

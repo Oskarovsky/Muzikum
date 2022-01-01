@@ -36,7 +36,7 @@ import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping(value = "/api/storage")
-@CrossOrigin(origins = "*", allowedHeaders = "*")
+@CrossOrigin
 @Slf4j
 public class FilesController {
 

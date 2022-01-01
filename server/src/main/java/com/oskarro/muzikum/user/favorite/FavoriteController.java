@@ -10,7 +10,6 @@ import java.util.List;
 
 @RestController
 @RequestMapping(value = "/api/favorites")
-@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class FavoriteController {
 
     private final TrackService trackService;
@@ -25,7 +24,6 @@ public class FavoriteController {
     }
 
     @GetMapping(value = "/{username}/tracks")
-    @CrossOrigin(origins = "*", allowedHeaders = "*")
     List<Track> getAllFavoriteTracks(@PathVariable String username) {
         List<FavoriteTrack> favoriteTracks = favoriteTrackRepository.findFavoriteTracksByUserUsername(username);
         List<Track> tracks = new ArrayList<>();
@@ -35,7 +33,6 @@ public class FavoriteController {
     }
 
     @GetMapping(value = "/{username}/tracks/ids")
-    @CrossOrigin(origins = "*", allowedHeaders = "*")
     List<Integer> getAllFavoriteTracksIds(@PathVariable String username) {
         List<FavoriteTrack> favoriteTracks = favoriteTrackRepository.findFavoriteTracksByUserUsername(username);
         List<Track> tracks = new ArrayList<>();
