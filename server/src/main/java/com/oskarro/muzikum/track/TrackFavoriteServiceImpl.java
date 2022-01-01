@@ -1,25 +1,27 @@
-package com.oskarro.muzikum.user.favorite;
+package com.oskarro.muzikum.track;
 
 import com.oskarro.muzikum.exception.ResourceNotFoundException;
 import com.oskarro.muzikum.track.model.Track;
-import com.oskarro.muzikum.track.TrackRepository;
+import com.oskarro.muzikum.track.model.TrackFavorite;
 import com.oskarro.muzikum.user.User;
 import com.oskarro.muzikum.user.UserRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Slf4j
 @Service
-public class FavoriteServiceImpl implements FavoriteService {
+public class TrackFavoriteServiceImpl implements TrackFavoriteService {
 
-    UserRepository userRepository;
-    TrackRepository trackRepository;
-    FavoriteTrackRepository favoriteTrackRepository;
+    private final UserRepository userRepository;
+    private final TrackRepository trackRepository;
+    private final TrackFavoriteRepository favoriteTrackRepository;
 
-    public FavoriteServiceImpl(UserRepository userRepository, TrackRepository trackRepository,
-                               FavoriteTrackRepository favoriteTrackRepository) {
+    public TrackFavoriteServiceImpl(UserRepository userRepository,
+                                    TrackRepository trackRepository,
+                                    TrackFavoriteRepository favoriteTrackRepository) {
         this.userRepository = userRepository;
         this.trackRepository = trackRepository;
         this.favoriteTrackRepository = favoriteTrackRepository;
@@ -27,7 +29,7 @@ public class FavoriteServiceImpl implements FavoriteService {
 
     @Override
     public void addTrackToFavorite(Integer trackId, String username) {
-        Optional<FavoriteTrack> favoriteTrackDemo =
+        Optional<TrackFavorite> favoriteTrackDemo =
                 favoriteTrackRepository.findFavoriteTrackByTrackIdAndUserUsername(trackId, username);
         if (favoriteTrackDemo.isPresent()) {
             log.warn("You can add track to favorites only once");
@@ -36,7 +38,8 @@ public class FavoriteServiceImpl implements FavoriteService {
                     .orElseThrow(() -> new ResourceNotFoundException("User", "username", username));
             Track track = trackRepository.findById(trackId)
                     .orElseThrow(() -> new ResourceNotFoundException("Track", "trackId", trackId));
-            FavoriteTrack favoriteTrack = FavoriteTrack.builder().track(track).user(user).build();
+            TrackFavorite favoriteTrack = TrackFavorite.builder().track(track).user(user).build();
+
             if (track.getPosition() == null) {
                 track.setPoints(1);
             } else {
@@ -46,6 +49,10 @@ public class FavoriteServiceImpl implements FavoriteService {
             trackRepository.save(track);
             favoriteTrackRepository.save(favoriteTrack);
         }
+    }
 
+    @Override
+    public List<TrackFavorite> getFavoriteTracksByUsername(final String username) {
+        return favoriteTrackRepository.findFavoriteTracksByUserUsername(username);
     }
 }

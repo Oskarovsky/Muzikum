@@ -4,9 +4,6 @@ import com.oskarro.muzikum.track.model.Track;
 import com.oskarro.muzikum.track.model.TrackComment;
 import com.oskarro.muzikum.track.model.TrackPageResponse;
 import com.oskarro.muzikum.user.UserService;
-import com.oskarro.muzikum.user.favorite.FavoriteService;
-import com.oskarro.muzikum.user.favorite.FavoriteTrackRepository;
-import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,6 +16,7 @@ import org.springframework.data.domain.Pageable;
 
 import javax.xml.bind.ValidationException;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping(value = "/api/tracks")
@@ -27,18 +25,18 @@ public class TrackController {
 
     private final TrackService trackService;
     private final TrackRepository trackRepository;
-    private final FavoriteService favoriteService;
+    private final TrackFavoriteService trackFavoriteService;
     private final TrackDao trackDao;
     private final UserService userService;
 
     public TrackController(TrackService trackService,
                            TrackRepository trackRepository,
-                           FavoriteService favoriteService,
+                           TrackFavoriteService trackFavoriteService,
                            TrackDao trackDao,
                            UserService userService) {
         this.trackService = trackService;
         this.trackRepository = trackRepository;
-        this.favoriteService = favoriteService;
+        this.trackFavoriteService = trackFavoriteService;
         this.trackDao = trackDao;
         this.userService = userService;
     }
@@ -85,7 +83,7 @@ public class TrackController {
     @GetMapping(value = "/{id}/user/{username}/favorites")
     public void addTrackToUserFavorites(@PathVariable Integer id,
                                         @PathVariable String username) {
-        favoriteService.addTrackToFavorite(id, username);
+        trackFavoriteService.addTrackToFavorite(id, username);
     }
 
     @GetMapping(value = "/genre/{genre}/top")
@@ -176,5 +174,26 @@ public class TrackController {
     @GetMapping(value = "/user/{username}/count")
     public long getNumberOfTracksAddedByTheUser(@PathVariable String username) {
         return trackService.getNumberOfTracksAddedByTheUser(username);
+    }
+
+    @GetMapping(value = "/favorites/user/{username}")
+    List<Track> getAllFavoriteTracks(@PathVariable final String username) {
+        return trackFavoriteService.getFavoriteTracksByUsername(username)
+                .stream()
+                .map(t -> trackService.findById(t.getTrack().getId()))
+                .filter(Optional::isPresent)
+                .map(Optional::get)
+                .collect(Collectors.toList());
+    }
+
+    @GetMapping(value = "/favorites/user/{username}/ids")
+    List<Integer> getAllFavoriteTracksIds(@PathVariable final String username) {
+        return trackFavoriteService.getFavoriteTracksByUsername(username)
+                .stream()
+                .map(t -> trackService.findById(t.getTrack().getId()))
+                .filter(Optional::isPresent)
+                .map(Optional::get)
+                .map(Track::getId)
+                .collect(Collectors.toList());
     }
 }

@@ -12,8 +12,8 @@ import com.oskarro.muzikum.track.model.Track;
 import com.oskarro.muzikum.track.model.TrackComment;
 import com.oskarro.muzikum.track.model.UrlSource;
 import com.oskarro.muzikum.user.*;
-import com.oskarro.muzikum.user.favorite.FavoriteTrack;
-import com.oskarro.muzikum.user.favorite.FavoriteTrackRepository;
+import com.oskarro.muzikum.track.model.TrackFavorite;
+import com.oskarro.muzikum.track.TrackFavoriteRepository;
 import com.oskarro.muzikum.user.role.Role;
 import com.oskarro.muzikum.user.role.RoleName;
 import com.oskarro.muzikum.user.role.RoleRepository;
@@ -45,7 +45,7 @@ public class DemoService {
     public PlaylistRepository playlistRepository;
     public VideoRepository videoRepository;
     public TrackRepository trackRepository;
-    public FavoriteTrackRepository favoriteTrackRepository;
+    public TrackFavoriteRepository favoriteTrackRepository;
     public VotingRepository votingRepository;
     public TrackCommentRepository trackCommentRepository;
     public UserStatisticsRepository userStatisticsRepository;
@@ -53,7 +53,7 @@ public class DemoService {
     public PasswordEncoder encoder;
 
     public DemoService(CommentRepository commentRepository, RoleRepository roleRepository,
-                       UserRepository userRepository, FavoriteTrackRepository favoriteTrackRepository,
+                       UserRepository userRepository, TrackFavoriteRepository trackFavoriteRepository,
                        VotingRepository votingRepository,
                        PlaylistRepository playlistRepository, VideoRepository videoRepository,
                        UserStatisticsRepository userStatisticsRepository, PostRepository postRepository,
@@ -66,7 +66,7 @@ public class DemoService {
         this.userStatisticsRepository = userStatisticsRepository;
         this.roleRepository = roleRepository;
         this.commentRepository = commentRepository;
-        this.favoriteTrackRepository = favoriteTrackRepository;
+        this.favoriteTrackRepository = trackFavoriteRepository;
         this.votingRepository = votingRepository;
         this.trackCommentRepository = trackCommentRepository;
         this.trackRepository = trackRepository;
@@ -192,9 +192,9 @@ public class DemoService {
         Vote vote3 = Vote.builder().user(userAdmin).track(track11).build();
         votingRepository.saveAll(Arrays.asList(vote1, vote2, vote3));
 
-        FavoriteTrack favoriteTrack001 = FavoriteTrack.builder().track(track9).user(userAdmin).build();
-        FavoriteTrack favoriteTrack002 = FavoriteTrack.builder().track(track10).user(userAdmin).build();
-        FavoriteTrack favoriteTrack003 = FavoriteTrack.builder().track(track11).user(userAdmin).build();
+        TrackFavorite favoriteTrack001 = TrackFavorite.builder().track(track9).user(userAdmin).build();
+        TrackFavorite favoriteTrack002 = TrackFavorite.builder().track(track10).user(userAdmin).build();
+        TrackFavorite favoriteTrack003 = TrackFavorite.builder().track(track11).user(userAdmin).build();
         favoriteTrackRepository.saveAll(Arrays.asList(favoriteTrack001, favoriteTrack002, favoriteTrack003));
 
         Track popularTrackRetro = Track.builder()

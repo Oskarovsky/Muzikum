@@ -1,6 +1,5 @@
-package com.oskarro.muzikum.user.favorite;
+package com.oskarro.muzikum.track.model;
 
-import com.oskarro.muzikum.track.model.Track;
 import com.oskarro.muzikum.user.User;
 import lombok.*;
 
@@ -12,14 +11,14 @@ import javax.persistence.*;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class FavoriteTrack {
+public class TrackFavorite {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @ManyToOne
-    @JoinColumn(name = "favorite_id")
+    @JoinColumn(name = "track_id")
     private Track track;
 
     @ManyToOne

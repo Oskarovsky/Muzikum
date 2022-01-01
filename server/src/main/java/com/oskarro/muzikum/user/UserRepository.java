@@ -12,9 +12,6 @@ import java.util.Optional;
 @Repository
 public interface UserRepository extends JpaRepository<User, Integer> {
 
-    String USERS_BY_LOGIN_CACHE = "usersByLogin";
-    String USERS_BY_EMAIL_CACHE = "usersByEmail";
-
     Optional<User> findByEmail(String email);
 
     User findUserByEmail(String email);
@@ -22,8 +19,6 @@ public interface UserRepository extends JpaRepository<User, Integer> {
     Optional<User> findByUsername(String username);
 
     Optional<User> findByUsernameOrEmail(String username, String email);
-
-    List<User> findByIdIn(Collection<Integer> id);
 
     Boolean existsByUsername(String username);
 

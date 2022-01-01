@@ -38,7 +38,6 @@ public class UserPrincipal implements UserDetails, OAuth2User {
 
     final private Collection<? extends GrantedAuthority> authorities;
 
-    @Setter
     private Map<String, Object> attributes;
 
     public UserPrincipal(Integer id, String email, String username, String password,
@@ -87,13 +86,10 @@ public class UserPrincipal implements UserDetails, OAuth2User {
 
 
     public static UserPrincipal create(User user) {
-        user.getRoles().forEach(s -> System.out.println(s.getName()));
         List<GrantedAuthority> authorities = user.getRoles()
                 .stream()
-                .map(role -> new SimpleGrantedAuthority(role.getName().name())
-        ).collect(Collectors.toList());
-        authorities.forEach(s -> System.out.println(s.getAuthority()));
-
+                .map(role -> new SimpleGrantedAuthority(role.getName().name()))
+                .collect(Collectors.toList());
         return new UserPrincipal(
                 user.getId(),
                 user.getUsername(),

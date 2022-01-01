@@ -1,7 +1,5 @@
 package com.oskarro.muzikum.user;
 
-import com.oskarro.muzikum.exception.ResourceNotFoundException;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -11,65 +9,57 @@ import java.util.List;
 @CrossOrigin
 public class UserController {
 
-    @Autowired
-    UserService userService;
+    private final UserService userService;
 
-    @Autowired
-    UserDao userDao;
-
-    @Autowired
-    UserRepository userRepository;
+    public UserController(UserService userService) {
+        this.userService = userService;
+    }
 
     @GetMapping(value = "/id/{userId}")
-    public User getUserByUserId(@PathVariable Integer userId) {
-        return userRepository.findById(userId)
-                .orElseThrow(() -> new ResourceNotFoundException("User", "id", userId));
+    public User getUserByUserId(@PathVariable final Integer userId) {
+        return userService.getUserById(userId);
     }
 
     @GetMapping(value = "/{username}")
-    public User getUserByUsername(@PathVariable String username) {
-        return userRepository.findByUsername(username)
-                .orElseThrow(() -> new ResourceNotFoundException("User", "username", username));
+    public User getUserByUsername(@PathVariable final String username) {
+        return userService.getUserByUsername(username);
     }
 
     @GetMapping(value = "/lastAdded/{quantity}")
-    public List<User> getLastAddedUsers(@PathVariable Integer quantity) {
+    public List<User> getLastAddedUsers(@PathVariable final Integer quantity) {
         return userService.getLastAddedUsers(quantity);
     }
 
-    @GetMapping(value = "/all")
-    public List<User> getAllUsers() {
-        return userDao.findAll();
-    }
-
     @GetMapping(value = "/top/uploader/{periodOfTime}")
-    public User getTopUploader(@PathVariable String periodOfTime) {
+    public User getTopUploader(@PathVariable final String periodOfTime) {
         return userService.getTopUploader(periodOfTime);
     }
 
     @GetMapping(value = "/top/uploader/{periodOfTime}/{numberOfUser}")
-    public List<User> getTopUploaders(@PathVariable String periodOfTime, @PathVariable int numberOfUser) {
+    public List<User> getTopUploaders(@PathVariable final String periodOfTime,
+                                      @PathVariable final int numberOfUser) {
         return userService.getTopUploaders(periodOfTime, numberOfUser);
     }
 
-    @GetMapping(value = "/{userId}/tracks/amount")
-    public Integer getNumberOfTracksAddedByUserId(@PathVariable Integer userId) {
+    @GetMapping(value = "/id/{userId}/tracks/count")
+    public Integer getNumberOfTracksAddedByUserId(@PathVariable final Integer userId) {
         return userService.getNumberOfTracksAddedByUserId(userId);
     }
 
-    @GetMapping(value = "/{username}/tracks/amount")
-    public Integer getNumberOfTracksAddedByUsername(@PathVariable String username) {
+    @GetMapping(value = "/{username}/tracks/count")
+    public Integer getNumberOfTracksAddedByUsername(@PathVariable final String username) {
         return userService.getNumberOfTracksAddedByUsername(username);
     }
 
-    @GetMapping(value = "/{username}/tracks/{periodOfTime}/amount")
-    public Integer getNumberOfTracksAddedInGivenPeriodByUsername(@PathVariable String username,
-                                                                 @PathVariable String periodOfTime) {
+    @GetMapping(value = "/{username}/tracks/{periodOfTime}/count")
+    public Integer getNumberOfTracksAddedInGivenPeriodByUsername(@PathVariable final String username,
+                                                                 @PathVariable final String periodOfTime) {
         return userService.getNumberOfTracksAddedInGivenPeriodByUsername(username, periodOfTime);
     }
 
-    @PostMapping(value = "/{userId}/update")
-    public User updateUser(@PathVariable String userId, @RequestBody UserDto userDto) {
+    @PatchMapping(value = "/{userId}")
+    public User updateUser(@PathVariable final String userId,
+                           @RequestBody final UserDto userDto) {
         return userService.updateUser(userDto);
     }
 

@@ -6,6 +6,13 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
+/**
+ * Class invokes JavaMailSender with SimpleMailMessage components.
+ * It models a simple mail message, including data such as the from, to, cc, subject and text fields
+ *
+ * Clients should talk to the mail sender through this interface implementation if they need mail functionality
+ * */
+
 @Service
 public class EmailServiceImpl implements EmailService {
 

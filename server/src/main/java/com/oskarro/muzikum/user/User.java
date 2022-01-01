@@ -19,7 +19,8 @@ import java.util.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@Table(name = "users", uniqueConstraints = {
+@Table(name = "users",
+        uniqueConstraints = {
         @UniqueConstraint(columnNames = "username"),
         @UniqueConstraint(columnNames = "email")
         })
@@ -74,9 +75,6 @@ public class User extends DateAudit {
     @JsonIgnore
     @Column(name = "activated")
     private boolean activated;
-
-    @Column(name = "created_date")
-    private Date createdDate;
 
     @JsonIgnore
     @Column(name = "last_login_date")
