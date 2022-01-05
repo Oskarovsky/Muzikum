@@ -2,10 +2,7 @@ package com.oskarro.muzikum.config;
 
 import com.oskarro.muzikum.security.jwt.JwtAuthenticationEntryPoint;
 import com.oskarro.muzikum.security.jwt.JwtAuthenticationFilter;
-import com.oskarro.muzikum.security.oauth2.CustomOAuth2UserService;
-import com.oskarro.muzikum.security.oauth2.HttpCookieOAuth2AuthorizationRequestRepository;
-import com.oskarro.muzikum.security.oauth2.OAuth2AuthenticationFailureHandler;
-import com.oskarro.muzikum.security.oauth2.OAuth2AuthenticationSuccessHandler;
+import com.oskarro.muzikum.security.oauth2.*;
 import com.oskarro.muzikum.user.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -44,6 +41,16 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     /**
+     * The class is used to handle the user after obtain access token
+     * */
+    @Autowired
+    private CustomOAuth2UserService customOAuth2UserService;
+
+    private final OAuth2AuthenticationSuccessHandler oAuth2AuthenticationSuccessHandler;
+
+    private final OAuth2AuthenticationFailureHandler oAuth2AuthenticationFailureHandler;
+
+    /**
      * To authenticate a User or perform various role-based checks, Spring security needs to load users details somehow.
      * For this purpose, It consists of an interface called UserDetailsService
      * which has a single method that loads a user based on username
@@ -58,12 +65,17 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
      * */
     private final JwtAuthenticationEntryPoint unauthorizedHandler;
 
+
+
     public SecurityConfiguration(UserDetailsServiceImpl userDetailsService,
-                                 JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint) {
+                                 JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint,
+                                 OAuth2AuthenticationSuccessHandler oAuth2AuthenticationSuccessHandler,
+                                 OAuth2AuthenticationFailureHandler oAuth2AuthenticationFailureHandler) {
         this.userDetailsService = userDetailsService;
         this.unauthorizedHandler = jwtAuthenticationEntryPoint;
+        this.oAuth2AuthenticationSuccessHandler = oAuth2AuthenticationSuccessHandler;
+        this.oAuth2AuthenticationFailureHandler = oAuth2AuthenticationFailureHandler;
     }
-
 
     /**
      * Filter used for validating the access_token sent by the user
@@ -84,20 +96,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .userDetailsService(userDetailsService)
                 .passwordEncoder(passwordEncoder());
     }
-
-
-    /**
-     * The class is used to handle the user after obtain access token
-     * */
-    @Autowired
-    private CustomOAuth2UserService customOAuth2UserService;
-
-    @Autowired
-    private OAuth2AuthenticationSuccessHandler oAuth2AuthenticationSuccessHandler;
-
-    @Autowired
-    private OAuth2AuthenticationFailureHandler oAuth2AuthenticationFailureHandler;
-
 
     /**
      * By default, Spring OAuth2 uses HttpSessionOAuth2AuthorizationRequestRepository to save
@@ -142,7 +140,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                             "/**/*.js").permitAll()
                     .antMatchers("/api/test/**").permitAll()
                     .antMatchers( "/api/**").permitAll()
-                    .antMatchers("/api/auth/**").permitAll()
+                    .antMatchers("/auth/**").permitAll()
                     .antMatchers("/actuator/*").permitAll()
                     .antMatchers("/api/tracks/random").permitAll()
                     .antMatchers(HttpMethod.OPTIONS).permitAll()

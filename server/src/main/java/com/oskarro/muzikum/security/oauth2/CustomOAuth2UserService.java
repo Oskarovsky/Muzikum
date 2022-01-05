@@ -20,10 +20,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Optional;
+import java.util.*;
 
 /**
  * The CustomOAuth2UserService extends Spring Security’s DefaultOAuth2UserService and implements its loadUser() method.
@@ -37,20 +34,27 @@ import java.util.Optional;
 @Service
 public class CustomOAuth2UserService extends DefaultOAuth2UserService {
 
-    @Autowired
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
 
-    @Autowired
-    private RoleRepository roleRepository;
+    private final RoleRepository roleRepository;
 
-    @Autowired
-    private UserStatisticsRepository userStatisticsRepository;
+    private final UserStatisticsRepository userStatisticsRepository;
 
-    @Autowired
-    PasswordEncoder passwordEncoder;
+    private final PasswordEncoder passwordEncoder;
 
-    @Autowired
-    ImageRepository imageRepository;
+    final ImageRepository imageRepository;
+
+    public CustomOAuth2UserService(UserRepository userRepository,
+                                   RoleRepository roleRepository,
+                                   UserStatisticsRepository userStatisticsRepository,
+                                   PasswordEncoder passwordEncoder,
+                                   ImageRepository imageRepository) {
+        this.userRepository = userRepository;
+        this.roleRepository = roleRepository;
+        this.userStatisticsRepository = userStatisticsRepository;
+        this.passwordEncoder = passwordEncoder;
+        this.imageRepository = imageRepository;
+    }
 
     @Override
     public OAuth2User loadUser(OAuth2UserRequest request) throws OAuth2AuthenticationException {
@@ -74,8 +78,9 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
         if (userOptional.isPresent()) {
             user = userOptional.get();
             if (!user.getProvider().equals(AuthProvider.valueOf(request.getClientRegistration().getRegistrationId()))) {
-                throw new OAuth2AuthenticationProcessingException("Looks like you're signed up with " +
-                        user.getProvider() + " account. Please use your " + user.getProvider() + " account to login.");
+                throw new OAuth2AuthenticationProcessingException(
+                        String.format("Looks like you're signed up with %s account. Please use your %s account to login",
+                                user.getProvider(), user.getProvider()));
             }
             user = updateExistingUser(user, oAuth2UserInfo);
         } else {
@@ -102,11 +107,6 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
     private void saveImageFromWeb(String email, String imageUrl) {
         User user = userRepository.findByEmail(email)
                 .orElseThrow(() -> new ResourceNotFoundException("User", "email", email));
-        Image image = Image.builder()
-                .name(imageUrl)
-                .user(user)
-                .type("url")
-                .build();
     }
 
     private User updateExistingUser(User existingUser, OAuth2UserInfo oAuth2UserInfo) {

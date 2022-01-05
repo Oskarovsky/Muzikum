@@ -125,20 +125,21 @@ public class AuthController {
         } else {
             stringRoles.forEach(role -> {
                 switch (role) {
-                    case "admin":
+                    case "admin" -> {
                         Role adminRole = roleRepository.findByName(RoleName.ROLE_ADMIN)
                                 .orElseThrow(() -> new RuntimeException("Fail! -> Cause: User Role not find."));
                         roles.add(adminRole);
-                        break;
-                    case "mod":
+                    }
+                    case "mod" -> {
                         Role modRole = roleRepository.findByName(RoleName.ROLE_MODERATOR)
                                 .orElseThrow(() -> new RuntimeException("Fail! -> Cause: User Role not find."));
                         roles.add(modRole);
-                        break;
-                    default:
+                    }
+                    default -> {
                         Role userRole = roleRepository.findByName(RoleName.ROLE_USER)
                                 .orElseThrow(() -> new RuntimeException("Fail! -> Cause: User Role not find."));
                         roles.add(userRole);
+                    }
                 }
             });
         }

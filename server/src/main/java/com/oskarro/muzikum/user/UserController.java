@@ -1,5 +1,8 @@
 package com.oskarro.muzikum.user;
 
+import com.oskarro.muzikum.config.CurrentUser;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -61,6 +64,12 @@ public class UserController {
     public User updateUser(@PathVariable final String userId,
                            @RequestBody final UserDto userDto) {
         return userService.updateUser(userDto);
+    }
+
+    @GetMapping("/me")
+    @PreAuthorize("hasRole('USER')")
+    public ResponseEntity<?> getCurrentUser(@CurrentUser UserPrincipal user) {
+        return ResponseEntity.ok(user.getUsername());
     }
 
 }

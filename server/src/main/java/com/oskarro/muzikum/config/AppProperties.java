@@ -3,10 +3,12 @@ package com.oskarro.muzikum.config;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Component
 @ConfigurationProperties(prefix = "app")
 public class AppProperties {
 
@@ -20,7 +22,7 @@ public class AppProperties {
         private long tokenExpirationMsec;
     }
 
-    public static class OAuth2 {
+    public static final class OAuth2 {
 
         private List<String> authorizedRedirectUris = new ArrayList<>();
 

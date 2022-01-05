@@ -33,7 +33,7 @@ public class JwtTokenProvider {
     @Value("${oskarro.app.jwtExpiration}")
     private int JWT_EXPIRATION;
 
-    private AppProperties appProperties;
+    private final AppProperties appProperties;
 
     public JwtTokenProvider(AppProperties appProperties) {
         this.appProperties = appProperties;
@@ -45,8 +45,8 @@ public class JwtTokenProvider {
         return Jwts.builder()
                 .setSubject(userPrincipal.getUsername())
                 .setIssuedAt(new Date())
-                .setExpiration(new Date((new Date()).getTime() + JWT_EXPIRATION * 1000))
-                .signWith(SignatureAlgorithm.HS512, JWT_SECRET)
+                .setExpiration(new Date((new Date()).getTime() + JWT_EXPIRATION * 1000L))
+                .signWith(SignatureAlgorithm.HS512, appProperties.getAuth().getTokenSecret())
                 .compact();
     }
 
@@ -69,7 +69,7 @@ public class JwtTokenProvider {
         return false;
     }
 
-    public Integer getUserIdFromToken(String token) {
+    public Integer getUserIdFromToken(final String token) {
         Claims claims = Jwts.parser()
                 .setSigningKey(appProperties.getAuth().getTokenSecret())
                 .parseClaimsJws(token)
@@ -78,20 +78,12 @@ public class JwtTokenProvider {
         return Integer.valueOf(claims.getSubject());
     }
 
-    public String getUsernameFromJwtToken(String token) {
+    public String getUsernameFromJwtToken(final String token) {
         return Jwts.parser()
-                .setSigningKey(JWT_SECRET)
+                .setSigningKey(appProperties.getAuth().getTokenSecret())
                 .parseClaimsJws(token)
                 .getBody()
                 .getSubject();
-    }
-
-    public Integer getUserIdFromJwt(String token) {
-        Claims claims = Jwts.parser()
-                .setSigningKey(JWT_SECRET)
-                .parseClaimsJws(token)
-                .getBody();
-        return Integer.parseInt(claims.getSubject());
     }
 
     // retrieve username from jwt token
