@@ -48,8 +48,8 @@ public class PostController {
     }
 
     @PostMapping
-    public void createPost(@Valid @RequestBody Post post) {
-        postService.createPost(post);
+    public Post createPost(@Valid @RequestBody Post post) {
+        return postService.createPost(post);
     }
 
     @PutMapping(value = "/{postId}")

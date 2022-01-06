@@ -14,15 +14,11 @@ public interface FilesStorageService {
 
     Stream<Path> loadAll();
 
-    Resource load(String filename, String username);
-
-    Resource loadCover(String filename, Integer coverId);
-
-    Resource loadArticleImage(String filename, Integer articleId);
-
     void save(MultipartFile file, String username, String destination);
 
     void saveCover(MultipartFile file, String username, String trackUrl);
 
     void saveArticleImage(MultipartFile file, String username, Integer articleId);
+
+    Resource loadImage(final String filename, final Object discriminator, final FileResourceType type);
 }

@@ -9,7 +9,7 @@ public interface PostService {
 
     List<Post> getAllPosts();
 
-    void createPost(Post post);
+    Post createPost(Post post);
 
     List<Post> findByUsername(String username);
 

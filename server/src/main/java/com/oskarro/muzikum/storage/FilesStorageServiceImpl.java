@@ -17,6 +17,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Objects;
+import java.util.Random;
 import java.util.stream.Stream;
 
 import static java.util.Optional.ofNullable;
@@ -63,11 +64,7 @@ public class FilesStorageServiceImpl implements FilesStorageService {
     @Override
     public void save(final MultipartFile file, final String username, final String destination) {
         try {
-            final Path userPath = Paths.get(userRootPath + "/" + username);
-            FileSystemUtils.deleteRecursively(userPath.toFile());
-            Files.createDirectory(Paths.get(userRootPath + "/" + username));
-            Files.copy(file.getInputStream(), userPath.resolve(Objects.requireNonNull(file.getOriginalFilename())));
-
+            String targetFilename = saveImageFile(file, FileResourceType.USER_IMAGE, username);
             User user = userRepository.findByUsername(username)
                     .orElseThrow(() -> new UsernameNotFoundException("User not found with username or email:" + username));
 
@@ -76,7 +73,7 @@ public class FilesStorageServiceImpl implements FilesStorageService {
             }
 
             Image image = Image.builder()
-                    .name(file.getOriginalFilename())
+                    .name(targetFilename)
                     .user(user)
                     .destination(destination)
                     .type(file.getContentType())
@@ -94,11 +91,9 @@ public class FilesStorageServiceImpl implements FilesStorageService {
     @Override
     public void saveCover(final MultipartFile file, final String username, final String trackUrl) {
         try {
-            final Path coverPath = Paths.get(coverRootPath.toString());
-            Files.copy(file.getInputStream(), coverPath.resolve(Objects.requireNonNull(file.getOriginalFilename())));
-
+            String targetFilename = saveImageFile(file, FileResourceType.COVER_IMAGE, trackUrl);
             Cover cover = Cover.builder()
-                    .name(file.getOriginalFilename())
+                    .name(targetFilename)
                     .url(trackUrl)
                     .type(file.getContentType())
                     .pic(file.getBytes())
@@ -114,16 +109,14 @@ public class FilesStorageServiceImpl implements FilesStorageService {
     @Override
     public void saveArticleImage(final MultipartFile file, final String username, final Integer articleId) {
         try {
-            final Path articleDirectoryPath = Paths.get(articleRootPath.toString());
-            Files.copy(file.getInputStream(), articleDirectoryPath.resolve(Objects.requireNonNull(file.getOriginalFilename())));
-
+            String targetFilename = saveImageFile(file, FileResourceType.ARTICLE_IMAGE, articleId);
             ofNullable(articleImageRepository.findByArticleId(articleId))
                     .ifPresent(s -> {
                         throw new RuntimeException(String.format("Image already exists for post with id %s", articleId));
                     });
 
             ArticleImage image = ArticleImage.builder()
-                    .name(file.getOriginalFilename())
+                    .name(targetFilename)
                     .type(file.getContentType())
                     .pic(file.getBytes())
                     .articleId(articleId)
@@ -135,54 +128,62 @@ public class FilesStorageServiceImpl implements FilesStorageService {
         }
     }
 
-    @Override
-    public Resource load(final String filename, final String username) {
+    public String saveImageFile(final MultipartFile file, final FileResourceType type, final Object discriminator) {
+        Path directoryPath;
+        String targetFilename;
+        String suffix = Objects.requireNonNull(file.getOriginalFilename()).substring(file.getOriginalFilename().lastIndexOf("."));
         try {
-            final Path userPath = Paths.get(userRootPath + "/" + username);
-            Path file = userPath.resolve(filename);
-            Resource resource = new UrlResource(file.toUri());
-
-            if (resource.exists() || resource.isReadable()) {
-                return resource;
-            } else {
-                throw new RuntimeException("Could not read the file!");
+            switch (type) {
+                case ARTICLE_IMAGE -> {
+                    directoryPath = Paths.get(articleRootPath.toString());
+                    targetFilename = String.format("articleImage_%s%s", discriminator, suffix);
+                    Files.copy(file.getInputStream(), directoryPath.resolve(targetFilename));
+                }
+                case COVER_IMAGE -> {
+                    directoryPath = Paths.get(coverRootPath.toString());
+                    targetFilename = String.format("coverImage_%s%s", new Random().nextInt(999999999), suffix);
+                    Files.copy(file.getInputStream(), directoryPath.resolve(targetFilename));
+                }
+                case USER_IMAGE -> {
+                    directoryPath = Paths.get(userRootPath + "/" + discriminator);
+                    FileSystemUtils.deleteRecursively(directoryPath.toFile());
+                    Files.createDirectory(Paths.get(userRootPath + "/" + discriminator));
+                    targetFilename = String.format("userImage_%s%s", discriminator, suffix);
+                    Files.copy(file.getInputStream(), directoryPath.resolve(targetFilename));
+                }
+                default -> {
+                    directoryPath = Paths.get(rootPath.toString());
+                    targetFilename = String.format("image_%s%s", discriminator, suffix);
+                    Files.copy(file.getInputStream(), directoryPath.resolve(targetFilename));
+                }
             }
-        } catch (MalformedURLException e) {
-            throw new RuntimeException("Error: " + e.getMessage());
+            return targetFilename;
+        } catch (IOException e) {
+            e.printStackTrace();
+            throw new RuntimeException("Could not save file!");
         }
     }
 
     @Override
-    public Resource loadCover(final String filename, final Integer coverId) {
+    public Resource loadImage(final String filename, final Object discriminator, final FileResourceType type) {
         try {
-            final Path coverPath = Paths.get(coverRootPath.toString());
-            Path file = coverPath.resolve(filename);
+            String directoryPath;
+            switch (type) {
+                case ARTICLE_IMAGE -> directoryPath = articleRootPath.toString();
+                case COVER_IMAGE -> directoryPath = coverRootPath.toString();
+                case USER_IMAGE -> directoryPath = userRootPath + "/" + discriminator;
+                default -> directoryPath = rootPath.toString();
+            }
+            Path file = Paths.get(directoryPath).resolve(filename);
             Resource resource = new UrlResource(file.toUri());
-
             if (resource.exists() || resource.isReadable()) {
                 return resource;
             } else {
                 throw new RuntimeException("Could not read the file!");
             }
         } catch (MalformedURLException e) {
-            throw new RuntimeException("Error: " + e.getMessage());
-        }
-    }
-
-    @Override
-    public Resource loadArticleImage(final String filename, final Integer articleId) {
-        try {
-            final Path articlePath = Paths.get(articleRootPath.toString());
-            Path file = articlePath.resolve(filename);
-            Resource resource = new UrlResource(file.toUri());
-
-            if (resource.exists() || resource.isReadable()) {
-                return resource;
-            } else {
-                throw new RuntimeException("Could not read the file!");
-            }
-        } catch (MalformedURLException e) {
-            throw new RuntimeException("Error: " + e.getMessage());
+            e.printStackTrace();
+            throw new RuntimeException("Could not read the file!");
         }
     }
 

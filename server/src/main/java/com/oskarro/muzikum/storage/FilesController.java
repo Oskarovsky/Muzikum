@@ -109,12 +109,12 @@ public class FilesController {
                                                               @RequestPart("articleId") @NotBlank String articleId) {
         try {
             filesStorageService.saveArticleImage(file, username, Integer.valueOf(articleId));
-            String message = "Dodano zdjęcie do artykułu: " + file.getOriginalFilename() + ". Odśwież stronę.";
+            String message = String.format("Dodano zdjęcie do artykułu: %s. Odśwież stronę.", file.getOriginalFilename());
             return ResponseEntity
                     .status(HttpStatus.OK)
                     .body(new ResponseMessage(message));
         } catch (Exception e) {
-            String message = "Nie można załadować pliku: " + file.getOriginalFilename() + "!";
+            String message = String.format("Nie można załadować pliku: %s.", file.getOriginalFilename());
             return ResponseEntity
                     .status(HttpStatus.EXPECTATION_FAILED)
                     .body(new ResponseMessage(message));
@@ -125,16 +125,16 @@ public class FilesController {
     @ResponseBody
     @Transactional
     public ResponseEntity<Resource> getImage(@PathVariable String username) {
-        Image image = imageRepository.findByUserUsername(username)
-                .orElse(null);
+        Image image = imageRepository.findByUserUsername(username).orElse(null);
         if (image != null) {
-            Resource file = filesStorageService.load(image.getName(), username);
+            Resource file = filesStorageService
+                    .loadImage(image.getName(), username, FileResourceType.USER_IMAGE);
             return ofNullable(file)
                     .map(x -> ResponseEntity.ok().body(x))
                     .orElseGet(() -> ResponseEntity.notFound().build());
         } else {
             log.info("Can't find image for user with username: {}", username);
-            return null;
+            throw new ResourceNotFoundException("Image", "username", username);
         }
     }
 
@@ -146,17 +146,18 @@ public class FilesController {
         if (track.isPresent()) {
             Cover cover = coverRepository.findById(track.get().getCover().getId()).orElse(null);
             if (cover != null) {
-                Resource file = filesStorageService.loadCover(cover.getName(), cover.getId());
+                Resource file = filesStorageService
+                        .loadImage(cover.getName(), cover.getId(), FileResourceType.COVER_IMAGE);
                 return ofNullable(file)
                         .map(x -> ResponseEntity.ok().body(x))
                         .orElseGet(() -> ResponseEntity.notFound().build());
             } else {
-                log.info("Can't find cover for track with id: ");
-                return null;
+                log.info("Can't find cover for track with id: {}", trackId);
+                throw new ResourceNotFoundException("Cover", "trackId", trackId);
             }
         } else {
-            log.info("Can't find cover for track with id: ");
-            return null;
+            log.info("Can't find track with id: {}", trackId);
+            throw new ResourceNotFoundException("Cover", "trackId", trackId);
         }
     }
 
@@ -167,10 +168,17 @@ public class FilesController {
         Optional<Post> post = postRepository.findById(articleId);
         if (post.isPresent()) {
             ArticleImage articleImage = articleImageRepository.findByArticleId(articleId);
-            Resource file = filesStorageService.loadArticleImage(articleImage.getName(), articleImage.getId());
-            return ofNullable(file)
-                    .map(x -> ResponseEntity.ok().body(x))
-                    .orElseGet(() -> ResponseEntity.notFound().build());
+            if (articleImage != null) {
+                Resource file = filesStorageService
+                        .loadImage(articleImage.getName(), articleImage.getId(), FileResourceType.ARTICLE_IMAGE);
+                return ofNullable(file)
+                        .map(x -> ResponseEntity.ok().body(x))
+                        .orElseGet(() -> ResponseEntity.notFound().build());
+            } else {
+                log.info("Can't find image for article with id: {}", articleId);
+                throw new ResourceNotFoundException("Article Image", "articleId", articleId);
+
+            }
         } else {
             throw new ResourceNotFoundException("Post", "id", articleId);
         }
@@ -178,14 +186,15 @@ public class FilesController {
 
     @GetMapping(value = "/files")
     public ResponseEntity<List<FileInfo>> getListFiles() {
-        List<FileInfo> fileInfos = filesStorageService.loadAll().map(path -> {
-            String filename = path.getFileName().toString();
-            String url = MvcUriComponentsBuilder
-                    .fromMethodName(FilesController.class, "getFile", path.getFileName().toString())
-                    .build().toString();
-            return new FileInfo(filename, url);
-        }).collect(Collectors.toList());
-
+        List<FileInfo> fileInfos = filesStorageService.loadAll()
+                .map(path -> {
+                    String filename = path.getFileName().toString();
+                    String url = MvcUriComponentsBuilder
+                            .fromMethodName(FilesController.class, "getFile", path.getFileName().toString())
+                            .build().toString();
+                    return new FileInfo(filename, url);
+                })
+                .collect(Collectors.toList());
         return ResponseEntity.status(HttpStatus.OK).body(fileInfos);
     }
 }
