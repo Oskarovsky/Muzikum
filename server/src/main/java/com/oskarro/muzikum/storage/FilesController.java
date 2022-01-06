@@ -46,15 +46,18 @@ public class FilesController {
      * */
     final ServletContext servletContext;
 
-    FilesStorageService filesStorageService;
-    ImageRepository imageRepository;
-    UserRepository userRepository;
-    CoverRepository coverRepository;
-    TrackRepository trackRepository;
+    final FilesStorageService filesStorageService;
+    final ImageRepository imageRepository;
+    final UserRepository userRepository;
+    final CoverRepository coverRepository;
+    final TrackRepository trackRepository;
 
-    public FilesController(FilesStorageService filesStorageService, ImageRepository imageRepository,
-                           UserRepository userRepository, CoverRepository coverRepository,
-                           TrackRepository trackRepository, ServletContext servletContext) {
+    public FilesController(final FilesStorageService filesStorageService,
+                           final ImageRepository imageRepository,
+                           final UserRepository userRepository,
+                           final CoverRepository coverRepository,
+                           final TrackRepository trackRepository,
+                           final ServletContext servletContext) {
         this.filesStorageService = filesStorageService;
         this.imageRepository = imageRepository;
         this.userRepository = userRepository;
@@ -100,6 +103,43 @@ public class FilesController {
         }
     }
 
+
+    @PostMapping(value = "/uploadArticleImage", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE })
+    public ResponseEntity<ResponseMessage> uploadArticleImage(@RequestPart("file") @Valid @NonNull @NotBlank MultipartFile file,
+                                                              @RequestPart("username") @NotBlank String username,
+                                                              @RequestPart("articleId") @NotBlank String articleId) {
+        try {
+            filesStorageService.saveArticleImage(file, username, Integer.valueOf(articleId));
+            String message = "Dodano zdjęcie do artykułu: " + file.getOriginalFilename() + ". Odśwież stronę.";
+            return ResponseEntity
+                    .status(HttpStatus.OK)
+                    .body(new ResponseMessage(message));
+        } catch (Exception e) {
+            String message = "Nie można załadować pliku: " + file.getOriginalFilename() + "!";
+            return ResponseEntity
+                    .status(HttpStatus.EXPECTATION_FAILED)
+                    .body(new ResponseMessage(message));
+        }
+    }
+
+    @GetMapping(value = "/avatar/{username}")
+    @ResponseBody
+    @Transactional
+    public ResponseEntity<Resource> getImage(@PathVariable String username) {
+        Image image = imageRepository.findByUserUsername(username)
+                .orElse(null);
+        if (image != null) {
+            Resource file = filesStorageService.load(image.getName(), username);
+            return Optional
+                    .ofNullable(file)
+                    .map(x -> ResponseEntity.ok().body(x))
+                    .orElseGet(() -> ResponseEntity.notFound().build());
+        } else {
+            log.info("Can't find image for user with username: {}", username);
+            return null;
+        }
+    }
+
     @GetMapping(value = "/cover/{trackId}")
     @ResponseBody
     @Transactional
@@ -123,6 +163,13 @@ public class FilesController {
         }
     }
 
+    @GetMapping(value = "/article/{articleId}")
+    @ResponseBody
+    @Transactional
+    public ResponseEntity<Resource> getArticleImage(@PathVariable Integer articleId) {
+        return null;
+    }
+
     @GetMapping(value = "/files")
     public ResponseEntity<List<FileInfo>> getListFiles() {
         List<FileInfo> fileInfos = filesStorageService.loadAll().map(path -> {
@@ -134,23 +181,5 @@ public class FilesController {
         }).collect(Collectors.toList());
 
         return ResponseEntity.status(HttpStatus.OK).body(fileInfos);
-    }
-
-    @GetMapping(value = "/avatar/{username}")
-    @ResponseBody
-    @Transactional
-    public ResponseEntity<Resource> getImage(@PathVariable String username) {
-        Image image = imageRepository.findByUserUsername(username)
-                .orElse(null);
-        if (image != null) {
-            Resource file = filesStorageService.load(image.getName(), username);
-            return Optional
-                    .ofNullable(file)
-                    .map(x -> ResponseEntity.ok().body(x))
-                    .orElseGet(() -> ResponseEntity.notFound().build());
-        } else {
-            log.info("Can't find image for user with username: {}", username);
-            return null;
-        }
     }
 }

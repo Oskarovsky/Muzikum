@@ -12,13 +12,17 @@ public interface FilesStorageService {
 
     void init();
 
-    void save(MultipartFile file, String username, String destination);
+    Stream<Path> loadAll();
 
     Resource load(String filename, String username);
 
     Resource loadCover(String filename, Integer coverId);
 
-    Stream<Path> loadAll();
+    Resource loadArticleImage(String filename, Integer articleId);
+
+    void save(MultipartFile file, String username, String destination);
 
     void saveCover(MultipartFile file, String username, String trackUrl);
+
+    void saveArticleImage(MultipartFile file, String username, Integer articleId);
 }

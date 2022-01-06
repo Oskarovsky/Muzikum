@@ -29,18 +29,24 @@ public class FilesStorageServiceImpl implements FilesStorageService {
     ImageRepository imageRepository;
     TrackRepository trackRepository;
     CoverRepository coverRepository;
+    ArticleImageRepository articleImageRepository;
 
-    public FilesStorageServiceImpl(UserRepository userRepository, ImageRepository imageRepository,
-                                   TrackRepository trackRepository, CoverRepository coverRepository) {
+    public FilesStorageServiceImpl(UserRepository userRepository,
+                                   ImageRepository imageRepository,
+                                   TrackRepository trackRepository,
+                                   CoverRepository coverRepository,
+                                   ArticleImageRepository articleImageRepository) {
         this.userRepository = userRepository;
         this.imageRepository = imageRepository;
         this.trackRepository = trackRepository;
         this.coverRepository = coverRepository;
+        this.articleImageRepository = articleImageRepository;
     }
 
     private final Path rootPath = Paths.get("uploads");
     private final Path userRootPath = Paths.get("uploads/user");
     private final Path coverRootPath = Paths.get("uploads/cover");
+    private final Path articleRootPath = Paths.get("uploads/article");
 
     @Override
     public void init() {
@@ -48,6 +54,7 @@ public class FilesStorageServiceImpl implements FilesStorageService {
             Files.createDirectory(rootPath);
             Files.createDirectory(userRootPath);
             Files.createDirectory(coverRootPath);
+            Files.createDirectory(articleRootPath);
         } catch (IOException e) {
             throw new RuntimeException("Could not initialize folder for upload!");
         }
@@ -57,9 +64,9 @@ public class FilesStorageServiceImpl implements FilesStorageService {
     @Override
     public void save(MultipartFile file, String username, String destination) {
         try {
-            final Path userPath = Paths.get(userRootPath.toString() + "/" + username);
+            final Path userPath = Paths.get(userRootPath + "/" + username);
             FileSystemUtils.deleteRecursively(userPath.toFile());
-            Files.createDirectory(Paths.get(userRootPath.toString() + "/" + username));
+            Files.createDirectory(Paths.get(userRootPath + "/" + username));
             Files.copy(file.getInputStream(), userPath.resolve(Objects.requireNonNull(file.getOriginalFilename())));
 
             User user = userRepository.findByUsername(username)
@@ -104,10 +111,30 @@ public class FilesStorageServiceImpl implements FilesStorageService {
         }
     }
 
+    @Transactional
+    @Override
+    public void saveArticleImage(MultipartFile file, String username, Integer articleId) {
+        try {
+            final Path articleDirectoryPath = Paths.get(articleRootPath.toString());
+            Files.copy(file.getInputStream(), articleDirectoryPath.resolve(Objects.requireNonNull(file.getOriginalFilename())));
+
+            ArticleImage image = ArticleImage.builder()
+                    .name(file.getOriginalFilename())
+                    .type(file.getContentType())
+                    .pic(file.getBytes())
+                    .articleId(articleId)
+                    .build();
+            articleImageRepository.save(image);
+            System.out.println("Article image saved to database");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     @Override
     public Resource load(String filename, String username) {
         try {
-            final Path userPath = Paths.get(userRootPath.toString() + "/" + username);
+            final Path userPath = Paths.get(userRootPath + "/" + username);
             Path file = userPath.resolve(filename);
             Resource resource = new UrlResource(file.toUri());
 
@@ -136,6 +163,11 @@ public class FilesStorageServiceImpl implements FilesStorageService {
         } catch (MalformedURLException e) {
             throw new RuntimeException("Error: " + e.getMessage());
         }
+    }
+
+    @Override
+    public Resource loadArticleImage(String filename, Integer articleId) {
+        return null;
     }
 
     @Override

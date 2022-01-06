@@ -1,5 +1,6 @@
 package com.oskarro.muzikum.article.post;
 
+import com.oskarro.muzikum.storage.ArticleImage;
 import com.oskarro.muzikum.user.User;
 import com.oskarro.muzikum.utils.DateAudit;
 import lombok.*;
@@ -33,6 +34,10 @@ public class Post extends DateAudit {
     @NotNull
     @Lob
     private String content;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "article_image_id", referencedColumnName = "id")
+    private ArticleImage articleImage;
 
     @ManyToOne
     private User user;
