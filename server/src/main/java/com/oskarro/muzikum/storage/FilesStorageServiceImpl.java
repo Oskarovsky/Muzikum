@@ -1,10 +1,8 @@
 package com.oskarro.muzikum.storage;
 
 import com.oskarro.muzikum.track.TrackRepository;
-import com.oskarro.muzikum.track.model.Track;
 import com.oskarro.muzikum.user.User;
 import com.oskarro.muzikum.user.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -19,8 +17,9 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Objects;
-import java.util.Optional;
 import java.util.stream.Stream;
+
+import static java.util.Optional.ofNullable;
 
 @Service
 public class FilesStorageServiceImpl implements FilesStorageService {
@@ -62,7 +61,7 @@ public class FilesStorageServiceImpl implements FilesStorageService {
 
     @Transactional
     @Override
-    public void save(MultipartFile file, String username, String destination) {
+    public void save(final MultipartFile file, final String username, final String destination) {
         try {
             final Path userPath = Paths.get(userRootPath + "/" + username);
             FileSystemUtils.deleteRecursively(userPath.toFile());
@@ -93,7 +92,7 @@ public class FilesStorageServiceImpl implements FilesStorageService {
 
     @Transactional
     @Override
-    public void saveCover(MultipartFile file, String username, String trackUrl) {
+    public void saveCover(final MultipartFile file, final String username, final String trackUrl) {
         try {
             final Path coverPath = Paths.get(coverRootPath.toString());
             Files.copy(file.getInputStream(), coverPath.resolve(Objects.requireNonNull(file.getOriginalFilename())));
@@ -113,10 +112,15 @@ public class FilesStorageServiceImpl implements FilesStorageService {
 
     @Transactional
     @Override
-    public void saveArticleImage(MultipartFile file, String username, Integer articleId) {
+    public void saveArticleImage(final MultipartFile file, final String username, final Integer articleId) {
         try {
             final Path articleDirectoryPath = Paths.get(articleRootPath.toString());
             Files.copy(file.getInputStream(), articleDirectoryPath.resolve(Objects.requireNonNull(file.getOriginalFilename())));
+
+            ofNullable(articleImageRepository.findByArticleId(articleId))
+                    .ifPresent(s -> {
+                        throw new RuntimeException(String.format("Image already exists for post with id %s", articleId));
+                    });
 
             ArticleImage image = ArticleImage.builder()
                     .name(file.getOriginalFilename())
@@ -132,7 +136,7 @@ public class FilesStorageServiceImpl implements FilesStorageService {
     }
 
     @Override
-    public Resource load(String filename, String username) {
+    public Resource load(final String filename, final String username) {
         try {
             final Path userPath = Paths.get(userRootPath + "/" + username);
             Path file = userPath.resolve(filename);
@@ -149,7 +153,7 @@ public class FilesStorageServiceImpl implements FilesStorageService {
     }
 
     @Override
-    public Resource loadCover(String filename, Integer coverId) {
+    public Resource loadCover(final String filename, final Integer coverId) {
         try {
             final Path coverPath = Paths.get(coverRootPath.toString());
             Path file = coverPath.resolve(filename);
@@ -166,14 +170,28 @@ public class FilesStorageServiceImpl implements FilesStorageService {
     }
 
     @Override
-    public Resource loadArticleImage(String filename, Integer articleId) {
-        return null;
+    public Resource loadArticleImage(final String filename, final Integer articleId) {
+        try {
+            final Path articlePath = Paths.get(articleRootPath.toString());
+            Path file = articlePath.resolve(filename);
+            Resource resource = new UrlResource(file.toUri());
+
+            if (resource.exists() || resource.isReadable()) {
+                return resource;
+            } else {
+                throw new RuntimeException("Could not read the file!");
+            }
+        } catch (MalformedURLException e) {
+            throw new RuntimeException("Error: " + e.getMessage());
+        }
     }
 
     @Override
     public Stream<Path> loadAll() {
         try {
-            return Files.walk(this.rootPath, 1).filter(path -> !path.equals(this.rootPath)).map(this.rootPath::relativize);
+            return Files.walk(this.rootPath, 1)
+                    .filter(path -> !path.equals(this.rootPath))
+                    .map(this.rootPath::relativize);
         } catch (IOException e) {
             throw new RuntimeException("Could not load the files!");
         }

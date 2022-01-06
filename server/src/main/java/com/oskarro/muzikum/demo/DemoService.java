@@ -5,6 +5,8 @@ import com.oskarro.muzikum.article.post.Post;
 import com.oskarro.muzikum.article.post.PostRepository;
 import com.oskarro.muzikum.playlist.Playlist;
 import com.oskarro.muzikum.playlist.PlaylistRepository;
+import com.oskarro.muzikum.storage.ArticleImage;
+import com.oskarro.muzikum.storage.ArticleImageRepository;
 import com.oskarro.muzikum.track.TrackCommentRepository;
 import com.oskarro.muzikum.track.TrackRepository;
 import com.oskarro.muzikum.track.model.Genre;
@@ -25,6 +27,10 @@ import com.oskarro.muzikum.voting.VotingRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
@@ -49,15 +55,22 @@ public class DemoService {
     public VotingRepository votingRepository;
     public TrackCommentRepository trackCommentRepository;
     public UserStatisticsRepository userStatisticsRepository;
+    public ArticleImageRepository articleImageRepository;
 
     public PasswordEncoder encoder;
 
-    public DemoService(CommentRepository commentRepository, RoleRepository roleRepository,
-                       UserRepository userRepository, TrackFavoriteRepository trackFavoriteRepository,
+    public DemoService(CommentRepository commentRepository,
+                       RoleRepository roleRepository,
+                       UserRepository userRepository,
+                       TrackFavoriteRepository trackFavoriteRepository,
                        VotingRepository votingRepository,
-                       PlaylistRepository playlistRepository, VideoRepository videoRepository,
-                       UserStatisticsRepository userStatisticsRepository, PostRepository postRepository,
-                       TrackRepository trackRepository, TrackCommentRepository trackCommentRepository,
+                       PlaylistRepository playlistRepository,
+                       VideoRepository videoRepository,
+                       UserStatisticsRepository userStatisticsRepository,
+                       PostRepository postRepository,
+                       TrackRepository trackRepository,
+                       TrackCommentRepository trackCommentRepository,
+                       ArticleImageRepository articleImageRepository,
                        PasswordEncoder encoder) {
         this.postRepository = postRepository;
         this.userRepository = userRepository;
@@ -67,6 +80,7 @@ public class DemoService {
         this.roleRepository = roleRepository;
         this.commentRepository = commentRepository;
         this.favoriteTrackRepository = trackFavoriteRepository;
+        this.articleImageRepository = articleImageRepository;
         this.votingRepository = votingRepository;
         this.trackCommentRepository = trackCommentRepository;
         this.trackRepository = trackRepository;
@@ -138,16 +152,28 @@ public class DemoService {
 
 
         // POSTS
-        Post postFirst = Post.builder().
-                title("Otwarcie nowej strony")
+        Post postFirst = Post.builder()
+                .title("Otwarcie nowej strony")
                 .description("Opis wszystkich opcji dostępnych na stronie")
                 .content("Dostępnych jest wiele nowych super rzeczy, które są idealne dla fanów muzyki klubowej")
                 .user(userAdmin)
                 .build();
         postRepository.save(postFirst);
 
-        Post postSecond = Post.builder().
-                title("Ciąg dalszy nastąpi...")
+        try {
+            File firstArticleImage = new File("/home/oskarro/Developer/Projects/javaProjects/oskarro.com/uploads/article/oslyko_banner_type.png");
+            ArticleImage articleImage = ArticleImage.builder()
+                    .articleId(1)
+                    .name("oslyko_banner_type.png")
+                    .pic(Files.readAllBytes(firstArticleImage.toPath()))
+                    .build();
+            articleImageRepository.save(articleImage);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        Post postSecond = Post.builder()
+                .title("Ciąg dalszy nastąpi...")
                 .description("Sprawdzenie zawartości drugiego posta, który powinien pojawić się na stronie głównej")
                 .content("Dostępnych jest wiele nowych super rzeczy, które są idealne dla fanów muzyki klubowej")
                 .user(userAdmin)

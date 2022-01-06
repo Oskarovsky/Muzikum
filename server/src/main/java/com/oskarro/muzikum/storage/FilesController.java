@@ -1,38 +1,31 @@
 package com.oskarro.muzikum.storage;
 
+import com.oskarro.muzikum.article.post.Post;
+import com.oskarro.muzikum.article.post.PostRepository;
+import com.oskarro.muzikum.exception.ResourceNotFoundException;
 import com.oskarro.muzikum.track.TrackRepository;
 import com.oskarro.muzikum.track.model.Track;
-import com.oskarro.muzikum.user.AuthProvider;
-import com.oskarro.muzikum.user.User;
 import com.oskarro.muzikum.user.UserRepository;
-import javassist.NotFoundException;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.io.IOUtils;
 import org.springframework.core.io.Resource;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.context.support.ServletContextResource;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder;
 
 import javax.servlet.ServletContext;
-import javax.servlet.http.HttpServletResponse;
 import javax.transaction.Transactional;
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
+
+import static java.util.Optional.ofNullable;
 
 @Controller
 @RequestMapping(value = "/api/storage")
@@ -51,19 +44,25 @@ public class FilesController {
     final UserRepository userRepository;
     final CoverRepository coverRepository;
     final TrackRepository trackRepository;
+    final PostRepository postRepository;
+    final ArticleImageRepository articleImageRepository;
 
     public FilesController(final FilesStorageService filesStorageService,
                            final ImageRepository imageRepository,
                            final UserRepository userRepository,
                            final CoverRepository coverRepository,
                            final TrackRepository trackRepository,
-                           final ServletContext servletContext) {
+                           final ServletContext servletContext,
+                           final PostRepository postRepository,
+                           final ArticleImageRepository articleImageRepository) {
         this.filesStorageService = filesStorageService;
         this.imageRepository = imageRepository;
         this.userRepository = userRepository;
         this.coverRepository = coverRepository;
         this.trackRepository = trackRepository;
         this.servletContext = servletContext;
+        this.postRepository = postRepository;
+        this.articleImageRepository = articleImageRepository;
     }
 
     @PostMapping(value = "/uploadFile", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE })
@@ -130,8 +129,7 @@ public class FilesController {
                 .orElse(null);
         if (image != null) {
             Resource file = filesStorageService.load(image.getName(), username);
-            return Optional
-                    .ofNullable(file)
+            return ofNullable(file)
                     .map(x -> ResponseEntity.ok().body(x))
                     .orElseGet(() -> ResponseEntity.notFound().build());
         } else {
@@ -149,8 +147,7 @@ public class FilesController {
             Cover cover = coverRepository.findById(track.get().getCover().getId()).orElse(null);
             if (cover != null) {
                 Resource file = filesStorageService.loadCover(cover.getName(), cover.getId());
-                return Optional
-                        .ofNullable(file)
+                return ofNullable(file)
                         .map(x -> ResponseEntity.ok().body(x))
                         .orElseGet(() -> ResponseEntity.notFound().build());
             } else {
@@ -167,7 +164,16 @@ public class FilesController {
     @ResponseBody
     @Transactional
     public ResponseEntity<Resource> getArticleImage(@PathVariable Integer articleId) {
-        return null;
+        Optional<Post> post = postRepository.findById(articleId);
+        if (post.isPresent()) {
+            ArticleImage articleImage = articleImageRepository.findByArticleId(articleId);
+            Resource file = filesStorageService.loadArticleImage(articleImage.getName(), articleImage.getId());
+            return ofNullable(file)
+                    .map(x -> ResponseEntity.ok().body(x))
+                    .orElseGet(() -> ResponseEntity.notFound().build());
+        } else {
+            throw new ResourceNotFoundException("Post", "id", articleId);
+        }
     }
 
     @GetMapping(value = "/files")

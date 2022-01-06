@@ -10,7 +10,7 @@ public interface ArticleImageRepository extends JpaRepository<ArticleImage, Inte
 
     ArticleImage findByName(String fileName);
 
-    ArticleImage findTopByArticleId(Integer articleId);
+    ArticleImage findByArticleId(Integer articleId);
 
     Optional<ArticleImage> findById(Integer articleImageId);
 
