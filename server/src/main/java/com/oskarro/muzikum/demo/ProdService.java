@@ -127,48 +127,49 @@ public class ProdService {
         videoRepository.saveAll(Arrays.asList(video1, video2, video3));
 
         // TRACKS:
-        Track track1 = Track.builder().id(1)
+        Track trackVixa = Track.builder().id(1)
                 .title("Fun the bass").artist("Tobi").version("Original Mix").genre("VIXA").points(0)
                 .url("https://krakenfiles.com/view/m3X6949zGK/file.html")
                 .urlPlugin("https://s4.krakenfiles.com/getEmbedPlayer/m3X6949zGK?width=1000&autoplay=false&date=08-01-2022")
                 .urlSource("KRAKENFILES")
                 .build();
-        Track track2 = Track.builder().id(2)
+        Track trackRetro = Track.builder().id(2)
                 .title("Jump To The Base").artist("DJ Cargo").version("Radio Edit").genre("RETRO").points(0)
                 .url("https://krakenfiles.com/view/lLlRokTgT4/file.html")
                 .urlPlugin("https://s2.krakenfiles.com/getEmbedPlayer/lLlRokTgT4?width=1000&autoplay=false&date=25-12-2021")
                 .urlSource("KRAKENFILES")
                 .build();
-        Track track3 = Track.builder().id(3)
+        Track trackClub = Track.builder().id(3)
                 .title("Tu Es Foutu").artist("In-Grid").version("Extended Remix Mr. Marius 2k22").genre("CLUB").points(0)
                 .url("https://krakenfiles.com/view/hz9MvrP97H/file.html")
                 .urlPlugin("https://s3.krakenfiles.com/getEmbedPlayer/hz9MvrP97H?width=1000&autoplay=false&date=07-01-2022")
                 .urlSource("KRAKENFILES")
                 .build();
-        Track track4 = Track.builder().id(4)
+        Track trackTechno = Track.builder().id(4)
                 .title("Drum machine").artist("ROBPM").version("Original Mix").genre("TECHNO").points(0)
                 .url("https://krakenfiles.com/view/uxUuKoCSg0/file.html")
                 .urlPlugin("https://s6.krakenfiles.com/getEmbedPlayer/uxUuKoCSg0?width=1000&autoplay=false&date=07-01-2022")
                 .urlSource("KRAKENFILES")
                 .build();
-        Track track5 = Track.builder().id(5)
+        Track trackDance = Track.builder().id(5)
                 .title("Sunshine").artist("El Damien And Dj Combo").version("Original Mix").genre("DANCE").points(0)
                 .url("https://krakenfiles.com/view/hXPBFlpmoq/file.html")
                 .urlPlugin("https://krakenfiles.com/getEmbedPlayer/hXPBFlpmoq?width=1000&autoplay=false&date=09-01-2022")
                 .urlSource("KRAKENFILES")
                 .build();
-        Track track6 = Track.builder().id(6)
+        Track trackDisco = Track.builder().id(6)
                 .title("Nasza muzyka").artist("Toples").version("Radio Edit").genre("DISCO").points(0)
                 .url("https://krakenfiles.com/view/bq7OmgxS3k/file.html")
                 .urlPlugin("https://s3.krakenfiles.com/getEmbedPlayer/bq7OmgxS3k?width=1000&autoplay=false&date=20-07-2021")
                 .urlSource("KRAKENFILES")
                 .build();
-        Track track7 = Track.builder().id(7)
+        Track trackSet = Track.builder().id(7)
                 .title("VIXA").artist("Oskarro").version("MIX").genre("SET").points(0)
                 .url("https://www17.zippyshare.com/v/n6PPiJHj/file.html")
                 .urlPlugin("https://api.zippyshare.com/api/jplayer_embed.jsp?key=n6PPiJHj&server=www17&autostart=true&width=1000")
                 .urlSource("ZIPPYSHARE")
                 .build();
+        trackRepository.saveAll(Arrays.asList(trackVixa, trackRetro, trackClub, trackTechno, trackDance, trackDisco, trackSet));
 
     }
 
