@@ -8,14 +8,10 @@ import com.oskarro.muzikum.playlist.PlaylistRepository;
 import com.oskarro.muzikum.storage.ArticleImage;
 import com.oskarro.muzikum.storage.ArticleImageRepository;
 import com.oskarro.muzikum.track.TrackCommentRepository;
-import com.oskarro.muzikum.track.TrackRepository;
-import com.oskarro.muzikum.track.model.Genre;
-import com.oskarro.muzikum.track.model.Track;
-import com.oskarro.muzikum.track.model.TrackComment;
-import com.oskarro.muzikum.track.model.UrlSource;
-import com.oskarro.muzikum.user.*;
-import com.oskarro.muzikum.track.model.TrackFavorite;
 import com.oskarro.muzikum.track.TrackFavoriteRepository;
+import com.oskarro.muzikum.track.TrackRepository;
+import com.oskarro.muzikum.track.model.*;
+import com.oskarro.muzikum.user.*;
 import com.oskarro.muzikum.user.role.Role;
 import com.oskarro.muzikum.user.role.RoleName;
 import com.oskarro.muzikum.user.role.RoleRepository;
@@ -30,7 +26,6 @@ import org.springframework.stereotype.Service;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
@@ -144,11 +139,9 @@ public class DemoService {
                 .category(Category.MIX.toString()).playlist(playlist).build();
         Video video2 = Video.builder().id(2).name("Virus").url("MpWfj-2P-9M")
                 .category(Category.MIX.toString()).playlist(playlist2).build();
-        Video video3 = Video.builder().id(3).name("L'Italiano").url("moFuKK_Ac")
-                .category(Category.RETRO.name()).build();
-        Video video4 = Video.builder().id(4).name("Luna Mix Vol. 9").url("WRooj5n80uo")
+        Video video3 = Video.builder().id(3).name("Luna Mix Vol. 9").url("WRooj5n80uo")
                 .category(Category.LUNA_MIX.name()).build();
-        videoRepository.saveAll(Arrays.asList(video1, video2, video3, video4));
+        videoRepository.saveAll(Arrays.asList(video1, video2, video3));
 
 
         // POSTS

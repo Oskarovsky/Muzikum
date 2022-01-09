@@ -2,6 +2,7 @@ package com.oskarro.muzikum;
 
 import com.oskarro.muzikum.config.AppProperties;
 import com.oskarro.muzikum.demo.DemoService;
+import com.oskarro.muzikum.demo.ProdService;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,6 +21,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 import javax.annotation.PostConstruct;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
+import java.util.Objects;
 import java.util.TimeZone;
 
 
@@ -41,18 +43,21 @@ public class MuzikumApplication implements CommandLineRunner {
         TimeZone.setDefault(TimeZone.getTimeZone("UTC"));
     }
 
-
     public static void main(String[] args) {
         ApplicationContext applicationContext = SpringApplication.run(MuzikumApplication.class, args);
         Environment env = applicationContext.getEnvironment();
         logApplicationStartup(env);
-        for (String profileName : env.getActiveProfiles()) {
-            System.out.println("Currently active profile - " + profileName);
+
+        if (Objects.equals(env.getProperty("spring.profiles.active"), "dev")) {
+            DemoService demoService = applicationContext.getBean(DemoService.class);
+            demoService.createSamples();
+        } else if (Objects.equals(env.getProperty("spring.profiles.active"), "prod")) {
+            ProdService demoService = applicationContext.getBean(ProdService.class);
+            demoService.createInitData();
+        } else {
+            ProdService demoService = applicationContext.getBean(ProdService.class);
+            demoService.createInitData();
         }
-
-        DemoService demoService = applicationContext.getBean(DemoService.class);
-        demoService.createSamples();
-
     }
 
     private static void logApplicationStartup(Environment env) {
