@@ -209,6 +209,7 @@ public class ProdService {
                 .urlPlugin("https://s5.krakenfiles.com/getEmbedPlayer/5Nr3mOQbmp?width=1000&autoplay=false&date=20-08-2021")
                 .urlSource("KRAKENFILES")
                 .build();
+        trackRepository.saveAll(Arrays.asList(lunaMix4, vinylMix, virusMix, trackNo1));
 
     }
 

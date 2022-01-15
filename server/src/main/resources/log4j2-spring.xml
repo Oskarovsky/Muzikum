@@ -1,36 +1,40 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Configuration>
+<Configuration monitorInterval="60">
     <Appenders>
-        <Console name="Console" target="SYSTEM_OUT">
-            <PatternLayout
-                    pattern="%style{%d{ISO8601}}{white} %highlight{%-5level }[%style{%t}{bright,blue}] %style{%C{1.}}{bright,yellow}: %msg%n%throwable" />
+        <Console name="Console-Appender" target="SYSTEM_OUT">
+            <PatternLayout>
+                <pattern>
+                    %style{%d{ISO8601}}{white} %highlight{%-5level }[%style{%t}{bright,blue}] %style{%C{1.}}{bright,yellow}: %msg%n%throwable
+                </pattern>>
+            </PatternLayout>
         </Console>
 
         <RollingFile name="RollingFile"
                      fileName="/var/logs/spring-app.log"
                      filePattern="/var/logs/spring-app-%d{yyyy-MM-dd}.log.gz">
             <PatternLayout>
-                <pattern>%d %p %C{1.} [%t] %m%n</pattern>
+                <pattern>
+                    [%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %c{1} - %msg%n
+                </pattern>
             </PatternLayout>
             <Policies>
                 <!-- rollover on startup, daily and when the file reaches 10 MegaBytes -->
                 <OnStartupTriggeringPolicy />
-                <SizeBasedTriggeringPolicy
-                        size="10 MB" />
+                <SizeBasedTriggeringPolicy size="10 MB" />
                 <TimeBasedTriggeringPolicy />
             </Policies>
         </RollingFile>
     </Appenders>
 
     <Loggers>
+        <Logger name="org.hibernate" level="error" additivity="false">
+            <AppenderRef ref="Console-Appender"/>
+        </Logger>
         <!-- LOG everything at INFO level -->
         <Root level="info">
-            <AppenderRef ref="Console" />
+            <AppenderRef ref="Console-Appender" />
             <AppenderRef ref="RollingFile" />
         </Root>
-
-        <!-- LOG "com.baeldung*" at TRACE level -->
-        <Logger name="com.baeldung" level="trace"></Logger>
     </Loggers>
 
 </Configuration>

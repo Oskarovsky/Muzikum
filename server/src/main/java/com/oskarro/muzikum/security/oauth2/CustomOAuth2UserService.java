@@ -84,12 +84,12 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
             }
             user = updateExistingUser(user, oAuth2UserInfo);
         } else {
-            user = registerNewUser(request, oAuth2UserInfo);
+            user = registerNewUser(oAuth2UserInfo);
         }
         return UserPrincipal.create(user, oAuth2User.getAttributes());
     }
 
-    private User registerNewUser(OAuth2UserRequest request, OAuth2UserInfo oAuth2UserInfo) {
+    private User registerNewUser(OAuth2UserInfo oAuth2UserInfo) {
         Role roleUser = roleRepository.findByName(RoleName.ROLE_USER).orElse(null);
         User user = User.builder()
                 .username(oAuth2UserInfo.getUsername())
@@ -97,16 +97,12 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
                 .password(passwordEncoder.encode("123456"))
                 .roles(new HashSet<>(Collections.singletonList(roleUser)))
                 .provider(AuthProvider.facebook)
+                .activated(true)
                 .imageUrl(oAuth2UserInfo.getImageUrl())
                 .build();
-        initUserStatistics(user);
-        saveImageFromWeb(oAuth2UserInfo.getEmail(), oAuth2UserInfo.getImageUrl());
-        return userRepository.save(user);
-    }
-
-    private void saveImageFromWeb(String email, String imageUrl) {
-        User user = userRepository.findByEmail(email)
-                .orElseThrow(() -> new ResourceNotFoundException("User", "email", email));
+        User result = userRepository.save(user);
+        initUserStatistics(result);
+        return result;
     }
 
     private User updateExistingUser(User existingUser, OAuth2UserInfo oAuth2UserInfo) {

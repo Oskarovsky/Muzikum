@@ -56,10 +56,14 @@ public class AuthController {
     @Value("${spring.profiles.active}")
     private String activeProfile;
 
-    public AuthController(AuthenticationManager authenticationManager, UserRepository userRepository,
-                          RoleRepository roleRepository, UserStatisticsRepository userStatisticsRepository,
-                          PasswordEncoder encoder, JwtTokenProvider jwtTokenProvider,
-                          ConfirmationTokenRepository confirmationTokenRepository, EmailService emailService,
+    public AuthController(AuthenticationManager authenticationManager,
+                          UserRepository userRepository,
+                          RoleRepository roleRepository,
+                          UserStatisticsRepository userStatisticsRepository,
+                          PasswordEncoder encoder,
+                          JwtTokenProvider jwtTokenProvider,
+                          ConfirmationTokenRepository confirmationTokenRepository,
+                          EmailService emailService,
                           UserDetailsServiceImpl userDetailsService) {
         this.authenticationManager = authenticationManager;
         this.userRepository = userRepository;
