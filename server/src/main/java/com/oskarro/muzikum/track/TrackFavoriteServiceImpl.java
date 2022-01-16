@@ -28,7 +28,7 @@ public class TrackFavoriteServiceImpl implements TrackFavoriteService {
     }
 
     @Override
-    public void addTrackToFavorite(Integer trackId, String username) {
+    public void addTrackToFavorite(final Integer trackId, final String username) {
         Optional<TrackFavorite> favoriteTrackDemo =
                 favoriteTrackRepository.findFavoriteTrackByTrackIdAndUserUsername(trackId, username);
         if (favoriteTrackDemo.isPresent()) {
@@ -43,7 +43,7 @@ public class TrackFavoriteServiceImpl implements TrackFavoriteService {
             if (track.getPoints() == null) {
                 track.setPoints(1);
             } else {
-                track.setPoints(track.getPosition() + 1);
+                track.setPoints(track.getPoints() + 1);
             }
             user.setFavoriteTrack(track);
             trackRepository.save(track);
