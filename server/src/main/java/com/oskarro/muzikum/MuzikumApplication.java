@@ -3,6 +3,7 @@ package com.oskarro.muzikum;
 import com.oskarro.muzikum.config.AppProperties;
 import com.oskarro.muzikum.demo.DemoService;
 import com.oskarro.muzikum.demo.ProdService;
+import com.oskarro.muzikum.storage.FilesStorageService;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,6 +20,7 @@ import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.annotation.EnableScheduling;
 
 import javax.annotation.PostConstruct;
+import java.io.File;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.Objects;
@@ -47,16 +49,42 @@ public class MuzikumApplication implements CommandLineRunner {
         ApplicationContext applicationContext = SpringApplication.run(MuzikumApplication.class, args);
         Environment env = applicationContext.getEnvironment();
         logApplicationStartup(env);
+        createDirectory("/mnt/backend/uploads");
+        createDirectory("/mnt/backend/uploads/user");
+        createDirectory("/mnt/backend/uploads/cover");
+        createDirectory("/mnt/backend/uploads/article");
+        createDirectory("/mnt/backend/uploads/AVATAR");
 
         if (Objects.equals(env.getProperty("spring.profiles.active"), "dev")) {
             DemoService demoService = applicationContext.getBean(DemoService.class);
             demoService.createSamples();
+            createDirectory("/home/oskarro/uploads");
+            createDirectory("/home/oskarro/uploads/user");
+            createDirectory("/home/oskarro/uploads/cover");
+            createDirectory("/home/oskarro/uploads/article");
         } else if (Objects.equals(env.getProperty("spring.profiles.active"), "prod")) {
-            ProdService demoService = applicationContext.getBean(ProdService.class);
-            demoService.createInitData();
+            createDirectory("/mnt/backend/uploads");
+            createDirectory("/mnt/backend/uploads/user");
+            createDirectory("/mnt/backend/uploads/cover");
+            createDirectory("/mnt/backend/uploads/article");
+//            ProdService demoService = applicationContext.getBean(ProdService.class);
+//            demoService.createInitData();
         } else {
-            ProdService demoService = applicationContext.getBean(ProdService.class);
-            demoService.createInitData();
+//            ProdService demoService = applicationContext.getBean(ProdService.class);
+//            demoService.createInitData();
+        }
+    }
+
+    private static void createDirectory(final String directoryPath) {
+        File file = new File(directoryPath);
+        if (!file.exists()) {
+            if (file.mkdir()) {
+                System.out.printf("Directory %s has been created created!", directoryPath);
+                logger.info("Directory is created!");
+            } else {
+                logger.info("Failed to create directory!");
+                System.out.printf("Failed to create directory %s!", directoryPath);
+            }
         }
     }
 

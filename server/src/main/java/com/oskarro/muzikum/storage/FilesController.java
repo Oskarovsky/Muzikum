@@ -77,6 +77,7 @@ public class FilesController {
                     .body(new ResponseMessage(message));
         } catch (Exception e) {
             String message = "Nie można załadować pliku: " + file.getOriginalFilename() + "!";
+            log.info(message, e);
             return ResponseEntity
                     .status(HttpStatus.EXPECTATION_FAILED)
                     .body(new ResponseMessage(message));
@@ -96,6 +97,7 @@ public class FilesController {
                     .body(new ResponseMessage(message));
         } catch (Exception e) {
             String message = "Nie można załadować pliku: " + file.getOriginalFilename() + "!";
+            log.info(message, e);
             return ResponseEntity
                     .status(HttpStatus.EXPECTATION_FAILED)
                     .body(new ResponseMessage(message));
@@ -115,6 +117,7 @@ public class FilesController {
                     .body(new ResponseMessage(message));
         } catch (Exception e) {
             String message = String.format("Nie można załadować pliku: %s.", file.getOriginalFilename());
+            log.info(message, e);
             return ResponseEntity
                     .status(HttpStatus.EXPECTATION_FAILED)
                     .body(new ResponseMessage(message));

@@ -183,6 +183,7 @@ public class AuthController {
     @RequestMapping(value="/confirmAccount/{token}", method= {RequestMethod.GET, RequestMethod.POST})
     public ResponseEntity<?> confirmUserAccount(@PathVariable("token") String confirmationToken) {
         System.out.println("TOKEN: " + confirmationToken);
+        log.info("TOKEN: " + confirmationToken);
 
         ConfirmationToken token = confirmationTokenRepository.findByConfirmationToken(confirmationToken);
 

@@ -1,5 +1,6 @@
 package com.oskarro.muzikum.plugin;
 
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.IOUtils;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -12,6 +13,7 @@ import java.net.URL;
 import static java.nio.charset.StandardCharsets.UTF_8;
 
 @Service
+@Slf4j
 public class PluginServiceImpl implements PluginService {
 
     @Override
@@ -39,6 +41,7 @@ public class PluginServiceImpl implements PluginService {
         script.append("?width=1000&autoplay=false&date=");
         script.append(response.getUploadDate());
         System.out.println(script);
+        log.info(script.toString());
         return String.valueOf(script);
     }
 
