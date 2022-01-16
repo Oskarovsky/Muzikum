@@ -2,6 +2,7 @@ package com.oskarro.muzikum.video;
 
 import com.oskarro.muzikum.exception.ResourceNotFoundException;
 import com.oskarro.muzikum.playlist.Playlist;
+import com.oskarro.muzikum.playlist.PlaylistRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.IOUtils;
 import org.json.simple.JSONArray;
@@ -25,13 +26,15 @@ import static java.nio.charset.StandardCharsets.UTF_8;
 public class VideoServiceImpl implements VideoService {
 
     private final VideoRepository videoRepository;
+    private final PlaylistRepository playlistRepository;
 
     @Value("${google.api.key}")
     private String GOOGLE_API_KEY;
 
-
-    public VideoServiceImpl(final VideoRepository videoRepository) {
+    public VideoServiceImpl(final VideoRepository videoRepository,
+                            final PlaylistRepository playlistRepository) {
         this.videoRepository = videoRepository;
+        this.playlistRepository = playlistRepository;
     }
 
     @Override
@@ -40,12 +43,15 @@ public class VideoServiceImpl implements VideoService {
     }
 
     @Override
-    public List<Video> findVideosByCategory(String category) {
+    public List<Video> findVideosByCategory(final String category) {
         return videoRepository.findVideosByCategory(category);
     }
 
     @Override
     public void addVideo(Video video) {
+        Playlist playlistBuild = Playlist.builder().name("Tracklist " + video).points(0).build();
+        Playlist result = playlistRepository.save(playlistBuild);
+        video.setPlaylist(result);
         videoRepository.save(video);
     }
 

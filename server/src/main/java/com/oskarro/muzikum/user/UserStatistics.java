@@ -23,7 +23,7 @@ public class UserStatistics {
 
     Integer totalUpload;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user;
 }

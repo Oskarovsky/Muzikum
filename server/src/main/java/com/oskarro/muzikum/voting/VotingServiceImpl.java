@@ -2,13 +2,11 @@ package com.oskarro.muzikum.voting;
 
 import com.oskarro.muzikum.exception.AppException;
 import com.oskarro.muzikum.exception.ResourceNotFoundException;
-import com.oskarro.muzikum.security.AuthService;
 import com.oskarro.muzikum.track.model.Track;
 import com.oskarro.muzikum.track.TrackRepository;
 import com.oskarro.muzikum.user.User;
 import com.oskarro.muzikum.user.UserRepository;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

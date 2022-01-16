@@ -1,6 +1,7 @@
 package com.oskarro.muzikum.track;
 
 import com.oskarro.muzikum.exception.ResourceNotFoundException;
+import com.oskarro.muzikum.playlist.PlaylistRepository;
 import com.oskarro.muzikum.plugin.PluginKrakenResponse;
 import com.oskarro.muzikum.plugin.PluginService;
 import com.oskarro.muzikum.storage.Cover;
@@ -12,6 +13,8 @@ import com.oskarro.muzikum.track.model.TrackPageResponse;
 import com.oskarro.muzikum.track.model.UrlSource;
 import com.oskarro.muzikum.user.User;
 import com.oskarro.muzikum.user.UserRepository;
+import com.oskarro.muzikum.video.Video;
+import com.oskarro.muzikum.video.VideoRepository;
 import org.json.simple.parser.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -40,10 +43,17 @@ public class TrackServiceImpl implements TrackService {
     private final PluginService pluginService;
     private final CoverRepository coverRepository;
     private final ImageRepository imageRepository;
+    private final PlaylistRepository playlistRepository;
+    private final VideoRepository videoRepository;
 
-    public TrackServiceImpl(TrackRepository trackRepository, UserRepository userRepository,
-                            PluginService pluginService, TrackCommentRepository trackCommentRepository,
-                            ImageRepository imageRepository, CoverRepository coverRepository) {
+    public TrackServiceImpl(final TrackRepository trackRepository,
+                            final UserRepository userRepository,
+                            final PluginService pluginService,
+                            final TrackCommentRepository trackCommentRepository,
+                            final ImageRepository imageRepository,
+                            final PlaylistRepository playlistRepository,
+                            final VideoRepository videoRepository,
+                            final CoverRepository coverRepository) {
         super();
         this.trackRepository = trackRepository;
         this.userRepository = userRepository;
@@ -51,6 +61,8 @@ public class TrackServiceImpl implements TrackService {
         this.pluginService = pluginService;
         this.imageRepository = imageRepository;
         this.coverRepository = coverRepository;
+        this.videoRepository = videoRepository;
+        this.playlistRepository = playlistRepository;
     }
 
     @Override
@@ -103,8 +115,10 @@ public class TrackServiceImpl implements TrackService {
     }
 
     @Override
-    public List<Track> findAllTracksFromVideo(Integer id) {
-        return new ArrayList<>(trackRepository.findTracksByVideoId(id));
+    public List<Track> findAllTracksFromVideo(final Integer videoId) {
+        Video video = videoRepository.findById(videoId)
+                .orElseThrow(() -> new ResourceNotFoundException("video", "id", videoId));
+        return new ArrayList<>(trackRepository.findTracksByPlaylistId(video.getPlaylist().getId()));
     }
 
     @Override

@@ -28,8 +28,6 @@ public interface TrackRepository extends JpaRepository<Track, Integer> {
 
     List<Track> findTracksByPlaylistId(Integer id);
 
-    List<Track> findTracksByVideoId(Integer id);
-
     void deleteById(Integer id);
 
     long count();

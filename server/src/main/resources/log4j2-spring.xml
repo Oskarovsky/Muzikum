@@ -31,7 +31,7 @@
             <AppenderRef ref="Console-Appender"/>
         </Logger>
         <!-- LOG everything at INFO level -->
-        <Root level="info">
+        <Root level="debug">
             <AppenderRef ref="Console-Appender" />
             <AppenderRef ref="RollingFile" />
         </Root>

@@ -1,14 +1,17 @@
 package com.oskarro.muzikum.playlist;
 
+import com.oskarro.muzikum.exception.ResourceNotFoundException;
 import com.oskarro.muzikum.monitor.SessionComponent;
 import com.oskarro.muzikum.track.model.Track;
 import com.oskarro.muzikum.track.TrackRepository;
 import com.oskarro.muzikum.track.TrackService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
 
+@Slf4j
 @RestController
 @RequestMapping(value = "/api/playlist")
 @CrossOrigin
@@ -20,9 +23,11 @@ public class PlaylistController {
     private final TrackRepository trackRepository;
     private final SessionComponent sessionComponent;
 
-    public PlaylistController(PlaylistService playlistService, TrackService trackService,
-                              PlaylistRepository playlistRepository, TrackRepository trackRepository,
-                              SessionComponent sessionComponent) {
+    public PlaylistController(final PlaylistService playlistService,
+                              final TrackService trackService,
+                              final PlaylistRepository playlistRepository,
+                              final TrackRepository trackRepository,
+                              final SessionComponent sessionComponent) {
         this.playlistService = playlistService;
         this.trackService = trackService;
         this.playlistRepository = playlistRepository;
@@ -69,5 +74,17 @@ public class PlaylistController {
     @GetMapping(value = "/lastAdded/{quantity}")
     public List<Playlist> getLastAddedPlaylist(@PathVariable Integer quantity) {
         return playlistService.getFirstPlaylists(quantity);
+    }
+
+    @PostMapping(value = "/{playlistId}/track")
+    public Playlist addTrackToPlaylist(@RequestBody final Track track,
+                                       @PathVariable final String playlistId) {
+        Playlist playlist = playlistRepository.findById(Integer.valueOf(playlistId))
+                .orElseThrow(() -> new ResourceNotFoundException("Playlist", "id", playlistId));
+        track.setPlaylist(playlist);
+        track.setPoints(0);
+        Track trackResponse = trackRepository.save(track);
+        log.info("Track {} has been saved to playlist with id {}", trackResponse, playlistId);
+        return playlist;
     }
 }

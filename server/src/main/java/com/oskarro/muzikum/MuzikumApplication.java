@@ -76,11 +76,13 @@ public class MuzikumApplication implements CommandLineRunner {
         } catch (UnknownHostException e) {
             logger.warn("The host name could not be determined, using `localhost` as fallback");
         }
-        logger.info("\n----------------------------------------------------------\n\t" +
-                        "Application '{}' is running! Access URLs:\n\t" +
-                        "Local: \t\t{}://localhost:{}{}\n\t" +
-                        "External: \t{}://{}:{}{}\n\t" +
-                        "Profile(s): \t{}\n----------------------------------------------------------",
+        logger.info("""
+                        ----------------------------------------------------------
+                        \tApplication '{}' is running! Access URLs:
+                        \tLocal: \t\t{}://localhost:{}{}
+                        \tExternal: \t{}://{}:{}{}
+                        \tProfile(s): \t{}
+                        ----------------------------------------------------------""",
                 env.getProperty("spring.application.name"),
                 protocol,
                 serverPort,

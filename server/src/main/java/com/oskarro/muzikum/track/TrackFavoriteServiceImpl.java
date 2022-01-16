@@ -40,7 +40,7 @@ public class TrackFavoriteServiceImpl implements TrackFavoriteService {
                     .orElseThrow(() -> new ResourceNotFoundException("Track", "trackId", trackId));
             TrackFavorite favoriteTrack = TrackFavorite.builder().track(track).user(user).build();
 
-            if (track.getPosition() == null) {
+            if (track.getPoints() == null) {
                 track.setPoints(1);
             } else {
                 track.setPoints(track.getPosition() + 1);

@@ -135,14 +135,18 @@ public class DemoService {
 
 
         // VIDEO PANE:
-        Video video1 = Video.builder().id(1).name("Vixa").url("Dp--txMIGPI")
-                .category(Category.MIX.toString()).playlist(playlist).build();
         Video video2 = Video.builder().id(2).name("Virus").url("MpWfj-2P-9M")
-                .category(Category.MIX.toString()).playlist(playlist2).build();
+                .category(Category.MIX.toString()).build();
         Video video3 = Video.builder().id(3).name("Luna Mix Vol. 9").url("WRooj5n80uo")
                 .category(Category.LUNA_MIX.name()).build();
-        videoRepository.saveAll(Arrays.asList(video1, video2, video3));
+        videoRepository.saveAll(Arrays.asList(video2, video3));
 
+        // FULL VIDEO PANEL
+        Playlist playlistVixa = Playlist.builder().id(3).name("VixaTracklist").user(userAdmin).build();
+        playlistRepository.save(playlistVixa);
+        Video videoVixa = Video.builder().id(1).name("Vixa").url("Dp--txMIGPI")
+                .category(Category.MIX.toString()).playlist(playlistVixa).build();
+        videoRepository.save(videoVixa);
 
         // POSTS
         Post postFirst = Post.builder()
@@ -191,29 +195,22 @@ public class DemoService {
                 .version("Cabro Remix").playlist(playlist).build();
         Track track8 = Track.builder().title("God is tester").artist("Clubber")
                 .version("Mash Up").playlist(playlist).build();
-        Track track9 = Track.builder().title("First shit title").artist("Med")
-                .version("dsd edit").video(video1).build();
-        Track track10 = Track.builder().title("One Air").artist("Mayoman")
-                .version("Original Mix").video(video2).build();
-        Track track11 = Track.builder().title("one tow three").artist("test")
-                .version("Original Mix").video(video2).build();
         Track track12 = Track.builder().title("We love it").artist("Dj Shogun")
                 .version("Original Mix").points(0).genre("VIXA").build();
 
         trackRepository.saveAll(
-                Arrays.asList(
-                        track1, track2, track3, track6, track7, track8, track9,
-                        track10, track11, track4, track5, track12)
+                Arrays.asList(track1, track2, track3, track6, track7,
+                        track8, track4, track5, track12)
         );
 
-        Vote vote1 = Vote.builder().user(userAdmin).track(track9).build();
-        Vote vote2 = Vote.builder().user(userJacek).track(track10).build();
-        Vote vote3 = Vote.builder().user(userAdmin).track(track11).build();
+        Vote vote1 = Vote.builder().user(userAdmin).track(track4).build();
+        Vote vote2 = Vote.builder().user(userJacek).track(track4).build();
+        Vote vote3 = Vote.builder().user(userAdmin).track(track6).build();
         votingRepository.saveAll(Arrays.asList(vote1, vote2, vote3));
 
-        TrackFavorite favoriteTrack001 = TrackFavorite.builder().track(track9).user(userAdmin).build();
-        TrackFavorite favoriteTrack002 = TrackFavorite.builder().track(track10).user(userAdmin).build();
-        TrackFavorite favoriteTrack003 = TrackFavorite.builder().track(track11).user(userAdmin).build();
+        TrackFavorite favoriteTrack001 = TrackFavorite.builder().track(track6).user(userAdmin).build();
+        TrackFavorite favoriteTrack002 = TrackFavorite.builder().track(track2).user(userAdmin).build();
+        TrackFavorite favoriteTrack003 = TrackFavorite.builder().track(track8).user(userAdmin).build();
         favoriteTrackRepository.saveAll(Arrays.asList(favoriteTrack001, favoriteTrack002, favoriteTrack003));
 
         Track popularTrackRetro = Track.builder()
