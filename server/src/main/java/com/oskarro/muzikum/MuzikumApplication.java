@@ -2,8 +2,6 @@ package com.oskarro.muzikum;
 
 import com.oskarro.muzikum.config.AppProperties;
 import com.oskarro.muzikum.demo.DemoService;
-import com.oskarro.muzikum.demo.ProdService;
-import com.oskarro.muzikum.storage.FilesStorageService;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -79,11 +77,11 @@ public class MuzikumApplication implements CommandLineRunner {
         File file = new File(directoryPath);
         if (!file.exists()) {
             if (file.mkdir()) {
-                System.out.printf("Directory %s has been created created!", directoryPath);
+                System.out.printf("Directory %s has been created created!\n", directoryPath);
                 logger.info("Directory is created!");
             } else {
                 logger.info("Failed to create directory!");
-                System.out.printf("Failed to create directory %s!", directoryPath);
+                System.out.printf("Failed to create directory %s!\n", directoryPath);
             }
         }
     }
