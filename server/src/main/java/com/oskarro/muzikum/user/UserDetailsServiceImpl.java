@@ -64,6 +64,7 @@ public class UserDetailsServiceImpl implements UserDetailsService, UserService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<User> getLastAddedUsers(Integer numberOfUsers) {
         List<User> fetchedUsers = userRepository.findAllByOrderByCreatedAtDesc();
         return fetchedUsers
@@ -120,6 +121,7 @@ public class UserDetailsServiceImpl implements UserDetailsService, UserService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public User getTopUploader(String periodOfTime) {
         switch (periodOfTime) {
             case TOTAL_PERIOD -> {
@@ -140,6 +142,7 @@ public class UserDetailsServiceImpl implements UserDetailsService, UserService {
 
 
     @Override
+    @Transactional(readOnly = true)
     public List<User> getTopUploaders(String periodOfTime, int numberOfUser) {
         switch (periodOfTime) {
             case TOTAL_PERIOD -> {
@@ -191,6 +194,7 @@ public class UserDetailsServiceImpl implements UserDetailsService, UserService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public Integer getNumberOfTracksAddedInGivenPeriodByUsername(String username, String periodOfTime) {
         switch (periodOfTime) {
             case TOTAL_PERIOD -> {
