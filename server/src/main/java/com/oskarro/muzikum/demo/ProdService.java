@@ -169,14 +169,7 @@ public class ProdService {
                 .urlPlugin("https://s3.krakenfiles.com/getEmbedPlayer/bq7OmgxS3k?width=1000&autoplay=false&date=20-07-2021")
                 .urlSource("KRAKENFILES")
                 .build();
-        Track trackSet = Track.builder().id(7)
-                .title("VIXA").artist("Oskarro").version("MIX").genre("SET").points(0)
-                .user(userAdmin)
-                .url("https://www17.zippyshare.com/v/n6PPiJHj/file.html")
-                .urlPlugin("https://api.zippyshare.com/api/jplayer_embed.jsp?key=n6PPiJHj&server=www17&autostart=true&width=1000")
-                .urlSource("ZIPPYSHARE")
-                .build();
-        trackRepository.saveAll(Arrays.asList(trackVixa, trackRetro, trackClub, trackTechno, trackDance, trackDisco, trackSet));
+        trackRepository.saveAll(Arrays.asList(trackVixa, trackRetro, trackClub, trackTechno, trackDance, trackDisco));
 
        // Tracks (oskarro.com)
         Track lunaMix4 = Track.builder()

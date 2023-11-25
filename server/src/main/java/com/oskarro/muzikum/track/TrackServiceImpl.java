@@ -1,5 +1,8 @@
 package com.oskarro.muzikum.track;
 
+import com.oskarro.muzikum.event.BaseEvent;
+import com.oskarro.muzikum.event.KafkaEventProducer;
+import com.oskarro.muzikum.event.KafkaTopics;
 import com.oskarro.muzikum.exception.ResourceNotFoundException;
 import com.oskarro.muzikum.playlist.PlaylistRepository;
 import com.oskarro.muzikum.plugin.PluginKrakenResponse;
@@ -11,12 +14,11 @@ import com.oskarro.muzikum.track.model.Track;
 import com.oskarro.muzikum.track.model.TrackComment;
 import com.oskarro.muzikum.track.model.TrackPageResponse;
 import com.oskarro.muzikum.track.model.UrlSource;
-import com.oskarro.muzikum.user.User;
 import com.oskarro.muzikum.user.UserRepository;
 import com.oskarro.muzikum.video.Video;
 import com.oskarro.muzikum.video.VideoRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.json.simple.parser.ParseException;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -28,9 +30,9 @@ import javax.persistence.PersistenceContext;
 import java.io.IOException;
 import java.util.*;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 @Service
+@Slf4j
 @Transactional
 public class TrackServiceImpl implements TrackService {
 
@@ -45,6 +47,8 @@ public class TrackServiceImpl implements TrackService {
     private final ImageRepository imageRepository;
     private final PlaylistRepository playlistRepository;
     private final VideoRepository videoRepository;
+    private final KafkaEventProducer<Track> kafkaEventProducer;
+    private final KafkaTopics kafkaTopics;
 
     public TrackServiceImpl(final TrackRepository trackRepository,
                             final UserRepository userRepository,
@@ -53,7 +57,9 @@ public class TrackServiceImpl implements TrackService {
                             final ImageRepository imageRepository,
                             final PlaylistRepository playlistRepository,
                             final VideoRepository videoRepository,
-                            final CoverRepository coverRepository) {
+                            final CoverRepository coverRepository,
+                            final KafkaEventProducer<Track> kafkaEventProducer,
+                            final KafkaTopics kafkaTopics) {
         super();
         this.trackRepository = trackRepository;
         this.userRepository = userRepository;
@@ -63,6 +69,8 @@ public class TrackServiceImpl implements TrackService {
         this.coverRepository = coverRepository;
         this.videoRepository = videoRepository;
         this.playlistRepository = playlistRepository;
+        this.kafkaEventProducer = kafkaEventProducer;
+        this.kafkaTopics = kafkaTopics;
     }
 
     @Override
@@ -87,21 +95,21 @@ public class TrackServiceImpl implements TrackService {
                     PluginKrakenResponse response = pluginService.readJsonFromKrakenFiles(jsonUrl);
                     String pluginScript = pluginService.prepareScriptForKrakenfiles(response);
                     track.setUrlPlugin(pluginScript);
-                } else if (Objects.equals(track.getUrlSource(), UrlSource.ZIPPYSHARE.toString())) {
-                    String pluginScript = pluginService.prepareScriptForZippyshare(track.getUrl());
-                    track.setUrlPlugin(pluginScript);
-                } else if (Objects.equals(track.getUrlSource(), UrlSource.SOUNDCLOUD.toString())) {
-                    // TODO SOUNDCLOUD
                 }
                 Cover cover = coverRepository.findTopByUrl(track.getUrl());
                 if (cover != null) {
                     track.setCover(cover);
                 }
             } catch (IOException | ParseException e) {
-                e.printStackTrace();
+                log.error("Could not save track {} in database.", track, e);
             }
         }
-        return trackRepository.save(track);
+        Track trackResult = trackRepository.save(track);
+        kafkaEventProducer.sendMessage(
+                new BaseEvent<>(String.format("Track %s has been added", track.getTitle()), BaseEvent.EventStatus.COMPLETED, track),
+                kafkaTopics.getTopicTrackName()
+        );
+        return trackResult;
     }
 
     @Override

@@ -55,15 +55,4 @@ public class PluginServiceImpl implements PluginService {
         }
     }
 
-    @Override
-    public String prepareScriptForZippyshare(String websiteUrl) {
-        String serverId = "www" + websiteUrl.substring(websiteUrl.indexOf("www") + 3, websiteUrl.indexOf(".zippy"));
-        String trackHash = websiteUrl.substring(websiteUrl.indexOf("/v/") + 3, websiteUrl.indexOf("/file"));
-        return "https://api.zippyshare.com/api/jplayer_embed.jsp?" +
-                "key=" + trackHash + "&" +
-                "server=" + serverId + "&" +
-                "autostart=true&" +
-                "width=1000";
-    }
-
 }
