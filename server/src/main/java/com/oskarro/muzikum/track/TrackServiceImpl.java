@@ -106,10 +106,19 @@ public class TrackServiceImpl implements TrackService {
         }
         Track trackResult = trackRepository.save(track);
         kafkaEventProducer.sendMessage(
-                new BaseEvent<>(String.format("Track %s has been added", track.getTitle()), BaseEvent.EventStatus.COMPLETED, track),
+                createTrackEventMessage(track, BaseEvent.EventStatus.COMPLETED),
                 kafkaTopics.getTopicTrackName()
         );
         return trackResult;
+    }
+
+    private BaseEvent<Track> createTrackEventMessage(Track track, BaseEvent.EventStatus status) {
+        return new BaseEvent<>(
+                String.format("Track %s - %s (%s) has been added to database by %s.",
+                        track.getArtist(), track.getTitle(), track.getVersion(), track.getUser().getUsername()),
+                status,
+                track
+        );
     }
 
     @Override
