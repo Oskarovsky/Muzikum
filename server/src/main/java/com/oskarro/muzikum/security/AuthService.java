@@ -25,6 +25,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -45,8 +46,14 @@ public class AuthService {
     private final ConfirmationTokenRepository confirmationTokenRepository;
     private final EmailService emailService;
 
+    @Resource
+    AuthService authServiceReference;
+
     @Value("${spring.profiles.active}")
     private String activeProfile;
+
+    @Value("${email.sender}")
+    private String emailSender;
 
     public AuthService(AuthenticationManager authenticationManager,
                        UserRepository userRepository,
@@ -69,7 +76,7 @@ public class AuthService {
     }
 
     JwtAuthenticationResponse authenticateUser(LoginRequest loginRequest) {
-
+        log.info("Authentication user with username: {}", loginRequest.getUsernameOrEmail());
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                         loginRequest.getUsernameOrEmail(),
@@ -82,7 +89,7 @@ public class AuthService {
         List<String> roles = userDetails.getAuthorities().stream()
                 .map(GrantedAuthority::getAuthority)
                 .toList();
-
+        log.info("User {} has been authenticated.", userDetails.getEmail());
         return new JwtAuthenticationResponse(jwt,
                 userDetails.getId(),
                 userDetails.getEmail(),
@@ -92,9 +99,9 @@ public class AuthService {
 
     ApiResponse registerUser(RegisterRequest registerRequest) {
         log.info("Registering new user with email {}", registerRequest.getEmail());
-        if (userRepository.existsByUsername(registerRequest.getUsername())) {
+        if (Boolean.TRUE.equals(userRepository.existsByUsername(registerRequest.getUsername()))) {
             return new ApiResponse(false,"Operation failed. Username is already taken!");
-        } else if (userRepository.existsByEmail(registerRequest.getEmail())) {
+        } else if (Boolean.TRUE.equals(userRepository.existsByEmail(registerRequest.getEmail()))) {
             return new ApiResponse(false,"Operation failed. Email is already in use!");
         }
 
@@ -111,7 +118,7 @@ public class AuthService {
 
         if (stringRoles == null) {
             Role userRole = roleRepository.findByName(RoleName.ROLE_USER)
-                    .orElseThrow(() -> new RuntimeException("Error: Role is not found"));
+                    .orElseThrow(() -> new RuntimeException("Error: Cannot find user role in database."));
             roles.add(userRole);
         } else {
             stringRoles.forEach(role -> {
@@ -137,7 +144,14 @@ public class AuthService {
         user.setProvider(AuthProvider.local);
         user.setRoles(roles);
         userRepository.save(user);
+        log.info("New user {} has been saved in database", user.getEmail());
 
+        authServiceReference.sendConfirmationEmailWithToken(user);
+        return new ApiResponse(true, "User registered successfully!");
+    }
+
+    @Async
+    public void sendConfirmationEmailWithToken(User user) {
         ConfirmationToken confirmationToken = new ConfirmationToken(user);
         confirmationTokenRepository.save(confirmationToken);
 
@@ -150,26 +164,23 @@ public class AuthService {
             textMessage = "To confirm your account, please click here: " +
                     "https://oskarro.com/confirmAccount/" + confirmationToken.getConfirmationToken();
         }
-        sendEmail("Complete Registration", "postmaster@oskarro.com", textMessage, user.getEmail());
-        log.info("Activation email sent!!");
-        return new ApiResponse(true, "User registered successfully!");
+        authServiceReference.sendEmail("Complete Registration", emailSender, textMessage, user.getEmail());
+        log.info("Activation email has been sent to: {}", user.getEmail());
     }
 
     ApiResponse confirmUserAccount(String confirmationToken) {
-        System.out.println("TOKEN: " + confirmationToken);
-        log.info("TOKEN: " + confirmationToken);
+        log.info("Passing confirmation token: {}", confirmationToken);
 
         ConfirmationToken token = confirmationTokenRepository.findByConfirmationToken(confirmationToken);
-
         if (token != null) {
             User user = userRepository.findByEmail(token.getUser().getEmail()).orElseThrow(
                     () -> new UsernameNotFoundException("User not found with email: " + token.getUser().getEmail())
             );
             user.setActivated(true);
-            System.out.printf("USER %s ENABLED%n", user.getUsername());
             userRepository.save(user);
+            log.info("User {} has just been activated.", user.getUsername());
             initUserStatistics(user);
-            sendEmail("Success confirmation", "postmaster@oskarro.com",
+            authServiceReference.sendEmail("Success confirmation", emailSender,
                     "Your email has been confirmed!", user.getEmail());
             return new ApiResponse(true, "Token confirmed successfully!");
         } else {
@@ -201,7 +212,8 @@ public class AuthService {
                 roles);
     }
 
-    ApiResponse resetUserPasswordByEmail(String email) {
+    ApiResponse sendPasswordResetRequestToUser(String email) {
+        log.info("Sending message with reset password request for user with email {}", email);
         User existingUser = userRepository
                 .findByEmail(email)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found with email:" + email));
@@ -216,7 +228,7 @@ public class AuthService {
             appUrl += "oskarro.com";
         }
 
-        sendEmail("Password Reset Request", "postmaster@oskarro.com",
+        authServiceReference.sendEmail("Password Reset Request", emailSender,
                 "To reset your password, click the link below:\n" + appUrl
                         + "/changePassword?token=" + confirmationToken.getConfirmationToken(), existingUser.getEmail());
 
@@ -230,7 +242,7 @@ public class AuthService {
             User user = userRepository.findByEmail(confirmationToken.getUser().getEmail()).orElseThrow(
                     () -> new UsernameNotFoundException("User not found with email: " + confirmationToken.getUser().getEmail())
             );
-            sendEmail("Success confirmation", "postmaster@oskarro.com",
+            authServiceReference.sendEmail("Success confirmation", emailSender,
                     "Your email has been confirmed!", user.getEmail());
             return new ApiResponse(true, "Token confirmed successfully!");
         }
@@ -245,7 +257,7 @@ public class AuthService {
             throw new InvalidOldPasswordException();
         }
         userDetailsService.changeUserPassword(user, passwordChangeDto.getNewPassword());
-        sendEmail("Successful password change", "postmaster@oskarro.com",
+        authServiceReference.sendEmail("Successful password change", emailSender,
                 "Your password has been changed!", user.getEmail());
 
         return new ApiResponse(true, "Password has been changed successfully!");

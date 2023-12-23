@@ -1,5 +1,6 @@
 package com.oskarro.muzikum.user.email;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Service;
  * Clients should talk to the mail sender through this interface implementation if they need mail functionality
  * */
 
+@Slf4j
 @Service
 public class EmailServiceImpl implements EmailService {
 
@@ -25,7 +27,7 @@ public class EmailServiceImpl implements EmailService {
 
     @Async
     public void sendEmail(SimpleMailMessage email) {
-        System.out.println("Email sending from " + email.getFrom());
+        log.info("Sending email from {} to {}: {}", email.getFrom(), email.getTo(), email.getSubject());
         javaMailSender.send(email);
     }
 }

@@ -1,23 +1,16 @@
 package com.oskarro.muzikum.security;
 
-import com.oskarro.muzikum.security.jwt.JwtTokenProvider;
 import com.oskarro.muzikum.security.payload.JwtAuthenticationResponse;
 import com.oskarro.muzikum.security.payload.ApiResponse;
 import com.oskarro.muzikum.security.payload.LoginRequest;
 import com.oskarro.muzikum.security.payload.RegisterRequest;
-import com.oskarro.muzikum.user.*;
 
 import javax.validation.Valid;
 
-import com.oskarro.muzikum.user.email.EmailService;
-import com.oskarro.muzikum.user.role.RoleRepository;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import static java.time.Instant.now;
@@ -58,7 +51,7 @@ public class AuthController {
     /* RESET PASSWORD */
     @PostMapping(value = "/resetPassword")
     public ResponseEntity<ApiResponse> resetPassword(@RequestParam("email") final String email) {
-        ApiResponse apiResponse = authService.resetUserPasswordByEmail(email);
+        ApiResponse apiResponse = authService.sendPasswordResetRequestToUser(email);
         return ResponseEntity.ok(apiResponse);
     }
 
