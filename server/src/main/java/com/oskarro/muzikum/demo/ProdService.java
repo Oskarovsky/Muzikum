@@ -1,7 +1,6 @@
 package com.oskarro.muzikum.demo;
 
 import com.oskarro.muzikum.article.comment.CommentRepository;
-import com.oskarro.muzikum.article.post.Post;
 import com.oskarro.muzikum.article.post.PostRepository;
 import com.oskarro.muzikum.playlist.PlaylistRepository;
 import com.oskarro.muzikum.storage.ArticleImageRepository;
@@ -87,7 +86,7 @@ public class ProdService {
                 .email("oskar.slyk@gmail.com")
                 .password(encoder.encode("123456"))
                 .roles(new HashSet<>(Collections.singletonList(roleAdmin)))
-                .provider(AuthProvider.local)
+                .provider(AuthProvider.LOCAL)
                 .build();
         User userJacek = User.builder()
                 .id(2)
@@ -95,7 +94,7 @@ public class ProdService {
                 .email("jacek@pw.pl")
                 .password(encoder.encode("123456"))
                 .roles(new HashSet<>(Collections.singletonList(roleUser)))
-                .provider(AuthProvider.local)
+                .provider(AuthProvider.LOCAL)
                 .build();
         User userGosia = User.builder()
                 .id(3)
@@ -103,7 +102,7 @@ public class ProdService {
                 .email("djoskarro@interia.pl")
                 .password(encoder.encode("123456"))
                 .roles(new HashSet<>(Collections.singletonList(roleUser)))
-                .provider(AuthProvider.local)
+                .provider(AuthProvider.LOCAL)
                 .build();
 
         userRepository.saveAll(Arrays.asList(userAdmin, userJacek, userGosia));

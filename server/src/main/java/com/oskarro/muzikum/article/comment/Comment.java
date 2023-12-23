@@ -1,6 +1,5 @@
 package com.oskarro.muzikum.article.comment;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.oskarro.muzikum.article.post.Post;
 import com.oskarro.muzikum.user.User;
 import com.oskarro.muzikum.utils.DateAudit;

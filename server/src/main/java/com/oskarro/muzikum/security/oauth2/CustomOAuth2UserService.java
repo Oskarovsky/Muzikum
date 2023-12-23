@@ -1,15 +1,12 @@
 package com.oskarro.muzikum.security.oauth2;
 
 import com.oskarro.muzikum.exception.OAuth2AuthenticationProcessingException;
-import com.oskarro.muzikum.exception.ResourceNotFoundException;
-import com.oskarro.muzikum.storage.Image;
 import com.oskarro.muzikum.storage.ImageRepository;
 import com.oskarro.muzikum.user.*;
 import com.oskarro.muzikum.user.role.Role;
 import com.oskarro.muzikum.user.role.RoleName;
 import com.oskarro.muzikum.user.role.RoleRepository;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.InternalAuthenticationServiceException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
@@ -18,7 +15,6 @@ import org.springframework.security.oauth2.core.OAuth2AuthenticationException;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
 import org.springframework.security.core.AuthenticationException;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
 
@@ -96,7 +92,7 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
                 .email(oAuth2UserInfo.getEmail())
                 .password(passwordEncoder.encode("123456"))
                 .roles(new HashSet<>(Collections.singletonList(roleUser)))
-                .provider(AuthProvider.facebook)
+                .provider(AuthProvider.FACEBOOK)
                 .activated(true)
                 .imageUrl(oAuth2UserInfo.getImageUrl())
                 .build();
