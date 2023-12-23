@@ -13,6 +13,8 @@ import com.oskarro.muzikum.user.role.Role;
 import com.oskarro.muzikum.user.role.RoleName;
 import com.oskarro.muzikum.user.role.RoleRepository;
 import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.scheduling.annotation.Async;
@@ -45,9 +47,6 @@ public class AuthService {
     private final ConfirmationTokenRepository confirmationTokenRepository;
     private final EmailService emailService;
 
-//    @Resource
-//    AuthService authServiceReference;
-
     @Value("${spring.profiles.active}")
     private String activeProfile;
 
@@ -75,6 +74,7 @@ public class AuthService {
     }
 
     JwtAuthenticationResponse authenticateUser(LoginRequest loginRequest) {
+
         log.info("Authentication user with username: {}", loginRequest.getUsernameOrEmail());
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
