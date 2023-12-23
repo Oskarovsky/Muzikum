@@ -33,7 +33,6 @@ import java.util.TimeZone;
 @EnableAsync
 @EnableScheduling
 @EnableConfigurationProperties(AppProperties.class)
-
 public class MuzikumApplication implements CommandLineRunner {
 
     private static final Logger logger = LoggerFactory.getLogger(MuzikumApplication.class);
