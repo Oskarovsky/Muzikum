@@ -1,5 +1,9 @@
-package com.oskarro.muzikum.user.email;
+package com.oskarro.muzikum.email;
 
+import com.oskarro.muzikum.user.ConfirmationToken;
+import com.oskarro.muzikum.user.ConfirmationTokenRepository;
+import com.oskarro.muzikum.user.User;
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
@@ -16,18 +20,25 @@ import org.springframework.stereotype.Service;
 
 @Slf4j
 @Service
+@AllArgsConstructor
 public class EmailServiceImpl implements EmailService {
 
     private final JavaMailSender javaMailSender;
+    private final ConfirmationTokenRepository confirmationTokenRepository;
 
-    @Autowired
-    public EmailServiceImpl(JavaMailSender javaMailSender) {
-        this.javaMailSender = javaMailSender;
-    }
-
-    @Async
     public void sendEmail(SimpleMailMessage email) {
         log.info("Sending email from {} to {}: {}", email.getFrom(), email.getTo(), email.getSubject());
         javaMailSender.send(email);
+    }
+
+
+    @Async
+    public void sendEmailToUser(String subject, String sender, String text, String recipient) {
+        SimpleMailMessage mailMessage = new SimpleMailMessage();
+        mailMessage.setTo(recipient);
+        mailMessage.setSubject(subject);
+        mailMessage.setFrom(sender);
+        mailMessage.setText(text);
+        sendEmail(mailMessage);
     }
 }

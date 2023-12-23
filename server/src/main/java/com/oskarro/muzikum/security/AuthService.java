@@ -8,7 +8,7 @@ import com.oskarro.muzikum.security.payload.JwtAuthenticationResponse;
 import com.oskarro.muzikum.security.payload.LoginRequest;
 import com.oskarro.muzikum.security.payload.RegisterRequest;
 import com.oskarro.muzikum.user.*;
-import com.oskarro.muzikum.user.email.EmailService;
+import com.oskarro.muzikum.email.EmailService;
 import com.oskarro.muzikum.user.role.Role;
 import com.oskarro.muzikum.user.role.RoleName;
 import com.oskarro.muzikum.user.role.RoleRepository;
@@ -25,7 +25,6 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -46,8 +45,8 @@ public class AuthService {
     private final ConfirmationTokenRepository confirmationTokenRepository;
     private final EmailService emailService;
 
-    @Resource
-    AuthService authServiceReference;
+//    @Resource
+//    AuthService authServiceReference;
 
     @Value("${spring.profiles.active}")
     private String activeProfile;
@@ -146,11 +145,10 @@ public class AuthService {
         userRepository.save(user);
         log.info("New user {} has been saved in database", user.getEmail());
 
-        authServiceReference.sendConfirmationEmailWithToken(user);
+        sendConfirmationEmailWithToken(user);
         return new ApiResponse(true, "User registered successfully!");
     }
 
-    @Async
     public void sendConfirmationEmailWithToken(User user) {
         ConfirmationToken confirmationToken = new ConfirmationToken(user);
         confirmationTokenRepository.save(confirmationToken);
@@ -164,7 +162,7 @@ public class AuthService {
             textMessage = "To confirm your account, please click here: " +
                     "https://oskarro.com/confirmAccount/" + confirmationToken.getConfirmationToken();
         }
-        authServiceReference.sendEmail("Complete Registration", emailSender, textMessage, user.getEmail());
+        emailService.sendEmailToUser("Complete Registration", emailSender, textMessage, user.getEmail());
         log.info("Activation email has been sent to: {}", user.getEmail());
     }
 
@@ -180,7 +178,7 @@ public class AuthService {
             userRepository.save(user);
             log.info("User {} has just been activated.", user.getUsername());
             initUserStatistics(user);
-            authServiceReference.sendEmail("Success confirmation", emailSender,
+            emailService.sendEmailToUser("Success confirmation", emailSender,
                     "Your email has been confirmed!", user.getEmail());
             return new ApiResponse(true, "Token confirmed successfully!");
         } else {
@@ -228,7 +226,7 @@ public class AuthService {
             appUrl += "oskarro.com";
         }
 
-        authServiceReference.sendEmail("Password Reset Request", emailSender,
+        emailService.sendEmailToUser("Password Reset Request", emailSender,
                 "To reset your password, click the link below:\n" + appUrl
                         + "/changePassword?token=" + confirmationToken.getConfirmationToken(), existingUser.getEmail());
 
@@ -242,7 +240,7 @@ public class AuthService {
             User user = userRepository.findByEmail(confirmationToken.getUser().getEmail()).orElseThrow(
                     () -> new UsernameNotFoundException("User not found with email: " + confirmationToken.getUser().getEmail())
             );
-            authServiceReference.sendEmail("Success confirmation", emailSender,
+            emailService.sendEmailToUser("Success confirmation", emailSender,
                     "Your email has been confirmed!", user.getEmail());
             return new ApiResponse(true, "Token confirmed successfully!");
         }
@@ -257,19 +255,9 @@ public class AuthService {
             throw new InvalidOldPasswordException();
         }
         userDetailsService.changeUserPassword(user, passwordChangeDto.getNewPassword());
-        authServiceReference.sendEmail("Successful password change", emailSender,
+        emailService.sendEmailToUser("Successful password change", emailSender,
                 "Your password has been changed!", user.getEmail());
 
         return new ApiResponse(true, "Password has been changed successfully!");
-    }
-
-    @Async
-    public void sendEmail(String subject, String sender, String text, String recipient) {
-        SimpleMailMessage mailMessage = new SimpleMailMessage();
-        mailMessage.setTo(recipient);
-        mailMessage.setSubject(subject);
-        mailMessage.setFrom(sender);
-        mailMessage.setText(text);
-        emailService.sendEmail(mailMessage);
     }
 }
