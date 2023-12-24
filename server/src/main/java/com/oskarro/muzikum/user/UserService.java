@@ -5,6 +5,8 @@ import java.util.Optional;
 
 public interface UserService {
 
+    List<User> getAllUsers();
+
     User getUserById(Integer userId);
 
     User getUserByUsername(String username);

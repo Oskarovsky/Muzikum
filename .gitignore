@@ -37,3 +37,4 @@ out/
 application.properties
 application.yaml
 *.p12
+/server/logs/

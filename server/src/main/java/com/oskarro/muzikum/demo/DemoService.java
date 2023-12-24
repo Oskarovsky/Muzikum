@@ -20,6 +20,8 @@ import com.oskarro.muzikum.video.Video;
 import com.oskarro.muzikum.video.VideoRepository;
 import com.oskarro.muzikum.voting.Vote;
 import com.oskarro.muzikum.voting.VotingRepository;
+import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -37,50 +39,26 @@ import java.util.HashSet;
  * */
 
 @Service
+@AllArgsConstructor
 public class DemoService {
 
-    public CommentRepository commentRepository;
-    public PostRepository postRepository;
-    public RoleRepository roleRepository;
-    public UserRepository userRepository;
-    public PlaylistRepository playlistRepository;
-    public VideoRepository videoRepository;
-    public TrackRepository trackRepository;
-    public TrackFavoriteRepository favoriteTrackRepository;
-    public VotingRepository votingRepository;
-    public TrackCommentRepository trackCommentRepository;
-    public UserStatisticsRepository userStatisticsRepository;
-    public ArticleImageRepository articleImageRepository;
+    @Value("${user.raw-password}")
+    private static final String rawPassword = "123456";
 
-    public PasswordEncoder encoder;
+    public final CommentRepository commentRepository;
+    public final PostRepository postRepository;
+    public final RoleRepository roleRepository;
+    public final UserRepository userRepository;
+    public final PlaylistRepository playlistRepository;
+    public final VideoRepository videoRepository;
+    public final TrackRepository trackRepository;
+    public final TrackFavoriteRepository favoriteTrackRepository;
+    public final VotingRepository votingRepository;
+    public final TrackCommentRepository trackCommentRepository;
+    public final UserStatisticsRepository userStatisticsRepository;
+    public final ArticleImageRepository articleImageRepository;
+    public final PasswordEncoder encoder;
 
-    public DemoService(CommentRepository commentRepository,
-                       RoleRepository roleRepository,
-                       UserRepository userRepository,
-                       TrackFavoriteRepository trackFavoriteRepository,
-                       VotingRepository votingRepository,
-                       PlaylistRepository playlistRepository,
-                       VideoRepository videoRepository,
-                       UserStatisticsRepository userStatisticsRepository,
-                       PostRepository postRepository,
-                       TrackRepository trackRepository,
-                       TrackCommentRepository trackCommentRepository,
-                       ArticleImageRepository articleImageRepository,
-                       PasswordEncoder encoder) {
-        this.postRepository = postRepository;
-        this.userRepository = userRepository;
-        this.playlistRepository = playlistRepository;
-        this.videoRepository = videoRepository;
-        this.userStatisticsRepository = userStatisticsRepository;
-        this.roleRepository = roleRepository;
-        this.commentRepository = commentRepository;
-        this.favoriteTrackRepository = trackFavoriteRepository;
-        this.articleImageRepository = articleImageRepository;
-        this.votingRepository = votingRepository;
-        this.trackCommentRepository = trackCommentRepository;
-        this.trackRepository = trackRepository;
-        this.encoder = encoder;
-    }
 
     public void createSamples() {
         // USER ROLES CREATOR
@@ -97,7 +75,7 @@ public class DemoService {
                 .id(1)
                 .username("Oskarro")
                 .email("oskar.slyk@gmail.com")
-                .password(encoder.encode("123456"))
+                .password(encoder.encode(rawPassword))
                 .roles(new HashSet<>(Collections.singletonList(roleAdmin)))
                 .provider(AuthProvider.local)
                 .build();
@@ -105,7 +83,7 @@ public class DemoService {
                 .id(2)
                 .username("Jacek")
                 .email("jacek@pw.pl")
-                .password(encoder.encode("123456"))
+                .password(encoder.encode(rawPassword))
                 .roles(new HashSet<>(Collections.singletonList(roleUser)))
                 .provider(AuthProvider.local)
                 .build();
@@ -113,7 +91,7 @@ public class DemoService {
                 .id(3)
                 .username("Gosia")
                 .email("djoskarro@interia.pl")
-                .password(encoder.encode("123456"))
+                .password(encoder.encode(rawPassword))
                 .roles(new HashSet<>(Collections.singletonList(roleUser)))
                 .provider(AuthProvider.local)
                 .build();

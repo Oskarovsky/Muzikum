@@ -1,7 +1,6 @@
 package com.oskarro.muzikum.demo;
 
 import com.oskarro.muzikum.article.comment.CommentRepository;
-import com.oskarro.muzikum.article.post.Post;
 import com.oskarro.muzikum.article.post.PostRepository;
 import com.oskarro.muzikum.playlist.PlaylistRepository;
 import com.oskarro.muzikum.storage.ArticleImageRepository;

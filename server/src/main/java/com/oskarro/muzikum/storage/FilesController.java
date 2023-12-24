@@ -6,6 +6,7 @@ import com.oskarro.muzikum.exception.ResourceNotFoundException;
 import com.oskarro.muzikum.track.TrackRepository;
 import com.oskarro.muzikum.track.model.Track;
 import com.oskarro.muzikum.user.UserRepository;
+import lombok.AllArgsConstructor;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.io.Resource;
@@ -21,16 +22,18 @@ import javax.servlet.ServletContext;
 import javax.transaction.Transactional;
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
 import static java.util.Optional.ofNullable;
 
-@Controller
+@RestController
 @RequestMapping(value = "/api/storage")
 @CrossOrigin
 @Slf4j
+@AllArgsConstructor
 public class FilesController {
 
     /**
@@ -47,24 +50,6 @@ public class FilesController {
     final PostRepository postRepository;
     final ArticleImageRepository articleImageRepository;
 
-    public FilesController(final FilesStorageService filesStorageService,
-                           final ImageRepository imageRepository,
-                           final UserRepository userRepository,
-                           final CoverRepository coverRepository,
-                           final TrackRepository trackRepository,
-                           final ServletContext servletContext,
-                           final PostRepository postRepository,
-                           final ArticleImageRepository articleImageRepository) {
-        this.filesStorageService = filesStorageService;
-        this.imageRepository = imageRepository;
-        this.userRepository = userRepository;
-        this.coverRepository = coverRepository;
-        this.trackRepository = trackRepository;
-        this.servletContext = servletContext;
-        this.postRepository = postRepository;
-        this.articleImageRepository = articleImageRepository;
-    }
-
     @PostMapping(value = "/uploadFile", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE })
     public ResponseEntity<ResponseMessage> uploadFileNew(@RequestPart("file") @Valid @NonNull @NotBlank MultipartFile file,
                                                          @RequestPart("username") @NotBlank String username,
@@ -76,7 +61,7 @@ public class FilesController {
                     .status(HttpStatus.OK)
                     .body(new ResponseMessage(message));
         } catch (Exception e) {
-            String message = "Nie można załadować pliku: " + file.getOriginalFilename() + "!";
+            String message = String.format("Could not upload a file: %s", file.getOriginalFilename());
             log.info(message, e);
             return ResponseEntity
                     .status(HttpStatus.EXPECTATION_FAILED)
@@ -96,7 +81,7 @@ public class FilesController {
                     .status(HttpStatus.OK)
                     .body(new ResponseMessage(message));
         } catch (Exception e) {
-            String message = "Nie można załadować pliku: " + file.getOriginalFilename() + "!";
+            String message = String.format("Could not upload a file: %s", file.getOriginalFilename());
             log.info(message, e);
             return ResponseEntity
                     .status(HttpStatus.EXPECTATION_FAILED)
@@ -116,7 +101,7 @@ public class FilesController {
                     .status(HttpStatus.OK)
                     .body(new ResponseMessage(message));
         } catch (Exception e) {
-            String message = String.format("Nie można załadować pliku: %s.", file.getOriginalFilename());
+            String message = String.format("Could not upload a file: %s", file.getOriginalFilename());
             log.info(message, e);
             return ResponseEntity
                     .status(HttpStatus.EXPECTATION_FAILED)
@@ -125,9 +110,8 @@ public class FilesController {
     }
 
     @GetMapping(value = "/avatar/{username}")
-    @ResponseBody
     @Transactional
-    public ResponseEntity<Resource> getImage(@PathVariable String username) {
+    public ResponseEntity<Resource> getImage(@PathVariable String username) throws IOException {
         Image image = imageRepository.findByUserUsername(username).orElse(null);
         if (image != null) {
             Resource file = filesStorageService
@@ -142,9 +126,8 @@ public class FilesController {
     }
 
     @GetMapping(value = "/cover/{trackId}")
-    @ResponseBody
     @Transactional
-    public ResponseEntity<Resource> getCoverImage(@PathVariable Integer trackId) {
+    public ResponseEntity<Resource> getCoverImage(@PathVariable Integer trackId) throws IOException {
         Optional<Track> track = trackRepository.findById(trackId);
         if (track.isPresent()) {
             Cover cover = coverRepository.findById(track.get().getCover().getId()).orElse(null);
@@ -165,9 +148,8 @@ public class FilesController {
     }
 
     @GetMapping(value = "/article/{articleId}")
-    @ResponseBody
     @Transactional
-    public ResponseEntity<Resource> getArticleImage(@PathVariable Integer articleId) {
+    public ResponseEntity<Resource> getArticleImage(@PathVariable Integer articleId) throws IOException {
         Optional<Post> post = postRepository.findById(articleId);
         if (post.isPresent()) {
             ArticleImage articleImage = articleImageRepository.findByArticleId(articleId);
@@ -188,7 +170,7 @@ public class FilesController {
     }
 
     @GetMapping(value = "/files")
-    public ResponseEntity<List<FileInfo>> getListFiles() {
+    public ResponseEntity<List<FileInfo>> getListFiles() throws IOException {
         List<FileInfo> fileInfos = filesStorageService.loadAll()
                 .map(path -> {
                     String filename = path.getFileName().toString();
@@ -197,7 +179,9 @@ public class FilesController {
                             .build().toString();
                     return new FileInfo(filename, url);
                 })
-                .collect(Collectors.toList());
+                .toList();
         return ResponseEntity.status(HttpStatus.OK).body(fileInfos);
     }
 }
+
+

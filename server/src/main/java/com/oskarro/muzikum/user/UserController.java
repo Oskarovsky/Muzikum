@@ -1,6 +1,8 @@
 package com.oskarro.muzikum.user;
 
 import com.oskarro.muzikum.config.CurrentUser;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -16,6 +18,11 @@ public class UserController {
 
     public UserController(final UserService userService) {
         this.userService = userService;
+    }
+
+    @GetMapping(value = "/all")
+    public List<User> getAllUsers() {
+        return userService.getAllUsers();
     }
 
     @GetMapping(value = "/id/{userId}")
