@@ -61,7 +61,7 @@ public class FilesController {
                     .status(HttpStatus.OK)
                     .body(new ResponseMessage(message));
         } catch (Exception e) {
-            String message = "Nie można załadować pliku: " + file.getOriginalFilename() + "!";
+            String message = String.format("Could not upload a file: %s", file.getOriginalFilename());
             log.info(message, e);
             return ResponseEntity
                     .status(HttpStatus.EXPECTATION_FAILED)
@@ -81,7 +81,7 @@ public class FilesController {
                     .status(HttpStatus.OK)
                     .body(new ResponseMessage(message));
         } catch (Exception e) {
-            String message = "Nie można załadować pliku: " + file.getOriginalFilename() + "!";
+            String message = String.format("Could not upload a file: %s", file.getOriginalFilename());
             log.info(message, e);
             return ResponseEntity
                     .status(HttpStatus.EXPECTATION_FAILED)
@@ -101,7 +101,7 @@ public class FilesController {
                     .status(HttpStatus.OK)
                     .body(new ResponseMessage(message));
         } catch (Exception e) {
-            String message = String.format("Nie można załadować pliku: %s.", file.getOriginalFilename());
+            String message = String.format("Could not upload a file: %s", file.getOriginalFilename());
             log.info(message, e);
             return ResponseEntity
                     .status(HttpStatus.EXPECTATION_FAILED)

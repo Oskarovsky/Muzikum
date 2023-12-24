@@ -1,9 +1,8 @@
 package com.oskarro.muzikum.storage;
 
-import com.oskarro.muzikum.track.TrackRepository;
 import com.oskarro.muzikum.user.User;
 import com.oskarro.muzikum.user.UserRepository;
-import lombok.RequiredArgsConstructor;
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
@@ -28,7 +27,7 @@ import static java.util.Optional.ofNullable;
 
 @Service
 @Slf4j
-@RequiredArgsConstructor
+@AllArgsConstructor
 public class FilesStorageServiceImpl implements FilesStorageService {
 
     UserRepository userRepository;
