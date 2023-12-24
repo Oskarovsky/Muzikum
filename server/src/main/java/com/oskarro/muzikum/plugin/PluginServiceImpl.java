@@ -40,7 +40,6 @@ public class PluginServiceImpl implements PluginService {
         script.append(response.getHash());
         script.append("?width=1000&autoplay=false&date=");
         script.append(response.getUploadDate());
-        System.out.println(script);
         log.info(script.toString());
         return String.valueOf(script);
     }

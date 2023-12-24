@@ -56,12 +56,10 @@ public class OAuth2AuthenticationSuccessHandler extends SimpleUrlAuthenticationS
         }
 
         clearAuthenticationAttributes(request, response);
-        System.out.println("REQUEST - " + request);
-        System.out.println("RESPONSE - " + response);
-        System.out.println("TARGET_UTL - " + targetUrl);
         getRedirectStrategy().sendRedirect(request, response, targetUrl);
     }
 
+    @Override
     protected String determineTargetUrl(HttpServletRequest request, HttpServletResponse response, Authentication authentication) {
         Optional<String> redirectUri = CookieUtils
                 .getCookie(request, REDIRECT_URI_PARAM_COOKIE_NAME)
@@ -72,11 +70,7 @@ public class OAuth2AuthenticationSuccessHandler extends SimpleUrlAuthenticationS
         }
 
         String targetUrl = redirectUri.orElse("https://localhost:4200/oauth2/redirect/");
-        System.out.println("TAR " + targetUrl);
-        System.out.println("DEFAULT " + getDefaultTargetUrl());
-
         String token = jwtTokenProvider.generateJwtToken(authentication);
-        System.out.println(token);
 
         return UriComponentsBuilder.fromUriString(targetUrl)
                 .queryParam("token", token)

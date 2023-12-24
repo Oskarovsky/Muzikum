@@ -1,7 +1,5 @@
 package com.oskarro.muzikum.article.post;
 
-import com.oskarro.muzikum.user.User;
-
 import java.util.List;
 import java.util.Optional;
 

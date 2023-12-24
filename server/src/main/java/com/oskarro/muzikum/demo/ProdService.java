@@ -16,6 +16,7 @@ import com.oskarro.muzikum.video.Category;
 import com.oskarro.muzikum.video.Video;
 import com.oskarro.muzikum.video.VideoRepository;
 import com.oskarro.muzikum.voting.VotingRepository;
+import lombok.AllArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -24,50 +25,24 @@ import java.util.Collections;
 import java.util.HashSet;
 
 @Service
+@AllArgsConstructor
 public class ProdService {
 
-    public CommentRepository commentRepository;
-    public PostRepository postRepository;
-    public RoleRepository roleRepository;
-    public UserRepository userRepository;
-    public PlaylistRepository playlistRepository;
-    public VideoRepository videoRepository;
-    public TrackRepository trackRepository;
-    public TrackFavoriteRepository favoriteTrackRepository;
-    public VotingRepository votingRepository;
-    public TrackCommentRepository trackCommentRepository;
-    public UserStatisticsRepository userStatisticsRepository;
-    public ArticleImageRepository articleImageRepository;
+    public final CommentRepository commentRepository;
+    public final PostRepository postRepository;
+    public final RoleRepository roleRepository;
+    public final UserRepository userRepository;
+    public final PlaylistRepository playlistRepository;
+    public final VideoRepository videoRepository;
+    public final TrackRepository trackRepository;
+    public final TrackFavoriteRepository favoriteTrackRepository;
+    public final VotingRepository votingRepository;
+    public final TrackCommentRepository trackCommentRepository;
+    public final UserStatisticsRepository userStatisticsRepository;
+    public final ArticleImageRepository articleImageRepository;
 
-    public PasswordEncoder encoder;
+    public final PasswordEncoder encoder;
 
-    public ProdService(CommentRepository commentRepository,
-                       RoleRepository roleRepository,
-                       UserRepository userRepository,
-                       TrackFavoriteRepository trackFavoriteRepository,
-                       VotingRepository votingRepository,
-                       PlaylistRepository playlistRepository,
-                       VideoRepository videoRepository,
-                       UserStatisticsRepository userStatisticsRepository,
-                       PostRepository postRepository,
-                       TrackRepository trackRepository,
-                       TrackCommentRepository trackCommentRepository,
-                       ArticleImageRepository articleImageRepository,
-                       PasswordEncoder encoder) {
-        this.postRepository = postRepository;
-        this.userRepository = userRepository;
-        this.playlistRepository = playlistRepository;
-        this.videoRepository = videoRepository;
-        this.userStatisticsRepository = userStatisticsRepository;
-        this.roleRepository = roleRepository;
-        this.commentRepository = commentRepository;
-        this.favoriteTrackRepository = trackFavoriteRepository;
-        this.articleImageRepository = articleImageRepository;
-        this.votingRepository = votingRepository;
-        this.trackCommentRepository = trackCommentRepository;
-        this.trackRepository = trackRepository;
-        this.encoder = encoder;
-    }
 
     public void createInitData() {
         // USER ROLES CREATOR

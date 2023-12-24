@@ -1,5 +1,6 @@
 package com.oskarro.muzikum.playlist;
 
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -10,13 +11,10 @@ import java.util.stream.Collectors;
 
 @Service
 @Transactional
+@AllArgsConstructor
 public class PlaylistServiceImpl implements PlaylistService {
 
     PlaylistRepository playlistRepository;
-
-    public PlaylistServiceImpl(PlaylistRepository playlistRepository) {
-        this.playlistRepository = playlistRepository;
-    }
 
     @Override
     public List<Playlist> getAllPlaylist() {
@@ -60,7 +58,7 @@ public class PlaylistServiceImpl implements PlaylistService {
                 .stream()
                 .limit(numberOfPlaylists)
                 .filter(Objects::nonNull)
-                .collect(Collectors.toList());
+                .toList();
     }
 
 }

@@ -4,6 +4,7 @@ import com.oskarro.muzikum.track.model.Track;
 import com.oskarro.muzikum.track.model.TrackComment;
 import com.oskarro.muzikum.track.model.TrackPageResponse;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
@@ -13,7 +14,7 @@ public interface TrackService {
 
     Optional<Track> findById(Integer id);
 
-    Track saveTrack(Track track);
+    Track saveTrack(Track track) throws IOException;
 
     List<Track> findTracksByGenre(String genre);
 

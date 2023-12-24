@@ -1,5 +1,6 @@
 package com.oskarro.muzikum.article.post;
 
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -8,13 +9,10 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
+@AllArgsConstructor
 public class PostServiceImpl implements PostService {
 
     PostRepository postRepository;
-
-    public PostServiceImpl(PostRepository postRepository) {
-        this.postRepository = postRepository;
-    }
 
     @Override
     public List<Post> getAllPosts() {
@@ -48,6 +46,6 @@ public class PostServiceImpl implements PostService {
                 .stream()
                 .limit(numberOfPosts)
                 .filter(Objects::nonNull)
-                .collect(Collectors.toList());
+                .toList();
     }
 }

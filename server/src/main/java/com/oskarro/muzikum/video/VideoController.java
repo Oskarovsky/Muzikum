@@ -1,14 +1,13 @@
 package com.oskarro.muzikum.video;
 
 import com.oskarro.muzikum.playlist.Playlist;
-import com.oskarro.muzikum.track.model.Track;
 import com.oskarro.muzikum.track.TrackService;
+import com.oskarro.muzikum.track.model.Track;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.xml.bind.ValidationException;
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping(value = "/api/video")

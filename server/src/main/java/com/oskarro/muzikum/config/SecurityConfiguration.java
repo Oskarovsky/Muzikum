@@ -2,6 +2,7 @@ package com.oskarro.muzikum.config;
 
 import com.oskarro.muzikum.security.jwt.JwtAuthenticationEntryPoint;
 import com.oskarro.muzikum.security.jwt.JwtAuthenticationFilter;
+import com.oskarro.muzikum.security.jwt.JwtTokenProvider;
 import com.oskarro.muzikum.security.oauth2.*;
 import com.oskarro.muzikum.user.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -65,13 +66,17 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
      * */
     private final JwtAuthenticationEntryPoint unauthorizedHandler;
 
+    private final JwtTokenProvider jwtTokenProvider;
+
 
 
     public SecurityConfiguration(UserDetailsServiceImpl userDetailsService,
+                                 JwtTokenProvider jwtTokenProvider,
                                  JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint,
                                  OAuth2AuthenticationSuccessHandler oAuth2AuthenticationSuccessHandler,
                                  OAuth2AuthenticationFailureHandler oAuth2AuthenticationFailureHandler) {
         this.userDetailsService = userDetailsService;
+        this.jwtTokenProvider = jwtTokenProvider;
         this.unauthorizedHandler = jwtAuthenticationEntryPoint;
         this.oAuth2AuthenticationSuccessHandler = oAuth2AuthenticationSuccessHandler;
         this.oAuth2AuthenticationFailureHandler = oAuth2AuthenticationFailureHandler;
@@ -82,7 +87,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
      * */
     @Bean
     public JwtAuthenticationFilter authenticationJwtTokenFilter() {
-        return new JwtAuthenticationFilter();
+        return new JwtAuthenticationFilter(jwtTokenProvider, userDetailsService);
     }
 
 

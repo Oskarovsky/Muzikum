@@ -25,7 +25,6 @@ public class MetricController {
      * Response body contains information about the number of returned statuses
      * */
     @GetMapping(value = "/status-metric")
-    @ResponseBody
     public Map<Integer, Integer> getStatusMetric() {
         return metricService.getStatusMetric();
     }
@@ -34,7 +33,6 @@ public class MetricController {
      * Response body contains query counter for individual endpoints
      * */
     @GetMapping(value = "/metric")
-    @ResponseBody
     public Map<String, ConcurrentHashMap<Integer, Integer>> getMetric() {
         return metricService.getFullMetric();
     }
@@ -43,7 +41,6 @@ public class MetricController {
      * Response body contains metrics data which can be used in gui
      * */
     @GetMapping(value = "/metric-data")
-    @ResponseBody
     public Object[][] getMetricData() {
         return metricService.getGraphData();
     }

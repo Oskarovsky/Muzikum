@@ -1,7 +1,6 @@
 package com.oskarro.muzikum.article.post;
 
 import com.oskarro.muzikum.exception.ResourceNotFoundException;
-import com.oskarro.muzikum.user.User;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;

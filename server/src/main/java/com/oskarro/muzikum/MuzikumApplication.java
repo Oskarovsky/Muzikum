@@ -76,11 +76,9 @@ public class MuzikumApplication implements CommandLineRunner {
         File file = new File(directoryPath);
         if (!file.exists()) {
             if (file.mkdir()) {
-                System.out.printf("Directory %s has been created created!\n", directoryPath);
-                logger.info("Directory is created!");
+                logger.info("Directory {} has been created created", directoryPath);
             } else {
-                logger.info("Failed to create directory!");
-                System.out.printf("Failed to create directory %s!\n", directoryPath);
+                logger.info("Failed to create directory {}!", directoryPath);
             }
         }
     }

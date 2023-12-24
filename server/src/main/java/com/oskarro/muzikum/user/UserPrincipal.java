@@ -7,6 +7,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 
+import java.io.Serial;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
@@ -27,16 +28,17 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 public class UserPrincipal implements UserDetails, OAuth2User {
 
+    @Serial
     private static final long serialVersionUID = 1L;
 
-    final private Integer id;
-    final private String username;
-    final private String email;
+    private final Integer id;
+    private final String username;
+    private final String email;
 
     @JsonIgnore
-    final private String password;
+    private final String password;
 
-    final private Collection<? extends GrantedAuthority> authorities;
+    private final Collection<? extends GrantedAuthority> authorities;
 
     private Map<String, Object> attributes;
 

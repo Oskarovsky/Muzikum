@@ -7,7 +7,6 @@ import com.oskarro.muzikum.record.Record;
 import com.oskarro.muzikum.storage.Cover;
 import com.oskarro.muzikum.user.User;
 import com.oskarro.muzikum.utils.DateAudit;
-import com.oskarro.muzikum.video.Video;
 import lombok.*;
 
 import javax.persistence.*;

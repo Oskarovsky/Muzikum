@@ -15,6 +15,8 @@ import com.oskarro.muzikum.user.User;
 import com.oskarro.muzikum.user.UserRepository;
 import com.oskarro.muzikum.video.Video;
 import com.oskarro.muzikum.video.VideoRepository;
+import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.json.simple.parser.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -30,40 +32,21 @@ import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+@Slf4j
 @Service
 @Transactional
+@AllArgsConstructor
 public class TrackServiceImpl implements TrackService {
 
     @PersistenceContext
     EntityManager entityManager;
 
     private final TrackRepository trackRepository;
-    private final UserRepository userRepository;
     private final TrackCommentRepository trackCommentRepository;
     private final PluginService pluginService;
     private final CoverRepository coverRepository;
-    private final ImageRepository imageRepository;
-    private final PlaylistRepository playlistRepository;
     private final VideoRepository videoRepository;
 
-    public TrackServiceImpl(final TrackRepository trackRepository,
-                            final UserRepository userRepository,
-                            final PluginService pluginService,
-                            final TrackCommentRepository trackCommentRepository,
-                            final ImageRepository imageRepository,
-                            final PlaylistRepository playlistRepository,
-                            final VideoRepository videoRepository,
-                            final CoverRepository coverRepository) {
-        super();
-        this.trackRepository = trackRepository;
-        this.userRepository = userRepository;
-        this.trackCommentRepository = trackCommentRepository;
-        this.pluginService = pluginService;
-        this.imageRepository = imageRepository;
-        this.coverRepository = coverRepository;
-        this.videoRepository = videoRepository;
-        this.playlistRepository = playlistRepository;
-    }
 
     @Override
     @Transactional(readOnly = true)
@@ -79,16 +62,14 @@ public class TrackServiceImpl implements TrackService {
 
     @Override
     @Transactional
-    public Track saveTrack(Track track) {
+    public Track saveTrack(Track track) throws IOException {
+        log.info("Saving new track to database: {}", track);
         if (!Objects.equals(track.getUrl(), "")) {
             try {
                 if (Objects.equals(track.getUrlSource(), UrlSource.KRAKENFILES.toString())) {
                     String jsonUrl = pluginService.getJsonUrlFromWebsiteUrl(track.getUrl());
                     PluginKrakenResponse response = pluginService.readJsonFromKrakenFiles(jsonUrl);
                     String pluginScript = pluginService.prepareScriptForKrakenfiles(response);
-                    track.setUrlPlugin(pluginScript);
-                } else if (Objects.equals(track.getUrlSource(), UrlSource.ZIPPYSHARE.toString())) {
-                    String pluginScript = pluginService.prepareScriptForZippyshare(track.getUrl());
                     track.setUrlPlugin(pluginScript);
                 } else if (Objects.equals(track.getUrlSource(), UrlSource.SOUNDCLOUD.toString())) {
                     // TODO SOUNDCLOUD
@@ -98,7 +79,7 @@ public class TrackServiceImpl implements TrackService {
                     track.setCover(cover);
                 }
             } catch (IOException | ParseException e) {
-                e.printStackTrace();
+                throw new IOException("Could not save track in database", e);
             }
         }
         return trackRepository.save(track);
@@ -151,7 +132,7 @@ public class TrackServiceImpl implements TrackService {
                 .filter(track -> track.getPoints() != null)
                 .sorted(Comparator.comparingInt(Track::getPoints).reversed())
                 .limit(numberOfTracks)
-                .collect(Collectors.toList());
+                .toList();
     }
 
     @Override
@@ -161,7 +142,7 @@ public class TrackServiceImpl implements TrackService {
                 .stream()
                 .limit(numberOfTracks)
                 .filter(Objects::nonNull)
-                .collect(Collectors.toList());
+                .toList();
     }
 
     @Override
@@ -171,7 +152,7 @@ public class TrackServiceImpl implements TrackService {
                 .stream()
                 .limit(numberOfTracks)
                 .filter(Objects::nonNull)
-                .collect(Collectors.toList());
+                .toList();
     }
 
     @Override
@@ -182,7 +163,7 @@ public class TrackServiceImpl implements TrackService {
         return fetchedTracks
                 .stream()
                 .filter(Objects::nonNull)
-                .collect(Collectors.toList());
+                .toList();
     }
 
     @Override
@@ -194,7 +175,7 @@ public class TrackServiceImpl implements TrackService {
                                     .stream()
                                     .filter(Objects::nonNull)
                                     .filter(t -> t.getUrl() != null)
-                                    .collect(Collectors.toList());
+                                    .toList();
         return TrackPageResponse.builder()
                 .trackList(trackList)
                 .totalPages(fetchedTracks.getTotalPages())
@@ -210,7 +191,7 @@ public class TrackServiceImpl implements TrackService {
         List<Track> trackList = fetchedTracks
                                     .stream()
                                     .filter(Objects::nonNull)
-                                    .collect(Collectors.toList());
+                                    .toList();
         return TrackPageResponse.builder()
                 .trackList(trackList)
                 .totalPages(fetchedTracks.getTotalPages())

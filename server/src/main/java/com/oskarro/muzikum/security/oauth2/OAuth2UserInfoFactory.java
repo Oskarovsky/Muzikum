@@ -2,6 +2,8 @@ package com.oskarro.muzikum.security.oauth2;
 
 import com.oskarro.muzikum.exception.OAuth2AuthenticationProcessingException;
 import com.oskarro.muzikum.user.AuthProvider;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 
 import java.util.Map;
 

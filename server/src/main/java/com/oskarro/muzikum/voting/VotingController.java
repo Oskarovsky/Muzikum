@@ -58,7 +58,7 @@ public class VotingController {
                         .map(t -> trackService.findById(t.getTrack().getId()))
                         .filter(Optional::isPresent)
                         .map(Optional::get)
-                        .collect(Collectors.toList()),
+                        .toList(),
                 HttpStatus.OK);
     }
 
@@ -72,7 +72,7 @@ public class VotingController {
                         .filter(Optional::isPresent)
                         .map(Optional::get)
                         .map(Track::getId)
-                        .collect(Collectors.toList()),
+                        .toList(),
                 HttpStatus.OK);
     }
 

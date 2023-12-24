@@ -7,7 +7,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,9 +18,9 @@ import java.util.stream.Collectors;
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService, UserService {
 
-    private final static String WEEKLY_PERIOD = "week";
-    private final static String MONTHLY_PERIOD = "month";
-    private final static String TOTAL_PERIOD = "total";
+    private static final String WEEKLY_PERIOD = "week";
+    private static final String MONTHLY_PERIOD = "month";
+    private static final String TOTAL_PERIOD = "total";
 
     private final UserRepository userRepository;
     private final UserStatisticsRepository userStatisticsRepository;
@@ -152,15 +151,15 @@ public class UserDetailsServiceImpl implements UserDetailsService, UserService {
         switch (periodOfTime) {
             case TOTAL_PERIOD -> {
                 List<User> userList = userStatisticsRepository.findTotalTopUploaders();
-                return userList.stream().limit(numberOfUser).collect(Collectors.toList());
+                return userList.stream().limit(numberOfUser).toList();
             }
             case MONTHLY_PERIOD -> {
                 List<User> userList = userStatisticsRepository.findMonthlyTopUploaders();
-                return userList.stream().limit(numberOfUser).collect(Collectors.toList());
+                return userList.stream().limit(numberOfUser).toList();
             }
             case WEEKLY_PERIOD -> {
                 List<User> userList = userStatisticsRepository.findWeeklyTopUploaders();
-                return userList.stream().limit(numberOfUser).collect(Collectors.toList());
+                return userList.stream().limit(numberOfUser).toList();
             }
             default -> throw new RuntimeException("Period of time hasn't been declared");
         }
@@ -181,17 +180,17 @@ public class UserDetailsServiceImpl implements UserDetailsService, UserService {
         switch (periodOfTime) {
             case TOTAL_PERIOD -> {
                 return userStatisticsRepository.findByUserId(userId)
-                        .orElseThrow(() -> new ResourceNotFoundException("User stats", "userId", userId))
+                        .orElseThrow(() -> new ResourceNotFoundException("Total user stats", "userId", userId))
                         .getTotalUpload();
             }
             case MONTHLY_PERIOD -> {
                 return userStatisticsRepository.findByUserId(userId)
-                        .orElseThrow(() -> new ResourceNotFoundException("User stats", "userId", userId))
+                        .orElseThrow(() -> new ResourceNotFoundException("Monthly user stats", "userId", userId))
                         .getMonthUpload();
             }
             case WEEKLY_PERIOD -> {
                 return userStatisticsRepository.findByUserId(userId)
-                        .orElseThrow(() -> new ResourceNotFoundException("User stats", "userId", userId))
+                        .orElseThrow(() -> new ResourceNotFoundException("Weekly user stats", "userId", userId))
                         .getWeekUpload();
             }
             default -> throw new RuntimeException("User stats for user with id " + userId + " not found");
@@ -204,17 +203,17 @@ public class UserDetailsServiceImpl implements UserDetailsService, UserService {
         switch (periodOfTime) {
             case TOTAL_PERIOD -> {
                 return userStatisticsRepository.findByUserUsername(username)
-                        .orElseThrow(() -> new ResourceNotFoundException("User stats", "userId", username))
+                        .orElseThrow(() -> new ResourceNotFoundException("Total user stats", "username", username))
                         .getTotalUpload();
             }
             case MONTHLY_PERIOD -> {
                 return userStatisticsRepository.findByUserUsername(username)
-                        .orElseThrow(() -> new ResourceNotFoundException("User stats", "userId", username))
+                        .orElseThrow(() -> new ResourceNotFoundException("Monthly user stats", "username", username))
                         .getMonthUpload();
             }
             case WEEKLY_PERIOD -> {
                 return userStatisticsRepository.findByUserUsername(username)
-                        .orElseThrow(() -> new ResourceNotFoundException("User stats", "userId", username))
+                        .orElseThrow(() -> new ResourceNotFoundException("Weekly user stats", "username", username))
                         .getWeekUpload();
             }
             default -> throw new RuntimeException("User stats for user with username " + username + " not found");

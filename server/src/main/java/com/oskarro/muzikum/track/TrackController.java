@@ -4,6 +4,8 @@ import com.oskarro.muzikum.track.model.Track;
 import com.oskarro.muzikum.track.model.TrackComment;
 import com.oskarro.muzikum.track.model.TrackPageResponse;
 import com.oskarro.muzikum.user.UserService;
+import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,12 +17,15 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 
 import javax.xml.bind.ValidationException;
+import java.io.IOException;
 import java.util.*;
 import java.util.stream.Collectors;
 
+@Slf4j
 @RestController
 @RequestMapping(value = "/api/tracks")
 @CrossOrigin
+@AllArgsConstructor
 public class TrackController {
 
     private final TrackService trackService;
@@ -29,21 +34,9 @@ public class TrackController {
     private final TrackDao trackDao;
     private final UserService userService;
 
-    public TrackController(TrackService trackService,
-                           TrackRepository trackRepository,
-                           TrackFavoriteService trackFavoriteService,
-                           TrackDao trackDao,
-                           UserService userService) {
-        this.trackService = trackService;
-        this.trackRepository = trackRepository;
-        this.trackFavoriteService = trackFavoriteService;
-        this.trackDao = trackDao;
-        this.userService = userService;
-    }
-
     @GetMapping
     @Transactional
-    List<Track> findAll() {
+    public List<Track> findAll() {
         return trackDao.findAll();
     }
 
@@ -54,7 +47,7 @@ public class TrackController {
 
     @PostMapping
     public void addTrack(@RequestBody Track track,
-                         BindingResult bindingResult) throws ValidationException {
+                         BindingResult bindingResult) throws ValidationException, IOException {
         if (bindingResult.hasErrors()) {
             throw new ValidationException("There are a problem with binding");
         }
@@ -62,7 +55,8 @@ public class TrackController {
             userService.updateUserStatistics(track.getUser());
         }
         track.setPoints(0);
-        trackService.saveTrack(track);
+        Track savedTrack = trackService.saveTrack(track);
+        log.info("New track has been saved in database: {}", savedTrack);
     }
 
     @GetMapping(value = "/genre/{genre}")
@@ -183,7 +177,7 @@ public class TrackController {
                 .map(t -> trackService.findById(t.getTrack().getId()))
                 .filter(Optional::isPresent)
                 .map(Optional::get)
-                .collect(Collectors.toList());
+                .toList();
     }
 
     @GetMapping(value = "/favorites/user/{username}/ids")
@@ -194,6 +188,6 @@ public class TrackController {
                 .filter(Optional::isPresent)
                 .map(Optional::get)
                 .map(Track::getId)
-                .collect(Collectors.toList());
+                .toList();
     }
 }

@@ -7,8 +7,6 @@ import com.oskarro.muzikum.playlist.PlaylistService;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.annotation.SessionScope;
 
-import java.util.concurrent.atomic.AtomicInteger;
-
 @Component
 @SessionScope
 public class SessionComponent {
