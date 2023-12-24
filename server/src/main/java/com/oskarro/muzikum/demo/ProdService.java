@@ -86,7 +86,7 @@ public class ProdService {
                 .email("oskar.slyk@gmail.com")
                 .password(encoder.encode("123456"))
                 .roles(new HashSet<>(Collections.singletonList(roleAdmin)))
-                .provider(AuthProvider.LOCAL)
+                .provider(AuthProvider.local)
                 .build();
         User userJacek = User.builder()
                 .id(2)
@@ -94,7 +94,7 @@ public class ProdService {
                 .email("jacek@pw.pl")
                 .password(encoder.encode("123456"))
                 .roles(new HashSet<>(Collections.singletonList(roleUser)))
-                .provider(AuthProvider.LOCAL)
+                .provider(AuthProvider.local)
                 .build();
         User userGosia = User.builder()
                 .id(3)
@@ -102,7 +102,7 @@ public class ProdService {
                 .email("djoskarro@interia.pl")
                 .password(encoder.encode("123456"))
                 .roles(new HashSet<>(Collections.singletonList(roleUser)))
-                .provider(AuthProvider.LOCAL)
+                .provider(AuthProvider.local)
                 .build();
 
         userRepository.saveAll(Arrays.asList(userAdmin, userJacek, userGosia));

@@ -1,11 +1,9 @@
 package com.oskarro.muzikum.service;
 
 import com.oskarro.muzikum.exception.ResourceNotFoundException;
-import com.oskarro.muzikum.security.jwt.JwtAuthenticationFilter;
 import com.oskarro.muzikum.video.Video;
 import com.oskarro.muzikum.video.VideoRepository;
 import com.oskarro.muzikum.video.VideoService;
-import groovy.util.logging.Slf4j;
 import org.apache.commons.io.IOUtils;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;

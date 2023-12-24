@@ -3,6 +3,7 @@ package com.oskarro.muzikum.storage;
 import com.oskarro.muzikum.track.TrackRepository;
 import com.oskarro.muzikum.user.User;
 import com.oskarro.muzikum.user.UserRepository;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
@@ -15,6 +16,7 @@ import javax.transaction.Transactional;
 import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
+import java.nio.file.FileAlreadyExistsException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -26,55 +28,45 @@ import static java.util.Optional.ofNullable;
 
 @Service
 @Slf4j
+@RequiredArgsConstructor
 public class FilesStorageServiceImpl implements FilesStorageService {
 
     UserRepository userRepository;
     ImageRepository imageRepository;
-    TrackRepository trackRepository;
     CoverRepository coverRepository;
     ArticleImageRepository articleImageRepository;
-
-    public FilesStorageServiceImpl(UserRepository userRepository,
-                                   ImageRepository imageRepository,
-                                   TrackRepository trackRepository,
-                                   CoverRepository coverRepository,
-                                   ArticleImageRepository articleImageRepository) {
-        this.userRepository = userRepository;
-        this.imageRepository = imageRepository;
-        this.trackRepository = trackRepository;
-        this.coverRepository = coverRepository;
-        this.articleImageRepository = articleImageRepository;
-    }
-
 
     private final Path rootPath = Paths.get("/mnt/backend/uploads");
     private final Path userRootPath = Paths.get("/mnt/backend/uploads/user");
     private final Path coverRootPath = Paths.get("/mnt/backend/uploads/cover");
     private final Path articleRootPath = Paths.get("/mnt/backend/uploads/article");
 
+    private final Random random = new Random();
+
     @Override
-    public void init() {
+    public void init() throws IOException {
         try {
-            log.info("INIT DIRECTORIES");
+            log.info("INIT DIRECTORIES FOR STORING IMAGES...");
             Files.createDirectory(rootPath);
             Files.createDirectory(userRootPath);
             Files.createDirectory(coverRootPath);
             Files.createDirectory(articleRootPath);
+        } catch (FileAlreadyExistsException e) {
+            log.info("Could not initialize folders for uploading files, because it already exists.");
         } catch (IOException e) {
-            log.info("Could not initialize folder for upload!", e);
-            throw new RuntimeException("Could not initialize folder for upload!");
+            throw new IOException("Could not initialize folder for upload!", e);
         }
     }
 
     @Transactional
     @Override
-    public void save(final MultipartFile file, final String username, final String destination) {
+    public void save(final MultipartFile file, final String username, final String destination) throws IOException {
         try {
             String targetFilename = saveImageFile(file, FileResourceType.USER_IMAGE, username);
             User user = userRepository.findByUsername(username)
                     .orElseThrow(() -> new UsernameNotFoundException("User not found with username or email:" + username));
 
-            if (imageRepository.existsByUserId(user.getId())) {
+            if (Boolean.TRUE.equals(imageRepository.existsByUserId(user.getId()))) {
                 imageRepository.deleteByUserId(user.getId());
             }
 
@@ -86,16 +78,15 @@ public class FilesStorageServiceImpl implements FilesStorageService {
                     .pic(file.getBytes())
                     .build();
             imageRepository.save(image);
-            System.out.println("Image saved");
-        } catch (Exception e) {
-            log.info("Could not store the file. Error: ", e);
-            throw new RuntimeException("Could not store the file. Error: " + e.getMessage());
+            log.info("Image saved for user {}", user);
+        } catch (IOException e) {
+            throw new IOException("Could not store the file. Error: " + e.getMessage());
         }
     }
 
     @Transactional
     @Override
-    public void saveCover(final MultipartFile file, final String username, final String trackUrl) {
+    public void saveCover(final MultipartFile file, final String username, final String trackUrl) throws IOException {
         try {
             String targetFilename = saveImageFile(file, FileResourceType.COVER_IMAGE, trackUrl);
             Cover cover = Cover.builder()
@@ -105,23 +96,20 @@ public class FilesStorageServiceImpl implements FilesStorageService {
                     .pic(file.getBytes())
                     .build();
             coverRepository.save(cover);
-            System.out.println("Cover saved for track from url: " + trackUrl);
-        } catch (Exception e) {
-            log.info("Could not store the file.", e);
-            throw new RuntimeException("Could not store the file. Error: " + e.getMessage());
+            log.info("Cover saved for track from url: {}", trackUrl);
+        } catch (IOException e) {
+            log.info("Could not store the cover file for track with url: {}", trackUrl, e);
+            throw new IOException("Could not store the cover file for track with url " + trackUrl, e);
         }
     }
 
     @Transactional
     @Override
-    public void saveArticleImage(final MultipartFile file, final String username, final Integer articleId) {
+    public void saveArticleImage(final MultipartFile file, final String username, final Integer articleId) throws IOException {
         try {
             String targetFilename = saveImageFile(file, FileResourceType.ARTICLE_IMAGE, articleId);
             ofNullable(articleImageRepository.findByArticleId(articleId))
-                    .ifPresent(s -> {
-                        log.info(String.format("Image already exists for post with id %s", articleId));
-                        throw new RuntimeException(String.format("Image already exists for post with id %s", articleId));
-                    });
+                    .ifPresent(s -> log.info("Image already exists for post with id {}", articleId));
 
             ArticleImage image = ArticleImage.builder()
                     .name(targetFilename)
@@ -130,14 +118,13 @@ public class FilesStorageServiceImpl implements FilesStorageService {
                     .articleId(articleId)
                     .build();
             articleImageRepository.save(image);
-            System.out.println("Article image saved to database");
+            log.info("Image saved to database for article with id {}", articleId);
         } catch (IOException e) {
-            log.info("Could not save article image to database", e);
-            e.printStackTrace();
+            throw new IOException("Could not save image to database for article with id " + articleId, e);
         }
     }
 
-    public String saveImageFile(final MultipartFile file, final FileResourceType type, final Object discriminator) {
+    public String saveImageFile(final MultipartFile file, final FileResourceType type, final Object discriminator) throws IOException {
         Path directoryPath;
         String targetFilename;
         String suffix = Objects.requireNonNull(file.getOriginalFilename()).substring(file.getOriginalFilename().lastIndexOf("."));
@@ -150,7 +137,7 @@ public class FilesStorageServiceImpl implements FilesStorageService {
                 }
                 case COVER_IMAGE -> {
                     File fileCoverImage = new File("/mnt/backend/uploads/cover");
-                    targetFilename = String.format("coverImage_%s%s", new Random().nextInt(999999999), suffix);
+                    targetFilename = String.format("coverImage_%s%s", random.nextInt(999999999), suffix);
                     Files.copy(file.getInputStream(), Path.of(fileCoverImage.toPath() + "/" + targetFilename));
                 }
                 case USER_IMAGE -> {
@@ -168,45 +155,45 @@ public class FilesStorageServiceImpl implements FilesStorageService {
             }
             return targetFilename;
         } catch (IOException e) {
-            e.printStackTrace();
-            log.info("Could not save file!", e);
-            throw new RuntimeException("Could not save file!");
+            throw new IOException("Could not save file!", e);
         }
     }
 
     @Override
-    public Resource loadImage(final String filename, final Object discriminator, final FileResourceType type) {
+    public Resource loadImage(final String filename, final Object discriminator, final FileResourceType type) throws IOException {
         try {
-            String directoryPath;
-            switch (type) {
-                case ARTICLE_IMAGE -> directoryPath = articleRootPath.toString();
-                case COVER_IMAGE -> directoryPath = coverRootPath.toString();
-                case USER_IMAGE -> directoryPath = userRootPath + "/" + discriminator;
-                default -> directoryPath = rootPath.toString();
-            }
-            File fileImage = new File(directoryPath + "/" + filename);
-            Resource resource = new UrlResource(fileImage.toURI());
+            Resource resource = getImageFromResource(filename, discriminator, type);
             if (resource.exists() || resource.isReadable()) {
                 return resource;
             } else {
-                log.info("Could not read file!");
-                throw new RuntimeException("Could not read the file!");
+                throw new IOException("Could not read the file!");
             }
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
+        } catch (IOException e) {
             log.info("Could not read the file!", e);
-            throw new RuntimeException("Could not read the file!");
+            throw new IOException("Could not read the file!", e);
         }
     }
 
+    private Resource getImageFromResource(String filename, Object discriminator, FileResourceType type) throws MalformedURLException {
+        String directoryPath;
+        switch (type) {
+            case ARTICLE_IMAGE -> directoryPath = articleRootPath.toString();
+            case COVER_IMAGE -> directoryPath = coverRootPath.toString();
+            case USER_IMAGE -> directoryPath = userRootPath + "/" + discriminator;
+            default -> directoryPath = rootPath.toString();
+        }
+        File fileImage = new File(directoryPath + "/" + filename);
+        return new UrlResource(fileImage.toURI());
+    }
+
     @Override
-    public Stream<Path> loadAll() {
+    public Stream<Path> loadAll() throws IOException {
         try {
             return Files.walk(this.rootPath, 1)
                     .filter(path -> !path.equals(this.rootPath))
                     .map(this.rootPath::relativize);
         } catch (IOException e) {
-            throw new RuntimeException("Could not load the files!");
+            throw new IOException("Could not load the files!", e);
         }
     }
 }

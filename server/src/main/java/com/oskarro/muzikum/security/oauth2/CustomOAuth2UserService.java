@@ -6,7 +6,9 @@ import com.oskarro.muzikum.user.*;
 import com.oskarro.muzikum.user.role.Role;
 import com.oskarro.muzikum.user.role.RoleName;
 import com.oskarro.muzikum.user.role.RoleRepository;
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.InternalAuthenticationServiceException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
@@ -28,7 +30,11 @@ import java.util.*;
 
 @Slf4j
 @Service
+@AllArgsConstructor
 public class CustomOAuth2UserService extends DefaultOAuth2UserService {
+
+    @Value("${user.raw-password}")
+    private static final String rawPassword = "123456";
 
     private final UserRepository userRepository;
 
@@ -39,18 +45,6 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
     private final PasswordEncoder passwordEncoder;
 
     final ImageRepository imageRepository;
-
-    public CustomOAuth2UserService(UserRepository userRepository,
-                                   RoleRepository roleRepository,
-                                   UserStatisticsRepository userStatisticsRepository,
-                                   PasswordEncoder passwordEncoder,
-                                   ImageRepository imageRepository) {
-        this.userRepository = userRepository;
-        this.roleRepository = roleRepository;
-        this.userStatisticsRepository = userStatisticsRepository;
-        this.passwordEncoder = passwordEncoder;
-        this.imageRepository = imageRepository;
-    }
 
     @Override
     public OAuth2User loadUser(OAuth2UserRequest request) throws OAuth2AuthenticationException {
@@ -90,9 +84,9 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
         User user = User.builder()
                 .username(oAuth2UserInfo.getUsername())
                 .email(oAuth2UserInfo.getEmail())
-                .password(passwordEncoder.encode("123456"))
+                .password(passwordEncoder.encode(rawPassword))
                 .roles(new HashSet<>(Collections.singletonList(roleUser)))
-                .provider(AuthProvider.FACEBOOK)
+                .provider(AuthProvider.facebook)
                 .activated(true)
                 .imageUrl(oAuth2UserInfo.getImageUrl())
                 .build();

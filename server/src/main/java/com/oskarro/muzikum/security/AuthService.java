@@ -136,7 +136,7 @@ public class AuthService {
                 }
             });
         }
-        user.setProvider(AuthProvider.LOCAL);
+        user.setProvider(AuthProvider.local);
         user.setRoles(roles);
         userRepository.save(user);
         log.info("New user {} has been saved in database", user.getEmail());
